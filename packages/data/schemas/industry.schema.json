@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinTree Industry Overlay",
+  "type": "object",
+  "required": ["industry", "label", "modifications"],
+  "properties": {
+    "industry": { "type": "string" },
+    "label": { "type": "string" },
+    "description": { "type": "string" },
+    "modifications": {
+      "type": "object",
+      "properties": {
+        "suppress": { "type": "array", "items": { "type": "string" } },
+        "emphasize": { "type": "array", "items": { "type": "string" } },
+        "rename": { "type": "object" },
+        "add": { "type": "array" }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinTree Tree",
+  "type": "object",
+  "required": ["version", "root_node_id", "nodes", "edges", "pnl_order"],
+  "properties": {
+    "version": { "type": "string" },
+    "gaap_standard": { "type": "string" },
+    "fasb_taxonomy_version": { "type": "string" },
+    "root_node_id": { "type": "string" },
+    "statement_type": { "type": "string" },
+    "format": { "type": "string" },
+    "industry": { "type": "string" },
+    "node_count": { "type": "integer" },
+    "nodes": { "type": "object" },
+    "edges": { "type": "array" },
+    "pnl_order": { "type": "array", "items": { "type": "string" } }
+  }
+}

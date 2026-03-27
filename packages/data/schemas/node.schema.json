@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinTree Node",
+  "type": "object",
+  "required": ["id", "label", "level", "node_type", "aggregation_type"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^fintree:" },
+    "xbrl_tag": { "type": "string" },
+    "label": { "type": "string" },
+    "short_label": { "type": "string" },
+    "level": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "node_type": {
+      "type": "string",
+      "enum": ["GAAP_SUBTOTAL", "MAJOR_CATEGORY", "SUB_CATEGORY", "LINE_ITEM", "ADJUSTMENT", "DECISION", "NON_GAAP"]
+    },
+    "parent_id": { "type": ["string", "null"] },
+    "aggregation_type": {
+      "type": "string",
+      "enum": ["SUM", "DIFFERENCE", "DERIVED", "CONTRA", "SUBTOTAL", "LEAF", "DECISION"]
+    },
+    "formula_human": { "type": "string" },
+    "formula_machine": { "type": "string" },
+    "asc_reference": { "type": "string" },
+    "definition": { "type": "string" },
+    "example": { "type": "string" },
+    "normal_balance": { "type": "string", "enum": ["DEBIT", "CREDIT"] },
+    "sign_convention": { "type": "string", "enum": ["+1", "-1"] },
+    "industry_variants": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["manufacturing", "saas", "retail", "financial_services", "professional_services"] }
+    },
+    "is_leaf": { "type": "boolean" },
+    "is_decision_node": { "type": "boolean" },
+    "is_non_gaap": { "type": "boolean" },
+    "below_the_line": { "type": "boolean" },
+    "non_recurring": { "type": "boolean" },
+    "ai_context_tags": { "type": "array", "items": { "type": "string" } },
+    "classification_notes": { "type": "string" },
+    "decision_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["condition", "route_to", "parent_bucket"],
+        "properties": {
+          "condition": { "type": "string" },
+          "route_to": { "type": "string" },
+          "parent_bucket": { "type": "string" }
+        }
+      }
+    },
+    "non_gaap_reconciliation": { "type": "object" },
+    "variance_drivers": {
+      "type": "object",
+      "properties": {
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "playbook": { "type": "object" }
+      }
+    },
+    "comparability": {
+      "type": "object",
+      "properties": {
+        "variations": { "type": "string" },
+        "examples": { "type": "array" }
+      }
+    },
+    "coa_mapping": { "type": "object" }
+  }
+}
