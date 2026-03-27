@@ -1,0 +1,47 @@
+id: "fintree:NonoperatingIncomeExpenses"
+xbrl_tag: "us-gaap:NonoperatingIncomeExpense"
+label: "Non-Operating Income & Expenses"
+short_label: "Non-Operating Items"
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: "fintree:PretaxIncome"
+aggregation_type: SUM
+formula_human: "Non-Operating Income − Non-Operating Expenses"
+formula_machine: "fintree:NonoperatingIncome - fintree:NonoperatingExpenses"
+asc_reference: "ASC 220"
+definition: "Income and expenses that arise from activities outside the company's core operations. These items fall BELOW the Operating Income (EBIT) line. Including them in operating income would distort the measure of core operational performance. Key analytical principle: separating operating from non-operating items allows analysts to assess sustainable earnings vs. one-time or financing-driven items."
+example: "Interest expense is non-operating because it reflects financing decisions (how much debt the company has), not operating efficiency."
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - non_operating
+  - below_ebit
+  - above_ebt
+  - financing
+  - interest
+  - one_time_items
+classification_notes: "Non-operating items bridge the gap between Operating Income and Pre-Tax Income. The net amount can be positive (net non-operating income) or negative (net non-operating expense). Financial services companies have a different operating/non-operating boundary since interest income is part of core operations for banks."
+variance_drivers:
+  tags: [interest_rate_driven, debt_level_driven, investment_driven, non_recurring]
+  playbook:
+    if_increased: "(1) investment gains or higher interest income on cash balances, (2) gains on asset disposals, (3) favorable FX movements, (4) reduced debt lowering interest expense"
+    if_decreased: "(1) higher interest expense from new debt or rising rates, (2) impairment charges on investments, (3) restructuring charges classified below EBIT, (4) unfavorable FX movements, (5) loss on asset disposals"
+comparability:
+  variations: "Presentation varies widely. Some companies show 'Other income (expense), net' as a single line. Others break out interest expense, interest income, and other items separately. Financial services companies treat interest as operating."
+  examples:
+    - company: "Apple"
+      treatment: "Other income/(expense), net"
+    - company: "Microsoft"
+      treatment: "Other income, net"
+    - company: "Tesla"
+      treatment: "Interest income, Interest expense, Other income (expense) — shown separately"
+coa_mapping:
+  quickbooks: "7000-7999 - Other Income/Expense"
+  netsuite: "8000 - Other Income and Expense"
+  sap: "7000000 - Non-Operating Items"

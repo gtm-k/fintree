@@ -1,0 +1,46 @@
+id: "fintree:RevenueDeductions"
+xbrl_tag: "us-gaap:RevenueAdjustmentForReturnsAndAllowances"
+label: "Revenue Deductions"
+short_label: "Revenue Deductions"
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: "fintree:NetRevenue"
+aggregation_type: SUM
+formula_human: "Sales Returns & Allowances + Sales Discounts + Rebates & Credits"
+formula_machine: "fintree:SalesReturnsAllowances + fintree:SalesDiscounts + fintree:RebatesCredits"
+asc_reference: "ASC 606-10-32"
+definition: "Reductions to Gross Revenue required under ASC 606 to arrive at Net Revenue. These are contra-revenue items (credit-balance offsets to revenue) — they reduce the top line but are not expenses."
+example: "A software company reporting $100M gross revenue with $5M in volume discounts shows $95M net revenue."
+normal_balance: DEBIT
+sign_convention: "-1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - contra_revenue
+  - deductions
+  - asc_606
+  - top_line_reduction
+  - variable_consideration
+classification_notes: "Revenue deductions are contra-revenue items with a normal DEBIT balance that offset CREDIT revenue. Under ASC 606, variable consideration (discounts, rebates, returns) must be estimated and deducted from revenue at the time of recognition. Most companies report only Net Revenue, making these deductions visible only in footnotes."
+variance_drivers:
+  tags: [volume_driven, policy_driven, seasonal, customer_mix]
+  playbook:
+    if_increased: "(1) higher return rates from quality issues or seasonal patterns, (2) increased promotional discounting, (3) new volume discount tiers triggered by customer growth, (4) channel partner rebate accrual increases"
+    if_decreased: "(1) improved product quality reducing returns, (2) reduced promotional activity, (3) tighter discount policies, (4) shift to less discount-sensitive channels"
+comparability:
+  variations: "Most companies report Net Revenue only; gross-to-net bridge is rarely visible on the face of the P&L. E-commerce and retail companies tend to have higher return rates. SaaS companies typically have minimal deductions."
+  examples:
+    - company: "Amazon"
+      treatment: "Returns netted against revenue; not separately disclosed"
+    - company: "Costco"
+      treatment: "Net sales (after returns and allowances)"
+    - company: "Pfizer"
+      treatment: "Revenue deductions for Medicaid/Medicare rebates disclosed in notes"
+coa_mapping:
+  quickbooks: "4500 - Sales Returns & Allowances"
+  netsuite: "4500 - Revenue Deductions"
+  sap: "8500000 - Revenue Deductions"

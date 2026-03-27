@@ -1,0 +1,50 @@
+id: "fintree:ResearchDevelopment"
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
+label: "Research & Development (R&D)"
+short_label: "R&D"
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: "fintree:OperatingExpenses"
+aggregation_type: SUM
+formula_human: "R&D Personnel + R&D Materials & Supplies + R&D Equipment & Facilities + External/Contract Research"
+formula_machine: "fintree:RdPersonnel + fintree:RdMaterialsSupplies + fintree:RdEquipmentFacilities + fintree:ExternalContractResearch"
+asc_reference: "ASC 730"
+definition: "Costs incurred to discover new knowledge or create new products, processes, or technologies. Expensed as incurred under ASC 730 (with certain software development costs capitalized under ASC 350-40). Note: As of 2022, IRC Section 174 requires R&D to be capitalized and amortized for TAX purposes, but it continues to be expensed for GAAP purposes."
+example: "Google's 'Other Bets' research projects and core search algorithm development both flow through R&D."
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - rd_expense
+  - innovation
+  - opex
+  - below_gross_profit
+  - above_ebit
+  - asc_730
+  - capitalization_decision
+classification_notes: "R&D is expensed as incurred for GAAP (ASC 730). Software development costs may be capitalized once technological feasibility is established (ASC 985-20) or during application development stage for internal-use software (ASC 350-40). Stock-based compensation for R&D employees is included here."
+variance_drivers:
+  tags: [headcount_driven, project_driven, strategic, largely_discretionary]
+  playbook:
+    if_increased: "(1) engineering hiring for new product development, (2) increased cloud compute for ML/AI training, (3) new R&D facility or lab investment, (4) clinical trial costs (pharma), (5) strategic pivot requiring new technology"
+    if_decreased: "(1) R&D headcount reductions, (2) project completions or cancellations, (3) shift from internal to acquired technology, (4) R&D tax credit offset (if shown as reduction), (5) capitalization of software development costs"
+comparability:
+  variations: "Tech companies typically report R&D as a separate line item and it represents 15-25% of revenue. Pharma companies may have R&D exceeding revenue for pre-commercial-stage companies. Manufacturing companies may embed R&D within SG&A."
+  examples:
+    - company: "Alphabet"
+      treatment: "Research and development"
+    - company: "Apple"
+      treatment: "Research and development"
+    - company: "Pfizer"
+      treatment: "Research and development expenses"
+    - company: "Tesla"
+      treatment: "Research and development"
+coa_mapping:
+  quickbooks: "6300-6399 - R&D Expenses"
+  netsuite: "7200 - Research and Development"
+  sap: "6300000 - Research & Development"

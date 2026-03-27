@@ -1,0 +1,38 @@
+id: fintree:RestructuringCharges
+xbrl_tag: ''
+label: Restructuring Charges
+short_label: Restructuring Charges
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:NonoperatingExpenses
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Costs of significant reorganization — severance, facility closures, contract
+  terminations. Non-recurring. Required to be disclosed separately when material.
+example: A company announcing layoffs of 10% of its workforce accrues severance as
+  a restructuring charge.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: true
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

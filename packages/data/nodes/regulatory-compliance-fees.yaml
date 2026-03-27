@@ -1,0 +1,36 @@
+id: fintree:RegulatoryComplianceFees
+xbrl_tag: ''
+label: Regulatory & Compliance Fees
+short_label: Regulatory & Compliance Fees
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:LegalCompliance
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Costs of regulatory filings, compliance programs, and government fees.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

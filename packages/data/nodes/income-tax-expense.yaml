@@ -1,0 +1,47 @@
+id: "fintree:IncomeTaxExpense"
+xbrl_tag: "us-gaap:IncomeTaxExpenseBenefit"
+label: "Income Tax Expense"
+short_label: "Income Tax Expense"
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: "fintree:NetIncome"
+aggregation_type: SUM
+formula_human: "Current Tax Expense + Deferred Tax Expense (Benefit)"
+formula_machine: "fintree:CurrentTaxExpense + fintree:DeferredTaxExpense"
+asc_reference: "ASC 740"
+definition: "Total income tax charge on the income statement, comprising current and deferred tax components. Governed by ASC Topic 740. May differ significantly from cash taxes paid due to deferred tax mechanisms."
+example: "A company with $100M pre-tax income and a 21% US corporate rate records approximately $21M income tax expense, adjusted for deferred items."
+normal_balance: DEBIT
+sign_convention: "-1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - tax
+  - income_tax
+  - effective_tax_rate
+  - asc_740
+  - gaap_required
+  - current_deferred_split
+classification_notes: "Income tax expense is the last deduction before Net Income. The effective tax rate (tax expense / pre-tax income) is a key metric. Differences from the statutory 21% rate arise from state taxes, international operations, R&D credits, and permanent differences."
+variance_drivers:
+  tags: [pretax_income_driven, rate_driven, discrete_items, deferred_timing]
+  playbook:
+    if_increased: "(1) higher pre-tax income, (2) unfavorable discrete tax items (audit settlements, valuation allowance increases), (3) shift in geographic income mix to higher-tax jurisdictions, (4) expiration of tax credits"
+    if_decreased: "(1) lower pre-tax income, (2) favorable discrete items (R&D credits, stock option windfalls), (3) shift to lower-tax jurisdictions, (4) new tax incentives or credits"
+comparability:
+  variations: "All companies report income tax expense. Key variation is the effective tax rate, which varies widely by company based on geographic mix, credits, and incentives. Some companies report 'Provision for income taxes' vs. 'Income tax expense'."
+  examples:
+    - company: "Apple"
+      treatment: "Provision for income taxes (~15% ETR due to Ireland structure)"
+    - company: "Amazon"
+      treatment: "Provision for income taxes (variable ETR due to SBC deductions)"
+    - company: "Berkshire Hathaway"
+      treatment: "Income taxes (high ETR due to domestic income concentration)"
+coa_mapping:
+  quickbooks: "9000 - Income Tax Expense"
+  netsuite: "9000 - Income Tax Expense"
+  sap: "7800000 - Tax Expense"

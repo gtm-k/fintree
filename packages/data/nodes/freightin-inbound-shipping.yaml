@@ -1,0 +1,38 @@
+id: fintree:FreightinInboundShipping
+xbrl_tag: ''
+label: FREIGHT-IN / INBOUND SHIPPING
+short_label: FREIGHT-IN / INBOUND SHIPPING
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:DirectMaterials
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Transportation costs to bring raw materials and components to the manufacturing
+  facility. COGS item (distinct from freight-out to customers, which is typically
+  Selling Expense).
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

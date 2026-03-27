@@ -1,0 +1,47 @@
+id: "fintree:ProductRevenue"
+xbrl_tag: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
+label: "Product Revenue"
+short_label: "Product Revenue"
+level: 3
+node_type: SUB_CATEGORY
+parent_id: "fintree:GrossRevenue"
+aggregation_type: SUM
+formula_human: "Finished Goods Sales + Component/Parts Sales + Licensing of Physical Products"
+formula_machine: "fintree:FinishedGoodsSales + fintree:ComponentPartsSales + fintree:LicensingOfPhysicalProducts"
+asc_reference: "ASC 606"
+definition: "Revenue from the sale of physical goods, recognized at point of transfer of control."
+example: "A manufacturer recognizes product revenue when goods ship to customers."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [manufacturing, retail]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - revenue
+  - product
+  - asc_606
+  - point_in_time_recognition
+  - top_line
+  - physical_goods
+classification_notes: "Product revenue is typically recognized at a point in time when control transfers to the customer (usually upon shipment or delivery, depending on shipping terms). FOB shipping point vs. FOB destination affects the timing of recognition."
+variance_drivers:
+  tags: [volume_driven, pricing_driven, mix_driven, seasonal]
+  playbook:
+    if_increased: "(1) unit volume growth from market expansion, (2) price increases on products, (3) new product launches, (4) favorable product mix shift to higher-ASP items, (5) seasonal demand peaks"
+    if_decreased: "(1) competitive market share loss, (2) product obsolescence or lifecycle decline, (3) pricing pressure from competitors, (4) supply chain constraints limiting shipments, (5) channel destocking"
+comparability:
+  variations: "Manufacturing and retail companies report product revenue prominently. Some companies combine product and service revenue into a single 'Net Sales' line. Tech companies may report 'Products' and 'Services' separately."
+  examples:
+    - company: "Apple"
+      treatment: "Products (iPhone, Mac, iPad, Wearables)"
+    - company: "Procter & Gamble"
+      treatment: "Net Sales by segment"
+    - company: "Tesla"
+      treatment: "Automotive revenues"
+coa_mapping:
+  quickbooks: "4100 - Product Revenue"
+  netsuite: "4100 - Product Sales"
+  sap: "8100000 - Product Revenue"

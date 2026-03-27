@@ -1,0 +1,39 @@
+id: fintree:ManufacturingOverhead
+xbrl_tag: ''
+label: MANUFACTURING OVERHEAD
+short_label: MANUFACTURING OVERHEAD
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: fintree:CostOfGoodsSoldCostOfRevenue
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Indirect production costs that cannot be directly traced to a specific
+  unit of output but are necessary for manufacturing operations. Allocated to products
+  using a predetermined overhead rate.
+example: Factory rent is the same regardless of units produced, but must be absorbed
+  into product cost.
+normal_balance: CREDIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

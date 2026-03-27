@@ -1,0 +1,46 @@
+id: "fintree:PretaxIncome"
+xbrl_tag: "us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest"
+label: "Pre-Tax Income (EBT)"
+short_label: "Pre-Tax Income"
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: "fintree:NetIncome"
+aggregation_type: DERIVED
+formula_human: "Operating Income + Non-Operating Income − Non-Operating Expenses"
+formula_machine: "fintree:OperatingIncome + fintree:NonoperatingIncomeExpenses"
+asc_reference: "ASC 220-10"
+definition: "Operating Income adjusted for non-operating income and expenses. The basis for calculating income tax expense."
+example: "A manufacturer with $10M operating income and $1M interest expense has $9M EBT."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - ebt
+  - earnings_before_tax
+  - pre_tax
+  - gaap_required
+  - tax_base
+classification_notes: "EBT is the figure to which the effective tax rate is applied. The difference between statutory and effective tax rates is a key analytical metric."
+variance_drivers:
+  tags: [operating_driven, financing_driven, non_recurring_driven]
+  playbook:
+    if_increased: "(1) operating income growth, (2) non-operating income gains (investment gains, FX), (3) reduced interest expense from debt paydown, (4) one-time non-operating gains"
+    if_decreased: "(1) operating income decline, (2) increased interest expense from higher debt or rates, (3) impairment or restructuring charges, (4) FX losses"
+comparability:
+  variations: "All companies report pre-tax income. Terminology varies: 'Income before income taxes', 'Earnings before income taxes', 'Income before provision for income taxes'."
+  examples:
+    - company: "Apple"
+      treatment: "Income before provision for income taxes"
+    - company: "JPMorgan"
+      treatment: "Income before income tax expense"
+    - company: "Tesla"
+      treatment: "Income before income taxes"
+coa_mapping:
+  quickbooks: "N/A (calculated)"
+  netsuite: "N/A (calculated)"
+  sap: "N/A (calculated)"

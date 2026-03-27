@@ -1,0 +1,37 @@
+id: fintree:RawMaterialYieldLosses
+xbrl_tag: ''
+label: Raw Material Yield Losses
+short_label: Raw Material Yield Losses
+level: 5
+node_type: ADJUSTMENT
+parent_id: fintree:RawMaterials
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Waste or scrap from raw material processing that is a normal and expected
+  part of manufacturing.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

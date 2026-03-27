@@ -1,0 +1,38 @@
+id: fintree:RdTaxCreditOffset
+xbrl_tag: ''
+label: R&D Tax Credit Offset
+short_label: R&D Tax Credit Offset
+level: 5
+node_type: ADJUSTMENT
+parent_id: fintree:ExternalContractResearch
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Where companies offset R&D expense with R&D tax credits on the P&L. Less
+  common; credit usually flows through tax expense, but some companies show it as
+  an R&D offset.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

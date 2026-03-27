@@ -1,0 +1,37 @@
+id: fintree:StockbasedCompensationGa
+xbrl_tag: ''
+label: Stock-Based Compensation — G&A
+short_label: Stock-Based Compensation — G&A
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:ExecutiveManagementCompensation
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Expense recognized for equity awards (RSUs, stock options) granted to
+  G&A employees (ASC 718).
+example: A $1M RSU grant vesting over 4 years = $250K/year SBC expense in G&A.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

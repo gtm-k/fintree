@@ -1,0 +1,37 @@
+id: fintree:ShippingDistribution
+xbrl_tag: ''
+label: SHIPPING & DISTRIBUTION
+short_label: SHIPPING & DISTRIBUTION
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:SellingExpenses
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Costs of delivering goods to customers (freight-out). SELLING expense
+  — distinct from freight-in on materials, which is COGS.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

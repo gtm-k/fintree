@@ -1,0 +1,46 @@
+id: "fintree:ServiceRevenue"
+xbrl_tag: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
+label: "Service Revenue"
+short_label: "Service Revenue"
+level: 3
+node_type: SUB_CATEGORY
+parent_id: "fintree:GrossRevenue"
+aggregation_type: SUM
+formula_human: "Professional Services Revenue + Subscription Revenue + Maintenance & Support Revenue + Usage-Based Revenue"
+formula_machine: "fintree:ProfessionalServicesRevenue + fintree:SubscriptionRevenue + fintree:MaintenanceSupportRevenue + fintree:UsagebasedRevenue"
+asc_reference: "ASC 606"
+definition: "Revenue recognized over time or at completion of a performance obligation for services rendered."
+example: "A consulting firm recognizing revenue as hours are worked under a time-and-materials contract."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [saas, professional_services, financial_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - revenue
+  - service
+  - asc_606
+  - over_time_recognition
+  - top_line
+classification_notes: "Service revenue is recognized over time when the customer simultaneously receives and consumes the benefits (ASC 606-10-25-27). For SaaS, subscription revenue is the dominant sub-component. Professional services may be recognized over time or at a point in time depending on contract terms."
+variance_drivers:
+  tags: [volume_driven, pricing_driven, retention_driven, mix_driven]
+  playbook:
+    if_increased: "(1) new customer acquisition, (2) price increases on renewals, (3) upsell/cross-sell expanding customer spend, (4) improved retention reducing churn, (5) new service line launch"
+    if_decreased: "(1) customer churn or downgrades, (2) competitive pricing pressure, (3) delayed project starts (professional services), (4) consumption decline (usage-based), (5) contract non-renewals"
+comparability:
+  variations: "SaaS companies report subscription revenue as the primary component. Professional services firms may report consulting revenue separately. Some companies disaggregate by geography rather than service type."
+  examples:
+    - company: "Salesforce"
+      treatment: "Subscription and support revenue"
+    - company: "Accenture"
+      treatment: "Revenue from services"
+    - company: "AWS"
+      treatment: "Net sales (usage-based)"
+coa_mapping:
+  quickbooks: "4200 - Service Revenue"
+  netsuite: "4200 - Service Revenue"
+  sap: "8200000 - Service Revenue"

@@ -1,0 +1,38 @@
+id: fintree:CustomerRelationshipAmortization
+xbrl_tag: ''
+label: Customer Relationship Amortization
+short_label: Customer Relationship Amortiza
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:AmortizationOfIntangibleAssets
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Amortization of customer relationship intangibles acquired in a business
+  combination.
+example: A company acquired for $100M with $20M attributed to customer relationships,
+  amortized over 7 years.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

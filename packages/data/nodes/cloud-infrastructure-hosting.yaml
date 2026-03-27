@@ -1,0 +1,38 @@
+id: fintree:CloudInfrastructureHosting
+xbrl_tag: ''
+label: CLOUD INFRASTRUCTURE & HOSTING
+short_label: CLOUD INFRASTRUCTURE & HOSTING
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:ServiceDeliveryCosts
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Costs of cloud compute, storage, and networking directly tied to serving
+  customers.
+example: AWS, Azure, or GCP charges that scale with the number of active customers
+  or data volume.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

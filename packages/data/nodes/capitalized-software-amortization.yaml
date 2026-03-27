@@ -1,0 +1,37 @@
+id: fintree:CapitalizedSoftwareAmortization
+xbrl_tag: ''
+label: Capitalized Software Amortization
+short_label: Capitalized Software Amortizat
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:AmortizationOfIntangibleAssets
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Amortization of internally capitalized software development costs per
+  ASC 350-40 (application development stage only).
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

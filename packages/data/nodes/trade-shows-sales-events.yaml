@@ -1,0 +1,37 @@
+id: fintree:TradeShowsSalesEvents
+xbrl_tag: ''
+label: TRADE SHOWS & SALES EVENTS
+short_label: TRADE SHOWS & SALES EVENTS
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:SellingExpenses
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Costs of exhibiting at or hosting trade shows, industry conferences, and
+  sales events.
+example: A B2B software company spending $300K on a booth at Dreamforce.
+normal_balance: CREDIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

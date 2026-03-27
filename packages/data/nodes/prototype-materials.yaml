@@ -1,0 +1,36 @@
+id: fintree:PrototypeMaterials
+xbrl_tag: ''
+label: Prototype Materials
+short_label: Prototype Materials
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:RdMaterialsSupplies
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Materials used to build product prototypes during development.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

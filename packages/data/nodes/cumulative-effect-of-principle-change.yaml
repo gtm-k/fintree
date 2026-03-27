@@ -1,0 +1,37 @@
+id: fintree:CumulativeEffectOfPrincipleChange
+xbrl_tag: ''
+label: Cumulative Effect of Principle Change
+short_label: Cumulative Effect of Principle
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:CumulativeEffectOfAccountingChanges
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: One-time P&L impact from the transition to a new accounting standard (e.g.,
+  adoption of ASC 842 lease accounting).
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: true
+non_recurring: true
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

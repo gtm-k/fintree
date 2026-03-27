@@ -1,0 +1,36 @@
+id: fintree:EndingInventory
+xbrl_tag: ''
+label: Ending Inventory
+short_label: Ending Inventory
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:InventoryAdjustments
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Value of inventory on hand at end of period. Subtracted in the COGS calculation.
+example: ''
+normal_balance: DEBIT
+sign_convention: '-1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

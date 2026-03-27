@@ -1,0 +1,38 @@
+id: fintree:IndirectLaborSupervision
+xbrl_tag: ''
+label: INDIRECT LABOR & SUPERVISION
+short_label: INDIRECT LABOR & SUPERVISION
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:ManufacturingOverhead
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Labor costs for production support roles that cannot be directly traced
+  to specific products.
+example: A quality control manager who oversees the entire production line is indirect
+  labor.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

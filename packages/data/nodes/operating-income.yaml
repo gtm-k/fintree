@@ -1,0 +1,46 @@
+id: "fintree:OperatingIncome"
+xbrl_tag: "us-gaap:OperatingIncomeLoss"
+label: "Operating Income (EBIT)"
+short_label: "Operating Income"
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: "fintree:PretaxIncome"
+aggregation_type: DERIVED
+formula_human: "Gross Profit − Operating Expenses (Selling + G&A + R&D + D&A)"
+formula_machine: "fintree:GrossProfit - fintree:OperatingExpenses"
+asc_reference: "ASC 220-10"
+definition: "Gross Profit minus all operating expenses. Measures profitability from core operations before capital structure and tax effects. The primary measure of operational efficiency."
+example: "A SaaS company with 80% gross margins but heavy R&D investment may have slim EBIT."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - ebit
+  - operating_profitability
+  - core_operations
+  - gaap_required
+  - above_non_operating
+classification_notes: "Some companies present Operating Income explicitly; others require calculation from disclosed items. Tech companies often show 'Income from Operations'. Manufacturing companies may include or exclude certain restructuring charges depending on materiality."
+variance_drivers:
+  tags: [revenue_driven, cost_driven, margin_driven, operating_leverage]
+  playbook:
+    if_increased: "(1) revenue growth outpacing OpEx growth (operating leverage), (2) gross margin expansion from pricing or COGS efficiency, (3) OpEx reductions from restructuring or efficiency, (4) favorable product mix shift"
+    if_decreased: "(1) revenue decline reducing contribution margin, (2) gross margin compression from input cost increases, (3) OpEx increases from hiring or marketing spend, (4) one-time charges classified as operating"
+comparability:
+  variations: "Most companies report Operating Income or Income from Operations. Some combine it with non-operating items. SaaS companies often highlight non-GAAP operating income excluding SBC."
+  examples:
+    - company: "Apple"
+      treatment: "Operating income"
+    - company: "Microsoft"
+      treatment: "Operating income"
+    - company: "Amazon"
+      treatment: "Operating income"
+coa_mapping:
+  quickbooks: "N/A (calculated)"
+  netsuite: "N/A (calculated)"
+  sap: "N/A (calculated)"

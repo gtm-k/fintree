@@ -1,0 +1,38 @@
+id: fintree:LegacyExtraordinaryItems
+xbrl_tag: ''
+label: Legacy Extraordinary Items
+short_label: Legacy Extraordinary Items
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:ExtraordinaryItems
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Pre-2015 classification for unusual and infrequent items. No longer a
+  separate GAAP category; unusual/infrequent items are now disclosed within continuing
+  operations.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: true
+non_recurring: true
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

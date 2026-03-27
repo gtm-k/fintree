@@ -1,0 +1,38 @@
+id: fintree:ForeignExchangeLoss
+xbrl_tag: ''
+label: Foreign Exchange Loss
+short_label: Foreign Exchange Loss
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:NonoperatingExpenses
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Realized and unrealized losses from adverse currency movements on foreign-denominated
+  items.
+example: A US company with euro-denominated receivables loses value when the euro
+  weakens against the dollar.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

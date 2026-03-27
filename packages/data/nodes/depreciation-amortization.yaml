@@ -1,0 +1,48 @@
+id: "fintree:DepreciationAmortization"
+xbrl_tag: "us-gaap:DepreciationDepletionAndAmortization"
+label: "Depreciation & Amortization (D&A)"
+short_label: "D&A"
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: "fintree:OperatingExpenses"
+aggregation_type: SUM
+formula_human: "Depreciation of PP&E + Amortization of Intangible Assets"
+formula_machine: "fintree:DepreciationOfPropertyPlantEquipment + fintree:AmortizationOfIntangibleAssets"
+asc_reference: "ASC 360 (depreciation), ASC 350 (amortization)"
+definition: "The non-cash allocation of the cost of long-lived assets over their useful lives. Often embedded within COGS, SG&A, or R&D rather than shown as a separate line item. When disclosed separately, it represents total D&A from all functions."
+example: "A manufacturing company with $500M in PP&E and $200M in acquired intangibles may record $80M in annual D&A."
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - depreciation
+  - amortization
+  - non_cash
+  - opex
+  - below_gross_profit
+  - above_ebit
+  - ebitda_addback
+classification_notes: "Whether D&A is shown separately or embedded within functional categories is a PRESENTATION choice -- the underlying sub-items are the same. For EBITDA calculations, total D&A must be gathered from the cash flow statement or notes if not separately presented on the income statement."
+variance_drivers:
+  tags: [capex_driven, acquisition_driven, non_cash, predictable]
+  playbook:
+    if_increased: "(1) new capital expenditures entering depreciable base, (2) acquisitions adding intangible assets, (3) change in depreciation method or useful life estimates, (4) accelerated depreciation from impairment indicators"
+    if_decreased: "(1) assets reaching end of useful life (fully depreciated), (2) asset disposals or sales, (3) change to longer useful life estimates, (4) reduced capital spending in prior years"
+comparability:
+  variations: "D&A presentation varies significantly. Capital-intensive companies (manufacturing, telecom) show large D&A. Asset-light companies (SaaS, consulting) have minimal depreciation but may have significant amortization from acquisitions."
+  examples:
+    - company: "AT&T"
+      treatment: "Depreciation and amortization (separate line, very large)"
+    - company: "Salesforce"
+      treatment: "Embedded in cost of revenues and operating expenses; total in cash flow statement"
+    - company: "Amazon"
+      treatment: "Depreciation and amortization shown in operating expenses"
+coa_mapping:
+  quickbooks: "6400 - Depreciation & Amortization"
+  netsuite: "7300 - Depreciation and Amortization"
+  sap: "6400000 - Depreciation & Amortization"

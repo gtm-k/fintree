@@ -1,0 +1,41 @@
+id: fintree:CostOfGoodsSoldCostOfRevenue
+xbrl_tag: ''
+label: COST OF GOODS SOLD (COGS) / COST OF REVENUE
+short_label: COST OF GOODS SOLD (COGS) / CO
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: fintree:GrossProfit
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: The direct costs attributable to producing the goods sold or delivering
+  the services rendered. Subtracted from Net Revenue to derive Gross Profit. The line
+  that divides "how much it costs to make the product" from "how much it costs to
+  run the business."
+example: For a car manufacturer, COGS includes steel, assembly labor, and factory
+  overhead. For a SaaS company, COGS includes hosting, infrastructure, and customer
+  support labor.
+normal_balance: CREDIT
+sign_convention: '-1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

@@ -1,0 +1,39 @@
+id: fintree:ServiceDeliveryCosts
+xbrl_tag: ''
+label: SERVICE DELIVERY COSTS
+short_label: SERVICE DELIVERY COSTS
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: fintree:CostOfGoodsSoldCostOfRevenue
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: The direct costs of delivering the service to customers. Analogous to
+  direct materials + manufacturing overhead for product companies, but specific to
+  service/SaaS delivery.
+example: For a SaaS company, service delivery costs are cloud hosting, support labor,
+  and third-party data — not R&D, which belongs in Operating Expenses.
+normal_balance: CREDIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

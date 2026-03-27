@@ -1,0 +1,36 @@
+id: fintree:InterestOnRevolvingCreditFacility
+xbrl_tag: ''
+label: Interest on Revolving Credit Facility
+short_label: Interest on Revolving Credit F
+level: 5
+node_type: ADJUSTMENT
+parent_id: fintree:InterestExpense
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Interest on drawn balances of revolving credit lines.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

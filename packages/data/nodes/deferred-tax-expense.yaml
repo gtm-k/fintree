@@ -1,0 +1,41 @@
+id: fintree:DeferredTaxExpense
+xbrl_tag: ''
+label: DEFERRED TAX EXPENSE (BENEFIT)
+short_label: DEFERRED TAX EXPENSE (BENEFIT)
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: fintree:IncomeTaxExpense
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: The change in deferred tax liabilities and assets arising from temporary
+  differences between GAAP book income and taxable income (ASC 740). When GAAP income
+  exceeds taxable income, a deferred tax liability arises (more tax will be paid later);
+  when taxable income exceeds GAAP income, a deferred tax asset arises.
+example: A company using accelerated depreciation for taxes but straight-line for
+  GAAP recognizes a deferred tax liability because it's paying less tax now (will
+  pay more later).
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

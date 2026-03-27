@@ -1,0 +1,47 @@
+id: "fintree:GeneralAdministrativeExpenses"
+xbrl_tag: "us-gaap:GeneralAndAdministrativeExpense"
+label: "General & Administrative Expenses (G&A)"
+short_label: "G&A Expenses"
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: "fintree:OperatingExpenses"
+aggregation_type: SUM
+formula_human: "Executive Compensation + HR + Finance & Accounting + Legal + Office & Facilities + IT + General Corporate Overhead"
+formula_machine: "fintree:ExecutiveManagementCompensation + fintree:HumanResources + fintree:FinanceAccounting + fintree:LegalCompliance + fintree:OfficeFacilitiesCorporate + fintree:InformationTechnology + fintree:GeneralCorporateOverhead"
+asc_reference: "ASC 720"
+definition: "The overhead costs of running the corporate organization — all costs not directly attributable to selling or producing. Sometimes called 'corporate overhead.' Includes executive management, finance, legal, HR, IT, and office operations."
+example: "Amazon describes G&A as 'payroll and related expenses; facilities and equipment; professional fees; and other general corporate costs for accounting, finance, tax, legal, and HR.'"
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - ga_expense
+  - corporate_overhead
+  - opex
+  - below_gross_profit
+  - above_ebit
+  - fixed_cost
+classification_notes: "Many companies combine G&A with Selling Expenses into 'SG&A' (Selling, General and Administrative). The split between selling and G&A is discretionary. Stock-based compensation for G&A employees is typically included here."
+variance_drivers:
+  tags: [headcount_driven, rent_driven, compliance_driven, largely_fixed]
+  playbook:
+    if_increased: "(1) executive hiring or compensation increases, (2) office space expansion, (3) increased legal/compliance costs, (4) new ERP or IT system implementations, (5) audit fee increases for public company requirements"
+    if_decreased: "(1) headcount reductions in corporate functions, (2) office consolidation or shift to remote work, (3) renegotiated vendor contracts, (4) automation of back-office processes, (5) outsourcing of functions"
+comparability:
+  variations: "Reporting of G&A varies significantly. Some companies report SG&A combined; others break out S&M and G&A separately. Tech companies often have high G&A due to stock-based compensation."
+  examples:
+    - company: "Alphabet"
+      treatment: "General and administrative"
+    - company: "Procter & Gamble"
+      treatment: "Selling, general and administrative expenses (combined)"
+    - company: "JPMorgan"
+      treatment: "Noninterest expense (includes all operating costs)"
+coa_mapping:
+  quickbooks: "6200-6299 - G&A Expenses"
+  netsuite: "7100 - General and Administrative"
+  sap: "6200000 - General & Administrative"

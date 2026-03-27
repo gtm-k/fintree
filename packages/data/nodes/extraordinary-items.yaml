@@ -1,0 +1,39 @@
+id: fintree:ExtraordinaryItems
+xbrl_tag: ''
+label: EXTRAORDINARY ITEMS
+short_label: EXTRAORDINARY ITEMS
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: fintree:BelowthelineItems
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Under US GAAP (post-ASU 2015-01), extraordinary items as a separate classification
+  were eliminated. However, legacy filings and certain context (e.g., insurance proceeds
+  from natural disasters) still use this nomenclature. Retained here for historical
+  reference and AI context.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: true
+non_recurring: true
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

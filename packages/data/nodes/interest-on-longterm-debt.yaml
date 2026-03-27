@@ -1,0 +1,36 @@
+id: fintree:InterestOnLongtermDebt
+xbrl_tag: ''
+label: Interest on Long-Term Debt
+short_label: Interest on Long-Term Debt
+level: 5
+node_type: ADJUSTMENT
+parent_id: fintree:InterestExpense
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Interest on bonds, term loans, and other long-term borrowings.
+example: A company with $500M in bonds at 5% interest records $25M/year interest expense.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

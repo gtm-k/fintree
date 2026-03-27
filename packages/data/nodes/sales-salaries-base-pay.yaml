@@ -1,0 +1,36 @@
+id: fintree:SalesSalariesBasePay
+xbrl_tag: ''
+label: Sales Salaries & Base Pay
+short_label: Sales Salaries & Base Pay
+level: 4
+node_type: LINE_ITEM
+parent_id: fintree:SalesForceCompensation
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: Fixed salary component for sales representatives and account executives.
+example: ''
+normal_balance: CREDIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

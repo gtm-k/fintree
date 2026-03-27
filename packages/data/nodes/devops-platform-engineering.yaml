@@ -1,0 +1,38 @@
+id: fintree:DevopsPlatformEngineering
+xbrl_tag: ''
+label: DEVOPS / PLATFORM ENGINEERING
+short_label: DEVOPS / PLATFORM ENGINEERING
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:ServiceDeliveryCosts
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Engineering labor costs for keeping the production platform running and
+  reliable. Excludes R&D (new feature development).
+example: Engineers maintaining uptime, resolving production incidents, and deploying
+  patches.
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

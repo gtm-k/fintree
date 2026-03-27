@@ -1,0 +1,39 @@
+id: fintree:BelowthelineItems
+xbrl_tag: ''
+label: BELOW-THE-LINE ITEMS
+short_label: BELOW-THE-LINE ITEMS
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: "fintree:NetIncome"
+aggregation_type: SUM
+formula_human: ''
+asc_reference: ''
+definition: Items reported AFTER Net Income from continuing operations, required to
+  be presented separately by GAAP (ASC 205) because they relate to discontinued or
+  extraordinary activities. Including these in operating results would distort the
+  assessment of ongoing business performance.
+example: ''
+normal_balance: DEBIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: true
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}

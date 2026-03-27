@@ -1,0 +1,37 @@
+id: fintree:FederalIncomeTaxCurrent
+xbrl_tag: ''
+label: Federal Income Tax — Current
+short_label: Federal Income Tax — Current
+level: 3
+node_type: SUB_CATEGORY
+parent_id: fintree:CurrentTaxExpense
+aggregation_type: LEAF
+formula_human: ''
+asc_reference: ''
+definition: US federal corporate income tax due for the current year (21% flat rate
+  for corporations as of 2026).
+example: ''
+normal_balance: CREDIT
+sign_convention: '+1'
+industry_variants:
+- manufacturing
+- saas
+- retail
+- financial_services
+- professional_services
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags: []
+classification_notes: ''
+variance_drivers:
+  tags: []
+  playbook:
+    if_increased: ''
+    if_decreased: ''
+comparability:
+  variations: ''
+  examples: []
+coa_mapping: {}
