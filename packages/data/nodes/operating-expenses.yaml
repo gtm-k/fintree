@@ -1,0 +1,48 @@
+id: "fintree:OperatingExpenses"
+xbrl_tag: "us-gaap:OperatingExpenses"
+label: "Operating Expenses"
+short_label: "OpEx"
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: "fintree:OperatingIncome"
+aggregation_type: SUM
+formula_human: "Selling Expenses + General & Administrative + Research & Development + Depreciation & Amortization (if reported separately)"
+formula_machine: "fintree:SellingExpenses + fintree:GeneralAndAdministrative + fintree:ResearchAndDevelopment + fintree:DepreciationAmortizationOpex"
+asc_reference: "ASC 220"
+definition: "The total of all expenses incurred in the ordinary course of business operations, excluding cost of goods sold. Encompasses selling, general & administrative, R&D, and other operating costs."
+example: "A SaaS company with $30M in sales & marketing, $20M G&A, and $25M R&D reports $75M total operating expenses."
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - operating_costs
+  - opex
+  - below_gross_profit
+  - above_ebit
+  - gaap_required
+classification_notes: "The boundary between COGS and OpEx can be subjective. Companies may classify the same type of expense differently. For example, customer support costs may appear in COGS (Salesforce) or in OpEx (others). D&A may be embedded in COGS and OpEx or reported as a separate line."
+variance_drivers:
+  tags: [headcount_driven, investment_driven, discretionary, semi_fixed]
+  playbook:
+    if_increased: "(1) headcount growth across sales, G&A, or R&D, (2) increased marketing/advertising spend, (3) new office/facility costs, (4) increased R&D investment for new products, (5) one-time restructuring or litigation charges"
+    if_decreased: "(1) workforce reductions or hiring freezes, (2) cost optimization programs, (3) reduced marketing spend, (4) office consolidation, (5) automation replacing manual processes"
+comparability:
+  variations: "Presentation varies: some companies show a single 'Operating Expenses' line; others break out S&M, G&A, R&D individually. Tech companies typically show more granular breakdowns. Some companies include D&A as a separate OpEx line; others embed it within functional categories."
+  examples:
+    - company: "Salesforce"
+      treatment: "Research and development + Marketing and sales + General and administrative"
+    - company: "Apple"
+      treatment: "Research and development + Selling, general and administrative"
+    - company: "Walmart"
+      treatment: "Operating, selling, general and administrative expenses"
+    - company: "Meta"
+      treatment: "Research and development + Marketing and sales + General and administrative"
+coa_mapping:
+  quickbooks: "6000-6999 - Operating Expenses"
+  netsuite: "6000-6999 - Operating Expenses"
+  sap: "6000000-6999999 - Operating Expenses"

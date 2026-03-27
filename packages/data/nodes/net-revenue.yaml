@@ -1,0 +1,44 @@
+id: "fintree:NetRevenue"
+xbrl_tag: "us-gaap:Revenues"
+label: "Net Revenue"
+short_label: "Revenue"
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: "fintree:GrossProfit"
+aggregation_type: DERIVED
+formula_human: "Gross Revenue − Revenue Deductions"
+formula_machine: "fintree:GrossRevenue - fintree:RevenueDeductions"
+asc_reference: "ASC 606"
+definition: "Gross Revenue minus all revenue deductions (returns, discounts, allowances). The top line of the income statement as reported under ASC 606."
+example: "A SaaS company with $100M gross revenue and $5M in volume discounts shows $95M net revenue."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - top_line
+  - revenue
+  - gaap_required
+  - asc_606
+variance_drivers:
+  tags: [volume_driven, pricing_driven, mix_driven, seasonal]
+  playbook:
+    if_increased: "(1) customer/unit volume growth, (2) price increases, (3) new product/service launches, (4) expansion into new markets, (5) favorable product mix shift"
+    if_decreased: "(1) customer churn, (2) competitive pricing pressure, (3) market contraction, (4) unfavorable FX impact, (5) loss of key customer"
+comparability:
+  variations: "Some companies report Gross Revenue; most report Net Revenue as the top line per ASC 606. Financial services companies use Net Interest Income instead."
+  examples:
+    - company: "Salesforce"
+      treatment: "Revenue (net)"
+    - company: "Amazon"
+      treatment: "Net sales"
+    - company: "Walmart"
+      treatment: "Net sales"
+coa_mapping:
+  quickbooks: "N/A (calculated)"
+  netsuite: "N/A (calculated)"
+  sap: "N/A (calculated)"

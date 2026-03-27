@@ -1,0 +1,48 @@
+id: "fintree:SellingExpenses"
+xbrl_tag: "us-gaap:SellingExpense"
+label: "Selling Expenses"
+short_label: "Selling"
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: "fintree:OperatingExpenses"
+aggregation_type: SUM
+formula_human: "Sales Force Compensation + Advertising & Marketing + Shipping & Distribution + Other Selling Costs"
+formula_machine: "fintree:SalesForceCompensation + fintree:AdvertisingAndMarketing + fintree:ShippingAndDistribution + fintree:OtherSellingCosts"
+asc_reference: "ASC 720"
+definition: "All expenses directly related to the selling effort — compensation for sales teams, advertising, marketing campaigns, trade shows, shipping to customers, and related costs."
+example: "A consumer products company spending $15M on sales team compensation, $10M on advertising, and $3M on distribution reports $28M in selling expenses."
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - selling_expense
+  - sales_and_marketing
+  - below_gross_profit
+  - above_ebit
+  - opex
+classification_notes: "Many companies combine Selling and G&A into 'SG&A' as a single line item. Tech/SaaS companies often label this 'Sales and Marketing' or 'Marketing and Sales'. The split between selling vs. G&A can be discretionary."
+variance_drivers:
+  tags: [headcount_driven, campaign_driven, revenue_correlated, discretionary]
+  playbook:
+    if_increased: "(1) sales team expansion or higher commissions from strong revenue, (2) increased marketing/advertising campaigns, (3) new market entry requiring go-to-market spend, (4) trade show or event-heavy quarter, (5) customer acquisition cost increases"
+    if_decreased: "(1) sales team reductions, (2) reduced advertising spend, (3) shift to lower-cost digital channels, (4) improved sales efficiency (higher revenue per rep), (5) market exit or product line discontinuation"
+comparability:
+  variations: "Reporting varies significantly: some companies present 'Sales and Marketing' as one line; others split selling from marketing; many combine into 'SG&A'. SaaS companies often have selling expenses as 40-60% of revenue in growth phase."
+  examples:
+    - company: "Salesforce"
+      treatment: "Marketing and sales"
+    - company: "Procter & Gamble"
+      treatment: "Selling, general and administrative expenses (combined)"
+    - company: "HubSpot"
+      treatment: "Selling, general and administrative"
+    - company: "Coca-Cola"
+      treatment: "Selling, general and administrative expenses"
+coa_mapping:
+  quickbooks: "6100-6199 - Sales Expenses"
+  netsuite: "7000 - Sales and Marketing"
+  sap: "6100000 - Selling Expenses"

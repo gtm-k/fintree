@@ -1,0 +1,45 @@
+id: "fintree:NetIncome"
+xbrl_tag: "us-gaap:NetIncomeLoss"
+label: "Net Income"
+short_label: "Net Income"
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: null
+aggregation_type: DERIVED
+formula_human: "Pre-Tax Income − Income Tax Expense"
+formula_machine: "fintree:PreTaxIncome - fintree:IncomeTaxExpense"
+asc_reference: "ASC 220"
+definition: "The final, bottom-line profit or loss after all revenues, costs, expenses, non-operating items, and taxes."
+example: "Apple FY2024 reported net income of $93.7B, reflecting all costs deducted from $391B in revenue."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - bottom_line
+  - profitability_metric
+  - final_subtotal
+  - gaap_required
+classification_notes: ""
+variance_drivers:
+  tags: [revenue_driven, cost_driven, tax_driven, comprehensive]
+  playbook:
+    if_increased: "(1) revenue growth exceeding cost growth, (2) margin expansion from operating leverage, (3) lower effective tax rate, (4) one-time gains in non-operating items"
+    if_decreased: "(1) revenue decline or deceleration, (2) cost increases outpacing revenue (margin compression), (3) higher effective tax rate, (4) impairment or restructuring charges"
+comparability:
+  variations: "All companies report Net Income. Some report 'Net Income attributable to common shareholders' after deducting minority interest. Non-GAAP measures (Adjusted Net Income) exclude SBC and restructuring."
+  examples:
+    - company: "Apple"
+      treatment: "Net Income"
+    - company: "Alphabet"
+      treatment: "Net Income"
+    - company: "Berkshire Hathaway"
+      treatment: "Net earnings attributable to Berkshire Hathaway shareholders"
+coa_mapping:
+  quickbooks: "N/A (calculated)"
+  netsuite: "N/A (calculated)"
+  sap: "N/A (calculated)"

@@ -1,0 +1,44 @@
+id: "fintree:SubscriptionRevenue"
+xbrl_tag: "us-gaap:SubscriptionRevenue"
+label: "Subscription Revenue"
+short_label: "Subscriptions"
+level: 4
+node_type: LINE_ITEM
+parent_id: "fintree:ServiceRevenue"
+aggregation_type: LEAF
+formula_human: "Revenue recognized ratably over subscription periods"
+asc_reference: "ASC 606"
+definition: "Revenue recognized ratably over a subscription period (monthly/annually). Most common in SaaS."
+example: "Salesforce recognizing $10K/month from a $120K annual CRM contract."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [saas]
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - revenue
+  - recurring_revenue
+  - saas
+  - mrr_arr
+  - asc_606
+variance_drivers:
+  tags: [customer_count_driven, arpu_driven, churn_driven, seasonal_Q4_heavy]
+  playbook:
+    if_increased: "(1) new customer acquisition, (2) expansion revenue (upsells/cross-sells), (3) price increases on renewals, (4) lower churn rate"
+    if_decreased: "(1) increased churn/downgrades, (2) slower new logo acquisition, (3) competitive pricing pressure, (4) contract term changes (annual→monthly)"
+comparability:
+  variations: "Some companies split subscription vs. consumption revenue. Others bundle subscription with maintenance/support."
+  examples:
+    - company: "Salesforce"
+      treatment: "Subscription and Support Revenue"
+    - company: "Microsoft"
+      treatment: "Included in Intelligent Cloud and Productivity segments"
+    - company: "Adobe"
+      treatment: "Subscription revenue (Digital Media + Digital Experience)"
+coa_mapping:
+  quickbooks: "4010 - Subscription Revenue"
+  netsuite: "4010 - SaaS Subscription Revenue"
+  sap: "8001000 - Subscription Revenue"

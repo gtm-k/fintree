@@ -1,0 +1,47 @@
+id: "fintree:GrossProfit"
+xbrl_tag: "us-gaap:GrossProfit"
+label: "Gross Profit"
+short_label: "Gross Profit"
+level: 1
+node_type: GAAP_SUBTOTAL
+parent_id: "fintree:OperatingIncome"
+aggregation_type: DERIVED
+formula_human: "Net Revenue − Cost of Goods Sold"
+formula_machine: "fintree:NetRevenue - fintree:Cogs"
+asc_reference: "ASC 220"
+definition: "The residual profit after deducting direct costs (COGS) from Net Revenue. Represents the margin available to cover operating expenses, interest, taxes, and generate net income."
+example: "A retail company with $500M net revenue and $350M COGS reports $150M gross profit (30% gross margin)."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, financial_services, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - profitability_metric
+  - gross_margin
+  - gaap_subtotal
+  - above_operating_income
+classification_notes: "Gross Profit is not always explicitly reported as a line item. Some companies go directly from Revenue to Operating Income. Financial services companies typically do not report Gross Profit — their equivalent is Net Interest Income or Net Revenue after provisions."
+variance_drivers:
+  tags: [revenue_driven, cogs_driven, mix_driven, pricing_driven]
+  playbook:
+    if_increased: "(1) revenue growth outpacing COGS growth, (2) pricing power — price increases not offset by cost increases, (3) favorable product/service mix shift toward higher-margin offerings, (4) cost reduction initiatives in direct costs, (5) operating leverage in cost of revenue"
+    if_decreased: "(1) input cost inflation eroding margins, (2) competitive pricing pressure forcing price reductions, (3) unfavorable mix shift toward lower-margin products, (4) supply chain disruptions, (5) revenue decline without proportional cost reduction"
+comparability:
+  variations: "Most companies report Gross Profit. SaaS companies typically show 70-85% gross margins; manufacturing 25-45%; retail 20-40%. Financial services companies generally do not present Gross Profit."
+  examples:
+    - company: "Apple"
+      treatment: "Gross margin (products + services combined)"
+    - company: "Salesforce"
+      treatment: "Gross profit (subscription + professional services)"
+    - company: "Costco"
+      treatment: "Net sales minus merchandise costs"
+    - company: "JPMorgan"
+      treatment: "Not reported — uses Net Interest Income"
+coa_mapping:
+  quickbooks: "N/A (calculated)"
+  netsuite: "N/A (calculated)"
+  sap: "N/A (calculated)"

@@ -1,0 +1,58 @@
+id: "fintree:ShippingHandlingDecision"
+xbrl_tag: "us-gaap:ShippingHandlingAndTransportationCosts"
+label: "Shipping & Handling — Classification Decision"
+short_label: "Ship/Handle Decision"
+level: 3
+node_type: DECISION
+parent_id: "fintree:Cogs"
+aggregation_type: DECISION
+formula_human: "Route to COGS or Selling Expenses based on nature and timing of cost"
+asc_reference: "ASC 606-10-25-18A"
+definition: "A decision node that routes shipping and handling costs to the appropriate parent based on whether the cost is incurred before or after transfer of control to the customer, and whether it represents a separate performance obligation."
+example: "An e-commerce company incurs $2M inbound freight (classified as COGS) and $5M outbound shipping to customers (could be COGS as fulfillment cost or Selling Expenses depending on policy election)."
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [manufacturing, retail]
+is_leaf: false
+is_decision_node: true
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - classification_decision
+  - shipping
+  - fulfillment
+  - cogs_vs_opex
+  - asc_606
+  - policy_election
+classification_notes: "Under ASC 606, shipping and handling after control transfer may be treated as fulfillment cost (COGS) or separate performance obligation. If treated as fulfillment activity, the cost is accrued when revenue is recognized. Companies must elect and consistently apply a policy. Amazon classifies outbound shipping in COGS; many retailers classify it in Selling Expenses."
+decision_criteria:
+  - condition: "Cost incurred to bring goods to saleable condition (inbound freight, warehousing before sale)"
+    route_to: "fintree:FreightIn"
+    parent_bucket: "COGS > Direct Materials"
+  - condition: "Cost incurred to deliver goods to customers (outbound freight, last-mile delivery)"
+    route_to: "fintree:OutboundFreight"
+    parent_bucket: "Selling Expenses > Shipping & Distribution"
+  - condition: "Shipping charged to customer and recognized as separate performance obligation"
+    route_to: "fintree:ShippingRevenue"
+    parent_bucket: "Net Revenue > Other Revenue"
+variance_drivers:
+  tags: [volume_driven, logistics_cost_driven, carrier_rate_driven, policy_driven]
+  playbook:
+    if_increased: "(1) higher shipment volumes from revenue growth, (2) carrier rate increases, (3) shift toward faster/premium shipping, (4) fuel surcharges, (5) new geographic markets with higher logistics costs"
+    if_decreased: "(1) lower order volumes, (2) renegotiated carrier contracts, (3) logistics optimization (route consolidation), (4) shift toward customer pickup or digital delivery, (5) warehouse network optimization reducing shipping distances"
+comparability:
+  variations: "Classification of shipping costs varies significantly across companies. Some classify all shipping in COGS; others split between COGS (inbound) and Selling (outbound). This creates comparability challenges when analyzing gross margins across companies."
+  examples:
+    - company: "Amazon"
+      treatment: "Outbound shipping in Cost of Sales (COGS), also collects shipping revenue"
+    - company: "Walmart"
+      treatment: "Distribution costs in Operating, selling, general and administrative"
+    - company: "Target"
+      treatment: "Shipping and handling costs in SG&A"
+    - company: "Costco"
+      treatment: "Shipping and handling in Merchandise costs (COGS)"
+coa_mapping:
+  quickbooks: "5300 - Freight/Shipping (COGS) or 6150 - Shipping (Selling)"
+  netsuite: "5300 - Freight-In (COGS) or 7050 - Outbound Shipping (Selling)"
+  sap: "5300000 - Freight Costs (COGS) or 6150000 - Shipping Costs (Selling)"

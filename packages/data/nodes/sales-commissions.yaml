@@ -1,0 +1,47 @@
+id: "fintree:SalesCommissions"
+xbrl_tag: "us-gaap:SalesCommissionsAndFees"
+label: "Sales Commissions"
+short_label: "Commissions"
+level: 4
+node_type: LINE_ITEM
+parent_id: "fintree:SalesForceCompensation"
+aggregation_type: LEAF
+formula_human: "Commission rate × qualifying sales or bookings"
+asc_reference: "ASC 340-40"
+definition: "Variable compensation paid to sales personnel based on closed deals, bookings, or revenue targets. Under ASC 340-40, incremental costs of obtaining a contract (including commissions) may be capitalized and amortized over the expected customer benefit period if the amortization period exceeds one year."
+example: "A SaaS company paying 10% first-year commission on a $500K ACV deal recognizes $50K commission expense (or capitalizes and amortizes over 3-year expected customer life at ~$16.7K/year)."
+normal_balance: DEBIT
+sign_convention: "+1"
+industry_variants: [saas, manufacturing, retail, professional_services]
+is_leaf: true
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - selling_expense
+  - variable_cost
+  - sales_compensation
+  - below_gross_profit
+  - above_ebit
+  - opex
+  - revenue_correlated
+classification_notes: "Under ASC 340-40, commissions that are incremental costs of obtaining a contract must be capitalized if the expected amortization period exceeds one year. Companies may use a practical expedient to expense commissions as incurred if the amortization period is one year or less. Capitalized commissions are amortized on a systematic basis consistent with the pattern of transfer of goods/services. Renewal commissions at lower rates may be treated differently from new-deal commissions."
+variance_drivers:
+  tags: [revenue_correlated, headcount_driven, plan_design_driven, seasonal_Q4_heavy]
+  playbook:
+    if_increased: "(1) higher bookings/revenue driving proportional commission payouts, (2) sales team expansion, (3) commission plan changes (higher rates or accelerators), (4) large enterprise deal closings with premium commission rates, (5) shift in mix toward new business vs. renewals (new typically pays higher)"
+    if_decreased: "(1) lower bookings volume, (2) sales team attrition not backfilled, (3) commission plan restructuring (lower rates), (4) shift toward renewal-heavy mix (lower commission rates), (5) increased use of channel partners (partner margins vs. direct commissions)"
+comparability:
+  variations: "Some companies report commissions within Sales & Marketing; others embed them in SG&A. ASC 340-40 capitalization creates timing differences — a company capitalizing commissions shows lower current-period expense but carries a deferred asset on the balance sheet."
+  examples:
+    - company: "Salesforce"
+      treatment: "Capitalized as 'Deferred commissions' on balance sheet, amortized over ~5 years in Marketing and Sales"
+    - company: "Apple"
+      treatment: "Not separately disclosed — embedded in SG&A (primarily retail and online sales, minimal traditional commission structure)"
+    - company: "HubSpot"
+      treatment: "Capitalized per ASC 340-40, amortized in Selling, general and administrative over estimated customer benefit period"
+coa_mapping:
+  quickbooks: "6110 - Sales Commissions"
+  netsuite: "7010 - Sales Commissions"
+  sap: "6200100 - Sales Commissions"

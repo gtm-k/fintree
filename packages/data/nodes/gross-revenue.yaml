@@ -1,0 +1,41 @@
+id: "fintree:GrossRevenue"
+xbrl_tag: "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
+label: "Gross Revenue"
+short_label: "Gross Rev"
+level: 2
+node_type: MAJOR_CATEGORY
+parent_id: "fintree:NetRevenue"
+aggregation_type: SUM
+formula_human: "Product Revenue + Service Revenue + Other Revenue"
+formula_machine: "fintree:ProductRevenue + fintree:ServiceRevenue + fintree:OtherRevenue"
+asc_reference: "ASC 606"
+definition: "Total revenue recognized before any deductions. Consists of all revenue streams from the company's primary business activities."
+example: "A diversified tech company recognizing $80M product revenue + $50M service revenue + $5M other = $135M gross revenue."
+normal_balance: CREDIT
+sign_convention: "+1"
+industry_variants: [manufacturing, saas, retail, professional_services]
+is_leaf: false
+is_decision_node: false
+is_non_gaap: false
+below_the_line: false
+non_recurring: false
+ai_context_tags:
+  - revenue
+  - top_line
+  - pre_deductions
+variance_drivers:
+  tags: [volume_driven, mix_driven, pricing_driven]
+  playbook:
+    if_increased: "(1) growth in product or service revenue streams, (2) new revenue stream added, (3) price increases"
+    if_decreased: "(1) decline in core revenue stream, (2) product discontinuation, (3) competitive losses"
+comparability:
+  variations: "Most companies report Net Revenue, not Gross. Gross Revenue is typically only visible in the revenue footnote or for companies with material deductions."
+  examples:
+    - company: "Groupon"
+      treatment: "Shows gross billings separately"
+    - company: "Booking Holdings"
+      treatment: "Reports gross vs. net revenue for agency vs. merchant"
+coa_mapping:
+  quickbooks: "4000 - Revenue"
+  netsuite: "4000 - Revenue"
+  sap: "8000000 - Revenue"
