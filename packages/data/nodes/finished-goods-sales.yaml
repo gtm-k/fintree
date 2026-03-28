@@ -1,5 +1,5 @@
 id: fintree:FinishedGoodsSales
-xbrl_tag: ''
+xbrl_tag: us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax
 label: Finished Goods Sales
 short_label: Finished Goods Sales
 level: 4
@@ -23,14 +23,53 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - finished goods
+  - product revenue
+  - manufactured goods
+  - ASC 606
+  - point of sale
+  - FOB shipping
+  - revenue recognition
+classification_notes: Revenue recognized at the point in time when control transfers
+  to the customer (ASC 606). Shipping terms (FOB shipping point vs. destination) affect
+  timing. Variable consideration (volume rebates, returns) must be estimated and constrained.
+  Distinguish from service revenue, licensing revenue, and component/parts sales.
 variance_drivers:
-  tags: []
+  tags:
+    - unit volume
+    - pricing
+    - product mix
+    - market demand
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Higher unit volumes from market share gains or new customers
+      2. Price increases passed through to customers
+      3. New product launches expanding the finished goods portfolio
+      4. Favorable foreign exchange on international sales
+      5. Channel expansion (new distributors, geographies, e-commerce)
+    if_decreased: |-
+      1. Market demand softening or economic downturn
+      2. Loss of key customer accounts or distributor relationships
+      3. Product recalls or quality issues reducing shipments
+      4. Competitive pressure forcing price reductions
+      5. Supply chain disruptions limiting production output
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some manufacturers report all product sales in one line; others disaggregate
+    by product type, geography, or channel as required by ASC 606. Companies selling
+    through distributors may face timing differences based on sell-in vs. sell-through
+    recognition. Consignment arrangements delay recognition.
+  examples:
+    - company: Toyota Motor
+      treatment: Reports vehicle sales revenue by geographic segment with detailed
+        unit volume and average selling price disclosures
+    - company: Apple
+      treatment: Disaggregates product revenue into iPhone, Mac, iPad, Wearables,
+        and Accessories
+    - company: Procter & Gamble
+      treatment: Reports net sales by product segment (Beauty, Grooming, Health Care,
+        Fabric & Home Care, Baby/Feminine/Family)
+coa_mapping:
+  quickbooks: '4100 - Finished Goods Sales'
+  netsuite: '4100 - Finished Goods Revenue'
+  sap: '0041000 - Finished Goods Sales'

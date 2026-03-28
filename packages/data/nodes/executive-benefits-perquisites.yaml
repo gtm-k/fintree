@@ -1,5 +1,5 @@
 id: fintree:ExecutiveBenefitsPerquisites
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SupplementalEmployeeRetirementPlanDefinedBenefitPensionPlansCurrentServiceCost'
 label: Executive Benefits & Perquisites
 short_label: Executive Benefits & Perquisit
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:ExecutiveManagementCompensation
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 712'
 definition: Benefits specific to executive roles (supplemental insurance, car allowances,
   housing, etc.).
-example: ''
+example: 'A CEO receives $150K in perquisites including $60K personal security, $40K car allowance, $30K supplemental life insurance, and $20K financial planning services.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - compensation
+  - executive_pay
+  - perquisites
+  - benefits
+  - proxy_disclosure
+classification_notes: 'Perquisites exceeding $10K per item for NEOs must be disclosed individually in proxy statement per SEC rules. Common perks include personal security, company aircraft use, car allowances, housing allowances, financial planning, supplemental insurance, and club memberships. Relocation packages for new executives are also classified here.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, policy_driven, board_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new executive hires with relocation packages, (2) enhanced security requirements for executives, (3) board approval of new perquisite programs, (4) increased personal use of company aircraft, (5) supplemental retirement plan contributions'
+    if_decreased: '(1) elimination of perquisite programs to improve optics, (2) executive departures, (3) policy changes restricting personal aircraft use, (4) industry trend toward reducing disclosed perquisites'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Perquisite levels vary significantly by industry and company size. Financial services and energy companies tend to offer more perks. Tech companies increasingly minimize disclosed perquisites. SEC requires itemized disclosure in proxy for NEOs above $10K thresholds.'
+  examples:
+    - company: 'Oracle'
+      treatment: 'CEO perquisites include personal security, personal use of company aircraft; disclosed in proxy All Other Compensation column'
+    - company: 'Berkshire Hathaway'
+      treatment: 'Minimal executive perquisites; CEO famously takes $100K salary with minimal additional benefits'
+coa_mapping:
+  quickbooks: '6530 - Executive Benefits & Perquisites'
+  netsuite: '7130 - Executive Benefits & Perquisites'
+  sap: '6530000 - Executive Benefits Perquisites'

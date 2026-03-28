@@ -1,17 +1,18 @@
 id: fintree:SalesForceCompensation
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SellingAndMarketingExpense'
 label: SALES FORCE COMPENSATION
 short_label: SALES FORCE COMPENSATION
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:SellingExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Sales Salaries & Base Pay + Sales Bonuses & SPIFs + Sales Commissions + Sales Benefits + Payroll Taxes (Sales)'
+formula_machine: 'fintree:SalesSalariesBasePay + fintree:SalesBonusesSpifs + fintree:SalesCommissions + fintree:SalesBenefits + fintree:PayrollTaxesSales'
+asc_reference: 'ASC 710'
 definition: All compensation for the sales team, including direct and indirect selling
   costs.
-example: ''
-normal_balance: CREDIT
+example: 'A mid-market SaaS company with 50 sales reps pays $5M in base salaries, $2M in commissions, $800K in bonuses/SPIFs, and $1.5M in benefits and payroll taxes, totaling $9.3M in sales force compensation.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - sales_compensation
+  - headcount_driven
+  - opex
+  - below_gross_profit
+  - above_ebit
+classification_notes: 'Sales compensation may be classified under Selling Expenses or combined into SG&A. Commission costs may be capitalized under ASC 340-40 if the amortization period exceeds one year. Stock-based compensation for sales employees is sometimes carved out separately. The split between sales vs. non-sales compensation can be discretionary for hybrid roles (e.g., sales engineers).'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, revenue_correlated, plan_design_driven, semi_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) sales team expansion with new hires, (2) higher commission payouts from strong bookings, (3) compensation plan changes (higher base or OTE), (4) increased SPIF programs to push specific products, (5) benefits cost inflation (healthcare premiums)'
+    if_decreased: '(1) sales team attrition or layoffs, (2) lower commissions from reduced bookings, (3) compensation restructuring (lower rates), (4) shift from direct sales to channel/partner model, (5) hiring freeze on open sales positions'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Most companies do not separately disclose sales force compensation as a line item; it is embedded in Sales & Marketing or SG&A. Companies with high variable compensation (SaaS, financial services) show more revenue-correlated patterns. Some companies capitalize commissions under ASC 340-40, creating timing differences vs. those that expense as incurred.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'Embedded in Marketing and Sales expense; commissions capitalized per ASC 340-40'
+    - company: 'Oracle'
+      treatment: 'Included in Cloud services and license support expenses and Sales and marketing'
+    - company: 'HubSpot'
+      treatment: 'Included in Selling, general and administrative with commissions capitalized'
+coa_mapping:
+  quickbooks: '6100 - Sales Compensation'
+  netsuite: '7000 - Sales Compensation'
+  sap: '6100000 - Sales Force Compensation'

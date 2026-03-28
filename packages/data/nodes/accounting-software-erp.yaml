@@ -1,5 +1,5 @@
 id: fintree:AccountingSoftwareErp
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CommunicationsAndInformationTechnology'
 label: Accounting Software & ERP
 short_label: Accounting Software & ERP
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:FinanceAccounting
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 350-40'
 definition: Subscriptions to ERP and accounting platforms (SAP, Oracle, NetSuite,
   QuickBooks).
-example: ''
+example: 'A mid-market company pays $350K/year for NetSuite ERP ($200K base license + $100K additional modules + $50K annual support), plus $15K for Avalara tax automation.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - finance
+  - accounting
+  - erp
+  - software
+  - subscription
+classification_notes: 'Cloud/SaaS ERP subscriptions are operating expenses per ASC 350-40. On-premise ERP license fees may be capitalized. Implementation and customization costs for cloud ERP have specific capitalization rules — internal-use software development costs in the application development stage can be capitalized. Annual maintenance and support fees are expensed as incurred.'
 variance_drivers:
-  tags: []
+  tags: [contract_driven, complexity_driven, implementation_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) ERP migration (e.g., QuickBooks to NetSuite or NetSuite to SAP), (2) adding new ERP modules (inventory, project accounting), (3) multi-entity or multi-currency expansion, (4) implementation consulting fees during ERP projects, (5) vendor price increases on contract renewals'
+    if_decreased: '(1) completing ERP implementation (one-time costs normalize), (2) consolidating multiple accounting systems into one, (3) downgrading from enterprise to mid-market ERP, (4) renegotiated licensing terms, (5) elimination of unused modules'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'ERP costs range from $500/month (QuickBooks) to millions/year (SAP S/4HANA). Implementation costs can be 2-5x the annual license cost. Companies using on-premise ERP will show this as depreciation/amortization rather than subscription expense. Some companies classify ERP under IT rather than Finance.'
+  examples:
+    - company: 'Small business (<$10M revenue)'
+      treatment: 'QuickBooks Online at $1K-$3K/year; minimal ERP costs'
+    - company: 'Enterprise ($1B+ revenue)'
+      treatment: 'SAP S/4HANA or Oracle Cloud at $1M-$10M/year; multi-year implementation projects capitalized'
+coa_mapping:
+  quickbooks: '6620 - Accounting Software & ERP'
+  netsuite: '7220 - Accounting Software & ERP'
+  sap: '6620000 - Accounting Software ERP'

@@ -1,5 +1,5 @@
 id: fintree:FactoryUtilities
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:UtilitiesOperatingExpenseProduction'
 label: Factory Utilities
 short_label: Factory Utilities
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:FacilityCosts
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Electricity, gas, water, and other utilities consumed in manufacturing
   operations.
-example: ''
+example: 'A steel mill pays $5M/year in electricity for arc furnaces, $1.2M for natural gas heating, and $300K for water used in cooling processes, totaling $6.5M in factory utilities.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - utilities
+  - electricity
+  - energy
+  - manufacturing
+  - semi_variable
+classification_notes: 'Factory utilities are manufacturing overhead costs absorbed into inventory. They have both fixed (base load for lighting, HVAC) and variable (production-driven electricity for machinery) components. Only utilities consumed in manufacturing facilities belong in COGS; corporate office utilities are SG&A. Energy-intensive industries (aluminum smelting, glass, cement) have utilities as a major COGS driver. Companies with on-site power generation may show lower utility costs but higher depreciation.'
 variance_drivers:
-  tags: []
+  tags: [energy_price_driven, volume_driven, efficiency_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Energy rate increases from utility providers, (2) higher production volumes increasing electricity and gas consumption, (3) extreme weather driving HVAC costs, (4) expansion to additional production shifts, (5) new energy-intensive equipment or processes'
+    if_decreased: '(1) Energy efficiency retrofits (LED lighting, VFDs, high-efficiency motors), (2) on-site solar or wind power generation, (3) favorable energy contract renegotiations, (4) lower production volumes, (5) process improvements reducing energy consumption per unit'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Energy-intensive industries (aluminum, steel, cement, glass) have utilities as 10-30% of COGS. Light assembly has utilities at 1-3% of COGS. Companies in regions with cheap energy (e.g., hydroelectric) have structural advantages. Some companies hedge energy costs with futures contracts.'
+  examples:
+    - company: 'Alcoa'
+      treatment: 'Electricity is the largest single factory utility cost in aluminum smelting; often co-locates near hydroelectric power'
+    - company: 'Intel'
+      treatment: 'Reports significant electricity costs for semiconductor fabs (cleanroom HVAC, process equipment); investing in renewable energy'
+    - company: 'Anheuser-Busch InBev'
+      treatment: 'Reports natural gas for brewing and pasteurization plus electricity for refrigeration as major factory utilities'
+coa_mapping:
+  quickbooks: '5350 - Factory Utilities'
+  netsuite: '5350 - Factory Utilities'
+  sap: '5350000 - Factory Utilities'

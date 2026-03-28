@@ -1,5 +1,5 @@
 id: fintree:ExternalLegalFeesGeneralCorporate
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:LegalFees'
 label: External Legal Fees — General Corporate
 short_label: 'External Legal Fees — General '
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:LegalCompliance
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Retainer and hourly fees for corporate legal counsel (contracts, corporate
   governance, employment law).
-example: ''
+example: 'A mid-size company pays $450K/year to outside counsel: $180K corporate governance and board matters, $120K commercial contract review, $90K employment law advisory, $60K regulatory advisory.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,26 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - legal
+  - professional_fees
+  - outside_counsel
+  - corporate_governance
+classification_notes: 'General corporate legal fees are routine operating expenses — contract negotiation, employment matters, governance advice, and regulatory guidance. Distinguish from litigation fees (separate line) and M&A transaction costs (may be capitalized or expensed depending on deal type per ASC 805). Legal fees for patent prosecution may be capitalized as part of the intangible asset.'
 variance_drivers:
-  tags: []
+  tags: [transaction_driven, complexity_driven, discretionary, event_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) M&A activity requiring legal due diligence, (2) new market entry requiring regulatory legal advice, (3) increased contract volume requiring more outside review, (4) complex employment matters (executive terminations, investigations), (5) corporate restructuring or reorganization'
+    if_decreased: '(1) building internal legal team reducing outside counsel dependency, (2) legal technology (contract automation) reducing attorney hours, (3) reduced M&A or deal activity, (4) fixed-fee arrangements replacing hourly billing, (5) simplified corporate structure'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies with large in-house legal teams spend less on outside counsel. Startup and early-stage companies rely more on external firms. Big Law hourly rates ($500-$2,000/hour) drive significant spend for complex matters. Some companies use alternative legal service providers (ALSPs) for routine work.'
+  examples:
+    - company: 'Microsoft'
+      treatment: 'Large in-house legal team with selective use of outside counsel for specialized matters; classified in G&A'
+    - company: 'Small startup'
+      treatment: 'Heavy reliance on outside counsel for all legal matters; may defer or minimize legal spend to conserve cash'
+coa_mapping:
+  quickbooks: '6660 - External Legal Fees (General)'
+  netsuite: '7260 - External Legal Fees — General Corporate'
+  sap: '6660000 - External Legal Fees General'

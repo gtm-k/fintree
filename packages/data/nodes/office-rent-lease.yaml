@@ -1,5 +1,5 @@
 id: fintree:OfficeRentLease
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OperatingLeaseExpense'
 label: Office Rent / Lease
 short_label: Office Rent / Lease
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:OfficeFacilitiesCorporate
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 842'
 definition: Lease payments for corporate office space (operating lease per ASC 842).
-example: ''
+example: 'A company leases 25,000 sq ft of Class A office space in San Francisco at $72/sq ft/year, resulting in $1.8M annual lease expense recognized straight-line under ASC 842.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,28 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - office
+  - rent
+  - lease
+  - asc_842
+  - occupancy
+  - fixed_cost
+classification_notes: 'Under ASC 842, operating leases are recognized straight-line over the lease term even if cash payments escalate. Finance leases split into depreciation of the ROU asset and interest on the lease liability. Lease incentives (tenant improvement allowances) reduce the ROU asset and are amortized over the lease term. Short-term leases (under 12 months) may be expensed as incurred without balance sheet recognition.'
 variance_drivers:
-  tags: []
+  tags: [lease_driven, location_driven, largely_fixed, long_term_committed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new office leases for expansion, (2) rent escalation clauses in existing leases (typically 2-3%/year), (3) relocation to higher-cost market, (4) converting co-working/flex space to dedicated leases, (5) lease modification extending term or adding space'
+    if_decreased: '(1) office consolidation or downsizing post-remote work, (2) subleasing excess space (sublease income offsets), (3) lease expirations not renewed, (4) relocation to lower-cost market, (5) negotiating lower rates at renewal in soft real estate markets'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Office rent per employee ranges from $3K/year (low-cost suburban) to $20K+/year (Manhattan, San Francisco). Under ASC 842, the P&L shows a single operating lease cost, but the balance sheet now shows a right-of-use asset and lease liability. Some companies own rather than lease, showing depreciation instead.'
+  examples:
+    - company: 'Twitter/X'
+      treatment: 'Significant lease liabilities in San Francisco; attempted to sublease excess space post-acquisition'
+    - company: 'Amazon'
+      treatment: 'Mix of owned (HQ2) and leased office space; leases disclosed in ASC 842 footnotes'
+coa_mapping:
+  quickbooks: '6560 - Office Rent / Lease'
+  netsuite: '7160 - Office Rent & Lease Expense'
+  sap: '6560000 - Office Rent Lease Expense'

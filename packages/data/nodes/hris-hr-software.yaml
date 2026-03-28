@@ -1,5 +1,5 @@
 id: fintree:HrisHrSoftware
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CommunicationsAndInformationTechnology'
 label: HRIS & HR Software
 short_label: HRIS & HR Software
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:HumanResources
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 350-40'
 definition: Subscriptions to HR information systems, payroll software, and benefits
   administration platforms (Workday, ADP, Rippling).
-example: ''
+example: 'A 500-employee company pays $180K/year for Workday HCM ($120K), ADP payroll processing ($35K), and Greenhouse ATS ($25K).'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - human_resources
+  - software
+  - subscription
+  - hris
+  - payroll_processing
+classification_notes: 'SaaS HRIS subscriptions are expensed as incurred (ASC 350-40 for cloud computing arrangements). Implementation costs may be capitalized if they meet the criteria. Payroll processing fees (per-employee-per-month) are included here. Distinguish from IT software subscriptions — HRIS is classified under HR, not IT.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, per_employee_pricing, contract_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) company headcount growth increasing per-employee license fees, (2) migration to a more expensive HRIS platform, (3) adding new HR modules (learning management, performance reviews), (4) implementation costs for new system, (5) price increases on multi-year contract renewals'
+    if_decreased: '(1) headcount reductions lowering per-employee costs, (2) vendor consolidation replacing multiple point solutions, (3) renegotiated contract rates, (4) downgrading to a less expensive HRIS tier, (5) shifting payroll processing in-house'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'HRIS costs are typically $10-50 per employee per month depending on platform and modules. Enterprise companies using Workday or SAP SuccessFactors pay significantly more than SMBs using Gusto or Rippling. Some companies classify all software under IT rather than functional departments.'
+  examples:
+    - company: 'Large enterprise (5,000+ employees)'
+      treatment: 'Workday HCM at $30-50 PEPM; costs classified within G&A'
+    - company: 'Small startup (50 employees)'
+      treatment: 'Gusto or Rippling at $10-15 PEPM; often combined with IT software subscriptions'
+coa_mapping:
+  quickbooks: '6720 - HRIS & HR Software'
+  netsuite: '7320 - HRIS & HR Software'
+  sap: '6720000 - HRIS HR Software Subscriptions'

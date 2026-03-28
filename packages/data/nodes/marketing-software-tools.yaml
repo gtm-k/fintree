@@ -1,5 +1,5 @@
 id: fintree:MarketingSoftwareTools
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SellingAndMarketingExpense'
 label: Marketing Software & Tools
 short_label: Marketing Software & Tools
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:AdvertisingMarketing
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 350-40'
 definition: Subscriptions to marketing automation, analytics, and CRM platforms (HubSpot,
   Marketo, etc.).
-example: ''
+example: 'A mid-market company pays $60K/year for HubSpot Marketing Hub, $24K/year for Mixpanel analytics, $18K/year for Hootsuite social management, and $12K/year for Canva Enterprise, totaling $114K in marketing software subscriptions.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - marketing
+  - software_subscription
+  - martech
+  - opex
+  - fixed_cost
+classification_notes: 'SaaS subscriptions for marketing tools are expensed as incurred (period cost). Under ASC 350-40, implementation costs for cloud computing arrangements (CCA) may be capitalized if they meet internal-use software criteria. CRM platforms used by both sales and marketing (e.g., Salesforce) should be allocated between selling and G&A. Marketing automation tools used exclusively by marketing belong here; general analytics tools used company-wide may belong in G&A.'
 variance_drivers:
-  tags: []
+  tags: [subscription_driven, headcount_driven, discretionary]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) adding new marketing platforms or tools to the tech stack, (2) tier upgrades driven by contact/user growth, (3) price increases from SaaS vendors, (4) expanding to new marketing channels requiring dedicated tools, (5) adding AI/ML-powered marketing tools'
+    if_decreased: '(1) martech stack consolidation (reducing redundant tools), (2) vendor renegotiation or competitive switching, (3) downgrading tiers as team shrinks, (4) sunsetting underutilized tools, (5) bringing capabilities in-house with custom solutions'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Marketing software costs are not separately disclosed; they are embedded in Sales & Marketing or SG&A. Tech-forward companies may have martech stacks of 20-50+ tools; traditional companies may use fewer. The average company spends 25-30% of marketing budget on technology (Gartner). CRM costs are often shared between sales and marketing functions.'
+  examples:
+    - company: 'HubSpot'
+      treatment: 'Included in operating expenses; as a martech vendor, their own platform costs are minimal (dogfooding)'
+    - company: 'Coca-Cola'
+      treatment: 'Embedded in SG&A; significant martech investment for global campaign management'
+    - company: 'Snowflake'
+      treatment: 'Part of Sales and marketing; heavy use of marketing automation and ABM platforms for enterprise sales'
+coa_mapping:
+  quickbooks: '6230 - Marketing Software & Subscriptions'
+  netsuite: '7130 - Marketing Software & Tools'
+  sap: '6200300 - Marketing Software Tools'

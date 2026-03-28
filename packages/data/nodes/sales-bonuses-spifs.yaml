@@ -1,5 +1,5 @@
 id: fintree:SalesBonusesSpifs
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SalesCommissionsAndFees'
 label: Sales Bonuses & SPIFs
 short_label: Sales Bonuses & SPIFs
 level: 4
@@ -7,11 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesForceCompensation
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 710-10'
 definition: Non-commission variable pay (quotas bonuses, sales performance incentive
   funds for specific product pushes).
-example: ''
-normal_balance: CREDIT
+example: 'A SaaS company runs a Q4 SPIF paying $500 per new logo closed, costing $150K across 300 deals, plus $600K in quarterly quota attainment bonuses for reps exceeding 100% of target.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - sales_compensation
+  - variable_cost
+  - incentive_pay
+  - opex
+  - performance_driven
+classification_notes: 'Bonuses and SPIFs are distinct from commissions — commissions are tied to specific deal revenue, while bonuses/SPIFs reward specific behaviors or threshold attainment. SPIFs are typically short-term (days to weeks) and targeted at specific products or activities. Unlike commissions, bonuses/SPIFs are generally not subject to ASC 340-40 capitalization because they are not incremental costs of obtaining a specific contract. Accrue ratably when probable and estimable under ASC 710-10.'
 variance_drivers:
-  tags: []
+  tags: [performance_driven, discretionary, seasonal_Q4_heavy, plan_design_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) strong quota attainment triggering more bonus payouts, (2) new SPIF programs launched to drive specific product adoption, (3) bonus plan changes with higher payout thresholds, (4) Q4 accelerators kicking in for over-quota performance, (5) management adding retention bonuses for top performers'
+    if_decreased: '(1) weak sales performance reducing bonus pool payouts, (2) SPIF programs discontinued or reduced, (3) restructured bonus plans with higher thresholds, (4) shift from bonus-heavy to commission-heavy compensation, (5) cost-cutting measures eliminating discretionary incentives'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Not separately disclosed by public companies; embedded in total sales compensation within Sales & Marketing or SG&A. Companies vary widely in their use of bonuses vs. commissions vs. SPIFs. Hardware companies tend to use more SPIFs; SaaS companies lean toward commission-heavy plans with fewer discretionary bonuses.'
+  examples:
+    - company: 'Microsoft'
+      treatment: 'Embedded in Sales and marketing; uses quota bonuses and product-specific SPIFs for Azure push'
+    - company: 'Cisco'
+      treatment: 'Included in Sales and marketing; known for aggressive SPIF programs on new product launches'
+    - company: 'ServiceNow'
+      treatment: 'Part of Sales and marketing expense; bonus accelerators for above-quota performance'
+coa_mapping:
+  quickbooks: '6105 - Sales Bonuses & Incentives'
+  netsuite: '7005 - Sales Bonuses & SPIFs'
+  sap: '6100300 - Sales Bonuses SPIFs'

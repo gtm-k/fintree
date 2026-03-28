@@ -1,5 +1,5 @@
 id: fintree:FreeTrialDemoCosts
-xbrl_tag: ''
+xbrl_tag: us-gaap:SellingAndMarketingExpense
 label: Free Trial / Demo Costs
 short_label: Free Trial / Demo Costs
 level: 4
@@ -10,7 +10,9 @@ formula_human: ''
 asc_reference: ''
 definition: Costs of providing free trials or demos (infrastructure, support, sales
   engineering time).
-example: ''
+example: A SaaS company offers 14-day free trials costing $180K/quarter in cloud infrastructure,
+  $60K in sales engineering time for guided demos, and $25K in sandbox environment
+  maintenance.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +26,52 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - free trial
+  - demo costs
+  - customer acquisition
+  - sales engineering
+  - PLG
+  - product-led growth
+  - freemium
+classification_notes: Free trial costs are typically classified as sales & marketing
+  since they are customer acquisition costs. If the trial infrastructure is shared
+  with production, allocation is required. Freemium models with perpetual free tiers
+  may warrant COGS classification for the free user base. Sales engineering time for
+  demos is S&M, not R&D.
 variance_drivers:
-  tags: []
+  tags:
+    - trial volume
+    - conversion rates
+    - acquisition strategy
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Higher trial sign-up volumes from expanded marketing campaigns
+      2. Extended trial durations to improve conversion rates
+      3. Richer demo environments requiring more infrastructure
+      4. Hiring additional sales engineers for guided demos
+      5. Launch of product-led growth strategy with self-serve trials
+    if_decreased: |-
+      1. Shorter trial periods reducing infrastructure costs
+      2. Improved trial-to-paid conversion reducing cost per acquisition
+      3. Shift from resource-intensive guided demos to self-serve
+      4. Automation of demo environments reducing manual effort
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Most companies bury free trial costs within sales & marketing without
+    separate disclosure. Product-led growth companies may break out trial infrastructure
+    costs. Some companies classify freemium costs in COGS if the free tier is considered
+    part of the service.
+  examples:
+    - company: Slack
+      treatment: Included free tier and trial infrastructure costs within sales and
+        marketing expense
+    - company: Atlassian
+      treatment: Reports product-led growth trial costs within sales and marketing,
+        with minimal traditional sales headcount
+    - company: Zoom
+      treatment: Reported free-tier hosting costs within cost of revenue during
+        rapid growth period
+coa_mapping:
+  quickbooks: '6320 - Free Trial / Demo Costs'
+  netsuite: '6320 - Free Trial Demo Costs'
+  sap: '0063200 - Free Trial Demo Costs'

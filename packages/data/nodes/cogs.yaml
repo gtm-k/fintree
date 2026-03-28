@@ -6,8 +6,8 @@ level: 1
 node_type: GAAP_SUBTOTAL
 parent_id: "fintree:GrossProfit"
 aggregation_type: SUM
-formula_human: "Direct Materials + Direct Labor + Manufacturing Overhead + Other Direct Costs"
-formula_machine: "fintree:DirectMaterials + fintree:DirectLabor + fintree:ManufacturingOverhead + fintree:OtherDirectCosts"
+formula_human: "Direct Materials + Direct Labor + Manufacturing Overhead + Inventory Adjustments + Service Delivery Costs"
+formula_machine: "fintree:DirectMaterials + fintree:DirectLabor + fintree:ManufacturingOverhead + fintree:InventoryAdjustments + fintree:ServiceDeliveryCosts"
 asc_reference: "ASC 330"
 definition: "The aggregate cost of goods produced and sold, and services rendered during the reporting period. Includes all direct costs attributable to the production of goods or delivery of services — materials, labor, and allocated overhead."
 example: "A manufacturer with $40M in raw materials, $15M direct labor, and $10M factory overhead reports $65M COGS against $100M revenue for a 35% gross margin."

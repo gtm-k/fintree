@@ -1,20 +1,21 @@
 id: fintree:DeferredTaxExpense
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:DeferredIncomeTaxExpenseBenefit'
 label: DEFERRED TAX EXPENSE (BENEFIT)
 short_label: DEFERRED TAX EXPENSE (BENEFIT)
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:IncomeTaxExpense
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Deferred Tax Benefit — NOL Carryforward + Deferred Tax Expense — Depreciation Timing + Other Deferred Tax Items'
+formula_machine: 'fintree:DeferredTaxBenefitNolCarryforward + fintree:DeferredTaxExpenseDepreciationTiming + fintree:OtherDeferredTaxItems'
+asc_reference: 'ASC 740-10'
 definition: The change in deferred tax liabilities and assets arising from temporary
   differences between GAAP book income and taxable income (ASC 740). When GAAP income
   exceeds taxable income, a deferred tax liability arises (more tax will be paid later);
   when taxable income exceeds GAAP income, a deferred tax asset arises.
-example: A company using accelerated depreciation for taxes but straight-line for
-  GAAP recognizes a deferred tax liability because it's paying less tax now (will
-  pay more later).
+example: 'A company using accelerated depreciation for taxes but straight-line for
+  GAAP recognizes a deferred tax liability because it is paying less tax now (will
+  pay more later). If it has $200M in accelerated depreciation timing differences, it records $42M in deferred tax liability at 21%.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -28,14 +29,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - deferred_tax
+  - temporary_differences
+  - dta_dtl
+  - non_cash
+  - book_tax_difference
+  - asc_740
+  - valuation_allowance
+classification_notes: 'Deferred tax expense is a non-cash component of total tax expense. Positive deferred tax expense means deferred tax liabilities increased or deferred tax assets decreased (tax will be paid later). Negative (benefit) means the opposite. Key sources of temporary differences: depreciation methods, revenue recognition timing, stock compensation, warranty reserves, pension obligations. A valuation allowance reduces deferred tax assets when it is more likely than not they will not be realized. Changes in valuation allowance can cause significant deferred tax swings.'
 variance_drivers:
-  tags: []
+  tags: [depreciation_timing, nol_carryforwards, valuation_allowance, standard_changes]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) large capital expenditures creating accelerated depreciation timing differences, (2) revenue recognition timing differences expanding, (3) release of valuation allowance increasing deferred tax benefit recognition, (4) new temporary differences from acquisitions'
+    if_decreased: '(1) reversal of depreciation timing differences as assets age, (2) establishment of valuation allowance against deferred tax assets, (3) utilization of NOL carryforwards reducing DTA, (4) tax rate changes reducing the value of deferred tax balances'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Capital-intensive companies (manufacturing, utilities) tend to have large deferred tax liabilities from depreciation. Tech/SaaS companies may have large deferred tax assets from stock compensation and NOLs. The deferred tax footnote reveals the major temporary difference categories.'
+  examples:
+    - company: 'Amazon'
+      treatment: 'Large deferred tax benefit driven by accelerated depreciation on massive infrastructure and stock compensation deductions'
+    - company: 'ExxonMobil'
+      treatment: 'Significant deferred tax liability from accelerated depreciation on oil & gas assets'
+    - company: 'Uber'
+      treatment: 'Large deferred tax asset from accumulated NOLs with partial valuation allowance'
+coa_mapping:
+  quickbooks: '8850-8899 - Deferred Tax Expense'
+  netsuite: '8850 - Deferred Tax Expense'
+  sap: '7820000 - Deferred Tax Expense'

@@ -1,5 +1,5 @@
 id: fintree:RecurringVsNonrecurringRevenue
-xbrl_tag: ''
+xbrl_tag: 'fintree:RecurringVsNonrecurringRevenueDecision'
 label: RECURRING VS. NON-RECURRING REVENUE
 short_label: RECURRING VS. NON-RECURRING RE
 level: 3
@@ -7,9 +7,10 @@ node_type: DECISION
 parent_id: fintree:GrossRevenue
 aggregation_type: DECISION
 formula_human: ''
-asc_reference: ''
-definition: ''
-example: ''
+formula_machine: ''
+asc_reference: 'ASC 606'
+definition: "Analytical classification overlay that segments revenue into recurring (subscription, maintenance, usage-based) vs. non-recurring (one-time sales, implementation fees, license fees) components for quality-of-earnings analysis."
+example: "A SaaS company reporting 85% recurring revenue ($170M subscriptions + $15M maintenance) vs. 15% non-recurring ($25M implementation + $10M one-time licenses) to highlight revenue predictability."
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -23,15 +24,30 @@ is_decision_node: true
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
+ai_context_tags:
+  - revenue_quality
+  - recurring_revenue
+  - non_recurring
+  - analytical_overlay
+  - valuation_driver
+  - arr_mrr
 classification_notes: Not a separate GL account — a classification overlay for analytical
   purposes.
 variance_drivers:
-  tags: []
+  tags: [mix_driven, retention_driven, contract_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) shift from perpetual licenses to subscription model increasing recurring share, (2) higher renewal rates improving recurring base, (3) growth in maintenance attach rates, (4) expansion revenue from existing customers"
+    if_decreased: "(1) large one-time deals increasing non-recurring share, (2) declining renewal rates, (3) customer downgrades from annual to month-to-month, (4) revenue mix shifting toward professional services"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "SaaS companies emphasize ARR/MRR metrics. Some companies disclose recurring vs. non-recurring breakdown in earnings supplements. The definition of 'recurring' varies — some include usage-based, others exclude it."
+  examples:
+    - company: "ServiceNow"
+      treatment: "Reports subscription revenue as % of total to highlight recurring mix"
+    - company: "Autodesk"
+      treatment: "Tracks recurring revenue % as key metric during license-to-subscription transition"
+    - company: "SAP"
+      treatment: "Reports 'more predictable revenue' (cloud + software support) vs. less predictable"
+coa_mapping:
+  quickbooks: "N/A - analytical overlay, not a GL account"
+  netsuite: "N/A - analytical overlay, not a GL account"
+  sap: "N/A - analytical overlay, not a GL account"

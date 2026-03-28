@@ -1,5 +1,5 @@
 id: fintree:TechnologyIpAmortization
-xbrl_tag: ''
+xbrl_tag: "us-gaap:AmortizationOfIntangibleAssets"
 label: Technology / IP Amortization
 short_label: Technology / IP Amortization
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:AmortizationOfIntangibleAssets
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 350-30, ASC 805-20"
 definition: Amortization of acquired patents, trademarks, and developed technology
   intangibles.
-example: ''
+example: "A tech company acquires a startup for $200M, identifying $40M in developed technology with a 5-year useful life, recording $8M/year in technology amortization."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - amortization
+  - technology
+  - intellectual_property
+  - patents
+  - non_cash
+  - asc_350
+  - acquisition_driven
+classification_notes: "Includes acquired developed technology, patents, and proprietary processes identified in purchase price allocation. Distinct from in-process R&D (IPR&D), which is not amortized until the project is completed. Technology intangibles typically have shorter useful lives (3-7 years) than customer relationships due to faster obsolescence. Patent amortization follows the remaining legal life of the patent."
 variance_drivers:
-  tags: []
+  tags: [acquisition_driven, non_cash, technology_cycle, predictable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) acquisitions of technology companies, (2) patent portfolio purchases, (3) completion of acquired IPR&D beginning amortization, (4) shorter useful life estimates reflecting rapid technology change"
+    if_decreased: "(1) technology intangibles becoming fully amortized, (2) technology impairment due to obsolescence, (3) fewer technology acquisitions, (4) disposal of technology assets"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Tech acquirers (Cisco, Oracle, Microsoft) have the highest technology amortization. Pharma companies amortize developed drug formulations and manufacturing processes. Some companies present technology amortization within COGS (cost of revenue) rather than operating expenses."
+  examples:
+    - company: "Cisco"
+      treatment: "Large technology amortization from decades of technology acquisitions; shown in cost of sales"
+    - company: "Oracle"
+      treatment: "Significant developed technology amortization from cloud and database acquisitions"
+    - company: "AbbVie"
+      treatment: "Technology amortization on acquired drug formulations and manufacturing IP from Allergan"
+coa_mapping:
+  quickbooks: "6762 - Technology / IP Amortization"
+  netsuite: "6762 - Amortization - Technology & IP"
+  sap: "6762000 - Technology / IP Amortization"

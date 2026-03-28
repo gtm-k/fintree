@@ -1,5 +1,5 @@
 id: fintree:StockbasedCompensationGa
-xbrl_tag: ''
+xbrl_tag: us-gaap:AllocatedShareBasedCompensationExpense
 label: Stock-Based Compensation — G&A
 short_label: Stock-Based Compensation — G&A
 level: 4
@@ -24,14 +24,53 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - stock-based compensation
+  - SBC
+  - RSU
+  - stock options
+  - ASC 718
+  - G&A expense
+  - equity awards
+  - non-cash expense
+classification_notes: Non-cash expense recognized under ASC 718 for equity awards granted
+  to G&A employees (executives, finance, HR, legal). Many analysts add SBC back when
+  calculating non-GAAP operating income. CEO and executive RSU grants are typically
+  the largest component. Acceleration of vesting upon M&A or executive departure can
+  cause one-time spikes.
 variance_drivers:
-  tags: []
+  tags:
+    - grant volume
+    - stock price
+    - vesting schedules
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Large new equity grants to executives or new senior hires
+      2. Rising stock price increasing fair value of new grants
+      3. Accelerated vesting due to M&A change-of-control provisions
+      4. Catch-up expense from modified performance-based awards meeting targets
+      5. Expanded equity compensation to broader G&A employee base
+    if_decreased: |-
+      1. Prior large grants fully vested reducing ongoing amortization
+      2. Executive departures causing forfeiture of unvested awards
+      3. Lower stock price reducing fair value of new option grants
+      4. Shifted from equity to cash compensation for G&A staff
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: SBC is a major non-GAAP adjustment, making GAAP vs. non-GAAP comparisons
+    critical. Tech companies have significantly higher SBC as a percentage of revenue
+    than traditional industries. Some companies allocate SBC across functions; others
+    report a single total SBC line.
+  examples:
+    - company: Alphabet
+      treatment: Allocates SBC to G&A and other functions, disclosing total SBC in
+        notes with functional breakdown
+    - company: Microsoft
+      treatment: Reports SBC within each operating expense category including G&A,
+        with total disclosed in cash flow statement
+    - company: Palantir
+      treatment: Reports very high G&A SBC relative to revenue, particularly for executive
+        grants, as a frequent investor concern
+coa_mapping:
+  quickbooks: '6450 - Stock-Based Compensation - G&A'
+  netsuite: '6450 - Stock-Based Compensation - G&A'
+  sap: '6400500 - Stock-Based Compensation G&A'

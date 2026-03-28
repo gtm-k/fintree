@@ -1,5 +1,5 @@
 id: fintree:StockbasedCompensationRd
-xbrl_tag: ''
+xbrl_tag: us-gaap:AllocatedShareBasedCompensationExpense
 label: Stock-Based Compensation — R&D
 short_label: Stock-Based Compensation — R&D
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:RdPersonnel
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 718'
 definition: Equity award expense for R&D employees (ASC 718).
-example: ''
+example: A SaaS company recognizes $12M/year in SBC expense for RSU grants to its
+  400-person engineering team, vesting over 4 years with quarterly tranches.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,53 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - stock-based compensation
+  - SBC
+  - RSU
+  - stock options
+  - ASC 718
+  - R&D expense
+  - engineering equity
+  - non-cash expense
+classification_notes: Typically the largest SBC allocation for technology companies
+  given the size of engineering teams. Non-cash expense under ASC 718. R&D SBC is
+  commonly added back for non-GAAP metrics. Includes RSUs, stock options, ESPP discounts,
+  and performance shares for R&D staff. Capitalization under ASC 350-40 for internal-use
+  software may apply to some SBC.
 variance_drivers:
-  tags: []
+  tags:
+    - grant volume
+    - stock price
+    - engineering headcount
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Expanded engineering team with competitive equity packages
+      2. Annual refresh grants layering on top of prior unvested awards
+      3. Rising stock price increasing grant-date fair value of new awards
+      4. Accelerated vesting from acquisitions triggering change-of-control provisions
+      5. Retention grants to prevent attrition during competitive talent market
+    if_decreased: |-
+      1. Large prior-year grants fully vested reducing ongoing amortization
+      2. Engineering layoffs causing forfeiture of unvested equity awards
+      3. Stock price decline reducing fair value of new option grants
+      4. Shifted compensation mix from equity to cash for R&D staff
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: R&D SBC is the largest functional allocation at most tech companies.
+    Companies with high SBC-to-revenue ratios face investor scrutiny. Some companies
+    capitalize a portion of R&D SBC under ASC 350-40 for internal-use software, reducing
+    the P&L impact.
+  examples:
+    - company: Snowflake
+      treatment: Reports very high R&D SBC as percentage of revenue, separately disclosed
+        in the SBC footnote by function
+    - company: Meta
+      treatment: Allocates SBC to R&D and other functions, with R&D being the largest
+        allocation given engineering-heavy workforce
+    - company: Workday
+      treatment: Discloses R&D SBC separately in operating expense breakdown, representing
+        a significant portion of total R&D expense
+coa_mapping:
+  quickbooks: '6250 - Stock-Based Compensation - R&D'
+  netsuite: '6250 - Stock-Based Compensation - R&D'
+  sap: '6200500 - Stock-Based Compensation R&D'

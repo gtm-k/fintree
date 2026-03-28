@@ -1,5 +1,5 @@
 id: fintree:Subassemblies
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: Sub-Assemblies
 short_label: Sub-Assemblies
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:PurchasedComponents
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Partially assembled components purchased externally and assembled into
   the final product.
-example: ''
+example: 'An appliance manufacturer purchases $6M in pre-assembled compressor units for refrigerators and $4M in pre-wired control boards for washing machines from contract manufacturers.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - subassembly
+  - outsourcing
+  - manufacturing
+  - contract_manufacturing
+classification_notes: 'Sub-assemblies are partially assembled units purchased from external contract manufacturers and integrated into the final product. They represent a make-vs-buy decision — higher sub-assembly costs typically mean lower direct labor and overhead. Quality defects in sub-assemblies create warranty and rework exposure. Distinguished from OEM components (which are individual parts, not assembled units).'
 variance_drivers:
-  tags: []
+  tags: [supplier_driven, outsourcing_driven, volume_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Contract manufacturer price increases, (2) strategic decision to outsource more assembly steps, (3) higher production volumes, (4) quality issues requiring rework or premium suppliers, (5) supply chain disruptions forcing alternate sourcing'
+    if_decreased: '(1) Bringing assembly in-house (insourcing), (2) renegotiated contract manufacturing terms, (3) lower production volumes, (4) consolidating sub-assembly suppliers, (5) design-for-manufacturing improvements reducing assembly complexity'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies with high outsourcing show large sub-assembly costs but lower labor and overhead. Vertically integrated companies show minimal sub-assembly purchases. Contract electronics manufacturers (Foxconn model) make this the dominant COGS category for their customers.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Purchases assembled iPhone sub-assemblies (display modules, camera modules) from Foxconn, LG, and Sony'
+    - company: 'Boeing'
+      treatment: 'Reports fuselage sections from Spirit AeroSystems and wing assemblies from Mitsubishi as sub-assemblies'
+    - company: 'Peloton'
+      treatment: 'Sources assembled bike frames and treadmill decks from contract manufacturers in Asia'
+coa_mapping:
+  quickbooks: '5122 - Sub-Assemblies'
+  netsuite: '5122 - Sub-Assemblies'
+  sap: '5122000 - Sub-Assemblies'

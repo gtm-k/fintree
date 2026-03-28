@@ -1,5 +1,5 @@
 id: fintree:OutboundFreightShipping
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:FreightCosts'
 label: Outbound Freight & Shipping
 short_label: Outbound Freight & Shipping
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:ShippingDistribution
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 606-10-25-18B'
 definition: Third-party shipping costs to deliver products to customers.
-example: ''
+example: 'A manufacturer ships 10,000 orders per month via UPS Ground at an average cost of $12 per shipment, plus 500 expedited shipments at $35 each, totaling $137.5K monthly ($1.65M annually) in outbound freight costs.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - shipping
+  - freight_out
+  - variable_cost
+  - opex
+  - revenue_correlated
+  - logistics
+classification_notes: 'Outbound freight (freight-out) is the cost of shipping finished goods to customers. This is a selling expense, distinct from freight-in (inbound shipping of materials from suppliers, which is COGS). Under ASC 606-10-25-18B, shipping occurring after control transfers to the customer is a fulfillment cost. Companies may include or exclude fuel surcharges, insurance, and handling fees. If the company charges customers for shipping, the revenue is reported in Net Revenue and the cost here.'
 variance_drivers:
-  tags: []
+  tags: [volume_driven, carrier_rate_driven, fuel_surcharge_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) higher order volume driving proportional shipping cost increase, (2) carrier rate increases including fuel surcharges, (3) customers requesting expedited or premium shipping, (4) heavier/bulkier product mix increasing per-unit shipping costs, (5) international shipping expansion with higher rates'
+    if_decreased: '(1) lower order volume reducing total shipping costs, (2) negotiated volume discounts with carriers, (3) shift to slower/cheaper shipping methods, (4) optimized packaging reducing dimensional weight charges, (5) regional distribution reducing average shipping distance'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Classification of outbound freight varies significantly between companies. Some include it in COGS, others in selling expenses, and some report it as a separate line item. This is one of the most important comparability adjustments when benchmarking companies. Check the accounting policy note for classification. Companies offering free shipping absorb this entirely; those charging for shipping offset it partially with shipping revenue.'
+  examples:
+    - company: 'Amazon'
+      treatment: 'Outbound shipping included in Cost of Sales; reported shipping costs of ~$90B in 2023'
+    - company: 'FedEx'
+      treatment: 'As a carrier, outbound shipping is COGS (purchased transportation); own delivery is operating cost'
+    - company: 'Chewy'
+      treatment: 'Shipping costs included in SG&A; significant cost given heavy pet food/supplies shipments'
+coa_mapping:
+  quickbooks: '6471 - Outbound Freight & Shipping'
+  netsuite: '7510 - Outbound Freight & Shipping'
+  sap: '6600100 - Outbound Freight Shipping'

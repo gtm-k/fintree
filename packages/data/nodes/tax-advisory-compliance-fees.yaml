@@ -1,5 +1,5 @@
 id: fintree:TaxAdvisoryComplianceFees
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ProfessionalFees'
 label: Tax Advisory & Compliance Fees
 short_label: Tax Advisory & Compliance Fees
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:FinanceAccounting
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 740'
 definition: Fees for external tax preparation, planning, and compliance services.
-example: ''
+example: 'A multinational company pays $650K/year in tax fees: $250K federal and state tax return preparation, $200K international tax advisory, $120K transfer pricing study, $80K sales tax compliance.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - finance
+  - tax
+  - professional_fees
+  - compliance
+  - advisory
+classification_notes: 'Tax advisory fees are G&A operating expenses (not income tax expense). These are the cost of preparing and planning taxes, not the taxes themselves. SEC requires disclosure of tax fees paid to the auditor in the proxy. Tax fees related to M&A transactions may be capitalized as transaction costs. Transfer pricing studies for multinational companies are a significant component.'
 variance_drivers:
-  tags: []
+  tags: [complexity_driven, transaction_driven, regulatory_driven, entity_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) international expansion adding foreign tax jurisdictions, (2) M&A transactions requiring tax structuring, (3) new tax legislation requiring compliance changes (e.g., GILTI, BEAT), (4) IRS audit defense, (5) transfer pricing documentation for new intercompany arrangements'
+    if_decreased: '(1) building internal tax team reducing outside advisory needs, (2) simplification of legal entity structure, (3) tax technology automation reducing preparation costs, (4) resolved IRS audits, (5) consolidated return filing reducing separate entity work'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Tax fees scale with complexity, not just company size. Multinational companies with 50+ jurisdictions pay significantly more. Private companies may outsource all tax work. Tax fees paid to the audit firm are disclosed in the proxy, but fees to other tax advisors are not separately disclosed.'
+  examples:
+    - company: 'Alphabet'
+      treatment: 'Complex international tax structure; significant tax advisory fees disclosed in proxy; classified in G&A'
+    - company: 'Small domestic company'
+      treatment: 'Tax return preparation $5K-$20K/year from local CPA firm; minimal advisory fees'
+coa_mapping:
+  quickbooks: '6640 - Tax Advisory & Compliance Fees'
+  netsuite: '7240 - Tax Advisory & Compliance Fees'
+  sap: '6640000 - Tax Advisory Compliance Fees'

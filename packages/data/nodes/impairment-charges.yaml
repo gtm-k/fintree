@@ -1,5 +1,5 @@
 id: fintree:ImpairmentCharges
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:AssetImpairmentCharges'
 label: Impairment Charges
 short_label: Impairment Charges
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingExpenses
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 350-20 / ASC 360-10'
 definition: Write-down of long-lived assets or goodwill when carrying value exceeds
   recoverable amount (ASC 350, ASC 360).
-example: A media company writing down acquired goodwill after a business unit underperforms.
+example: 'Kraft Heinz recorded a $15.9B goodwill and intangible asset impairment charge in 2018 (announced February 2019) related to its Kraft and Oscar Mayer brands, one of the largest write-downs in US corporate history.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - impairment
+  - goodwill_writedown
+  - asset_writedown
+  - non_cash
+  - non_recurring
+  - asc_350
+  - asc_360
+classification_notes: 'Goodwill impairment (ASC 350) uses a one-step quantitative test comparing reporting unit fair value to carrying amount. Long-lived asset impairment (ASC 360) triggers when undiscounted cash flows are below carrying value, then measured at fair value. Impairments are non-cash charges that signal overpayment in past acquisitions or declining business outlook. Once recognized, impairments cannot be reversed under US GAAP. Analysts typically exclude from recurring earnings but view as an important signal about management capital allocation quality.'
 variance_drivers:
-  tags: []
+  tags: [acquisition_history, business_performance, market_conditions, triggering_events]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) declining business performance triggering goodwill impairment test failure, (2) M&A overpayment becoming evident as acquired business underperforms, (3) market downturn reducing fair value of reporting units, (4) strategic pivot abandoning previously acquired capabilities, (5) rising discount rates reducing present value of future cash flows'
+    if_decreased: '(1) no triggering events requiring impairment testing beyond annual test, (2) strong performance of acquired businesses validating purchase prices, (3) prior write-downs already recognized leaving lower carrying values, (4) conservative acquisition pricing providing headroom above carrying value'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Classification varies — some companies report impairment within operating expenses, others as non-operating. Goodwill impairment is always disclosed separately when material. Industries with heavy M&A activity (tech, media, pharma) tend to have more impairments. IFRS allows reversal of asset impairments (not goodwill); US GAAP does not.'
+  examples:
+    - company: 'Kraft Heinz'
+      treatment: 'Goodwill and intangible asset impairment — $15.9B write-down on Kraft and Oscar Mayer brands (2018, announced Feb 2019)'
+    - company: 'Warner Bros. Discovery'
+      treatment: 'Goodwill impairment after merger — reported as separate operating line item'
+    - company: 'Uber'
+      treatment: 'Impairment on equity method investments — wrote down Didi and other stakes'
+coa_mapping:
+  quickbooks: '7700 - Impairment Charges'
+  netsuite: '7700 - Impairment Charges'
+  sap: '7700000 - Impairment Charges'

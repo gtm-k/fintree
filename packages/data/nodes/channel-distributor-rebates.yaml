@@ -1,5 +1,5 @@
 id: fintree:ChannelDistributorRebates
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RebatesPayable'
 label: Channel / Distributor Rebates
 short_label: Channel / Distributor Rebates
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:RebatesCredits
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-32-5, ASC 606-10-32-25'
 definition: Rebates paid to distributors or channel partners for hitting sales volume
   targets.
-example: ''
+example: "A semiconductor company paying $15M in quarterly rebates to its top 5 distributors who exceeded $300M in combined purchase targets, recorded as a reduction of revenue."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - rebates
+  - channel_partner
+  - distributor
+  - asc_606
+  - variable_consideration
+classification_notes: "Channel rebates are classified as a reduction of revenue (not an expense) under ASC 606 when the payment to the customer (distributor) does not provide a distinct good or service. If the distributor provides identifiable marketing services, the rebate may be partially classified as a marketing expense. Estimation of rebate accruals requires judgment on whether volume targets will be met."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, contract_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) distributors exceeding volume targets triggering higher rebate tiers, (2) new channel partner agreements with rebate incentives, (3) increased reliance on indirect channel vs. direct sales, (4) competitive pressure requiring richer channel incentives, (5) channel expansion into new geographies"
+    if_decreased: "(1) shift to direct sales model bypassing distributors, (2) renegotiated partner agreements with lower rebate rates, (3) distributors falling short of volume targets, (4) channel partner consolidation reducing number of rebate agreements, (5) tighter rebate program qualification criteria"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Technology, pharma, and CPG companies commonly use channel rebate programs. Indirect-channel-heavy companies (Cisco, HP) have significant rebate accruals. Some companies disclose rebate liabilities on the balance sheet."
+  examples:
+    - company: "Cisco"
+      treatment: "Channel partner rebates accrued as reduction of revenue; rebate liability on balance sheet"
+    - company: "HP Inc."
+      treatment: "Partner rebates and incentives netted against net revenue"
+    - company: "AbbVie"
+      treatment: "Wholesaler chargebacks and distribution fees recorded as gross-to-net adjustments"
+coa_mapping:
+  quickbooks: "4530 - Channel Rebates"
+  netsuite: "4530 - Distributor Rebates"
+  sap: "8530000 - Channel/Distributor Rebates"

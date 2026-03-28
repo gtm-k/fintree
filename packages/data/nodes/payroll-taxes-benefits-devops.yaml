@@ -1,5 +1,5 @@
 id: fintree:PayrollTaxesBenefitsDevops
-xbrl_tag: ''
+xbrl_tag: us-gaap:EmployeeBenefitsAndShareBasedCompensation
 label: Payroll Taxes & Benefits — DevOps
 short_label: Payroll Taxes & Benefits — Dev
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Employer payroll taxes and benefits for COGS-classified engineering staff.
-example: ''
+example: A SaaS company pays $92K/quarter in FICA taxes and $48K in health insurance
+  premiums for its 12-person DevOps team classified under COGS.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,49 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - payroll taxes
+  - employee benefits
+  - DevOps
+  - FICA
+  - health insurance
+  - COGS labor
+  - platform engineering
+classification_notes: Only includes taxes and benefits for engineering staff whose
+  work directly supports production infrastructure (DevOps, SRE, platform engineering).
+  Engineers working on new features belong under R&D payroll taxes. The split between
+  COGS and R&D engineering must follow consistent allocation methodology.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - benefits plan costs
+    - tax rate changes
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Expanded DevOps/SRE team headcount increasing tax and benefits burden
+      2. Healthcare premium renewal at higher rates
+      3. Reclassified engineers from R&D to COGS-DevOps increasing this line
+      4. Annual salary increases driving higher FICA/FUTA tax base
+    if_decreased: |-
+      1. Reduced DevOps headcount through automation or attrition
+      2. Shifted to contractor-based DevOps model (no employer taxes/benefits)
+      3. Migrated employees to lower-cost benefits plans
+      4. Reclassified staff from COGS-DevOps to R&D
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Many companies do not break out DevOps payroll taxes separately; they
+    are bundled into total COGS personnel costs. The allocation of engineering staff
+    between COGS and R&D varies significantly across SaaS companies.
+  examples:
+    - company: Datadog
+      treatment: Includes DevOps-related personnel costs within cost of revenue without
+        separately disclosing payroll taxes
+    - company: Twilio
+      treatment: Allocates engineering payroll taxes between cost of revenue and R&D
+        based on time allocation
+    - company: MongoDB
+      treatment: Reports personnel-related costs including benefits within cost of
+        revenue for infrastructure-supporting staff
+coa_mapping:
+  quickbooks: '5120 - Payroll Taxes & Benefits - DevOps'
+  netsuite: '5120 - Payroll Taxes Benefits - DevOps'
+  sap: '4100120 - Payroll Taxes Benefits DevOps'

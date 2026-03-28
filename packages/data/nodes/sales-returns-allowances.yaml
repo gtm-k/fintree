@@ -1,16 +1,17 @@
 id: fintree:SalesReturnsAllowances
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RevenueAdjustmentForReturnsAndAllowances'
 label: SALES RETURNS & ALLOWANCES
 short_label: SALES RETURNS & ALLOWANCES
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:RevenueDeductions
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Merchandise Returns + Allowances for Defective Goods + Reserve for Future Returns'
+formula_machine: 'fintree:MerchandiseReturns + fintree:AllowancesForDefectiveGoods + fintree:ReserveForFutureReturns'
+asc_reference: 'ASC 606-10-32-8'
 definition: Reductions for goods returned by customers or credits granted for defective/damaged
   goods.
-example: ''
+example: "An online retailer with $500M in gross sales records $35M in merchandise returns, $5M in defective goods allowances, and a $10M reserve for future returns, totaling $50M in returns and allowances."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - returns
+  - allowances
+  - asc_606
+  - variable_consideration
+  - refund_liability
+classification_notes: "Under ASC 606, returns and allowances are treated as variable consideration and must be estimated at contract inception. A refund liability is recorded for expected returns, along with a right-of-return asset for the inventory expected to be recovered. E-commerce and retail companies typically have higher return rates (15-30%) than B2B companies (1-5%)."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, seasonal, policy_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) product quality issues driving higher defect-related returns, (2) more generous return policies (e.g., extended holiday return windows), (3) higher e-commerce mix with inherently higher return rates, (4) new product launches with higher trial-and-return behavior, (5) seasonal post-holiday return surge"
+    if_decreased: "(1) improved product quality and fewer defects, (2) better product descriptions/images reducing expectation mismatches, (3) tighter return policies, (4) shift to non-returnable product categories, (5) improved sizing/fit technology reducing apparel returns"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Most companies net returns against revenue and do not separately disclose the amount. E-commerce companies tend to have the highest return rates. Some companies disclose return reserves in balance sheet footnotes."
+  examples:
+    - company: "Amazon"
+      treatment: "Returns netted against net sales; return allowance on balance sheet"
+    - company: "Nordstrom"
+      treatment: "Liberal return policy; returns and allowances netted in net sales"
+    - company: "Wayfair"
+      treatment: "High return rates for furniture; disclosed in revenue recognition notes"
+coa_mapping:
+  quickbooks: "4510 - Sales Returns & Allowances"
+  netsuite: "4510 - Sales Returns & Allowances"
+  sap: "8510000 - Sales Returns & Allowances"

@@ -1,5 +1,5 @@
 id: fintree:RightofuseAssetAmortization
-xbrl_tag: ''
+xbrl_tag: "us-gaap:FinanceLeaseRightOfUseAssetAmortization"
 label: Right-of-Use Asset Amortization
 short_label: Right-of-Use Asset Amortizatio
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:AmortizationOfIntangibleAssets
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 842"
 definition: Amortization of finance lease right-of-use assets (ASC 842).
-example: ''
+example: "A company enters a 10-year finance lease for equipment valued at $5M, recording $500K/year in ROU asset amortization (separate from the interest component of the lease payment)."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - amortization
+  - right_of_use
+  - finance_lease
+  - asc_842
+  - non_cash
+  - lease_accounting
+classification_notes: "Only finance lease ROU assets are amortized (similar to owned assets). Operating lease ROU assets are not amortized -- instead, a single lease expense is recognized on a straight-line basis. Finance lease cost has two components: (1) ROU asset amortization (in D&A or operating expenses) and (2) interest on lease liability (in interest expense). Amortization is typically straight-line over the lease term or useful life of the asset, whichever is shorter."
 variance_drivers:
-  tags: []
+  tags: [lease_driven, non_cash, asc_842, predictable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new finance leases entered (equipment, real estate), (2) reclassification of operating leases to finance leases, (3) lease modifications extending term, (4) sale-leaseback transactions classified as finance leases"
+    if_decreased: "(1) finance lease expirations, (2) early lease terminations, (3) lease buyouts converting to owned assets, (4) reclassification to operating leases"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Airlines and retailers with significant finance leases have the highest ROU amortization. Most office and warehouse leases are operating leases (no ROU amortization). The finance vs operating lease classification significantly affects where costs appear on the income statement. Companies transitioning from legacy capital leases under ASC 840 to ASC 842 maintain finance lease classification."
+  examples:
+    - company: "American Airlines"
+      treatment: "Significant finance lease ROU amortization on aircraft and ground equipment"
+    - company: "Walgreens"
+      treatment: "Finance lease ROU amortization on select retail locations and equipment"
+    - company: "Amazon"
+      treatment: "Finance lease amortization on data center equipment and fulfillment center assets"
+coa_mapping:
+  quickbooks: "6765 - Right-of-Use Asset Amortization"
+  netsuite: "6765 - ROU Asset Amortization"
+  sap: "6765000 - Right-of-Use Asset Amortization"

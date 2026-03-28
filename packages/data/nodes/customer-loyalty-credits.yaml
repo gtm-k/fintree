@@ -1,5 +1,5 @@
 id: fintree:CustomerLoyaltyCredits
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ContractWithCustomerLiabilityRevenueRecognized'
 label: Customer Loyalty Credits
 short_label: Customer Loyalty Credits
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:RebatesCredits
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-55-41'
 definition: Credits issued to customers under loyalty programs redeemable against
   future purchases.
-example: ''
+example: "Starbucks deferring $1.6B in revenue from its Rewards program loyalty points, recognizing revenue only when stars are redeemed or expire (breakage)."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - loyalty_program
+  - deferred_revenue
+  - material_right
+  - asc_606
+  - breakage
+classification_notes: "Under ASC 606, loyalty points are a material right (separate performance obligation). A portion of the transaction price is allocated to the loyalty points based on their standalone selling price and deferred until redemption. Breakage (unredeemed points) is recognized proportionally as points are redeemed. This creates a contract liability on the balance sheet that can be substantial for large loyalty programs."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, retention_driven, seasonal]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) loyalty program expansion increasing points issuance, (2) higher sales volume generating more loyalty credits, (3) reduced breakage estimates requiring more deferred revenue, (4) richer reward tiers increasing per-transaction credit allocation, (5) new partnership earning opportunities"
+    if_decreased: "(1) higher point redemption rates releasing deferred revenue, (2) increased breakage estimates, (3) program restructuring reducing earn rates, (4) loyalty program wind-down or elimination, (5) expiration policy changes accelerating breakage recognition"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Airlines, hotels, and retailers have the largest loyalty programs. The accounting treatment creates significant deferred revenue (contract liability) on the balance sheet. Some companies operate third-party loyalty programs (credit card co-brands) adding complexity."
+  examples:
+    - company: "Starbucks"
+      treatment: "Stored value card and loyalty deferred revenue ($1.6B+ contract liability)"
+    - company: "Delta Air Lines"
+      treatment: "SkyMiles loyalty program deferred revenue; breakage recognized over time"
+    - company: "Amazon"
+      treatment: "Prime rewards and loyalty credits allocated as material rights"
+coa_mapping:
+  quickbooks: "4540 - Loyalty Credits / Rewards"
+  netsuite: "4540 - Customer Loyalty Credits"
+  sap: "8540000 - Customer Loyalty Credits"

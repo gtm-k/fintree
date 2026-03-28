@@ -1,5 +1,5 @@
 id: fintree:CreditCardProcessingFees
-xbrl_tag: ''
+xbrl_tag: us-gaap:PaymentsForCommissions
 label: Credit Card Processing Fees
 short_label: Credit Card Processing Fees
 level: 4
@@ -9,7 +9,9 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Merchant fees (typically 1.5–3%) charged per customer payment transaction.
-example: ''
+example: An e-commerce retailer processes $10M in credit card transactions monthly
+  and pays 2.9% + $0.30 per transaction to Stripe, totaling approximately $295K/month
+  in processing fees.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +25,49 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - merchant fees
+  - payment processing
+  - interchange fees
+  - credit card
+  - Stripe
+  - transaction costs
+  - cost of revenue
+classification_notes: Always classified as cost of revenue when fees are transaction-based
+  and tied to customer payments. Some companies net processing fees against revenue
+  (agent model under ASC 606) rather than reporting gross. Distinguish from bank wire
+  fees or ACH costs which may be lower-cost alternatives.
 variance_drivers:
-  tags: []
+  tags:
+    - transaction volume
+    - payment mix
+    - interchange rates
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Revenue growth driving higher transaction volumes
+      2. Shift in payment mix toward higher-cost card types (rewards cards, international cards)
+      3. Processor rate increases or loss of volume discount tiers
+      4. Expansion into international markets with higher cross-border fees
+    if_decreased: |-
+      1. Negotiated lower processing rates with payment processor
+      2. Customer shift to ACH, wire, or direct debit reducing card usage
+      3. Volume discount tiers achieved through growth
+      4. Switching to lower-cost payment processors or interchange-plus pricing
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Companies acting as payment intermediaries (agent model) may net fees
+    against revenue. Gross vs. net presentation significantly impacts reported revenue
+    and COGS. Some companies bundle processing fees with other transaction costs.
+  examples:
+    - company: Shopify
+      treatment: Reports merchant payment processing fees as cost of revenue under
+        Merchant Solutions segment
+    - company: Square (Block)
+      treatment: Reports transaction-based costs including interchange as cost of
+        revenue in its Seller ecosystem
+    - company: Amazon
+      treatment: Includes credit card processing fees within overall cost of sales,
+        not separately disclosed
+coa_mapping:
+  quickbooks: '5210 - Credit Card Processing Fees'
+  netsuite: '5210 - Credit Card Processing Fees'
+  sap: '0052100 - Credit Card Processing Fees'

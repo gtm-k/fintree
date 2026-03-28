@@ -1,5 +1,5 @@
 id: fintree:CumulativeEffectOfPrincipleChange
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:NewAccountingPronouncementOrChangeInAccountingPrincipleEffectOfAdoptionQuantification'
 label: Cumulative Effect of Principle Change
 short_label: Cumulative Effect of Principle
 level: 3
@@ -7,10 +7,11 @@ node_type: SUB_CATEGORY
 parent_id: fintree:CumulativeEffectOfAccountingChanges
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 250-10-45'
 definition: One-time P&L impact from the transition to a new accounting standard (e.g.,
   adoption of ASC 842 lease accounting).
-example: ''
+example: 'A bank adopting CECL (ASC 326) in 2020 recorded a $1.8B cumulative catch-up increase to its loan loss allowance, with a $1.4B after-tax reduction to opening retained earnings.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - accounting_principle_change
+  - cumulative_catch_up
+  - standard_transition
+  - asc_250
+  - one_time
+  - retained_earnings_adjustment
+classification_notes: 'This records the P&L or retained earnings impact of transitioning to a new accounting principle. Most modern standard transitions use modified retrospective (retained earnings adjustment) rather than income statement recognition. Voluntary changes in principle (e.g., switching from LIFO to FIFO) require retrospective application to all prior periods. Mandatory changes follow transition guidance in the specific ASU. The cumulative effect captures the difference between old and new measurement for all assets/liabilities affected as of the adoption date.'
 variance_drivers:
-  tags: []
+  tags: [standard_adoption, measurement_gap, transition_method, business_model_impact]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) major new standard with fundamentally different measurement basis (e.g., CECL vs. incurred loss), (2) large portfolio of affected items amplifying the cumulative difference, (3) voluntary accounting change where preferable method produces materially different results, (4) deferred adoption concentrating impact in a single period'
+    if_decreased: '(1) new standard produces similar measurements to the old approach, (2) early adoption spread the impact over prior periods via retrospective method, (3) small portfolio of affected items, (4) standard adopted prospectively with no catch-up adjustment'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Impact varies dramatically by industry and the specific standard adopted. CECL hit banks hardest; ASC 606 hit tech/SaaS; ASC 842 hit asset-light companies with large operating lease portfolios. Transition disclosures in Year 1 footnotes are essential for understanding the magnitude.'
+  examples:
+    - company: 'Wells Fargo'
+      treatment: 'CECL adoption — $3.3B increase to allowance, $2.5B after-tax retained earnings reduction'
+    - company: 'Adobe'
+      treatment: 'ASC 606 cumulative catch-up — deferred revenue timing changes from subscription model'
+    - company: 'Walgreens'
+      treatment: 'ASC 842 adoption — $22B operating lease right-of-use assets recognized on balance sheet'
+coa_mapping:
+  quickbooks: '9525 - Cumulative Effect of Principle Change'
+  netsuite: '9525 - Cumulative Effect of Principle Change'
+  sap: '7975000 - Cumulative Effect of Principle Change'

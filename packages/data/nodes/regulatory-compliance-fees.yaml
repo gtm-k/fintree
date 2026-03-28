@@ -1,5 +1,5 @@
 id: fintree:RegulatoryComplianceFees
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RegulatoryAgencyFees'
 label: Regulatory & Compliance Fees
 short_label: Regulatory & Compliance Fees
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:LegalCompliance
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Costs of regulatory filings, compliance programs, and government fees.
-example: ''
+example: 'A public company pays $320K/year in regulatory fees: $150K SEC filing fees, $80K stock exchange listing fees (NYSE/NASDAQ), $50K state registration fees, $40K compliance consulting.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - legal
+  - regulatory
+  - compliance
+  - government_fees
+  - filing_fees
+classification_notes: 'Includes SEC filing fees, stock exchange listing fees, state corporation fees, industry-specific licensing fees, and compliance consulting. Financial services firms pay significant regulatory fees to FINRA, OCC, FDIC, and state regulators. GDPR, HIPAA, and SOX compliance consulting fees belong here. Regulatory fines and penalties should be disclosed separately and may not be tax-deductible.'
 variance_drivers:
-  tags: []
+  tags: [regulatory_driven, compliance_driven, industry_driven, event_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new regulatory requirements (GDPR, CCPA, AI regulations), (2) IPO creating SEC and exchange listing fees, (3) expansion into regulated industries or markets, (4) increased compliance consulting for new mandates, (5) government fee increases'
+    if_decreased: '(1) deregistration from SEC reporting, (2) regulatory simplification, (3) bringing compliance expertise in-house, (4) delisting from a stock exchange, (5) exiting regulated business lines'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Financial services and healthcare companies face the highest regulatory costs (FDIC assessments, OCC fees, HIPAA compliance). Tech companies face increasing regulatory scrutiny (privacy, AI, antitrust). SEC filing fees are based on aggregate offering amount. Stock exchange listing fees are based on shares outstanding.'
+  examples:
+    - company: 'Bank of America'
+      treatment: 'FDIC insurance assessments and OCC fees are significant regulatory costs within noninterest expense'
+    - company: 'Pfizer'
+      treatment: 'FDA regulatory compliance costs (clinical trial oversight, drug safety reporting) embedded in G&A and R&D'
+coa_mapping:
+  quickbooks: '6680 - Regulatory & Compliance Fees'
+  netsuite: '7280 - Regulatory & Compliance Fees'
+  sap: '6680000 - Regulatory Compliance Fees'

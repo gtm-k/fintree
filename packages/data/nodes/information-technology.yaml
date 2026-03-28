@@ -1,13 +1,14 @@
 id: fintree:InformationTechnology
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InformationTechnologyAndDataProcessing'
 label: INFORMATION TECHNOLOGY (IT)
 short_label: INFORMATION TECHNOLOGY (IT)
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GeneralAdministrativeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'IT Staff Compensation + Software Subscriptions (Corporate) + Hardware & Equipment (Corporate) + Cybersecurity & Compliance Software + IT Infrastructure & Networking'
+formula_machine: 'fintree:ItStaffCompensation + fintree:SoftwareSubscriptionsCorporate + fintree:HardwareEquipmentCorporate + fintree:CybersecurityComplianceSoftware + fintree:ItInfrastructureNetworking'
+asc_reference: 'ASC 350-40'
 definition: Costs of corporate IT infrastructure and systems, excluding software used
   in the production environment (which is COGS for SaaS).
 example: A company's internal email servers, corporate laptops, and business intelligence
@@ -25,14 +26,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - information_technology
+  - software
+  - hardware
+  - infrastructure
+  - cybersecurity
+  - corporate
+classification_notes: 'Critical to distinguish corporate IT (G&A) from production IT (COGS). For SaaS companies, hosting and infrastructure serving the product is COGS, while internal corporate tools are G&A. For manufacturing, production floor automation and SCADA systems are manufacturing overhead, not G&A IT.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, technology_driven, contract_driven, security_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new ERP or enterprise system implementation, (2) cybersecurity investments post-breach or for compliance, (3) laptop refresh cycle for employees, (4) expansion of corporate software licenses with headcount growth, (5) migration to new IT infrastructure'
+    if_decreased: '(1) vendor consolidation reducing software sprawl, (2) renegotiated multi-year enterprise agreements, (3) headcount reductions lowering license counts, (4) cloud migration eliminating on-premise hardware costs, (5) outsourcing IT support to managed service providers'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'IT spend as % of revenue varies by industry: financial services 7-10%, tech companies 5-8%, manufacturing 2-4%. Some companies report IT costs under each functional department rather than centrally. Cloud-first companies have higher opex but lower capex for IT.'
+  examples:
+    - company: 'Accenture'
+      treatment: 'Significant IT investment classified in G&A; distinguishes from client-facing technology services (revenue)'
+    - company: 'Capital One'
+      treatment: 'Technology is a core strategic investment; IT costs are a large portion of noninterest expense'
+    - company: 'Caterpillar'
+      treatment: 'Corporate IT in G&A; production floor technology in COGS/manufacturing overhead'
+coa_mapping:
+  quickbooks: '6800 - Information Technology'
+  netsuite: '7400 - Information Technology'
+  sap: '6800000 - Information Technology'

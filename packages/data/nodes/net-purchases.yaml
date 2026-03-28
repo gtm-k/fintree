@@ -1,5 +1,5 @@
 id: fintree:NetPurchases
-xbrl_tag: ''
+xbrl_tag: us-gaap:InventoryPurchases
 label: Net Purchases
 short_label: Net Purchases
 level: 3
@@ -10,7 +10,9 @@ formula_human: ''
 asc_reference: ''
 definition: Total purchases of inventory during the period, net of purchase returns
   and discounts.
-example: ''
+example: A retailer purchases $5.2M of merchandise from suppliers during Q3, less
+  $180K in purchase returns and $95K in early-payment discounts, for net purchases
+  of $4.925M.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +26,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - inventory purchases
+  - purchase returns
+  - purchase discounts
+  - cost of goods sold
+  - procurement
+  - supply chain
+classification_notes: Net purchases equals gross purchases minus purchase returns and
+  allowances minus purchase discounts. Only includes inventory for resale or raw materials
+  for production. Capital equipment purchases are not included here. Freight-in may
+  be included or reported separately depending on company policy.
 variance_drivers:
-  tags: []
+  tags:
+    - volume
+    - pricing
+    - supplier mix
+    - seasonality
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Increased procurement to support higher anticipated sales volume
+      2. Supplier price increases passed through in purchase costs
+      3. Seasonal inventory buildup ahead of peak selling period
+      4. Stocked up on materials due to anticipated supply chain disruptions
+      5. Expanded product assortment requiring additional inventory categories
+    if_decreased: |-
+      1. Reduced order volume due to lower demand forecasts
+      2. Negotiated better supplier pricing or volume discounts
+      3. Destocking strategy to reduce excess inventory levels
+      4. Shifted to just-in-time procurement reducing purchase frequency
+      5. Supplier consolidation resulting in better terms and lower costs
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Retailers typically report net purchases as a major COGS component,
+    while manufacturers may report raw materials purchases instead. Some companies
+    include freight-in within net purchases; others report it separately.
+  examples:
+    - company: Walmart
+      treatment: Reports purchases within cost of sales as part of its periodic inventory
+        system, netting returns and allowances
+    - company: Costco
+      treatment: Includes merchandise costs net of vendor rebates and allowances within
+        cost of sales
+    - company: Target
+      treatment: Reports cost of sales inclusive of net purchases, freight, and distribution
+        center costs combined
+coa_mapping:
+  quickbooks: '5000 - Purchases'
+  netsuite: '5000 - Net Purchases'
+  sap: '4000000 - Net Purchases'

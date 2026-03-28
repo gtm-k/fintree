@@ -1,5 +1,5 @@
 id: fintree:DistributionCenterCosts
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Distribution Center Costs
 short_label: Distribution Center Costs
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Operating costs of distribution centers handling finished goods awaiting
   delivery.
-example: ''
+example: A consumer goods company operates 5 distribution centers with combined annual
+  costs of $18M including warehouse labor, utilities, equipment, and facility leases.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - distribution center
+  - warehouse
+  - fulfillment
+  - logistics
+  - shipping
+  - supply chain
+  - inventory management
+classification_notes: Some companies classify distribution costs in COGS (product
+  companies) while others put them in SG&A (when viewed as selling costs). Under ASC
+  330, distribution costs after production are period costs unless the company elects
+  to include them in inventory. Third-party logistics (3PL) fees are a common alternative
+  to owned distribution centers.
 variance_drivers:
-  tags: []
+  tags:
+    - volume throughput
+    - facility costs
+    - labor rates
+    - automation
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Opening new distribution centers to expand geographic coverage
+      2. Volume growth requiring additional warehouse labor and shifts
+      3. Rising real estate and lease costs in distribution markets
+      4. Investment in warehouse automation (robotics, conveyors)
+      5. Seasonal peak staffing for holiday fulfillment
+    if_decreased: |-
+      1. Consolidation of distribution centers for efficiency
+      2. Outsourcing to third-party logistics (3PL) providers
+      3. Automation reducing warehouse labor requirements
+      4. Renegotiated facility leases at lower rates
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Retailers and manufacturers differ on whether distribution costs sit
+    in COGS or SG&A. Some companies operate their own facilities while others use
+    3PL exclusively. E-commerce companies may show fulfillment as a separate line item.
+  examples:
+    - company: Amazon
+      treatment: Reports fulfillment costs as a separate operating expense line,
+        including distribution center labor, facilities, and equipment
+    - company: Walmart
+      treatment: Includes distribution center costs within cost of sales
+    - company: Procter & Gamble
+      treatment: Reports distribution costs within SG&A, separately disclosing the
+        logistics and warehousing component
+coa_mapping:
+  quickbooks: '5620 - Distribution Center Costs'
+  netsuite: '5620 - Distribution Center Costs'
+  sap: '0056200 - Distribution Center Costs'

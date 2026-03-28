@@ -1,5 +1,5 @@
 id: fintree:LegacyExtraordinaryItems
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ExtraordinaryItemNetOfTax'
 label: Legacy Extraordinary Items
 short_label: Legacy Extraordinary Items
 level: 3
@@ -7,11 +7,12 @@ node_type: SUB_CATEGORY
 parent_id: fintree:ExtraordinaryItems
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 225-20 (superseded by ASU 2015-01)'
 definition: Pre-2015 classification for unusual and infrequent items. No longer a
   separate GAAP category; unusual/infrequent items are now disclosed within continuing
   operations.
-example: ''
+example: 'Pre-2016: A mining company lost a $200M open-pit mine due to government expropriation in a foreign country, recording a $200M extraordinary loss net of $42M tax benefit, for a net impact of $158M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +26,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - extraordinary_items
+  - legacy_gaap
+  - pre_2016
+  - unusual_infrequent
+  - historical
+  - eliminated
+classification_notes: 'This leaf exists solely for historical data compatibility. No new items should be classified here for filings after January 2016. Common legacy extraordinary items included: natural disaster gains/losses, government expropriation, early debt extinguishment (pre-ASU 2002), and prohibition-era legal changes. When encountered in historical data, these items should be understood as net-of-tax, below-the-line amounts that were both unusual AND infrequent.'
 variance_drivers:
-  tags: []
+  tags: [legacy_only, historical_analysis, data_compatibility]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) analyzing pre-2016 filings with large natural disaster events, (2) government expropriation events in historical data, (3) early debt extinguishment gains in older filings'
+    if_decreased: '(1) should always be zero in post-2016 filings, (2) reclassification of historical items under restatement, (3) smaller magnitude events in legacy periods'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Only appears in pre-2016 US GAAP filings. IFRS never had this category. When comparing across time periods, analysts must recognize that post-2016 unusual items appear within continuing operations rather than as extraordinary items.'
+  examples:
+    - company: 'Pre-2016 filings'
+      treatment: 'Extraordinary item, net of tax — required dual criteria of unusual AND infrequent'
+    - company: 'Post-2016 filings'
+      treatment: 'N/A — items previously classified here now shown within continuing operations'
+coa_mapping:
+  quickbooks: '9515 - Legacy Extraordinary Items'
+  netsuite: '9515 - Legacy Extraordinary Items'
+  sap: '7965000 - Legacy Extraordinary Items'

@@ -1,5 +1,5 @@
 id: fintree:OfficeEquipmentSupplies
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SuppliesExpense'
 label: Office Equipment & Supplies
 short_label: Office Equipment & Supplies
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:OfficeFacilitiesCorporate
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Consumable office supplies, furniture, and minor equipment not capitalized.
-example: ''
+example: 'A 200-person office spends $85K/year on supplies: $25K paper and printing supplies, $20K kitchen supplies and snacks, $30K furniture replacements, $10K miscellaneous office supplies.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,26 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - office
+  - supplies
+  - consumables
+  - discretionary
+classification_notes: 'Includes paper, toner, pens, kitchen supplies, breakroom snacks, furniture below capitalization threshold, and minor office equipment. Standing desk purchases above $1K-$5K capitalization threshold should be capitalized as PP&E. Office supplies for manufacturing areas are manufacturing overhead. Distinguish from IT hardware (computers, monitors) which go under IT.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, discretionary, inflation_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) headcount growth increasing consumable usage, (2) office build-out for new or renovated space, (3) return-to-office increasing in-office supply consumption, (4) enhanced kitchen/snack programs for employee retention, (5) inflation on paper and supply costs'
+    if_decreased: '(1) remote work reducing in-office supply needs, (2) going paperless reducing print supplies, (3) budget austerity cutting snack and kitchen programs, (4) bulk purchasing agreements reducing unit costs, (5) headcount reductions'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Tech companies tend to spend more per employee on office amenities (snacks, beverages, ergonomic furniture). Traditional offices spend more on paper and printing. This line item has declined industry-wide as offices go paperless and hybrid. Some companies combine this with office maintenance into a single facilities line.'
+  examples:
+    - company: 'Google'
+      treatment: 'Generous office amenities (micro-kitchens, snacks) included in G&A; higher per-employee spend'
+    - company: 'Law firm'
+      treatment: 'Higher paper and printing costs; premium office furniture capitalized and depreciated'
+coa_mapping:
+  quickbooks: '6580 - Office Equipment & Supplies'
+  netsuite: '7180 - Office Equipment & Supplies'
+  sap: '6580000 - Office Equipment Supplies'

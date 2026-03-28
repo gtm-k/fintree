@@ -1,5 +1,5 @@
 id: fintree:FurnitureFixturesDepreciation
-xbrl_tag: ''
+xbrl_tag: "us-gaap:DepreciationNonproduction"
 label: Furniture & Fixtures Depreciation
 short_label: Furniture & Fixtures Depreciat
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:DepreciationOfPropertyPlantEquipment
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 360-10"
 definition: Depreciation on office furniture, fixtures, and minor tangible assets.
-example: ''
+example: "A company furnishes a new 200-person office for $1.5M (desks, chairs, conference tables, monitors) depreciated over 7 years, recording $214K/year."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - furniture
+  - fixtures
+  - non_cash
+  - asc_360
+  - office_equipment
+  - minor_assets
+classification_notes: "Includes desks, chairs, cubicles, conference room furniture, filing cabinets, shelving, and non-IT office equipment. Useful life typically 5-10 years (IRS: 7 years for furniture and fixtures). Items below the company's capitalization threshold are expensed immediately. Some companies group IT equipment (monitors, docking stations) with fixtures."
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, non_cash, minor, office_expansion]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new office openings requiring furniture, (2) office renovation and refurnishing, (3) headcount growth requiring additional workstations, (4) acquisitions adding furnished offices"
+    if_decreased: "(1) furniture becoming fully depreciated, (2) office closures with furniture disposals, (3) downsizing reducing furniture needs, (4) shift to remote work"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Furniture depreciation is typically a small percentage of total D&A for most companies. Retail and hospitality companies may have higher fixture costs (display cases, store fixtures). Companies with high capitalization thresholds expense more items immediately, reducing this line."
+  examples:
+    - company: "WeWork"
+      treatment: "Significant furniture and fixture depreciation across co-working locations"
+    - company: "Target"
+      treatment: "Store fixtures depreciation across thousands of retail locations"
+    - company: "Accenture"
+      treatment: "Office furniture depreciation in global consulting offices"
+coa_mapping:
+  quickbooks: "6750 - Furniture & Fixtures Depreciation"
+  netsuite: "6750 - Furniture & Fixtures Depreciation"
+  sap: "6750000 - Furniture & Fixtures Depreciation"

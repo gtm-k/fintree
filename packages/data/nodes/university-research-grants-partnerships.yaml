@@ -1,5 +1,5 @@
 id: fintree:UniversityResearchGrantsPartnerships
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: University Research Grants & Partnerships
 short_label: University Research Grants & P
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:ExternalContractResearch
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25, ASC 730-20"
 definition: Funding provided to academic institutions for collaborative R&D.
-example: ''
+example: "A tech company funds $3M in AI research at MIT and $2M at Stanford for natural language processing research, with IP licensing rights to resulting discoveries."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - university
+  - grants
+  - partnerships
+  - academic_research
+  - asc_730
+classification_notes: "Grants and sponsored research payments to universities are expensed as incurred if the company bears the research risk. If the arrangement grants the company IP rights, analyze whether it is a funded R&D arrangement under ASC 730-20. Charitable research donations may be classified as G&A rather than R&D. Joint research ventures may require equity method or consolidation analysis."
 variance_drivers:
-  tags: []
+  tags: [strategic, discretionary, long_term, partnership_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new academic research partnerships established, (2) expanded funding for existing collaborations, (3) strategic pivot requiring fundamental research capabilities, (4) industry consortium participation"
+    if_decreased: "(1) partnership completions or expirations, (2) budget cuts reducing discretionary research spending, (3) shift to in-house research capabilities, (4) strategic reprioritization away from basic research"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Large tech and pharma companies are the heaviest funders of university research. Some arrangements include student placement programs. IP ownership terms vary -- some companies retain full rights, others share with the university. Government-funded joint programs may offset company costs."
+  examples:
+    - company: "Google"
+      treatment: "Extensive university AI research partnerships with major institutions globally"
+    - company: "Novartis"
+      treatment: "Multi-year research collaborations with universities for drug discovery"
+    - company: "IBM"
+      treatment: "Long-standing university research programs including quantum computing partnerships"
+coa_mapping:
+  quickbooks: "6662 - University Research Grants"
+  netsuite: "6662 - University Research & Partnerships"
+  sap: "6662000 - University Research Grants & Partnerships"

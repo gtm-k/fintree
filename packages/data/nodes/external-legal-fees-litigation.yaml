@@ -1,5 +1,5 @@
 id: fintree:ExternalLegalFeesLitigation
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:LitigationSettlementExpense'
 label: External Legal Fees — Litigation
 short_label: External Legal Fees — Litigati
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:LegalCompliance
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 450-20'
 definition: Fees for defending or prosecuting lawsuits (disclosed separately if material
   per Reg S-X).
-example: ''
+example: 'A company defending a patent infringement lawsuit pays $2.1M in litigation fees: $1.5M to lead litigation counsel, $400K expert witnesses and discovery, $200K e-discovery and document review.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,28 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - legal
+  - litigation
+  - lawsuit
+  - contingency
+  - non_recurring
+  - event_driven
+classification_notes: 'Litigation fees are expensed as incurred. Separate from settlement accruals — settlements are accrued when probable and estimable per ASC 450-20. Material litigation should be disclosed in footnotes (ASC 450-20-50). Companies often add back litigation costs in non-GAAP metrics. Insurance recoveries should be recorded separately, not netted against litigation costs, unless virtually certain.'
 variance_drivers:
-  tags: []
+  tags: [event_driven, litigation_driven, non_recurring, highly_variable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new lawsuits filed against the company, (2) existing litigation moving to trial phase (more expensive), (3) class action certification increasing defense costs, (4) government investigation or enforcement action, (5) IP litigation in competitive markets'
+    if_decreased: '(1) settlement of major litigation, (2) cases dismissed or resolved favorably, (3) insurance coverage offsetting defense costs, (4) strategic decision to settle early rather than litigate, (5) fewer new claims filed'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Litigation costs are inherently lumpy and unpredictable. Some companies report them as a separate line item when material; others bury them in G&A. Pharma (product liability), tech (patent trolls), and financial services (regulatory) face the highest litigation costs. Non-GAAP metrics often exclude litigation charges.'
+  examples:
+    - company: 'Meta Platforms'
+      treatment: 'FTC privacy litigation and antitrust cases; legal fees within G&A; settlement accruals separately disclosed'
+    - company: 'Bayer'
+      treatment: 'Massive Roundup litigation reserves; disclosed as significant items outside normal G&A'
+coa_mapping:
+  quickbooks: '6670 - External Legal Fees (Litigation)'
+  netsuite: '7270 - External Legal Fees — Litigation'
+  sap: '6670000 - Litigation Legal Fees'

@@ -1,16 +1,17 @@
 id: fintree:ShippingDistribution
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ShippingHandlingAndTransportationCosts'
 label: SHIPPING & DISTRIBUTION
 short_label: SHIPPING & DISTRIBUTION
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:SellingExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Outbound Freight & Shipping + Distribution Center Costs'
+formula_machine: 'fintree:OutboundFreightShipping + fintree:DistributionCenterCosts'
+asc_reference: 'ASC 606-10-25-18B'
 definition: Costs of delivering goods to customers (freight-out). SELLING expense
   — distinct from freight-in on materials, which is COGS.
-example: ''
+example: 'An e-commerce company spends $3M on UPS/FedEx outbound parcel shipping, $1.5M on distribution center lease and staffing, and $500K on last-mile delivery services, totaling $5M in shipping and distribution costs.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - shipping
+  - distribution
+  - freight_out
+  - opex
+  - variable_cost
+  - revenue_correlated
+classification_notes: 'Under ASC 606-10-25-18B, shipping and handling after control transfers to the customer may be treated as a fulfillment cost (expense) rather than a separate performance obligation. Companies can elect to classify shipping costs in COGS or in selling expenses — this is a significant comparability issue. Freight-OUT (to customers) is a selling expense; freight-IN (from suppliers) is COGS. Companies must disclose their shipping and handling cost policy. Free shipping offers increase this cost line.'
 variance_drivers:
-  tags: []
+  tags: [revenue_correlated, volume_driven, carrier_rate_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) higher order volume driving more shipments, (2) carrier rate increases (fuel surcharges, peak-season pricing), (3) shift to faster shipping methods (next-day, same-day), (4) expansion to new geographies with higher shipping costs, (5) free shipping promotions increasing company-borne costs'
+    if_decreased: '(1) lower order volume, (2) negotiated carrier rate reductions from volume commitments, (3) shift from individual shipments to consolidated freight, (4) opening distribution centers closer to customers, (5) passing shipping costs to customers (charging for shipping)'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Major comparability issue: some companies classify outbound shipping in COGS, others in selling expenses. Amazon classifies shipping costs in COGS; many manufacturers include it in selling expenses. ASC 606 allows companies to elect either treatment. When comparing companies, always check the shipping cost classification policy disclosed in the accounting policies footnote.'
+  examples:
+    - company: 'Amazon'
+      treatment: 'Shipping costs included in Cost of Sales (~$90B+); separate line item in income statement'
+    - company: 'Wayfair'
+      treatment: 'Customer service and merchant fees (includes shipping) shown separately; also significant costs in COGS'
+    - company: 'Procter & Gamble'
+      treatment: 'Shipping and handling costs included in SG&A, not COGS; disclosed in accounting policies'
+coa_mapping:
+  quickbooks: '6470 - Shipping & Distribution'
+  netsuite: '7500 - Shipping & Distribution'
+  sap: '6600000 - Shipping and Distribution'

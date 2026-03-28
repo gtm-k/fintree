@@ -1,5 +1,5 @@
 id: fintree:SalesBenefits
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:EmployeeBenefitsAndShareBasedCompensation'
 label: Sales Benefits
 short_label: Sales Benefits
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesForceCompensation
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 712'
 definition: Health insurance, retirement, and other benefits for sales employees.
-example: ''
-normal_balance: CREDIT
+example: 'A company with 40 sales employees pays $12K/year per employee in health insurance premiums ($480K), $4K/year in 401(k) matching ($160K), and $2K/year in other benefits ($80K), totaling $720K in sales benefits.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - sales_compensation
+  - benefits
+  - headcount_driven
+  - opex
+  - semi_fixed
+classification_notes: 'Benefits allocated to sales employees should be classified under selling expenses; benefits for G&A or R&D staff go to their respective categories. Includes health/dental/vision insurance, 401(k) matching, life insurance, disability, and other employer-paid benefits. Does not include stock-based compensation (reported separately under ASC 718). Post-retirement benefits for sales employees follow ASC 715.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, inflation_driven, plan_design_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) sales headcount growth increasing total benefits cost, (2) healthcare premium inflation (typically 5-8% annually), (3) enhanced benefits package to attract sales talent, (4) higher 401(k) match rates, (5) geographic expansion into states/countries with higher mandated benefits'
+    if_decreased: '(1) sales team reductions lowering headcount, (2) shift to high-deductible health plans reducing employer premiums, (3) reduced 401(k) match or employer contributions, (4) transition of sales reps to contractor/1099 status, (5) benefits plan renegotiation with carriers'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Benefits costs are never separately disclosed for sales employees in public filings. They are embedded in total Sales & Marketing or SG&A. International companies face significantly different benefits cost structures (e.g., European social charges can be 30-45% of salary vs. US employer benefits at 15-25%). Companies using independent sales reps or channel partners have minimal benefits costs.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'Embedded in Marketing and Sales; significant benefits load for ~30K+ sales employees'
+    - company: 'SAP'
+      treatment: 'Included in Sales and marketing; European social charges add significant per-head cost'
+    - company: 'Shopify'
+      treatment: 'Part of Sales and marketing; remote-first model with location-adjusted benefits'
+coa_mapping:
+  quickbooks: '6115 - Sales Employee Benefits'
+  netsuite: '7015 - Sales Benefits'
+  sap: '6100500 - Sales Employee Benefits'

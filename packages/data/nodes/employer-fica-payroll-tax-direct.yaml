@@ -1,5 +1,5 @@
 id: fintree:EmployerFicaPayrollTaxDirect
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Employer FICA / Payroll Tax — Direct
 short_label: 'Employer FICA / Payroll Tax — '
 level: 4
@@ -9,7 +9,9 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Employer's 7.65% FICA contribution on direct labor wages.
-example: ''
+example: A manufacturer with $2M in direct labor wages pays 6.2% Social Security
+  ($124K) and 1.45% Medicare ($29K) for a total employer FICA contribution of $153K
+  on those wages.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +25,48 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - FICA
+  - payroll tax
+  - Social Security
+  - Medicare
+  - employer tax
+  - direct labor cost
+classification_notes: FICA on direct labor is inventoriable under ASC 330 for manufacturers.
+  Social Security tax has a wage base cap ($168,600 for 2024) above which it stops;
+  Medicare has no cap and adds 0.9% surtax above $200K. Distinguish employer FICA
+  on direct labor (COGS) from FICA on SG&A or R&D employees.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - wage levels
+    - tax rate changes
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Direct labor headcount growth increasing total taxable wages
+      2. Wage increases pushing more employees above prior brackets
+      3. Federal FICA rate or wage base increases
+      4. Shift from contract labor (no FICA) to W-2 employees
+    if_decreased: |-
+      1. Reduction in direct labor headcount through automation
+      2. More employees reaching the Social Security wage base cap earlier in the year
+      3. Shift to contract/gig workers not subject to employer FICA
+      4. Workforce restructuring reducing direct labor roles
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: All US employers pay the same FICA rates, but the allocation between
+    COGS and OpEx varies. Manufacturers typically include FICA in inventoriable costs.
+    Service companies may lump all payroll taxes into a single G&A line. International
+    companies face different social contribution rates.
+  examples:
+    - company: General Motors
+      treatment: Includes employer payroll taxes on production labor within cost of
+        goods sold as an inventoriable cost
+    - company: Tyson Foods
+      treatment: Reports payroll taxes on plant workers within cost of sales
+    - company: FedEx
+      treatment: Includes employer FICA on operations employees within operating
+        expenses
+coa_mapping:
+  quickbooks: '5045 - Employer FICA / Payroll Tax - Direct'
+  netsuite: '5045 - Employer FICA Payroll Tax Direct'
+  sap: '0050450 - Employer FICA Direct Labor'

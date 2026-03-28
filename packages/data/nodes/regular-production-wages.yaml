@@ -1,5 +1,5 @@
 id: fintree:RegularProductionWages
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:DirectLaborCosts'
 label: Regular Production Wages
 short_label: Regular Production Wages
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:ProductionWages
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Standard hourly or salary compensation for direct production employees.
 example: Assembly line workers at an auto plant.
 normal_balance: DEBIT
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - wages
+  - hourly_labor
+  - production
+  - standard_pay
+classification_notes: 'Regular production wages are the straight-time (non-overtime) gross pay for workers directly involved in manufacturing. Excludes overtime premium (separate line item), employer payroll taxes, and benefits. In standard costing, this creates the basis for labor rate and efficiency variances. Includes both hourly and salaried production workers during their standard work hours.'
 variance_drivers:
-  tags: []
+  tags: [rate_driven, headcount_driven, volume_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Annual wage rate increases or cost-of-living adjustments, (2) additional production headcount hired, (3) minimum wage legislation increases, (4) union contract wage escalators, (5) shift from contract to permanent employees'
+    if_decreased: '(1) Automation reducing required production headcount, (2) lean manufacturing reducing labor hours per unit, (3) attrition not replaced during demand downturn, (4) shift to lower-cost production facility, (5) increased use of temporary staffing'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Wage rates vary dramatically by geography: US average manufacturing wage ~$25/hr vs. China ~$6/hr vs. Vietnam ~$3/hr. Union vs. non-union wage differentials can be 20-40%. Some companies include regular wages and overtime in a single line.'
+  examples:
+    - company: 'Toyota (US)'
+      treatment: 'Reports regular hourly wages for non-union US assembly workers at ~$30/hr; competitive with UAW rates'
+    - company: 'Foxconn'
+      treatment: 'Reports regular wages for assembly workers in China at approximately $3-5/hr; largest cost category'
+    - company: 'Deere & Company'
+      treatment: 'Reports UAW-negotiated hourly wages for production workers; includes skilled trades at higher rates'
+coa_mapping:
+  quickbooks: '5211 - Regular Production Wages'
+  netsuite: '5211 - Regular Production Wages'
+  sap: '5211000 - Regular Production Wages'

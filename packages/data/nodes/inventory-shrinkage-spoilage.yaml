@@ -1,5 +1,5 @@
 id: fintree:InventoryShrinkageSpoilage
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InventoryWriteDown'
 label: Inventory Shrinkage & Spoilage
 short_label: Inventory Shrinkage & Spoilage
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:InventoryWritedownsObsolescence
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Reduction in inventory due to theft, damage, or (for perishables) spoilage.
-example: ''
+example: 'A grocery chain discovers $3M in shrinkage during annual physical counts (theft, miscounting), plus $1.5M in spoiled perishable goods (expired dairy, damaged produce), for total shrinkage and spoilage of $4.5M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - inventory
+  - shrinkage
+  - spoilage
+  - theft
+  - perishable
+  - loss_prevention
+classification_notes: 'Inventory shrinkage is the difference between book inventory and physical count, caused by theft, damage, administrative errors, or vendor fraud. Spoilage applies to perishable goods (food, pharmaceuticals, chemicals) that expire or degrade. Normal shrinkage and spoilage are absorbed into COGS; abnormal amounts may be classified as a separate expense line. Retailers typically accrue a shrinkage reserve based on historical rates and true up at physical count.'
 variance_drivers:
-  tags: []
+  tags: [loss_prevention_driven, perishability_driven, seasonal_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Increased retail theft (organized retail crime), (2) supply chain disruptions causing damage in transit, (3) poor temperature control causing spoilage of perishables, (4) expanded self-checkout reducing theft deterrence, (5) longer storage times increasing spoilage for perishable goods'
+    if_decreased: '(1) Enhanced loss prevention technology (RFID, video analytics, AI), (2) improved cold chain management for perishables, (3) better inventory management reducing dwell time, (4) employee training reducing handling damage, (5) faster inventory turnover reducing spoilage window'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Grocery retailers have the highest spoilage (2-5% of sales for perishables). General merchandise retailers have higher theft-based shrinkage (1-2% of sales). Manufacturers have lower shrinkage since products are in controlled environments. Some companies report shrinkage in SG&A rather than COGS.'
+  examples:
+    - company: 'Kroger'
+      treatment: 'Reports significant shrinkage and spoilage in perishable departments (produce, dairy, meat); invested in AI demand forecasting to reduce waste'
+    - company: 'Target'
+      treatment: 'Cited organized retail crime as driver of increased inventory shrinkage; invested in loss prevention technology'
+    - company: 'Sysco'
+      treatment: 'Reports food spoilage losses in distribution; maintains strict cold chain management to minimize'
+coa_mapping:
+  quickbooks: '5432 - Inventory Shrinkage & Spoilage'
+  netsuite: '5432 - Inventory Shrinkage & Spoilage'
+  sap: '5432000 - Inventory Shrinkage and Spoilage'

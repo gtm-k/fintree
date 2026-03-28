@@ -1,5 +1,5 @@
 id: fintree:InterestOnRevolvingCreditFacility
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InterestExpenseShortTermBorrowings'
 label: Interest on Revolving Credit Facility
 short_label: Interest on Revolving Credit F
 level: 5
@@ -7,9 +7,10 @@ node_type: ADJUSTMENT
 parent_id: fintree:InterestExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 835-30'
 definition: Interest on drawn balances of revolving credit lines.
-example: ''
+example: 'A company draws $100M on its $500M revolving credit facility at SOFR + 150bps (total 6.8%), incurring $6.8M in annual interest plus $1.5M in unused commitment fees.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revolving_credit
+  - line_of_credit
+  - variable_rate
+  - working_capital
+  - sofr
+  - short_term_borrowing
+classification_notes: 'Revolving credit facilities typically carry variable rates tied to SOFR (or formerly LIBOR) plus a credit spread. Interest cost depends on the drawn balance, which fluctuates with working capital needs. Commitment fees on undrawn portions are also expensed here. Revolver interest is more volatile than fixed-rate long-term debt interest. Seasonal businesses may show significant quarter-to-quarter variation.'
 variance_drivers:
-  tags: []
+  tags: [drawn_balance, benchmark_rate, credit_spread, seasonality]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) higher drawn balances due to working capital needs or cash flow timing, (2) rising SOFR/benchmark rates increasing variable rate cost, (3) credit downgrade widening the applicable spread, (4) seasonal peak borrowing periods'
+    if_decreased: '(1) repayment of drawn balances from cash flow generation, (2) falling benchmark interest rates, (3) credit upgrade reducing the applicable spread, (4) replacement with cheaper term loan or bond financing'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Most companies do not separately disclose revolver interest vs. term loan interest on the income statement. Detail is typically in the debt footnote. Companies with large revolvers (retail, manufacturing) have more variable interest expense profiles.'
+  examples:
+    - company: 'Macy''s'
+      treatment: 'Seasonal revolver draws for inventory build — interest spikes in Q3 ahead of holiday season'
+    - company: 'Deere & Company'
+      treatment: 'Revolver interest included in total interest expense footnote — supports dealer financing'
+    - company: 'Delta Air Lines'
+      treatment: 'Revolver draws disclosed in liquidity section — drawn during COVID for cash preservation'
+coa_mapping:
+  quickbooks: '7520 - Interest on Revolving Credit'
+  netsuite: '7520 - Interest on Revolving Credit'
+  sap: '7520000 - Interest on Revolving Credit'

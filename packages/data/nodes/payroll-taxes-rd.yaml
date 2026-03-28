@@ -1,5 +1,5 @@
 id: fintree:PayrollTaxesRd
-xbrl_tag: ''
+xbrl_tag: us-gaap:EmployeeRelatedLiabilitiesCurrentAndNoncurrent
 label: Payroll Taxes — R&D
 short_label: Payroll Taxes — R&D
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Employer payroll taxes attributable to R&D workforce.
-example: ''
+example: A software company pays $1.8M/year in employer FICA, FUTA, and state unemployment
+  taxes on $23M of R&D engineering salaries across 150 developers.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,49 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - payroll taxes
+  - R&D expense
+  - FICA
+  - FUTA
+  - employer taxes
+  - research and development
+classification_notes: Includes employer-side FICA (Social Security + Medicare), FUTA,
+  and state unemployment taxes for R&D staff. Does not include employee benefits like
+  health insurance or 401(k) matching, which are tracked separately. FICA taxes cap
+  at the Social Security wage base, causing Q1 seasonality in per-employee costs.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - salary levels
+    - tax rate changes
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Grew R&D headcount increasing total payroll tax base
+      2. Annual salary raises increased taxable compensation
+      3. Social Security wage base ceiling increased year-over-year
+      4. Hired more employees in high-tax jurisdictions
+      5. Q1 seasonality reset where all employees restart FICA accumulation
+    if_decreased: |-
+      1. R&D layoffs or attrition reducing headcount
+      2. Shifted R&D workforce to contractor model (no employer taxes)
+      3. Relocated R&D staff to lower-tax jurisdictions
+      4. Q3-Q4 effect where high-earners exceed Social Security wage cap
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Most companies do not separately disclose payroll taxes by department;
+    they are bundled into total R&D expense. International companies may have significantly
+    different employer tax rates (e.g., European social contributions are much higher).
+  examples:
+    - company: Salesforce
+      treatment: Includes payroll taxes within total research and development expense
+        without separate disclosure
+    - company: Meta
+      treatment: Bundles payroll taxes into R&D personnel costs alongside salaries
+        and benefits
+    - company: Atlassian
+      treatment: Reports payroll taxes within R&D expense, noting higher rates for
+        Australian employees vs. US staff
+coa_mapping:
+  quickbooks: '6210 - Payroll Taxes - R&D'
+  netsuite: '6210 - Payroll Taxes - Research & Development'
+  sap: '6200100 - Payroll Taxes R&D'

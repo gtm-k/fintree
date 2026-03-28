@@ -1,5 +1,5 @@
 id: fintree:TradeNameAmortization
-xbrl_tag: ''
+xbrl_tag: "us-gaap:AmortizationOfIntangibleAssets"
 label: Trade Name Amortization
 short_label: Trade Name Amortization
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:AmortizationOfIntangibleAssets
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 350-30, ASC 805-20"
 definition: Amortization of acquired trade names with finite useful lives.
-example: ''
+example: "A consumer goods company acquires a brand for $30M, with $10M allocated to the trade name (finite life of 20 years), recording $500K/year in trade name amortization."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - amortization
+  - trade_name
+  - brand
+  - intangible_asset
+  - non_cash
+  - asc_350
+  - acquisition_driven
+classification_notes: "Only trade names with finite useful lives are amortized. Many acquired trade names are determined to have indefinite lives and are instead tested for impairment annually. The finite vs indefinite determination depends on whether the company plans to use the name indefinitely. Trade names being phased out or transitioned to a parent brand have finite lives. Typical useful lives range from 5-30 years."
 variance_drivers:
-  tags: []
+  tags: [acquisition_driven, non_cash, brand_strategy, predictable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) acquisitions with finite-lived trade name intangibles, (2) reclassification of indefinite-lived trade names to finite-lived, (3) brand portfolio rationalization assigning end dates to brands"
+    if_decreased: "(1) trade names becoming fully amortized, (2) impairment of brand value, (3) fewer acquisitions with trade name intangibles, (4) determination that acquired trade names have indefinite lives"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Consumer products and hospitality companies often have the largest trade name intangibles. Many well-known brands are classified as indefinite-lived (not amortized). The finite vs indefinite classification is a key judgment area. Some companies rebrand acquisitions quickly, resulting in short-lived trade name amortization."
+  examples:
+    - company: "Procter & Gamble"
+      treatment: "Many acquired trade names classified as indefinite-lived; some finite-lived names amortized"
+    - company: "Marriott International"
+      treatment: "Starwood brand trade names with varying finite and indefinite life determinations"
+    - company: "Kraft Heinz"
+      treatment: "Large trade name intangibles; mix of indefinite and finite-lived brands"
+coa_mapping:
+  quickbooks: "6763 - Trade Name Amortization"
+  netsuite: "6763 - Amortization - Trade Names"
+  sap: "6763000 - Trade Name Amortization"

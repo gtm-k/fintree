@@ -1,5 +1,5 @@
 id: fintree:ContentMarketingSeo
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:AdvertisingExpense'
 label: Content Marketing & SEO
 short_label: Content Marketing & SEO
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:AdvertisingMarketing
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720-35'
 definition: Production of content (blogs, videos, whitepapers) and SEO optimization
   spend.
-example: ''
+example: 'A B2B SaaS company spends $300K on blog/whitepaper production, $150K on video content, $100K on SEO tools and consultants (Ahrefs, Moz), and $50K on podcast production, totaling $600K annually in content marketing and SEO.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - advertising
+  - content_marketing
+  - seo
+  - opex
+  - organic_growth
+  - demand_generation
+classification_notes: 'Content production costs (freelance writers, video production, graphic design) are expensed as incurred under ASC 720-35. SEO tool subscriptions are period expenses. Internal content team salaries should be classified under sales compensation, not here. Content that is gated behind lead capture forms serves a demand-gen function. Educational content for existing customers may be classified under customer success/support rather than marketing.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, investment_driven, headcount_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) strategic investment in inbound/organic demand generation, (2) hiring freelance writers or video producers, (3) new SEO tool subscriptions or agency retainers, (4) content refresh and optimization initiatives, (5) expansion into new content formats (podcasts, webinars, video)'
+    if_decreased: '(1) budget cuts reducing content production volume, (2) shift from outsourced to in-house content production, (3) consolidation of SEO tools, (4) pausing content programs during restructuring, (5) reliance on AI-generated content reducing production costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Content marketing and SEO are never separately disclosed in public filings; they are embedded in Sales & Marketing or advertising expense. B2B SaaS companies tend to invest more heavily in content/SEO (inbound model) while DTC companies lean toward paid digital. Content marketing ROI is difficult to attribute, making internal reporting granularity vary widely.'
+  examples:
+    - company: 'HubSpot'
+      treatment: 'Pioneer of inbound marketing; significant content/SEO investment embedded in Selling, general and administrative'
+    - company: 'Atlassian'
+      treatment: 'Low sales & marketing spend (~20% of revenue); content and SEO-driven organic acquisition model'
+    - company: 'Shopify'
+      treatment: 'Sales and marketing; extensive educational content and SEO presence for merchant acquisition'
+coa_mapping:
+  quickbooks: '6220 - Content Marketing & SEO'
+  netsuite: '7120 - Content Marketing & SEO'
+  sap: '6200200 - Content Marketing SEO'

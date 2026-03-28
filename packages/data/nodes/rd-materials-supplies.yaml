@@ -1,15 +1,16 @@
 id: fintree:RdMaterialsSupplies
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: R&D MATERIALS & SUPPLIES
 short_label: R&D MATERIALS & SUPPLIES
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:ResearchDevelopment
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: "Laboratory & Research Supplies + Prototype Materials + R&D Software & Development Tools"
+formula_machine: "fintree:LaboratoryResearchSupplies + fintree:PrototypeMaterials + fintree:RdSoftwareDevelopmentTools"
+asc_reference: "ASC 730-10-25"
 definition: Consumable materials, supplies, and prototype components used in R&D activities.
-example: ''
+example: "A hardware company spends $4.5M on R&D materials: $1.2M in lab supplies, $2.8M in prototype components, and $0.5M in software development tools."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - materials
+  - consumables
+  - prototype
+  - lab_supplies
+  - asc_730
+classification_notes: "Materials used in R&D must have no alternative future use to be expensed under ASC 730. If materials have alternative future use, they are capitalized as inventory and expensed as consumed. Prototype materials are always expensed. Software tools used in R&D are included here if subscription-based; perpetual licenses may be capitalized."
 variance_drivers:
-  tags: []
+  tags: [project_driven, volume_driven, product_stage]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new product development entering prototype phase, (2) expanded lab testing requirements, (3) supply chain cost inflation, (4) new R&D projects initiated"
+    if_decreased: "(1) shift from hardware to software R&D, (2) project completions or cancellations, (3) efficiency improvements reducing material waste, (4) bulk purchasing agreements"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Hardware and pharma companies have high materials costs (30-50% of R&D). Software companies have minimal materials cost. Biotech companies include reagents, cell cultures, and assay kits as R&D materials."
+  examples:
+    - company: "Medtronic"
+      treatment: "Significant R&D materials for medical device prototyping and testing"
+    - company: "Nvidia"
+      treatment: "R&D materials include prototype chip fabrication and testing components"
+    - company: "Eli Lilly"
+      treatment: "R&D supplies include lab chemicals, biological materials, and clinical supplies"
+coa_mapping:
+  quickbooks: "6640 - R&D Materials & Supplies"
+  netsuite: "6640 - R&D Materials & Supplies"
+  sap: "6640000 - R&D Materials & Supplies"

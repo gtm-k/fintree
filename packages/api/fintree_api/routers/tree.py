@@ -204,6 +204,11 @@ def pl_sections(industry: Optional[str] = Query(None)):
             entry["total"] = len(nodes)
             entry["visible"] = len([n for n in nodes if not n["suppressed"]])
             entry["emphasized_count"] = len([n for n in nodes if n["emphasized"]])
+            # Include first valid root_id so frontend can show detail on header click
+            for rid in sec["root_ids"]:
+                if tree.get(rid):
+                    entry["node_id"] = rid
+                    break
         elif sec["type"] in ("subtotal", "bottom_line"):
             entry["formula"] = sec["formula"]
             node = tree.get(sec["node_id"])

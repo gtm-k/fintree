@@ -1,5 +1,5 @@
 id: fintree:ThirdpartyInfrastructureServices
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Third-Party Infrastructure Services
 short_label: Third-Party Infrastructure Ser
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Managed services (databases, monitoring, security) that directly support
   production.
-example: ''
+example: A SaaS company pays $55K/month for managed PostgreSQL (AWS RDS), $18K for
+  Datadog monitoring, and $12K for Cloudflare WAF security services in production.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - managed services
+  - DBaaS
+  - monitoring
+  - security services
+  - production infrastructure
+  - COGS
+  - cloud services
+classification_notes: Includes managed databases (RDS, Cloud SQL), monitoring tools
+  (Datadog, New Relic), managed Kubernetes, security services (WAF, DDoS protection),
+  and similar production-support services. Only production-environment services belong
+  in COGS; dev/test instances belong in R&D. Distinguish from cloud compute and storage
+  which have their own line items.
 variance_drivers:
-  tags: []
+  tags:
+    - service scope
+    - vendor pricing
+    - usage volume
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Added new managed services to production stack (monitoring, security, caching)
+      2. Scaled managed database instances to handle growing data volumes
+      3. Vendor price increases at renewal or usage tier escalation
+      4. Migrated from self-managed to managed services increasing external costs
+    if_decreased: |-
+      1. Brought managed services in-house (self-managed databases, monitoring)
+      2. Negotiated enterprise discounts or committed-use agreements
+      3. Consolidated redundant services or vendors
+      4. Optimized resource utilization reducing overprovisionment
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: The boundary between managed services and core compute/storage varies
+    by company. Some include all cloud spending in a single hosting line; others separate
+    managed services. Companies running their own data centers will not have these
+    costs but will have equivalent depreciation and personnel expenses.
+  examples:
+    - company: PagerDuty
+      treatment: Reports third-party infrastructure costs within cost of revenue,
+        primarily AWS managed services
+    - company: Elastic
+      treatment: Includes managed cloud service costs within cost of revenue for its
+        Elastic Cloud offering
+    - company: GitLab
+      treatment: Reports third-party hosting and infrastructure service costs within
+        cost of revenue for its SaaS offering
+coa_mapping:
+  quickbooks: '5230 - Third-Party Infrastructure Services'
+  netsuite: '5230 - Third-Party Infrastructure Services'
+  sap: '4200300 - Third-Party Infrastructure Services'

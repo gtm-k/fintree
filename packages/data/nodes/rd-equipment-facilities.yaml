@@ -1,15 +1,16 @@
 id: fintree:RdEquipmentFacilities
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: R&D EQUIPMENT & FACILITIES
 short_label: R&D EQUIPMENT & FACILITIES
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:ResearchDevelopment
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: "R&D Equipment Depreciation + R&D Lab / Office Space + R&D Cloud Compute"
+formula_machine: "fintree:RdEquipmentDepreciation + fintree:RdLabOfficeSpace + fintree:RdCloudCompute"
+asc_reference: "ASC 730-10-25, ASC 360-10"
 definition: Equipment and facility costs dedicated to R&D activities.
-example: ''
+example: "A biotech company spends $8M on R&D facilities: $2M equipment depreciation, $4M lab/office rent, and $2M cloud compute for genomic data processing."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - equipment
+  - facilities
+  - depreciation
+  - cloud_compute
+  - asc_730
+  - infrastructure
+classification_notes: "Equipment used exclusively in R&D with no alternative future use must be expensed at acquisition under ASC 730. Equipment with alternative future use is capitalized and depreciated, with depreciation allocated to R&D. Facility costs should be allocated between R&D and other functions if space is shared."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, facility_expansion, cloud_adoption, semi_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new R&D lab or facility buildout, (2) increased cloud compute for AI/ML workloads, (3) equipment purchases with alternative future use entering depreciation, (4) lease renewals at higher rates"
+    if_decreased: "(1) equipment becoming fully depreciated, (2) lab consolidation or closure, (3) migration from on-premise to cloud (shifts to OpEx), (4) sublease of underutilized R&D space"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Capital-intensive R&D (pharma, semiconductor) has high equipment and facility costs. Cloud-native companies may have minimal physical equipment but significant cloud compute spend. Some companies allocate corporate facility costs to R&D based on headcount rather than tracking dedicated R&D facilities."
+  examples:
+    - company: "Intel"
+      treatment: "Massive R&D fab and equipment costs; billions in R&D equipment depreciation"
+    - company: "OpenAI"
+      treatment: "R&D infrastructure dominated by cloud GPU compute costs"
+    - company: "Johnson & Johnson"
+      treatment: "Dedicated R&D labs and equipment across pharmaceutical and medical device divisions"
+coa_mapping:
+  quickbooks: "6650 - R&D Equipment & Facilities"
+  netsuite: "6650 - R&D Equipment & Facilities"
+  sap: "6650000 - R&D Equipment & Facilities"

@@ -1,5 +1,5 @@
 id: fintree:BusinessTravelEntertainment
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:TravelAndEntertainmentExpense'
 label: Business Travel & Entertainment
 short_label: Business Travel & Entertainmen
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:GeneralCorporateOverhead
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720'
 definition: Corporate travel, lodging, and business entertainment for non-sales employees.
-example: ''
+example: 'A consulting firm spends $150K on airfare, $100K on hotel accommodations, $40K on rental cars and rideshares, $30K on client meals and entertainment, and $20K on per diem allowances, totaling $340K annually in business travel and entertainment.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - general_admin
+  - travel
+  - entertainment
+  - opex
+  - discretionary
+  - meals
+classification_notes: 'Travel for non-sales corporate employees (executives, finance, HR, operations) belongs under G&A. Sales-specific travel should be classified under selling expenses instead. Entertainment expenses have limited tax deductibility (50% for meals, 0% for entertainment under IRC Section 274 post-TCJA). Distinguish from trade show travel (which goes under Trade Shows). Company-wide retreats and team-building events may be classified here or under employee benefits depending on nature.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, headcount_driven, travel_policy_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) return-to-travel after remote work period, (2) expansion requiring cross-office or cross-region travel, (3) increased client-facing meetings for deal pursuit, (4) inflation in airfare, hotel, and meal costs, (5) company events or all-hands meetings requiring employee travel'
+    if_decreased: '(1) travel restrictions or policy tightening, (2) shift to virtual meetings (Zoom, Teams), (3) headcount reductions, (4) stricter expense approval processes, (5) renegotiated corporate travel rates or preferred vendor discounts'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Travel and entertainment costs are typically embedded in G&A or SG&A and not separately disclosed. Consulting and professional services firms have the highest T&E as a percentage of revenue (5-10%). Remote-first companies have structurally lower T&E. Some companies allocate T&E across functional categories (sales travel to S&M, executive travel to G&A) while others consolidate into a single T&E line within G&A.'
+  examples:
+    - company: 'McKinsey (if public)'
+      treatment: 'Significant T&E for client site travel; would be a major G&A/SGA component'
+    - company: 'Deloitte'
+      treatment: 'Major travel costs for consulting engagements; embedded in operating costs'
+    - company: 'GitLab'
+      treatment: 'All-remote company with minimal recurring T&E but periodic team offsites; included in G&A'
+coa_mapping:
+  quickbooks: '6450 - Travel & Entertainment'
+  netsuite: '7400 - Business Travel & Entertainment'
+  sap: '6500000 - Business Travel Entertainment'

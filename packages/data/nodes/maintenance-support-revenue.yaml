@@ -1,5 +1,5 @@
 id: fintree:MaintenanceSupportRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:MaintenanceRevenue'
 label: Maintenance & Support Revenue
 short_label: Maintenance & Support Revenue
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:ServiceRevenue
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606'
 definition: Revenue from post-sale technical support or maintenance agreements.
 example: Oracle recognizing annual support fees on database licenses.
 normal_balance: CREDIT
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revenue
+  - maintenance
+  - support
+  - recurring_revenue
+  - asc_606
+  - over_time_recognition
+  - post_sale
+classification_notes: "Maintenance and support revenue is a stand-ready obligation recognized ratably over the contract period (typically 12 months). When bundled with software licenses, it must be separated as a distinct performance obligation under ASC 606. Renewal rates are a key KPI as this is highly recurring revenue."
 variance_drivers:
-  tags: []
+  tags: [retention_driven, volume_driven, pricing_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) higher renewal rates on existing contracts, (2) price increases on annual support contracts, (3) growth in installed base driving new support agreements, (4) expansion of support coverage tiers (basic to premium), (5) multi-year contract signings"
+    if_decreased: "(1) customer churn or non-renewal of support contracts, (2) migration from on-premise (with support) to cloud/SaaS, (3) competitive support alternatives or self-service adoption, (4) discount pressure from large enterprise renewals, (5) product end-of-life reducing supportable installed base"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Enterprise software companies report maintenance and support as a separate revenue line. Some companies bundle support with subscription revenue. Hardware companies may include warranty support separately."
+  examples:
+    - company: "Oracle"
+      treatment: "Cloud services and license support (includes maintenance)"
+    - company: "SAP"
+      treatment: "Software support revenue"
+    - company: "IBM"
+      treatment: "Included in Software segment recurring revenue"
+coa_mapping:
+  quickbooks: "4220 - Maintenance & Support Revenue"
+  netsuite: "4220 - Maintenance Revenue"
+  sap: "8220000 - Maintenance & Support Revenue"

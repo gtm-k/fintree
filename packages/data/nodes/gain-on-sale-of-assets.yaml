@@ -1,5 +1,5 @@
 id: fintree:GainOnSaleOfAssets
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:GainLossOnSaleOfPropertyPlantEquipment'
 label: Gain on Sale of Assets
 short_label: Gain on Sale of Assets
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingIncome
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 360-10'
 definition: Proceeds in excess of book value from selling property, equipment, or
   investments.
-example: ''
+example: 'A manufacturer sells a factory with a $12M net book value for $18M, recording a $6M gain on sale of assets.'
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - asset_disposal
+  - gain_on_sale
+  - property_sale
+  - equipment_sale
+  - non_recurring
+  - asc_360
+classification_notes: 'Gain = Sale proceeds minus net book value (cost less accumulated depreciation). Non-operating because asset sales are not core business activity. If the asset qualifies as a discontinued operation (ASC 205-20), report below the line instead. Sale-leaseback transactions have special treatment under ASC 842. Gains on sale of investments go to Gain on Investments, not here.'
 variance_drivers:
-  tags: []
+  tags: [asset_disposal_activity, real_estate_values, portfolio_optimization]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) selling appreciated real estate or equipment above book value, (2) strategic divestitures of non-core assets, (3) rising market values for used equipment, (4) asset-light transformation selling owned facilities'
+    if_decreased: '(1) fewer asset disposals in the period, (2) assets sold near book value with minimal gain, (3) fully depreciated assets with zero book value sold for scrap, (4) declining market values for used assets'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Some companies report gains and losses on asset sales as a net figure. Others separate gains from losses. Real estate companies may have frequent gains from property sales as quasi-operating items. Classification as operating vs. non-operating depends on whether asset sales are part of the business model.'
+  examples:
+    - company: 'AT&T'
+      treatment: 'Gain on sale of business units reported separately — e.g., WarnerMedia divestiture'
+    - company: 'Caterpillar'
+      treatment: 'Gain on disposal of long-lived assets within Other income (expense)'
+    - company: 'Simon Property Group'
+      treatment: 'Gain on sale of real estate — frequent and quasi-operating for REITs'
+coa_mapping:
+  quickbooks: '7300 - Gain on Sale of Assets'
+  netsuite: '7300 - Gain on Sale of Assets'
+  sap: '7300000 - Gain on Asset Disposals'

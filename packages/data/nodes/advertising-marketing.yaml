@@ -1,15 +1,16 @@
 id: fintree:AdvertisingMarketing
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:AdvertisingExpense'
 label: ADVERTISING & MARKETING
 short_label: ADVERTISING & MARKETING
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:SellingExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Digital Advertising + Content Marketing & SEO + Marketing Software & Tools + Marketing Agency Fees + Traditional / Offline Advertising + Brand Sponsorships & Events'
+formula_machine: 'fintree:DigitalAdvertising + fintree:ContentMarketingSeo + fintree:MarketingSoftwareTools + fintree:MarketingAgencyFees + fintree:TraditionalOfflineAdvertising + fintree:BrandSponsorshipsEvents'
+asc_reference: 'ASC 720-35'
 definition: Paid media and brand-building expenditures designed to generate demand.
-example: ''
+example: 'A DTC e-commerce company spends $5M on digital ads (Google/Meta), $1.2M on content and SEO, $800K on marketing tools (HubSpot, Mixpanel), $600K on agency fees, $2M on TV/print, and $400K on sponsorships, totaling $10M in advertising and marketing.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - advertising
+  - marketing
+  - discretionary
+  - opex
+  - demand_generation
+  - below_gross_profit
+classification_notes: 'Under ASC 720-35, advertising costs are generally expensed as incurred or when advertising first takes place. Direct-response advertising that meets specific criteria may be capitalized. Companies must disclose total advertising expense. Cooperative advertising arrangements with customers may be treated as revenue reductions rather than selling expenses. Internal marketing staff salaries are typically classified under sales compensation, not advertising.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, campaign_driven, seasonal, revenue_correlated]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new product launch requiring go-to-market campaign, (2) competitive pressure driving increased ad spend, (3) expansion into new markets or geographies, (4) shift from organic to paid acquisition channels, (5) seasonal campaigns (holiday, back-to-school)'
+    if_decreased: '(1) budget cuts during economic downturn, (2) improved marketing efficiency (lower CAC), (3) shift from paid to organic channels, (4) reduced campaign activity in off-peak periods, (5) consolidation of marketing tools and agency relationships'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Advertising expense disclosure is required by ASC 720-35 but the level of granularity varies. Consumer-facing companies (CPG, retail) typically spend 5-15% of revenue on advertising; B2B SaaS companies spend 15-40% of revenue on total sales & marketing. Some companies report advertising as a single number in footnotes; others provide detailed breakdowns by channel.'
+  examples:
+    - company: 'Procter & Gamble'
+      treatment: 'Discloses advertising spend separately (~$7-8B annually); largest single ad spender globally'
+    - company: 'Alphabet/Google'
+      treatment: 'Reports Sales and marketing expense; relatively low as % of revenue (~10%) given inbound demand model'
+    - company: 'Peloton'
+      treatment: 'Reports Sales and marketing; advertising spend disclosed in footnotes as major component (~40% of S&M)'
+coa_mapping:
+  quickbooks: '6200 - Advertising & Marketing'
+  netsuite: '7100 - Advertising & Marketing'
+  sap: '6200000 - Advertising and Marketing'

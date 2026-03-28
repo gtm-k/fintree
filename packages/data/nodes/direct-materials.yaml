@@ -1,17 +1,18 @@
 id: fintree:DirectMaterials
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: DIRECT MATERIALS
 short_label: DIRECT MATERIALS
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:CostOfGoodsSoldCostOfRevenue
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Raw Materials + Purchased Components + Packaging Materials + Freight-In / Inbound Shipping'
+formula_machine: 'fintree:RawMaterials + fintree:PurchasedComponents + fintree:PackagingMaterials + fintree:FreightinInboundShipping'
+asc_reference: 'ASC 330'
 definition: Raw materials and components that physically become part of the finished
   product.
-example: ''
-normal_balance: CREDIT
+example: 'An auto manufacturer spends $25M on steel and aluminum, $12M on purchased electronic components, $3M on packaging, and $2M on inbound freight for total direct materials of $42M.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - raw_materials
+  - manufacturing
+  - inventory
+  - material_cost
+classification_notes: 'Direct materials must be physically traceable to the finished product. Indirect materials (cleaning supplies, lubricants not incorporated into product) belong in Manufacturing Overhead. Freight-in on materials is capitalized into inventory cost per ASC 330. For retailers, this is the purchase cost of merchandise for resale.'
 variance_drivers:
-  tags: []
+  tags: [commodity_driven, volume_driven, supply_chain_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Commodity price inflation (steel, resin, cotton), (2) higher production volumes requiring more materials, (3) supply chain disruptions or tariffs increasing procurement costs, (4) unfavorable product mix shift to material-intensive products, (5) higher scrap/waste rates in production'
+    if_decreased: '(1) Commodity price deflation or favorable hedging, (2) renegotiated supplier contracts or volume discounts, (3) product redesign reducing material content, (4) improved yield rates and less scrap, (5) lower production volumes'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Vertically integrated manufacturers may have lower direct materials but higher labor/overhead. Companies using LIFO vs. FIFO will show different material costs during inflationary periods. Some companies capitalize freight-in; others expense it.'
+  examples:
+    - company: 'Tesla'
+      treatment: 'Reports battery cells and raw materials as a major COGS component; vertically integrating lithium refining'
+    - company: 'Procter & Gamble'
+      treatment: 'Reports resin, pulp, and specialty chemicals as direct materials; uses commodity hedging'
+    - company: 'Boeing'
+      treatment: 'Reports fuselage, avionics, and engine components as direct materials under long-term program accounting'
+coa_mapping:
+  quickbooks: '5100 - Direct Materials'
+  netsuite: '5100 - Direct Materials'
+  sap: '5100000 - Direct Materials'

@@ -50,6 +50,7 @@
       <div class="detail-header">
         <h2 id="detailTitle" class="detail-title">Select a node</h2>
         <div id="detailBreadcrumb" class="detail-breadcrumb"></div>
+        <button class="detail-close" id="detailClose" aria-label="Close detail panel">✕</button>
       </div>
       <div id="detailContent" class="detail-content">
         <p class="placeholder-text">Click any node in the tree to view its full details — definition, formula, XBRL tags, variance drivers, and more.</p>
@@ -57,9 +58,12 @@
     </aside>
   </div>
 
+  <!-- Detail Panel Toggle (mobile) -->
+  <button class="detail-toggle" id="detailToggle" aria-label="Show node detail">◉</button>
+
   <!-- Stats Bar -->
   <footer id="statsBar" class="stats-bar"></footer>
 
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=2"></script>
 </body>
 </html>

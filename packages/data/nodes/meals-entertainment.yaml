@@ -1,5 +1,5 @@
 id: fintree:MealsEntertainment
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:TravelAndEntertainmentExpense'
 label: Meals & Entertainment
 short_label: Meals & Entertainment
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:GeneralCorporateOverhead
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Business meals with clients, staff meals, and entertainment (subject to
   IRS 50% deductibility limit).
-example: ''
+example: 'A consulting firm spends $220K/year on meals and entertainment: $100K client business meals, $60K team meals and celebrations, $35K entertainment events, $25K holiday parties.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - corporate_overhead
+  - meals
+  - entertainment
+  - discretionary
+  - tax_limited_deduction
+classification_notes: 'Business meals are 50% deductible for federal tax (IRC Section 274). Entertainment expenses are generally non-deductible after 2017 Tax Cuts and Jobs Act. Companies often maintain separate GL accounts for meals vs. entertainment for tax reporting purposes. Client-facing meals and entertainment may be classified under Selling Expenses rather than G&A. Company-wide parties and events are typically 100% deductible.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, policy_driven, headcount_driven, culture_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) return-to-office increasing in-person meal occasions, (2) increased client entertainment for business development, (3) company events and team-building activities, (4) loosened expense policies, (5) food price inflation'
+    if_decreased: '(1) remote work reducing in-person meals, (2) expense policy tightening during austerity, (3) reduction in client entertainment, (4) cultural shift away from entertainment-heavy business relationships, (5) elimination of company-sponsored meals'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Professional services and financial services firms spend heavily on client meals and entertainment. Tech companies may provide free meals to employees (classified here or as employee benefits). Some companies combine meals & entertainment with travel in a single line. Tax treatment differences (50% meals vs. 0% entertainment deduction) drive separate tracking.'
+  examples:
+    - company: 'Goldman Sachs'
+      treatment: 'Significant entertainment and client dining; included in noninterest expense'
+    - company: 'Google'
+      treatment: 'Free employee meals in cafeterias; classified as employee benefits within G&A'
+coa_mapping:
+  quickbooks: '6920 - Meals & Entertainment'
+  netsuite: '7420 - Meals & Entertainment'
+  sap: '6920000 - Meals Entertainment Expense'

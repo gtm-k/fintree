@@ -1,17 +1,18 @@
 id: fintree:CurrentTaxExpense
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CurrentIncomeTaxExpenseBenefit'
 label: CURRENT TAX EXPENSE
 short_label: CURRENT TAX EXPENSE
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:IncomeTaxExpense
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Federal Income Tax — Current + State & Local Income Tax — Current + Foreign Income Tax — Current'
+formula_machine: 'fintree:FederalIncomeTaxCurrent + fintree:StateLocalIncomeTaxCurrent + fintree:ForeignIncomeTaxCurrent'
+asc_reference: 'ASC 740-10'
 definition: The income tax payable to tax authorities for the current period based
   on taxable income. Computed using the applicable statutory tax rates applied to
   taxable income per the tax return.
-example: ''
+example: 'Apple reported $16.7B in current income tax expense in FY2023, split across federal ($6.2B), state ($1.2B), and foreign ($9.3B) jurisdictions.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +26,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - current_tax
+  - tax_payable
+  - income_tax
+  - asc_740
+  - cash_tax
+  - statutory_rate
+classification_notes: 'Current tax expense is the closest proxy for cash taxes paid (though timing differences exist between accrual and cash payment). Split into federal, state, and foreign components in the tax footnote. The current tax amount is computed on taxable income (which differs from book pre-tax income). Key permanent differences (non-deductible expenses, tax-exempt income) and timing differences (depreciation, revenue recognition) cause taxable income to differ from book income.'
 variance_drivers:
-  tags: []
+  tags: [pretax_income_driven, statutory_rate, geographic_mix, permanent_differences]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) higher pre-tax income driving more tax on the current return, (2) shift in geographic income mix toward higher-tax jurisdictions, (3) fewer permanent tax benefits (credits, deductions) in current year, (4) expiration of tax holiday or incentive'
+    if_decreased: '(1) lower pre-tax income or tax losses, (2) R&D tax credits or other credit-based incentives, (3) shift of income to lower-tax foreign jurisdictions, (4) utilization of NOL carryforwards reducing current taxable income, (5) tax law changes reducing statutory rates'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'All profitable companies report current tax expense. The geographic split (federal vs. state vs. foreign) reveals a company''s tax planning structure. Companies with significant international operations may have foreign current tax exceeding US federal tax.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Current tax expense — foreign component exceeds domestic due to international operations'
+    - company: 'Amazon'
+      treatment: 'Current tax relatively low due to R&D credits and stock compensation deductions'
+    - company: 'ExxonMobil'
+      treatment: 'Large current foreign tax from international production operations with high host-country rates'
+coa_mapping:
+  quickbooks: '8800-8849 - Current Tax Expense'
+  netsuite: '8800 - Current Tax Expense'
+  sap: '7810000 - Current Tax Expense'

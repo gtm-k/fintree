@@ -1,5 +1,5 @@
 id: fintree:PaymentGatewayFees
-xbrl_tag: ''
+xbrl_tag: us-gaap:PaymentsForFees
 label: Payment Gateway Fees
 short_label: Payment Gateway Fees
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Fixed or variable fees charged by payment gateway providers (Stripe, Adyen,
   etc.).
-example: ''
+example: A SaaS company pays Stripe 2.9% + $0.30 per transaction, totaling $185K/month
+  on $6.4M in monthly recurring revenue processed.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,50 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - payment processing
+  - Stripe
+  - Adyen
+  - gateway fees
+  - transaction costs
+  - merchant services
+  - COGS
+classification_notes: Gateway fees are distinct from interchange fees paid to card
+  networks. Some companies net gateway fees against revenue; others report them in
+  COGS. If the company acts as a payment facilitator (PayFac), these become cost of
+  revenue. Monthly platform/subscription fees from gateways may belong here or in G&A
+  depending on materiality.
 variance_drivers:
-  tags: []
+  tags:
+    - transaction volume
+    - rate negotiation
+    - payment mix
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Revenue growth driving proportional increase in transaction volume
+      2. Higher share of credit card vs. ACH/wire payments increasing blended rate
+      3. Expanded into international markets with higher cross-border fees
+      4. Gateway provider raised per-transaction or percentage rates
+    if_decreased: |-
+      1. Negotiated lower rates based on increased transaction volume
+      2. Migrated to a lower-cost payment gateway provider
+      3. Shifted payment mix toward ACH or direct debit reducing per-transaction costs
+      4. Consolidated payment processors to leverage volume discounts
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies report gateway fees as a contra-revenue deduction rather
+    than COGS. E-commerce marketplaces often report these as cost of revenue, while
+    SaaS companies may bundle them into a broader processing fees line.
+  examples:
+    - company: Shopify
+      treatment: Reports payment processing fees within cost of Merchant Solutions
+        revenue as a major cost component
+    - company: Squarespace
+      treatment: Includes payment gateway fees within cost of revenue for its commerce
+        segment
+    - company: Toast
+      treatment: Reports payment processing costs as the primary component of cost
+        of fintech solutions revenue
+coa_mapping:
+  quickbooks: '5310 - Payment Gateway Fees'
+  netsuite: '5310 - Payment Gateway Fees'
+  sap: '4200300 - Payment Gateway Fees'

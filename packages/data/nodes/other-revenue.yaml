@@ -1,16 +1,17 @@
 id: fintree:OtherRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherSalesRevenueNet'
 label: OTHER REVENUE
 short_label: OTHER REVENUE
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GrossRevenue
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Franchise Revenue + Royalty Revenue + Other Operating Revenue'
+formula_machine: 'fintree:FranchiseRevenue + fintree:RoyaltyRevenue + fintree:OtherOperatingRevenue'
+asc_reference: 'ASC 606'
 definition: Revenue from secondary or ancillary business activities not classified
   as product or service revenue.
-example: A manufacturer earning rental income from leasing unused factory space.
+example: "A manufacturer earning $2M in franchise fees and $500K in patent royalties alongside its $80M in product sales."
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revenue
+  - other_revenue
+  - ancillary_income
+  - franchise
+  - royalty
+  - asc_606
+classification_notes: "Other revenue captures ancillary operating income streams that are not core product or service revenue. Companies may reclassify items between other revenue and non-operating income depending on materiality and whether the activity is part of ordinary operations."
 variance_drivers:
-  tags: []
+  tags: [contract_driven, mix_driven, regulatory_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new franchise agreements signed, (2) increased royalty income from IP licensing deals, (3) one-time licensing or settlement payments, (4) monetization of previously idle assets"
+    if_decreased: "(1) franchise closures or non-renewals, (2) expiration of key IP licenses or patents, (3) reclassification of revenue streams to product or service revenue, (4) regulatory changes limiting licensing arrangements"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Franchise-heavy companies (QSR, hotels) report franchise revenue as a primary line item. IP-intensive companies report royalty revenue separately. Many companies bundle small ancillary items into a single 'Other Revenue' line."
+  examples:
+    - company: "McDonald's"
+      treatment: "Franchised restaurants revenue (franchise fees + royalties)"
+    - company: "Qualcomm"
+      treatment: "QTL (licensing) segment revenue"
+    - company: "Marriott International"
+      treatment: "Franchise fees reported as a separate revenue line"
+coa_mapping:
+  quickbooks: "4300 - Other Revenue"
+  netsuite: "4300 - Other Revenue"
+  sap: "8300000 - Other Revenue"

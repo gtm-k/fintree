@@ -1,5 +1,5 @@
 id: fintree:MiscellaneousGa
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherGeneralAndAdministrativeExpense'
 label: Miscellaneous G&A
 short_label: Miscellaneous G&A
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:GeneralCorporateOverhead
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Catch-all for minor G&A costs not warranting a separate line item.
-example: ''
+example: 'A company records $85K in miscellaneous G&A including $25K bank service charges, $15K postage/courier, $20K charitable donations, and $25K sundry office costs.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,26 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - miscellaneous
+  - overhead
+  - sundry
+  - corporate
+classification_notes: 'Should be reviewed periodically — if any single item grows material, it should be reclassified to a named line item. Bank fees, postage, charitable contributions, and minor penalties often land here. Tax penalties and fines may require separate disclosure.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, volume_driven, policy_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) growth in sundry costs as company scales, (2) reclassification of items from other categories, (3) one-time penalties or fees, (4) increased charitable contributions'
+    if_decreased: '(1) tighter expense controls and approval processes, (2) reclassification of items to specific G&A sub-categories, (3) elimination of discretionary spend, (4) automation reducing manual processes (e.g., postage)'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Varies widely. Some companies keep this line minimal; others use it as a dumping ground for hard-to-classify costs. Materiality threshold determines what warrants its own line.'
+  examples:
+    - company: 'General Electric'
+      treatment: 'Other costs within Corporate Items and Eliminations'
+    - company: 'Johnson & Johnson'
+      treatment: 'Other (income) expense includes miscellaneous items not classified elsewhere'
+coa_mapping:
+  quickbooks: '6990 - Miscellaneous G&A'
+  netsuite: '7490 - Miscellaneous G&A'
+  sap: '6990000 - Miscellaneous G&A Expenses'

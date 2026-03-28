@@ -1,5 +1,5 @@
 id: fintree:StorageS3ObjectStorage
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Storage / S3 / Object Storage
 short_label: Storage / S3 / Object Storage
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Cloud storage costs for customer data in the production environment.
-example: ''
+example: A document management SaaS company pays $85K/month for AWS S3 storage hosting
+  450TB of customer files, plus $12K/month for S3 Glacier archival storage.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cloud storage
+  - AWS S3
+  - object storage
+  - blob storage
+  - data storage costs
+  - COGS infrastructure
+  - GCS
+classification_notes: Only production-environment storage belongs in COGS. Dev/test
+  storage should be classified under R&D. Includes S3, Azure Blob Storage, Google Cloud
+  Storage, and equivalent services. Storage costs grow with customer data accumulation
+  and rarely decrease, creating a ratcheting cost structure. Archival/cold storage
+  tiers are significantly cheaper per GB.
 variance_drivers:
-  tags: []
+  tags:
+    - data volume
+    - storage tier
+    - pricing changes
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Customer data growth increasing total stored volume
+      2. New product features generating more data per customer
+      3. Expanded customer base adding incremental storage needs
+      4. Regulatory retention requirements preventing data purging
+    if_decreased: |-
+      1. Implemented data lifecycle policies moving old data to cheaper tiers
+      2. Negotiated committed-use storage discounts or reserved capacity
+      3. Data compression and deduplication reduced stored volume
+      4. Migrated to lower-cost storage provider or self-hosted solution
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Most SaaS companies bundle storage within a single cloud hosting or
+    infrastructure line in COGS. Companies with large media libraries (video, images)
+    have disproportionately high storage costs. Some companies use reserved capacity
+    pricing, making costs more predictable.
+  examples:
+    - company: Dropbox
+      treatment: Reports infrastructure costs including storage as the primary component
+        of cost of revenue, with ongoing migration from AWS to own infrastructure
+    - company: Box
+      treatment: Includes cloud storage within cost of revenue as part of data center
+        and infrastructure costs
+    - company: Vimeo
+      treatment: Reports storage and transcoding costs within cost of revenue as a
+        major component given video hosting model
+coa_mapping:
+  quickbooks: '5220 - Cloud Storage Costs'
+  netsuite: '5220 - Storage and Object Storage'
+  sap: '4200200 - Cloud Storage Costs'

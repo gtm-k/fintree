@@ -1,5 +1,5 @@
 id: fintree:LicensedContentFees
-xbrl_tag: ''
+xbrl_tag: us-gaap:LicenseCosts
 label: Licensed Content Fees
 short_label: Licensed Content Fees
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Royalties or licenses for content (images, media, text) delivered through
   the product.
-example: ''
+example: A SaaS company pays Getty Images $120K/year for stock photo licenses embedded
+  in its design platform.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,47 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - content licensing
+  - royalties
+  - media rights
+  - digital content
+  - intellectual property
+  - COGS
+classification_notes: Distinguish from software licenses (OpEx R&D) and from content
+  created in-house. Only content licensed from third parties for delivery to customers
+  belongs here. If content is used internally (e.g., training), classify under G&A.
 variance_drivers:
-  tags: []
+  tags:
+    - volume
+    - contract renegotiation
+    - content mix
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Expanded content library with new licensing agreements
+      2. Renegotiated contracts at higher rates upon renewal
+      3. Usage-based royalties increased due to higher customer consumption
+      4. Shift from user-generated content to licensed premium content
+    if_decreased: |-
+      1. Consolidated content vendors or renegotiated volume discounts
+      2. Developed proprietary content to replace licensed material
+      3. Reduced scope of licensed content offerings
+      4. Shifted to royalty-free or open-source content
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies bundle licensed content costs into a single COGS line;
+    others split by content type (images, video, music). Streaming companies may report
+    content amortization separately from content licensing fees.
+  examples:
+    - company: Spotify
+      treatment: Reports licensed content costs as part of cost of revenue, driven
+        by per-stream royalty payments to labels
+    - company: Canva
+      treatment: Includes stock photo and media licensing fees within cost of revenue
+        as content costs
+    - company: Adobe
+      treatment: Reports content licensing within cost of subscription revenue for
+        Adobe Stock
+coa_mapping:
+  quickbooks: '5400 - Licensed Content Fees'
+  netsuite: '5400 - Licensed Content Costs'
+  sap: '4300000 - Licensed Content Fees'

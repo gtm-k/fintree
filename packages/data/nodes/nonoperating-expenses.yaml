@@ -1,16 +1,17 @@
 id: fintree:NonoperatingExpenses
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:NonoperatingIncomeExpense'
 label: NON-OPERATING EXPENSES
 short_label: NON-OPERATING EXPENSES
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:NonoperatingIncomeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Interest Expense + Foreign Exchange Loss + Loss on Sale of Assets + Impairment Charges + Restructuring Charges + Other Non-Operating Expenses'
+formula_machine: 'fintree:InterestExpense + fintree:ForeignExchangeLoss + fintree:LossOnSaleOfAssets + fintree:ImpairmentCharges + fintree:RestructuringCharges + fintree:OtherNonoperatingExpenses'
+asc_reference: 'ASC 220-10'
 definition: Costs outside core operations — primarily financing costs and exceptional
   charges.
-example: ''
+example: 'A highly leveraged retailer reports $45M interest expense, $8M restructuring charges from store closures, and $12M goodwill impairment, totaling $65M in non-operating expenses.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - non_operating_expenses
+  - financing_costs
+  - interest_expense
+  - impairment
+  - restructuring
+  - below_ebit
+classification_notes: 'Non-operating expenses reduce pre-tax income but are excluded from operating income. Interest expense is typically the largest and most recurring component. Impairment and restructuring charges are non-recurring but can be substantial. For capital-intensive or highly leveraged companies, interest expense can exceed operating income. Analysts separate recurring (interest) from non-recurring (restructuring, impairment) items.'
 variance_drivers:
-  tags: []
+  tags: [debt_level_driven, interest_rate_driven, non_recurring_charges, asset_writedowns]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new debt issuance or refinancing at higher rates, (2) goodwill or asset impairment charges triggered by declining business performance, (3) restructuring program announced with severance and facility closure costs, (4) FX losses from unfavorable currency movements, (5) loss on sale of assets below book value'
+    if_decreased: '(1) debt repayment reducing interest expense, (2) refinancing at lower interest rates, (3) no impairment or restructuring charges in current period, (4) favorable FX movements, (5) fewer asset disposals at a loss'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Some companies show a single Other expense line. Others disaggregate interest expense, restructuring, and impairment separately. Interest expense is almost always disclosed separately due to SEC requirements. Capital-intensive industries have proportionally higher interest expense.'
+  examples:
+    - company: 'AT&T'
+      treatment: 'Interest expense shown separately; impairment and restructuring as distinct lines'
+    - company: 'Tesla'
+      treatment: 'Interest expense shown separately — relatively low due to equity-heavy capital structure'
+    - company: 'General Electric'
+      treatment: 'Multiple non-operating expense lines including interest, restructuring, and goodwill impairment'
+coa_mapping:
+  quickbooks: '7500-7999 - Other Expenses'
+  netsuite: '7500 - Other Expenses'
+  sap: '7500000 - Non-Operating Expenses'

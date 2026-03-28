@@ -1,17 +1,18 @@
 id: fintree:TradeShowsSalesEvents
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SellingAndMarketingExpense'
 label: TRADE SHOWS & SALES EVENTS
 short_label: TRADE SHOWS & SALES EVENTS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:SellingExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Trade Show Materials & Setup + Booth / Exhibit Space + Event Travel & Entertainment'
+formula_machine: 'fintree:TradeShowMaterialsSetup + fintree:BoothExhibitSpace + fintree:EventTravelEntertainment'
+asc_reference: 'ASC 720-35'
 definition: Costs of exhibiting at or hosting trade shows, industry conferences, and
   sales events.
 example: A B2B software company spending $300K on a booth at Dreamforce.
-normal_balance: CREDIT
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - trade_shows
+  - events
+  - lead_generation
+  - opex
+  - discretionary
+  - seasonal
+classification_notes: 'Trade show costs are expensed when incurred (booth rental, setup, travel). Prepaid booth deposits are recorded as prepaid assets until the event occurs. If an event is canceled, deposits that are nonrefundable should be expensed immediately. Company-hosted events (user conferences, SKOs) are also classified here. Distinguish from brand sponsorships — trade shows involve direct exhibiting and lead capture, while sponsorships are for brand visibility.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, seasonal, event_calendar_driven, lead_gen_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) attending more industry conferences for pipeline generation, (2) upgrading booth size or placement (island vs. inline booth), (3) hosting proprietary user conferences or roadshows, (4) new market entry requiring conference presence, (5) larger event investments with speaking slots and after-parties'
+    if_decreased: '(1) reducing conference attendance to cut costs, (2) shifting to virtual or hybrid events, (3) downgrading booth presence or sharing booths with partners, (4) event cancellations, (5) analysis showing low ROI from specific trade shows'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Trade show costs are embedded in Sales & Marketing or SG&A and not separately disclosed. B2B companies (industrial, enterprise software) invest heavily in trade shows; DTC and consumer companies invest more in advertising. Some companies host their own major user conferences (Salesforce Dreamforce, AWS re:Invent) which represent significant event costs. Trade show spending is highly seasonal, concentrated in Q1 and Q3.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'Hosts Dreamforce ($30M+ annual cost); trade show costs embedded in Marketing and Sales'
+    - company: 'Caterpillar'
+      treatment: 'Major trade show presence at ConExpo and bauma; included in SG&A'
+    - company: 'CrowdStrike'
+      treatment: 'Active at RSA Conference and Black Hat; trade show costs in Sales and marketing'
+coa_mapping:
+  quickbooks: '6400 - Trade Shows & Sales Events'
+  netsuite: '7300 - Trade Shows & Events'
+  sap: '6400000 - Trade Shows Sales Events'

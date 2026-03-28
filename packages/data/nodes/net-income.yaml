@@ -7,7 +7,7 @@ node_type: GAAP_SUBTOTAL
 parent_id: null
 aggregation_type: DERIVED
 formula_human: "Pre-Tax Income − Income Tax Expense"
-formula_machine: "fintree:PreTaxIncome - fintree:IncomeTaxExpense"
+formula_machine: "fintree:PretaxIncome - fintree:IncomeTaxExpense"
 asc_reference: "ASC 220"
 definition: "The final, bottom-line profit or loss after all revenues, costs, expenses, non-operating items, and taxes."
 example: "Apple FY2024 reported net income of $93.7B, reflecting all costs deducted from $391B in revenue."

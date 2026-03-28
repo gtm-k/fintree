@@ -1,5 +1,5 @@
 id: fintree:DigitalAdvertising
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:AdvertisingExpense'
 label: Digital Advertising
 short_label: Digital Advertising
 level: 4
@@ -7,7 +7,7 @@ node_type: LINE_ITEM
 parent_id: fintree:AdvertisingMarketing
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720-35'
 definition: Paid search (Google Ads, Bing), social media ads (Meta, LinkedIn, Twitter/X),
   display, and programmatic advertising.
 example: A DTC brand spending $2M/month on Meta and Google ads.
@@ -24,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - advertising
+  - digital_marketing
+  - paid_media
+  - opex
+  - discretionary
+  - performance_marketing
+classification_notes: 'Digital advertising is expensed as incurred under ASC 720-35 (the first time the advertising takes place). Includes paid search (SEM), social media ads, display/programmatic, video ads, and retargeting. Excludes organic social media and SEO (those are content marketing). Cooperative advertising credits from vendors should reduce advertising expense, not increase revenue. Click fraud refunds reduce the expense.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, campaign_driven, cpc_driven, seasonal]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) increased budget allocation to paid channels for growth, (2) rising cost-per-click (CPC) due to competitive auction dynamics, (3) new product or market launch campaigns, (4) seasonal spending (holiday, back-to-school), (5) expansion to new ad platforms or channels'
+    if_decreased: '(1) budget cuts shifting spend to organic/earned channels, (2) improved targeting reducing wasted spend, (3) lower CPCs from reduced competitive bidding, (4) pausing campaigns during off-peak periods, (5) attribution analysis showing low ROI on certain channels'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Digital ad spend is rarely disclosed separately in 10-K filings; it is embedded in total advertising or S&M expense. DTC brands may spend 60-80% of marketing budget on digital; B2B enterprise companies typically spend 30-50%. Companies disclose total advertising expense in footnotes per ASC 720-35 but not the digital/traditional split.'
+  examples:
+    - company: 'Wayfair'
+      treatment: 'Advertising expense disclosed in footnotes; heavily weighted toward Google Shopping and Meta ads'
+    - company: 'Airbnb'
+      treatment: 'Sales and marketing; famously cut digital brand ads in 2020 and shifted to organic/PR'
+    - company: 'DoorDash'
+      treatment: 'Sales and marketing; digital performance marketing is the dominant component'
+coa_mapping:
+  quickbooks: '6210 - Digital Advertising'
+  netsuite: '7110 - Digital Advertising'
+  sap: '6200100 - Digital Advertising'

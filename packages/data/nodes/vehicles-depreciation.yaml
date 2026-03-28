@@ -1,5 +1,5 @@
 id: fintree:VehiclesDepreciation
-xbrl_tag: ''
+xbrl_tag: "us-gaap:Depreciation"
 label: Vehicles Depreciation
 short_label: Vehicles Depreciation
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:DepreciationOfPropertyPlantEquipment
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 360-10"
 definition: Depreciation on company-owned vehicles.
-example: ''
+example: "A logistics company with a fleet of 500 delivery trucks at $80K each depreciates them over 7 years, recording $5.7M/year in vehicle depreciation."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - vehicles
+  - fleet
+  - non_cash
+  - asc_360
+  - tangible_assets
+classification_notes: "Includes depreciation on company-owned cars, trucks, vans, forklifts, and specialty vehicles. Leased vehicles under finance leases are also included (ROU asset amortization). Operating lease vehicles are excluded -- those costs appear as lease expense. Salvage value for vehicles is typically 10-20% of original cost. IRS MACRS allows 5-year recovery for most vehicles."
 variance_drivers:
-  tags: []
+  tags: [fleet_driven, non_cash, replacement_cycle]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) fleet expansion with new vehicle purchases, (2) transition from leased to owned vehicles, (3) higher vehicle acquisition costs, (4) shorter useful life estimates for high-mileage vehicles"
+    if_decreased: "(1) vehicles reaching end of useful life, (2) fleet downsizing, (3) shift from owned to leased vehicles, (4) vehicle sales and trade-ins"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Delivery, logistics, and transportation companies have the highest vehicle depreciation. Many companies lease rather than own vehicles, which moves cost from depreciation to lease expense. EV transitions may change useful life assumptions and residual values."
+  examples:
+    - company: "FedEx"
+      treatment: "Large fleet depreciation on delivery vehicles and aircraft"
+    - company: "Waste Management"
+      treatment: "Significant depreciation on collection trucks and specialized vehicles"
+    - company: "Coca-Cola"
+      treatment: "Delivery fleet depreciation included in selling and distribution costs"
+coa_mapping:
+  quickbooks: "6730 - Vehicles Depreciation"
+  netsuite: "6730 - Vehicles Depreciation"
+  sap: "6730000 - Vehicles Depreciation"

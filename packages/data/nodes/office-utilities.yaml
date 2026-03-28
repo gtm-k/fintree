@@ -1,5 +1,5 @@
 id: fintree:OfficeUtilities
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:UtilitiesOperatingExpenseOther'
 label: Office Utilities
 short_label: Office Utilities
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:OfficeFacilitiesCorporate
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Electricity, HVAC, water, and other utilities for corporate offices.
-example: ''
+example: 'A 40,000 sq ft corporate office in Chicago pays $96K/year in utilities: $60K electricity, $18K natural gas (heating), $12K water/sewer, $6K trash removal.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,26 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - office
+  - utilities
+  - occupancy
+  - semi_variable
+classification_notes: 'Office utilities are G&A; manufacturing plant utilities are manufacturing overhead (COGS). In multi-use facilities, utilities should be allocated between production and corporate use. Gross leases often include utilities in the rent; net leases require separate utility payments. Internet and phone service may be classified here or under IT depending on company policy.'
 variance_drivers:
-  tags: []
+  tags: [usage_driven, rate_driven, seasonal, semi_variable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) energy rate increases, (2) office expansion increasing square footage, (3) return-to-office increasing occupancy and usage, (4) extreme weather driving HVAC costs, (5) adding energy-intensive equipment (server rooms, EV charging stations)'
+    if_decreased: '(1) reduced office occupancy from hybrid work, (2) energy efficiency improvements (LED lighting, smart HVAC), (3) solar panel installations reducing grid electricity costs, (4) office downsizing, (5) utility rate negotiations or switching providers'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Utilities per sq ft vary by climate, building age, and energy efficiency. Gross lease tenants show zero utility expense (included in rent). Net lease tenants show full utility costs. Companies with on-site data centers will have significantly higher electricity costs classified under IT rather than office utilities.'
+  examples:
+    - company: 'Apple (Apple Park)'
+      treatment: '100% renewable energy campus; low utility costs relative to building size'
+    - company: 'Traditional office tenant'
+      treatment: 'Utilities paid separately under NNN lease; typically $2-4/sq ft/year'
+coa_mapping:
+  quickbooks: '6570 - Office Utilities'
+  netsuite: '7170 - Office Utilities'
+  sap: '6570000 - Office Utility Expense'

@@ -1,16 +1,17 @@
 id: fintree:ExecutiveManagementCompensation
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:LaborAndRelatedExpense'
 label: EXECUTIVE & MANAGEMENT COMPENSATION
 short_label: EXECUTIVE & MANAGEMENT COMPENS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GeneralAdministrativeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Executive Salaries + Executive Bonuses & Incentive Pay + Executive Benefits & Perquisites + Stock-Based Compensation (G&A)'
+formula_machine: 'fintree:ExecutiveSalaries + fintree:ExecutiveBonusesIncentivePay + fintree:ExecutiveBenefitsPerquisites + fintree:StockbasedCompensationGa'
+asc_reference: 'ASC 718'
 definition: Compensation for C-suite executives and senior management whose roles
   span the entire business rather than a single function.
-example: ''
+example: 'A public tech company pays its CEO $1.2M salary, $2.5M bonus, $800K benefits/perks, and $8M in stock-based compensation, totaling $12.5M in executive comp.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - compensation
+  - executive_pay
+  - stock_comp
+  - proxy_disclosure
+  - corporate
+classification_notes: 'Proxy statement (DEF 14A) provides detailed named executive officer (NEO) compensation. Stock-based compensation is often the largest component for tech companies. Some companies allocate a portion of exec comp to functional areas (R&D, Sales) based on time spent.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, performance_driven, board_driven, equity_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new C-suite hires or expanded executive team, (2) stock price appreciation increasing SBC expense, (3) above-target bonus payouts due to strong performance, (4) retention packages or sign-on bonuses, (5) increased perquisites or benefits'
+    if_decreased: '(1) executive departures not replaced, (2) stock price decline reducing SBC mark-to-market, (3) below-target bonus payouts, (4) salary freezes or voluntary pay cuts, (5) forfeiture of unvested equity upon departure'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Tech companies have much higher SBC component. Financial services firms pay large cash bonuses. Some companies allocate executive comp across functions rather than all to G&A. Proxy disclosures provide standardized NEO compensation tables.'
+  examples:
+    - company: 'Apple'
+      treatment: 'CEO Tim Cook comp primarily stock-based; disclosed in proxy; allocated to G&A'
+    - company: 'JPMorgan Chase'
+      treatment: 'CEO compensation heavily cash/bonus-weighted; reported within compensation and benefits'
+    - company: 'Tesla'
+      treatment: 'CEO comp primarily performance-based stock options; significant SBC charges in G&A'
+coa_mapping:
+  quickbooks: '6500 - Executive Compensation'
+  netsuite: '7100 - Executive & Management Compensation'
+  sap: '6500000 - Executive Management Compensation'

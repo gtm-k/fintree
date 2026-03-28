@@ -1,5 +1,5 @@
 id: fintree:FactoryRentLease
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OperatingLeaseExpense'
 label: Factory Rent / Lease
 short_label: Factory Rent / Lease
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:FacilityCosts
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 842'
 definition: Rent or lease payments for manufacturing plant and production facilities.
-example: ''
+example: 'A contract electronics manufacturer leases a 200,000 sq ft factory at $12/sq ft/year for a total annual lease cost of $2.4M, allocated to manufacturing overhead and absorbed into product costs.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - rent
+  - lease
+  - factory
+  - fixed_cost
+  - asc_842
+classification_notes: 'Factory rent or lease is a fixed manufacturing overhead cost absorbed into inventory. Under ASC 842, operating leases appear on the balance sheet as right-of-use assets. Only the manufacturing facility portion belongs in COGS; corporate office leases are SG&A. If a facility is partially used for production and partially for admin, the cost must be allocated. Idle facility space lease costs should be expensed as period cost, not inventoried.'
 variance_drivers:
-  tags: []
+  tags: [lease_driven, largely_fixed, capacity_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Lease renewals at higher market rates, (2) expansion to additional leased manufacturing space, (3) real estate market appreciation in manufacturing regions, (4) new facility leases for capacity expansion, (5) CPI escalation clauses in existing leases'
+    if_decreased: '(1) Plant consolidation reducing leased space, (2) lease renegotiation at more favorable terms, (3) transition from leased to owned facilities, (4) subletting excess manufacturing space, (5) relocation to lower-cost industrial areas'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies owning their factories show depreciation instead of rent. Leasing companies show rent expense and right-of-use assets under ASC 842. Asset-light contract manufacturers may lease all facilities. Real estate costs vary dramatically by geography — a factory in coastal California costs far more than one in rural Tennessee.'
+  examples:
+    - company: 'Flex Ltd.'
+      treatment: 'Leases manufacturing facilities globally; significant operating lease costs allocated to COGS'
+    - company: 'Tesla'
+      treatment: 'Owns most Gigafactories (depreciation, not rent); Fremont factory was initially leased from Toyota'
+    - company: '3M'
+      treatment: 'Mix of owned and leased manufacturing facilities; lease costs allocated to COGS via overhead rates'
+coa_mapping:
+  quickbooks: '5351 - Factory Rent / Lease'
+  netsuite: '5351 - Factory Rent / Lease'
+  sap: '5351000 - Factory Rent and Lease'

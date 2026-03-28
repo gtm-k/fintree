@@ -1,5 +1,5 @@
 id: fintree:DataProviderFees
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InformationServicesExpense'
 label: Data Provider Fees
 short_label: Data Provider Fees
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:ThirdpartyDataLicensedContent
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 350-40'
 definition: Subscription or usage fees for third-party data incorporated into the
   product.
-example: ''
+example: 'A fintech company pays $600K/year in data fees: $300K Bloomberg Terminal licenses, $150K S&P Capital IQ, $100K Refinitiv market data feeds, $50K alternative data providers.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - data_provider
+  - subscription
+  - licensed_content
+  - third_party
+  - usage_based
+classification_notes: 'Data feeds incorporated into the product are COGS, not G&A. Corporate-use data subscriptions (e.g., Bloomberg for internal investment decisions) are G&A. Classification depends on whether the data is resold/embedded in the product (COGS) or used internally (G&A). Usage-based pricing creates variable cost behavior.'
 variance_drivers:
-  tags: []
+  tags: [usage_driven, contract_driven, product_driven, customer_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) adding new data providers to expand product coverage, (2) customer growth increasing usage-based data consumption, (3) vendor price increases on data licensing renewals, (4) expansion into new data categories (alternative data, ESG), (5) regulatory requirements for additional data sources'
+    if_decreased: '(1) renegotiated data licensing agreements, (2) building proprietary data collection reducing third-party dependency, (3) product pivots reducing data requirements, (4) consolidating data providers, (5) moving from premium to standard data tiers'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Financial services firms spend heavily on market data ($2K-$25K per user per year for Bloomberg). SaaS companies embedding third-party data may have it as largest COGS component. Some companies negotiate enterprise-wide licenses while others pay per-seat or per-query.'
+  examples:
+    - company: 'Bloomberg LP'
+      treatment: 'Data licensing is revenue; internal data costs are minimal as a data provider itself'
+    - company: 'FactSet'
+      treatment: 'Third-party data content costs are a significant portion of COGS, disclosed in cost of services'
+coa_mapping:
+  quickbooks: '5400 - Data Provider Fees'
+  netsuite: '5400 - Data Provider Fees'
+  sap: '5400000 - Data Provider Licensing Fees'

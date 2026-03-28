@@ -1,5 +1,5 @@
 id: fintree:GainOnInvestments
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:GainLossOnInvestments'
 label: Gain on Investments
 short_label: Gain on Investments
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingIncome
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 321-10'
 definition: Mark-to-market gains or realized gains from equity investments.
-example: ''
+example: 'Berkshire Hathaway reported $35.5B in investment gains in FY2023, driven primarily by unrealized appreciation in its Apple and other equity holdings under ASC 321.'
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - investment_gains
+  - mark_to_market
+  - realized_gains
+  - unrealized_gains
+  - equity_securities
+  - asc_321
+classification_notes: 'Under ASC 321 (post-ASU 2016-01), equity securities with readily determinable fair values are marked to market through the income statement — creating potentially large, volatile gains/losses that do not represent cash flow. Realized gains occur on actual sale. Analysts often exclude unrealized gains from recurring earnings. Debt securities classified as available-for-sale record unrealized gains in OCI, not P&L.'
 variance_drivers:
-  tags: []
+  tags: [market_driven, portfolio_composition, realized_vs_unrealized]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) rising equity markets boosting unrealized gains on mark-to-market portfolio, (2) sale of appreciated investments at a gain, (3) new investments that appreciated quickly, (4) favorable sector rotation benefiting held positions'
+    if_decreased: '(1) declining equity markets reducing mark-to-market values, (2) sale of investments at lower gains, (3) reduced investment portfolio size, (4) shift from equity to fixed-income investments with less price appreciation'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Post-ASU 2016-01, all equity securities flow through P&L, creating massive volatility for large holders. Some companies present gains/losses net; others separate realized from unrealized. Many companies add non-GAAP adjustments to exclude unrealized gains.'
+  examples:
+    - company: 'Berkshire Hathaway'
+      treatment: 'Investment gains/losses — enormous line item ($35B+) driven by Apple and equity portfolio mark-to-market'
+    - company: 'SoftBank'
+      treatment: 'Gain on investments — Vision Fund marks startup portfolio to fair value each quarter'
+    - company: 'Alphabet'
+      treatment: 'Gain on equity securities — includes gains/losses on venture investments'
+coa_mapping:
+  quickbooks: '7200 - Gain on Investments'
+  netsuite: '7200 - Gain on Investments'
+  sap: '7200000 - Gain on Investments'

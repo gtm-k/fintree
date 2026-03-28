@@ -1,5 +1,5 @@
 id: fintree:AmortizationOfDebtIssuanceCosts
-xbrl_tag: ''
+xbrl_tag: us-gaap:AmortizationOfFinancingCosts
 label: Amortization of Debt Issuance Costs
 short_label: 'Amortization of Debt Issuance '
 level: 5
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Amortization of financing fees paid to issue debt instruments (treated
   as an interest expense component under ASC 835).
-example: ''
+example: A company issued $500M in bonds and paid $4M in underwriting and legal fees;
+  it amortizes $800K per year over the 5-year term as a component of interest expense.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,47 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - debt issuance costs
+  - financing fees
+  - bond underwriting
+  - amortization
+  - interest expense
+  - ASC 835
+classification_notes: Under ASU 2015-03, debt issuance costs are presented as a direct
+  deduction from the carrying amount of the debt, not as a separate asset. The amortization
+  flows through interest expense, not amortization expense. Distinguish from loan origination
+  fees received by lenders (ASC 310).
 variance_drivers:
-  tags: []
+  tags:
+    - debt refinancing
+    - capital structure
+    - interest rates
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. New debt issuance with significant underwriting fees
+      2. Refinancing of existing debt triggering accelerated amortization of old costs
+      3. Shorter debt maturity concentrating amortization into fewer periods
+      4. Write-off of unamortized costs on early extinguishment
+    if_decreased: |-
+      1. Debt maturity reached and fully amortized
+      2. Shift from debt to equity financing reducing outstanding issuance costs
+      3. Longer-term debt instruments spreading costs over more periods
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies combine debt issuance cost amortization into a single
+    interest expense line; others break it out separately. IFRS companies may use different
+    effective interest method calculations under IFRS 9.
+  examples:
+    - company: AT&T
+      treatment: Reports amortization of debt issuance costs within interest expense
+        on the income statement, disclosed separately in the notes
+    - company: Ford Motor Company
+      treatment: Includes debt issuance cost amortization within automotive interest
+        expense, given large bond portfolio
+    - company: Netflix
+      treatment: Amortizes significant content-debt issuance costs over bond terms,
+        disclosed in interest expense footnotes
+coa_mapping:
+  quickbooks: '7410 - Amortization of Debt Issuance Costs'
+  netsuite: '7410 - Amort. of Debt Issuance Costs'
+  sap: '0047100 - Amort Debt Issuance Costs'

@@ -36,7 +36,7 @@ comparability:
   variations: "Some companies report commissions within Sales & Marketing; others embed them in SG&A. ASC 340-40 capitalization creates timing differences — a company capitalizing commissions shows lower current-period expense but carries a deferred asset on the balance sheet."
   examples:
     - company: "Salesforce"
-      treatment: "Capitalized as 'Deferred commissions' on balance sheet, amortized over ~5 years in Marketing and Sales"
+      treatment: "Capitalized as 'Deferred commissions' on balance sheet, amortized over 4 years for new contracts and 2 years for renewals in Marketing and Sales"
     - company: "Apple"
       treatment: "Not separately disclosed — embedded in SG&A (primarily retail and online sales, minimal traditional commission structure)"
     - company: "HubSpot"

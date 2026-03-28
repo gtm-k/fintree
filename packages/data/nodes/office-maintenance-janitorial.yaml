@@ -1,5 +1,5 @@
 id: fintree:OfficeMaintenanceJanitorial
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherGeneralAndAdministrativeExpense'
 label: Office Maintenance & Janitorial
 short_label: Office Maintenance & Janitoria
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:OfficeFacilitiesCorporate
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Ongoing maintenance, cleaning, and facility management for corporate offices.
-example: ''
+example: 'A corporate office pays $144K/year for maintenance: $84K janitorial services (3x/week cleaning), $36K HVAC maintenance contract, $24K miscellaneous repairs (plumbing, electrical).'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - office
+  - maintenance
+  - janitorial
+  - facilities
+  - contract_services
+classification_notes: 'Includes janitorial/cleaning services, minor plumbing/electrical repairs, HVAC servicing, pest control, landscaping, and security services. Capital improvements (new HVAC system, roof replacement) should be capitalized under ASC 360, not expensed here. Manufacturing facility maintenance is under manufacturing overhead, not G&A.'
 variance_drivers:
-  tags: []
+  tags: [contract_driven, square_footage_driven, largely_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) aging building requiring more frequent repairs, (2) enhanced cleaning protocols (post-COVID), (3) office expansion increasing square footage, (4) vendor price increases on service contracts, (5) adding new services (security, concierge)'
+    if_decreased: '(1) office downsizing reducing maintained square footage, (2) renegotiated cleaning and maintenance contracts, (3) reduced cleaning frequency for hybrid offices, (4) newer building requiring less maintenance, (5) bringing janitorial services in-house'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Gross lease tenants may have maintenance included in rent (showing $0 here). NNN lease tenants pay all maintenance directly. Typical office maintenance is $3-8/sq ft/year depending on building class and services. Some companies combine this with office supplies into a single occupancy line.'
+  examples:
+    - company: 'WeWork (member company)'
+      treatment: 'Maintenance included in WeWork membership fee; shows $0 in this line'
+    - company: 'Large corporate campus (owned)'
+      treatment: 'Full maintenance budget managed internally; includes landscaping, security, cleaning'
+coa_mapping:
+  quickbooks: '6590 - Office Maintenance & Janitorial'
+  netsuite: '7190 - Office Maintenance & Janitorial'
+  sap: '6590000 - Office Maintenance Janitorial'

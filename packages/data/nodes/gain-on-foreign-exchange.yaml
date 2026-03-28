@@ -1,5 +1,5 @@
 id: fintree:GainOnForeignExchange
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ForeignCurrencyTransactionGainLossBeforeTax'
 label: Gain on Foreign Exchange
 short_label: Gain on Foreign Exchange
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingIncome
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 830-20'
 definition: Realized and unrealized gains from currency rate movements on foreign-denominated
   assets/liabilities.
-example: ''
+example: 'A US exporter with EUR 50M in receivables gains $3.2M when the euro strengthens from 1.05 to 1.11 against the dollar during the quarter.'
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - foreign_exchange
+  - fx_gain
+  - currency_translation
+  - transaction_gain
+  - asc_830
+  - multinational
+classification_notes: 'Transaction gains (ASC 830-20) arise from remeasuring foreign-currency-denominated monetary items and flow through the P&L. Translation adjustments (ASC 830-10) from consolidating foreign subsidiaries go to OCI, not here. Companies may net FX gains and losses into a single line. Hedging gains under ASC 815 may offset transaction losses if hedge accounting is applied.'
 variance_drivers:
-  tags: []
+  tags: [currency_movements, geographic_exposure, hedging_effectiveness]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) strengthening of foreign currencies against the functional currency on receivables, (2) weakening of functional currency on foreign-denominated assets, (3) increased unhedged foreign currency exposure, (4) favorable settlement timing on foreign transactions'
+    if_decreased: '(1) stable exchange rates reducing remeasurement gains, (2) effective hedging programs neutralizing FX movements, (3) reduced foreign-denominated receivables or assets, (4) netting against FX losses'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Many companies combine FX gains and losses into a net line. Some report within Other income/expense without separate disclosure. Multinationals with significant hedging programs may show minimal net FX impact.'
+  examples:
+    - company: 'Procter & Gamble'
+      treatment: 'Foreign exchange gains/losses included in Other non-operating income — significant due to operations in 180+ countries'
+    - company: 'Amazon'
+      treatment: 'Effect of exchange rates on cash disclosed separately; transaction gains/losses in Other income'
+    - company: 'Toyota'
+      treatment: 'Foreign exchange gains shown as separate line item — major impact from USD/JPY movements'
+coa_mapping:
+  quickbooks: '7250 - Gain on Foreign Exchange'
+  netsuite: '7250 - Gain on Foreign Exchange'
+  sap: '7250000 - Foreign Exchange Gains'

@@ -1,5 +1,5 @@
 id: fintree:SubscriptionsPublications
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherGeneralAndAdministrativeExpense'
 label: Subscriptions & Publications
 short_label: Subscriptions & Publications
 level: 4
@@ -7,11 +7,12 @@ node_type: LINE_ITEM
 parent_id: fintree:GeneralCorporateOverhead
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Industry publications, research subscriptions, and news services for corporate
   management.
-example: ''
-normal_balance: CREDIT
+example: 'A company pays $95K/year in subscriptions: $30K Wall Street Journal and Financial Times, $25K Gartner research, $20K industry trade publications, $20K professional association memberships (AICPA, bar associations).'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - corporate_overhead
+  - subscriptions
+  - publications
+  - research
+  - discretionary
+classification_notes: 'Includes news services (WSJ, Bloomberg News), industry research (Gartner, Forrester), professional memberships and dues (AICPA, bar associations, trade groups), and trade publications. Distinguish from data provider fees (product-embedded data, which is COGS) and software subscriptions (IT). Lobbying-related memberships may be non-deductible for tax purposes.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, headcount_driven, per_seat_pricing]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) adding new research services (Gartner, CB Insights), (2) expanding access to more employees, (3) vendor price increases on subscription renewals, (4) joining new industry associations, (5) upgrading from basic to premium research tiers'
+    if_decreased: '(1) budget cuts eliminating discretionary subscriptions, (2) consolidating overlapping research services, (3) reducing seat count for expensive per-user subscriptions, (4) switching to free or lower-cost alternatives, (5) dropping professional association memberships'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Financial services firms have the highest research subscription costs (Bloomberg, S&P, Moody''s). Consulting firms invest heavily in research (Gartner, Forrester). Manufacturing and retail companies spend relatively little. Some companies classify research subscriptions under the functional department that uses them.'
+  examples:
+    - company: 'Hedge fund'
+      treatment: 'Significant research subscription costs (Bloomberg at $24K/user/year); classified as a core business expense'
+    - company: 'Small business'
+      treatment: 'Minimal subscriptions; maybe $500-$2,000/year for trade publications and local business news'
+coa_mapping:
+  quickbooks: '6910 - Subscriptions & Publications'
+  netsuite: '7410 - Subscriptions & Publications'
+  sap: '6910000 - Subscriptions Publications'

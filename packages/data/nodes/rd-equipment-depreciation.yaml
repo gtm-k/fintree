@@ -1,5 +1,5 @@
 id: fintree:RdEquipmentDepreciation
-xbrl_tag: ''
+xbrl_tag: "us-gaap:DepreciationNonproduction"
 label: R&D Equipment Depreciation
 short_label: R&D Equipment Depreciation
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:RdEquipmentFacilities
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25, ASC 360-10"
 definition: Depreciation on equipment used exclusively for research and development.
-example: ''
+example: "A semiconductor company depreciates $50M in wafer fabrication test equipment over 5 years, recording $10M/year in R&D equipment depreciation."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - depreciation
+  - equipment
+  - non_cash
+  - asc_730
+  - asc_360
+classification_notes: "Equipment used exclusively for R&D with no alternative future use is expensed immediately under ASC 730 (not depreciated). Equipment with alternative future use is capitalized under ASC 360 and depreciated, with the depreciation charge allocated to R&D. This line captures the latter case. Common methods: straight-line over 3-7 years for lab equipment."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, non_cash, predictable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new R&D equipment purchases entering depreciable base, (2) shorter useful life estimates accelerating depreciation, (3) lab equipment upgrades, (4) acquired company's R&D equipment added"
+    if_decreased: "(1) R&D equipment becoming fully depreciated, (2) equipment disposals or retirements, (3) extension of useful life estimates, (4) shift from on-premise equipment to cloud services"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Semiconductor and pharma companies have the highest R&D equipment depreciation. Tech/software companies have minimal R&D equipment. Some companies do not break out R&D-specific depreciation, instead including it in total D&A on the income statement."
+  examples:
+    - company: "ASML"
+      treatment: "Significant R&D equipment depreciation for lithography system development"
+    - company: "Illumina"
+      treatment: "R&D equipment depreciation for genomic sequencing instrument development"
+    - company: "Qualcomm"
+      treatment: "R&D equipment depreciation for chip design and testing labs"
+coa_mapping:
+  quickbooks: "6651 - R&D Equipment Depreciation"
+  netsuite: "6651 - R&D Equipment Depreciation"
+  sap: "6651000 - R&D Equipment Depreciation"

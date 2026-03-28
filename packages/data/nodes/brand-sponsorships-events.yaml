@@ -1,5 +1,5 @@
 id: fintree:BrandSponsorshipsEvents
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SponsorshipCostsIncurredCost'
 label: Brand Sponsorships & Events
 short_label: Brand Sponsorships & Events
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:AdvertisingMarketing
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720-35'
 definition: Sponsorship of events, conferences, or organizations for brand visibility.
-example: ''
+example: 'A fintech company pays $250K to sponsor a major industry conference (keynote naming rights), $100K for a local tech meetup series sponsorship, and $50K for a charity gala presenting sponsorship, totaling $400K in brand sponsorships.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - advertising
+  - sponsorship
+  - brand_building
+  - opex
+  - discretionary
+  - events
+classification_notes: 'Sponsorship costs are expensed as incurred or over the sponsorship period. Multi-year sponsorship agreements should be expensed ratably. If the sponsorship includes tangible benefits (booth space, attendee lists), it is an advertising expense; if purely charitable with no benefit, it may be a charitable contribution. Sports stadium naming rights are typically amortized over the contract term. Distinguish from trade show costs — sponsorships are for brand visibility, not direct lead generation.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, contract_driven, brand_investment]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new multi-year sponsorship deal signed (stadium, conference series), (2) expansion into new markets requiring brand awareness investment, (3) competitive sponsorship escalation in key industry events, (4) IPO or public debut requiring brand visibility, (5) sponsoring major events in a given year (Olympics, World Cup cycles)'
+    if_decreased: '(1) exiting sponsorship agreements at renewal, (2) budget cuts reducing discretionary brand spend, (3) shift from event sponsorships to digital brand campaigns, (4) event cancellations or format changes, (5) renegotiating sponsorship terms at lower rates'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Sponsorship costs are rarely disclosed separately in public filings. Companies with major naming rights deals (stadiums, arenas) may disclose the total commitment in contractual obligations. B2B companies sponsor industry conferences; consumer brands sponsor sports and entertainment. Some companies classify sponsorships under advertising; others under general marketing or even G&A.'
+  examples:
+    - company: 'Red Bull'
+      treatment: 'Massive sponsorship spending (F1, extreme sports) embedded in marketing costs; core to brand identity'
+    - company: 'Salesforce'
+      treatment: 'Major conference sponsor (Dreamforce own event + industry events); included in Marketing and Sales'
+    - company: 'Coca-Cola'
+      treatment: 'Olympic and FIFA sponsor; multi-year commitments disclosed in contractual obligations; classified in SG&A'
+coa_mapping:
+  quickbooks: '6260 - Brand Sponsorships & Events'
+  netsuite: '7160 - Brand Sponsorships & Events'
+  sap: '6200600 - Brand Sponsorships Events'

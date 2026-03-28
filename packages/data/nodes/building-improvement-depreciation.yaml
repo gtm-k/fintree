@@ -1,5 +1,5 @@
 id: fintree:BuildingImprovementDepreciation
-xbrl_tag: ''
+xbrl_tag: "us-gaap:DepreciationNonproduction"
 label: Building & Improvement Depreciation
 short_label: Building & Improvement Depreci
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:DepreciationOfPropertyPlantEquipment
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 360-10"
 definition: Depreciation on owned buildings and leasehold improvements.
-example: ''
+example: "A company owns a $50M headquarters building depreciated over 39 years ($1.3M/year) plus $5M in leasehold improvements depreciated over the 10-year lease term ($500K/year)."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - buildings
+  - leasehold_improvements
+  - non_cash
+  - asc_360
+  - real_estate
+  - tangible_assets
+classification_notes: "Buildings are typically depreciated over 25-40 years (IRS: 39 years for commercial, 27.5 for residential). Leasehold improvements are depreciated over the shorter of useful life or remaining lease term. Land is never depreciated. Building components (HVAC, electrical, roofing) may be separately depreciated with different useful lives. Tenant improvement allowances from landlords reduce the depreciable base."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, non_cash, long_lived, stable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new building acquisitions or construction completions, (2) major renovations or leasehold improvements, (3) acquisitions adding owned properties, (4) component replacements (new roof, HVAC)"
+    if_decreased: "(1) building sales or dispositions, (2) buildings becoming fully depreciated, (3) lease expirations with associated improvements fully amortized, (4) impairment write-downs reducing carrying value"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "REITs and property-heavy companies have the largest building depreciation. Many tech companies lease rather than own buildings, so their building depreciation is minimal. Retail companies with owned store locations have significant building depreciation. Leasehold improvements can be substantial for companies that heavily customize leased spaces."
+  examples:
+    - company: "Simon Property Group"
+      treatment: "Massive building depreciation on owned shopping centers and malls"
+    - company: "JPMorgan Chase"
+      treatment: "Significant depreciation on owned branch locations and headquarters buildings"
+    - company: "Starbucks"
+      treatment: "Leasehold improvement depreciation across thousands of store locations"
+coa_mapping:
+  quickbooks: "6740 - Building & Improvement Depreciation"
+  netsuite: "6740 - Building & Improvement Depreciation"
+  sap: "6740000 - Building & Improvement Depreciation"

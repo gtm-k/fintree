@@ -1,5 +1,5 @@
 id: fintree:FactoryProductionSupplies
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldOverhead'
 label: Factory / Production Supplies
 short_label: Factory / Production Supplies
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:ProductionSupplies
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: All consumable supplies used in the manufacturing process that are not
   direct materials.
-example: ''
+example: 'A machining shop spends $200K/year on drill bits and cutting inserts, $80K on coolants and lubricants, $50K on safety gloves and protective eyewear, and $30K on cleaning solvents.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - consumables
+  - indirect_materials
+  - factory_supplies
+  - manufacturing
+classification_notes: 'Factory production supplies are consumables used on the shop floor that do not become part of the finished product. They are expensed as manufacturing overhead and absorbed into inventory cost. If supplies can be traced to specific products or jobs, they may be classified as direct materials instead. High-value tooling (e.g., molds, dies) above the capitalization threshold should be capitalized and depreciated, not expensed as supplies.'
 variance_drivers:
-  tags: []
+  tags: [consumption_driven, volume_driven, commodity_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Higher production volumes increasing supply consumption, (2) price increases on consumable inputs, (3) older equipment requiring more frequent tool/consumable replacement, (4) new safety or environmental regulations adding required supplies, (5) shift to more supply-intensive manufacturing processes'
+    if_decreased: '(1) Lower production volumes, (2) longer-lasting tools or consumables (technology improvement), (3) bulk purchasing or vendor-managed inventory programs, (4) process optimization reducing waste, (5) standardization reducing variety of supplies stocked'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Metal fabrication and machining operations have high supply costs. Assembly-only operations have minimal supply costs. Companies may combine this with MRO (maintenance, repair, operations) supplies. Some firms use consignment or vendor-managed inventory programs that affect timing of cost recognition.'
+  examples:
+    - company: 'Nucor'
+      treatment: 'Reports electrodes, refractories, and alloy additions as factory supplies in steel production'
+    - company: 'Boeing'
+      treatment: 'Reports sealants, fasteners below materiality threshold, and protective coatings as production supplies in aircraft assembly'
+    - company: 'Kimberly-Clark'
+      treatment: 'Reports converting chemicals, adhesives, and process aids as factory supplies in tissue and diaper manufacturing'
+coa_mapping:
+  quickbooks: '5341 - Factory Production Supplies'
+  netsuite: '5341 - Factory / Production Supplies'
+  sap: '5341000 - Factory Production Supplies'

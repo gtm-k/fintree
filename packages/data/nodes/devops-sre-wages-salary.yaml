@@ -1,5 +1,5 @@
 id: fintree:DevopsSreWagesSalary
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: DevOps / SRE Wages & Salary
 short_label: DevOps / SRE Wages & Salary
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Compensation for engineers whose primary role is production reliability
   and operations.
-example: ''
+example: A SaaS company employs 8 SRE engineers at an average salary of $185K each,
+  totaling $1.48M/year in base compensation allocated to cost of revenue.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,48 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - SRE salary
+  - DevOps wages
+  - production engineering
+  - site reliability
+  - on-call pay
+  - COGS labor
+classification_notes: Only base salary and wages belong here; stock-based compensation
+  is typically a separate line. Engineers splitting time between production ops and
+  new feature development require time-based allocation between COGS and R&D. On-call
+  stipends and overtime premiums are included.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - wage rates
+    - team structure
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. New SRE/DevOps hires to support scaling infrastructure
+      2. Annual merit increases and cost-of-living adjustments
+      3. Competitive market driving up DevOps salaries
+      4. Reclassification of engineers from R&D to production operations
+    if_decreased: |-
+      1. Layoffs or attrition in operations team
+      2. Offshoring operations roles to lower-cost regions
+      3. Automation reducing required headcount for production operations
+      4. Reclassification of time allocation shifting more hours to R&D
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies combine all engineering wages and allocate a percentage
+    to COGS. Others track DevOps/SRE as a distinct cost center. Stock-based compensation
+    for these roles may or may not be included depending on company policy.
+  examples:
+    - company: Twilio
+      treatment: Allocates a portion of engineering salaries to cost of revenue based
+        on time spent on production infrastructure
+    - company: HubSpot
+      treatment: Includes operations engineering salaries in cost of subscription
+        revenue
+    - company: Okta
+      treatment: Reports production operations team compensation within cost of subscription
+        revenue
+coa_mapping:
+  quickbooks: '5510 - DevOps / SRE Wages & Salary'
+  netsuite: '5510 - DevOps SRE Wages Salary'
+  sap: '0055100 - DevOps SRE Wages Salary'

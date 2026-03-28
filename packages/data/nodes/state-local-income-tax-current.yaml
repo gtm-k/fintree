@@ -1,5 +1,5 @@
 id: fintree:StateLocalIncomeTaxCurrent
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CurrentStateAndLocalTaxExpenseBenefit'
 label: State & Local Income Tax — Current
 short_label: State & Local Income Tax — Cur
 level: 3
@@ -7,11 +7,12 @@ node_type: SUB_CATEGORY
 parent_id: fintree:CurrentTaxExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 740-10'
 definition: State and local corporate income taxes due for the current period. Rates
   vary by jurisdiction.
-example: ''
-normal_balance: CREDIT
+example: 'A California-headquartered SaaS company with $80M in apportioned state taxable income pays $7.2M in state income taxes (California at 8.84%), plus $1.8M across other states where it has nexus.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - state_tax
+  - local_tax
+  - current_tax
+  - nexus
+  - apportionment
+  - asc_740
+classification_notes: 'State income tax rates vary from 0% (Nevada, Wyoming, Texas franchise tax instead) to 11.5%+ (New Jersey). Income is apportioned across states using sales, payroll, and property factors (many states now use single-sales-factor). Nexus rules determine which states can tax a company. SALT deduction on the federal return increases the effective benefit. Companies can manage state tax through entity structuring, headquarters location, and economic incentive negotiations. Net of SALT deduction, the incremental state rate is typically 3-5%.'
 variance_drivers:
-  tags: []
+  tags: [apportionment_shifts, state_rate_changes, nexus_expansion, incentives]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) revenue growth in higher-tax states shifting apportionment, (2) state tax rate increases, (3) expanded nexus from new physical presence or economic nexus thresholds, (4) expiration of state tax incentives or credits, (5) increased overall pre-tax income'
+    if_decreased: '(1) revenue shift to lower/zero-tax states, (2) state tax incentive programs or credits, (3) restructuring to reduce nexus in high-tax states, (4) state rate reductions, (5) lower overall pre-tax income'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies with concentrated operations in high-tax states (CA, NY, NJ) have higher state tax burdens. Companies in zero-income-tax states show minimal state tax. Multi-state operations require complex apportionment. The blended state rate in the ETR reconciliation is typically 2-5% after federal benefit.'
+  examples:
+    - company: 'Walmart'
+      treatment: 'State tax significant due to operations in all 50 states — blended rate ~3.5% after federal benefit'
+    - company: 'Tesla'
+      treatment: 'State tax reduced after moving headquarters from California to Texas (zero income tax)'
+    - company: 'Goldman Sachs'
+      treatment: 'Significant New York state and city income taxes due to NYC headquarters'
+coa_mapping:
+  quickbooks: '8820 - State & Local Income Tax — Current'
+  netsuite: '8820 - State & Local Income Tax — Current'
+  sap: '7812000 - State & Local Income Tax — Current'

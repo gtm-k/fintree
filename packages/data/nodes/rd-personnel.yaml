@@ -1,16 +1,17 @@
 id: fintree:RdPersonnel
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpensePersonnel"
 label: R&D PERSONNEL
 short_label: R&D PERSONNEL
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:ResearchDevelopment
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: "R&D Salaries & Wages + R&D Benefits + R&D Bonuses & Incentive Pay"
+formula_machine: "fintree:RdSalariesWages + fintree:RdBenefits + fintree:RdBonusesIncentivePay"
+asc_reference: "ASC 730-10-25"
 definition: Compensation for employees engaged in qualifying research and development
   activities.
-example: ''
+example: "A SaaS company with 200 engineers spending $35M in R&D personnel: $28M salaries, $5M benefits, $2M bonuses."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - personnel
+  - compensation
+  - headcount_driven
+  - asc_730
+  - opex
+classification_notes: "Includes all compensation for employees whose primary function is R&D. Stock-based compensation for R&D staff is typically included here or broken out separately. Shared employees must be allocated between R&D and other functions based on time spent."
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, compensation_mix, talent_market, strategic]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new engineering hires for product development, (2) salary inflation in competitive tech labor markets, (3) increased stock-based compensation grants, (4) acquisitions adding R&D headcount"
+    if_decreased: "(1) R&D workforce reductions or layoffs, (2) offshoring to lower-cost geographies, (3) shift from employees to contractors, (4) natural attrition not backfilled"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Personnel is typically 60-80% of total R&D spend for software/tech companies. Pharma companies may have a lower ratio due to significant materials and clinical trial costs. Some companies disclose SBC separately from base R&D personnel costs."
+  examples:
+    - company: "Meta"
+      treatment: "R&D personnel costs are the dominant component; disclosed as part of total R&D expense"
+    - company: "Moderna"
+      treatment: "R&D personnel embedded within research and development expenses alongside clinical costs"
+    - company: "Salesforce"
+      treatment: "R&D personnel costs included in product development expense"
+coa_mapping:
+  quickbooks: "6600 - R&D Personnel"
+  netsuite: "6600 - R&D Personnel Costs"
+  sap: "6600000 - R&D Personnel"

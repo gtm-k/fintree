@@ -1,5 +1,5 @@
 id: fintree:ContractResearchOrganizations
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ContractResearchAndDevelopmentExpense"
 label: Contract Research Organizations (CRO)
 short_label: Contract Research Organization
 level: 4
@@ -7,7 +7,7 @@ node_type: LINE_ITEM
 parent_id: fintree:ExternalContractResearch
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25, ASC 730-20"
 definition: Fees for external research firms or CROs conducting qualifying research.
 example: A pharma company paying a CRO for clinical trial management.
 normal_balance: DEBIT
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - cro
+  - outsourced
+  - clinical_trials
+  - contract_research
+  - asc_730
+classification_notes: "CRO fees are expensed as incurred under ASC 730. For milestone-based contracts, judgment is required on expense timing -- typically recognized proportionally as services are rendered. Upfront payments may be prepaid and amortized over the contract period. Includes both full-service CROs (managing entire trials) and functional service providers (specific tasks like data management or biostatistics)."
 variance_drivers:
-  tags: []
+  tags: [project_driven, clinical_stage, milestone_based, variable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new clinical trials initiated, (2) trials advancing to later (more expensive) phases, (3) geographic expansion of clinical trials, (4) outsourcing of previously in-house clinical operations"
+    if_decreased: "(1) trial completions or FDA approvals, (2) trial failures leading to program cancellations, (3) insourcing clinical operations, (4) regulatory holds pausing trials"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Pharma companies are the primary users of CROs. Biotech startups may outsource 80-100% of clinical development. Medical device companies use CROs for regulatory studies. Non-pharma companies rarely have CRO costs."
+  examples:
+    - company: "Bristol-Myers Squibb"
+      treatment: "Major CRO contracts with IQVIA and PPD for oncology clinical trials"
+    - company: "BioNTech"
+      treatment: "CRO partnerships for vaccine clinical trial management globally"
+    - company: "Amgen"
+      treatment: "Mix of in-house and CRO-managed clinical trials for biologics"
+coa_mapping:
+  quickbooks: "6661 - Contract Research Organizations"
+  netsuite: "6661 - CRO Expenses"
+  sap: "6661000 - Contract Research Organizations"

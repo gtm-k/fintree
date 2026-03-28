@@ -1,5 +1,5 @@
 id: fintree:DiscontinuedOperations
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTaxAttributableToReportingEntity'
 label: DISCONTINUED OPERATIONS
 short_label: DISCONTINUED OPERATIONS
 level: 2
@@ -7,12 +7,12 @@ node_type: MAJOR_CATEGORY
 parent_id: fintree:BelowthelineItems
 aggregation_type: SUM
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 205-20'
 definition: Results of a component of the business that has been disposed of or classified
   as held-for-sale and represents a separate major line of business or geographic
-  area (ASC 230-20). Shown net of tax.
-example: GE's sale of its financial services division created discontinued operations
-  reporting.
+  area (ASC 205-20). Shown net of tax.
+example: 'GE reported $2.1B in discontinued operations losses in 2023 as it completed its three-way split, reclassifying GE HealthCare and GE Vernova results from continuing to discontinued operations.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -26,14 +26,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - discontinued_operations
+  - divestiture
+  - held_for_sale
+  - segment_disposal
+  - net_of_tax
+  - asc_205_20
+  - strategic_exit
+classification_notes: 'ASC 205-20 requires discontinued operations treatment when a component (1) has been disposed of or is held for sale AND (2) represents a strategic shift that has (or will have) a major effect on operations and financial results. Reported net of tax as a separate line item below income from continuing operations. Prior period income statements must be restated to reclassify the discontinued component. Includes both operating results during wind-down and gain/loss on disposal. EPS must be presented separately for continuing and discontinued operations.'
 variance_drivers:
-  tags: []
+  tags: [divestiture_strategy, disposal_gain_loss, operating_results, held_for_sale_timing]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new strategic divestiture announced and classified as held for sale, (2) operating losses from discontinued segment during wind-down period, (3) impairment write-down of held-for-sale segment to fair value less costs to sell, (4) loss on final disposal below carrying amount'
+    if_decreased: '(1) gain on sale of discontinued segment exceeding operating losses, (2) completion of disposal eliminating ongoing discontinued results, (3) improved operating performance of segment during hold period, (4) upward revision of disposal price'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies only report discontinued operations when divestitures meet the strategic shift threshold. Many asset sales do not qualify and are recorded as gain/loss on sale within continuing operations. The threshold tightened under ASU 2014-08, requiring a major strategic shift rather than just a component disposal.'
+  examples:
+    - company: 'General Electric'
+      treatment: 'Discontinued operations reported for GE Capital, GE HealthCare, and GE Vernova during multi-year breakup'
+    - company: 'Johnson & Johnson'
+      treatment: 'Kenvue consumer health spin-off — discontinued operations for the separated business'
+    - company: 'eBay'
+      treatment: 'PayPal spin-off results reclassified to discontinued operations in the separation year'
+coa_mapping:
+  quickbooks: '9550 - Discontinued Operations'
+  netsuite: '9550 - Discontinued Operations'
+  sap: '7980000 - Discontinued Operations'

@@ -1,5 +1,5 @@
 id: fintree:DoAndOtherCorporateInsurance
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:GeneralInsuranceExpense'
 label: D&O and Other Corporate Insurance
 short_label: D&O and Other Corporate Insura
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:LegalCompliance
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720-20'
 definition: Directors & Officers liability insurance and other corporate insurance
   policies.
-example: ''
+example: 'A newly public company pays $800K/year in corporate insurance: $500K D&O liability, $120K errors & omissions (E&O), $100K employment practices liability (EPL), $80K cyber liability insurance.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,15 +25,28 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
+ai_context_tags:
+  - ga_expense
+  - legal
+  - insurance
+  - directors_officers
+  - corporate_governance
+  - risk_management
 classification_notes: General liability and property insurance specific to production
-  facilities is Manufacturing Overhead; this is corporate-level insurance.
+  facilities is Manufacturing Overhead; this is corporate-level insurance. D&O insurance is essential for public companies to attract board members. Premiums are prepaid and amortized over the policy period. Claims-made vs. occurrence policies affect timing of expense recognition. Side-A, B, and C D&O coverage serve different purposes.
 variance_drivers:
-  tags: []
+  tags: [market_driven, risk_driven, claims_driven, largely_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) IPO dramatically increasing D&O premiums, (2) securities litigation or SEC investigation driving rate increases, (3) hard insurance market with rising premiums industry-wide, (4) adding new coverage lines (cyber liability, EPL), (5) increased limits of liability requested by board'
+    if_decreased: '(1) claims-free history earning premium reductions, (2) soft insurance market with competitive pricing, (3) higher retention/deductible levels to reduce premiums, (4) going private reducing D&O exposure, (5) forming a captive insurance subsidiary'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'D&O premiums vary enormously: $50K-$100K for private companies, $200K-$5M+ for public companies. Post-IPO companies and companies in litigation-prone industries pay the highest rates. D&O pricing is cyclical — premiums spiked 200-300% in 2020-2021, then moderated. Cyber insurance has become a significant new cost category.'
+  examples:
+    - company: 'Pre-IPO startup'
+      treatment: 'D&O premium $30K-$80K; increases 5-10x upon IPO'
+    - company: 'Large-cap public company'
+      treatment: 'D&O tower of $100M+ in coverage with $1-3M annual premium; disclosed in proxy as director compensation'
+coa_mapping:
+  quickbooks: '6690 - D&O & Corporate Insurance'
+  netsuite: '7290 - D&O & Corporate Insurance'
+  sap: '6690000 - DO Corporate Insurance'

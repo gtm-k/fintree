@@ -1,5 +1,5 @@
 id: fintree:RdTaxCreditOffset
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: R&D Tax Credit Offset
 short_label: R&D Tax Credit Offset
 level: 5
@@ -7,11 +7,11 @@ node_type: ADJUSTMENT
 parent_id: fintree:ExternalContractResearch
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 740-10 (Income Taxes), IRC Section 41"
 definition: Where companies offset R&D expense with R&D tax credits on the P&L. Less
   common; credit usually flows through tax expense, but some companies show it as
   an R&D offset.
-example: ''
+example: "A company with $50M in qualifying R&D expenses claims a $3.5M R&D tax credit (IRC Section 41), shown as a contra-R&D expense on the income statement, reducing reported R&D to $46.5M."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - tax_credit
+  - contra_expense
+  - irc_section_41
+  - government_incentive
+  - offset
+classification_notes: "Most companies record R&D tax credits as a reduction of income tax expense (ASC 740), NOT as an R&D offset. Some companies choose to present the credit as a reduction of R&D expense, which is less common but acceptable. This line item captures the latter presentation. International R&D incentives (UK RDEC, Australia R&D Tax Incentive) may be presented differently. Always verify the company's accounting policy."
 variance_drivers:
-  tags: []
+  tags: [tax_driven, policy_dependent, qualifying_spend]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) increased qualifying R&D expenditures, (2) improved R&D tax credit study identifying more qualifying activities, (3) new state or international R&D tax incentives, (4) change in presentation from tax line to R&D offset"
+    if_decreased: "(1) reduced qualifying R&D spend, (2) legislative changes reducing R&D credit rates, (3) change in presentation to record credit in tax expense instead, (4) loss of qualifying status for certain activities"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Most US companies record R&D credits as tax benefit (not R&D offset). UK companies using RDEC must present the credit as an above-the-line item. Some companies show the credit in other income. Presentation choice is a significant comparability issue."
+  examples:
+    - company: "Rolls-Royce"
+      treatment: "UK RDEC credit shown as above-the-line income, offsetting R&D costs"
+    - company: "Qualcomm"
+      treatment: "R&D tax credits reflected in income tax provision, not as R&D offset"
+    - company: "GlaxoSmithKline"
+      treatment: "UK R&D expenditure credit shown within operating expenses"
+coa_mapping:
+  quickbooks: "6699 - R&D Tax Credit Offset"
+  netsuite: "6699 - R&D Tax Credit Offset"
+  sap: "6699000 - R&D Tax Credit Offset"

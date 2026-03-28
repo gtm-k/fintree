@@ -1,5 +1,5 @@
 id: fintree:HealthInsuranceDirect
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Health Insurance — Direct
 short_label: Health Insurance — Direct
 level: 4
@@ -9,7 +9,9 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Employer-paid health insurance premiums for direct labor employees.
-example: ''
+example: A manufacturer pays $650/month per employee in health insurance premiums
+  for 200 direct labor workers, totaling $1.56M/year in employer-paid health benefits
+  allocated to cost of goods sold.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +25,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - health insurance
+  - employee benefits
+  - medical premiums
+  - direct labor benefits
+  - COGS benefits
+  - employer contribution
+classification_notes: Health insurance for direct labor employees is an inventoriable
+  cost under ASC 330 for manufacturers. Distinguish from health insurance for SG&A
+  or R&D employees which goes to those respective departments. Self-insured companies
+  record claims expense rather than premiums. COBRA continuation costs for former
+  employees are typically G&A.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - premium rates
+    - plan design
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Direct labor headcount growth adding more covered employees
+      2. Annual health insurance premium rate increases from carriers
+      3. Richer plan designs or expanded coverage options
+      4. Shift from contract workers to full-time employees with benefits
+      5. Higher claims experience in self-insured arrangements
+    if_decreased: |-
+      1. Reduction in direct labor headcount through automation
+      2. Migration to high-deductible health plans reducing employer premiums
+      3. Shift to self-insured model with favorable claims experience
+      4. Workforce reduction or plant closures
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies combine all employee benefits into a single line by department.
+    Others separate health insurance from other benefits. Self-insured companies report
+    claims expense rather than premiums, creating different cost patterns. International
+    operations have government-mandated health systems.
+  examples:
+    - company: General Motors
+      treatment: Reports health care costs for production workers within cost of sales,
+        with legacy retiree health care as a separate item
+    - company: UPS
+      treatment: Includes health insurance for drivers and warehouse workers within
+        compensation and benefits in cost of operations
+    - company: Starbucks
+      treatment: Provides health benefits to part-time workers, included within store
+        operating expenses
+coa_mapping:
+  quickbooks: '5050 - Health Insurance - Direct Labor'
+  netsuite: '5050 - Health Insurance Direct'
+  sap: '0050500 - Health Insurance Direct Labor'

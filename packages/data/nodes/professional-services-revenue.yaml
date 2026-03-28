@@ -1,5 +1,5 @@
 id: fintree:ProfessionalServicesRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:TechnologyServicesRevenue'
 label: Professional Services Revenue
 short_label: Professional Services Revenue
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:ServiceRevenue
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606'
 definition: Revenue from consulting, advisory, implementation, or other project-based
   services.
 example: Deloitte recognizing revenue as consulting hours are delivered.
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revenue
+  - professional_services
+  - consulting
+  - implementation
+  - asc_606
+  - over_time_recognition
+  - project_based
+classification_notes: "Professional services revenue is recognized based on the pattern of transfer: time-and-materials contracts use an input method (hours incurred), while fixed-price contracts typically use an output method or percentage-of-completion. In SaaS companies, professional services are often sold below cost as an enabler for subscription revenue."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, pricing_driven, mix_driven, seasonal]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new implementation projects from product launches, (2) higher billing rates, (3) increased headcount enabling more delivery capacity, (4) large digital transformation engagements, (5) higher utilization rates"
+    if_decreased: "(1) project delays or cancellations, (2) lower utilization rates (bench time), (3) pricing pressure from offshore competitors, (4) customer shift to self-implementation or partner-led delivery, (5) seasonal slowdowns in Q1 or summer months"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Pure-play consulting firms report this as their primary revenue. SaaS companies typically report professional services as a separate, lower-margin revenue line. Some companies combine implementation and training revenue."
+  examples:
+    - company: "Accenture"
+      treatment: "Consulting revenue and Managed Services revenue"
+    - company: "Workday"
+      treatment: "Professional services revenue (separate from subscription)"
+    - company: "Deloitte"
+      treatment: "Consulting and Advisory revenue"
+coa_mapping:
+  quickbooks: "4210 - Professional Services Revenue"
+  netsuite: "4210 - Consulting Revenue"
+  sap: "8210000 - Professional Services Revenue"

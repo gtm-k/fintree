@@ -1,15 +1,16 @@
 id: fintree:BenefitsDirectLabor
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectLabor'
 label: BENEFITS — DIRECT LABOR
 short_label: BENEFITS — DIRECT LABOR
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DirectLabor
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Health Insurance (Direct) + Retirement Contributions (Direct) + Workers Compensation (Direct)'
+formula_machine: 'fintree:HealthInsuranceDirect + fintree:RetirementContributionsDirect + fintree:WorkersCompensationDirect'
+asc_reference: 'ASC 712'
 definition: Employee benefits costs attributable to direct production workforce.
-example: ''
+example: 'A manufacturer with 1,000 production workers pays $8M in employer health insurance premiums, $2M in 401(k) matching contributions, and $1.5M in workers compensation insurance, for total direct labor benefits of $11.5M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - benefits
+  - healthcare
+  - retirement
+  - workers_comp
+  - labor_cost
+classification_notes: 'Benefits for direct labor employees are part of COGS, while benefits for SG&A employees are operating expenses. The allocation must be consistent and based on time tracking or headcount ratios. ASC 712 covers nonretirement postemployment benefits. Pension obligations (ASC 715) for production workers are also allocated to COGS. Benefits costs typically run 25-40% of base wages.'
 variance_drivers:
-  tags: []
+  tags: [healthcare_driven, headcount_driven, regulatory_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Healthcare premium increases (typically 5-8% annually), (2) higher headcount in production, (3) increased workers comp claims from workplace injuries, (4) richer benefit packages from union negotiations, (5) regulatory mandates (ACA compliance costs)'
+    if_decreased: '(1) Shift to high-deductible health plans reducing employer premiums, (2) lower headcount through automation, (3) improved workplace safety reducing workers comp rates, (4) switch from defined benefit to defined contribution retirement plans, (5) use of contract/temporary workers not receiving benefits'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'US manufacturers have high benefits costs due to employer-provided healthcare. Companies in countries with universal healthcare (EU, Japan) have lower direct benefits costs but higher payroll taxes. Union manufacturers typically have richer benefit packages than non-union. Use of temporary or contract workers can reduce reported benefits costs.'
+  examples:
+    - company: 'Ford'
+      treatment: 'Reports significant retiree healthcare obligations (OPEB) for production workers under UAW contract; legacy costs are a major burden'
+    - company: 'Amazon (warehouses)'
+      treatment: 'Provides benefits to full-time warehouse workers; uses temp staffing agencies for seasonal workers to manage benefits costs'
+    - company: 'Caterpillar'
+      treatment: 'Reports production worker health insurance and pension contributions as direct labor benefits; transitioned from defined benefit to defined contribution plans'
+coa_mapping:
+  quickbooks: '5230 - Benefits - Direct Labor'
+  netsuite: '5230 - Benefits - Direct Labor'
+  sap: '5230000 - Benefits Direct Labor'

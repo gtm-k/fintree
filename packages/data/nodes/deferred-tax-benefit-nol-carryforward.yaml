@@ -1,5 +1,5 @@
 id: fintree:DeferredTaxBenefitNolCarryforward
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:DeferredTaxAssetsOperatingLossCarryforwards'
 label: Deferred Tax Benefit — NOL Carryforward
 short_label: Deferred Tax Benefit — NOL Car
 level: 3
@@ -7,11 +7,11 @@ node_type: SUB_CATEGORY
 parent_id: fintree:DeferredTaxExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 740-10-30'
 definition: Deferred tax asset recognized for net operating loss carryforwards expected
   to reduce future taxes.
-example: A startup with cumulative losses records a DTA if it expects future profitability
-  to use the NOLs.
+example: 'A SaaS startup with $300M in cumulative NOLs records a $63M deferred tax asset (at 21%), offset by a $40M valuation allowance due to uncertainty about future profitability, resulting in a net DTA of $23M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - nol_carryforward
+  - deferred_tax_asset
+  - tax_benefit
+  - valuation_allowance
+  - startup_losses
+  - asc_740
+  - section_382
+classification_notes: 'Under TCJA, post-2017 NOLs have no expiration but can only offset 80% of taxable income in any year. Pre-2017 NOLs had 20-year expiration. IRC Section 382 limits NOL usage after ownership changes (>50% in 3 years). A valuation allowance is required when it is more likely than not that some or all of the DTA will not be realized. Releasing a valuation allowance (when the company becomes consistently profitable) creates a large one-time deferred tax benefit. This is a key metric for early-stage companies transitioning to profitability.'
 variance_drivers:
-  tags: []
+  tags: [profitability_trajectory, valuation_allowance_assessment, section_382_limits, nol_expiration]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) company achieves sustained profitability, releasing valuation allowance, (2) new losses generating additional NOL carryforwards, (3) tax rate increase raising the value of existing NOLs, (4) favorable Section 382 analysis confirming no ownership change limitation'
+    if_decreased: '(1) utilization of NOLs against current taxable income, (2) establishment of valuation allowance against uncertain future realization, (3) Section 382 limitation triggered by ownership change, (4) tax rate decrease reducing the value of NOLs, (5) expiration of pre-2017 NOLs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies with long histories of losses (early-stage tech, biotech, airlines post-crisis) have large NOL DTAs. The valuation allowance is a key judgment — its release or establishment signals management''s confidence in future profitability. Investors closely watch this for turnaround companies.'
+  examples:
+    - company: 'Uber'
+      treatment: 'Massive NOL DTA ($5B+) — partially offset by valuation allowance; released as profitability improved'
+    - company: 'Tesla'
+      treatment: 'Released valuation allowance in 2020 as sustained profitability was established — large one-time tax benefit'
+    - company: 'Moderna'
+      treatment: 'Pre-COVID NOLs fully utilized during vaccine profitability surge — DTA drawn down rapidly'
+coa_mapping:
+  quickbooks: '8860 - Deferred Tax Benefit — NOL Carryforward'
+  netsuite: '8860 - Deferred Tax Benefit — NOL Carryforward'
+  sap: '7821000 - Deferred Tax Benefit — NOL Carryforward'

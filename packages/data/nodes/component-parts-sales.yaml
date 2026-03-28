@@ -1,5 +1,5 @@
 id: fintree:ComponentPartsSales
-xbrl_tag: ''
+xbrl_tag: us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax
 label: Component / Parts Sales
 short_label: Component / Parts Sales
 level: 4
@@ -23,14 +23,47 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - spare parts
+  - aftermarket
+  - component revenue
+  - product revenue
+  - manufacturing
+  - replacement parts
+classification_notes: Distinguish from finished goods revenue. Parts sold as part
+  of a bundled service contract may require allocation under ASC 606 (multiple performance
+  obligations). Warranty replacement parts are not revenue but a warranty expense.
+  Aftermarket parts often carry higher margins than OEM sales.
 variance_drivers:
-  tags: []
+  tags:
+    - aftermarket demand
+    - product mix
+    - installed base
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Growing installed base of equipment driving aftermarket demand
+      2. Expansion of parts catalog or new product lines
+      3. Price increases on replacement components
+      4. Equipment aging cycles driving higher replacement rates
+    if_decreased: |-
+      1. Decline in installed base from customer attrition
+      2. Competitive third-party parts suppliers capturing market share
+      3. Improved product reliability reducing replacement frequency
+      4. Customer shift to full-unit replacement over component repair
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some manufacturers report component/parts sales within a single product
+    revenue line; others separate aftermarket parts from OEM product sales. Automotive
+    companies often have a dedicated "Parts & Accessories" segment.
+  examples:
+    - company: Caterpillar
+      treatment: Reports parts revenue within its product segment, with aftermarket
+        parts disclosed as a key growth driver
+    - company: Deere & Company
+      treatment: Includes parts sales in Equipment Operations revenue, separately
+        discusses parts and service trends
+    - company: Illinois Tool Works
+      treatment: Reports aftermarket parts and components within each operating segment
+coa_mapping:
+  quickbooks: '4120 - Component / Parts Sales'
+  netsuite: '4120 - Component Parts Revenue'
+  sap: '0041200 - Component Parts Sales'

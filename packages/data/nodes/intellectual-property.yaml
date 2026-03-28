@@ -1,5 +1,5 @@
 id: fintree:IntellectualProperty
-xbrl_tag: ''
+xbrl_tag: us-gaap:GeneralAndAdministrativeExpense
 label: Intellectual Property (Patent / Trademark)
 short_label: 'Intellectual Property (Patent '
 level: 4
@@ -9,7 +9,9 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Patent filing, maintenance, and trademark registration fees.
-example: ''
+example: A pharmaceutical company spends $350K/year on patent filings and prosecution
+  costs across 45 active patents, plus $80K on trademark registrations in 12 international
+  jurisdictions.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +25,53 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - patent costs
+  - trademark
+  - intellectual property
+  - IP filing
+  - legal fees
+  - patent prosecution
+  - trade secrets
+classification_notes: Patent filing and prosecution costs for internally developed
+  IP are expensed as incurred under US GAAP. Patents acquired in a business combination
+  are capitalized as intangible assets and amortized. Trademark registration fees
+  are typically expensed. Patent defense litigation costs are expensed, while successful
+  patent enforcement costs may be capitalized in some cases. Distinguish from R&D
+  costs and from acquired IP amortization.
 variance_drivers:
-  tags: []
+  tags:
+    - innovation pipeline
+    - geographic scope
+    - legal strategy
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Increased patent filing activity from new product innovations
+      2. International trademark expansion into new jurisdictions
+      3. Patent prosecution costs rising due to examiner rejections
+      4. Defensive patent strategy against competitor filings
+      5. Outside counsel rate increases for IP law firms
+    if_decreased: |-
+      1. Reduced innovation pipeline leading to fewer patent filings
+      2. Consolidation of trademark portfolio dropping unused marks
+      3. Shift to trade secret strategy over patent filings
+      4. Bringing IP legal work in-house from outside counsel
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Tech and pharma companies typically have large IP budgets; consumer goods
+    companies focus more on trademarks. Some companies capitalize certain IP costs
+    (especially acquired patents) while others expense all. Patent amortization of
+    acquired IP is a separate line from filing costs.
+  examples:
+    - company: Qualcomm
+      treatment: Reports significant patent-related legal costs within G&A, with
+        licensing revenue as a separate segment
+    - company: Pfizer
+      treatment: Expenses patent filing costs within G&A while amortizing acquired
+        pharmaceutical IP over patent life
+    - company: Nike
+      treatment: Reports trademark registration and maintenance costs within SG&A,
+        with brand intangibles on the balance sheet
+coa_mapping:
+  quickbooks: '6510 - Intellectual Property (Patent/Trademark)'
+  netsuite: '6510 - IP Patent Trademark Costs'
+  sap: '0065100 - Intellectual Property Costs'

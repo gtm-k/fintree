@@ -1,5 +1,5 @@
 id: fintree:TradeShowMaterialsSetup
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SellingAndMarketingExpense'
 label: Trade Show Materials & Setup
 short_label: Trade Show Materials & Setup
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:TradeShowsSalesEvents
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720-35'
 definition: Display materials, signage, collateral, and setup/teardown costs.
-example: ''
+example: 'A B2B software company spends $25K on banner displays and signage, $15K on printed brochures and data sheets, $10K on promotional swag (t-shirts, pens), and $8K on booth setup/teardown labor, totaling $58K for a major conference.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - trade_shows
+  - collateral
+  - setup_costs
+  - opex
+  - discretionary
+classification_notes: 'Materials and setup costs are expensed when incurred or at the time of the event. Reusable booth structures and displays may be capitalized as fixed assets and depreciated if they have a useful life exceeding one year and meet the capitalization threshold. Printed materials (brochures, data sheets) are expensed when distributed. Promotional items (swag, giveaways) are advertising costs expensed when distributed. Setup and teardown labor from event services companies is a period expense.'
 variance_drivers:
-  tags: []
+  tags: [event_driven, discretionary, design_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) upgraded booth design with custom fabrication, (2) more events on the calendar requiring new materials, (3) rebranding necessitating new signage and collateral, (4) higher-quality promotional items, (5) adding interactive technology (demo stations, LED walls) to booth'
+    if_decreased: '(1) reusing existing booth materials across multiple events, (2) shifting to digital collateral (QR codes, tablets) instead of print, (3) attending fewer events, (4) simplifying booth design, (5) reducing promotional item quantity or quality'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Not separately disclosed in public filings; embedded in Sales & Marketing or SG&A. Companies with heavy trade show presence (industrial, medical devices, enterprise tech) have higher material costs. Companies increasingly shifting to digital/virtual booth experiences, reducing physical material costs but increasing technology costs.'
+  examples:
+    - company: 'Siemens'
+      treatment: 'Significant trade show material costs for Hannover Messe and other industrial fairs; included in SG&A'
+    - company: 'Palo Alto Networks'
+      treatment: 'Cybersecurity conference materials (RSA, Black Hat); embedded in Sales and marketing'
+    - company: 'Medtronic'
+      treatment: 'Medical device trade show displays and demo equipment; included in SG&A'
+coa_mapping:
+  quickbooks: '6410 - Trade Show Materials & Setup'
+  netsuite: '7310 - Trade Show Materials & Setup'
+  sap: '6400100 - Trade Show Materials Setup'

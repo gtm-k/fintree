@@ -1,5 +1,5 @@
 id: fintree:FranchiseRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax'
 label: Franchise Revenue
 short_label: Franchise Revenue
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:OtherRevenue
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606, ASC 952'
 definition: Fees paid by franchisees for the right to operate under the company's
   brand.
-example: ''
+example: "McDonald's recognizing ~$15.4B (FY2023) in franchised restaurant revenues from royalties (% of sales) and initial franchise fees from 40,000+ franchisees."
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revenue
+  - franchise
+  - recurring_revenue
+  - asc_606
+  - brand_licensing
+  - asset_light
+classification_notes: "Franchise revenue includes both initial franchise fees (recognized over time as the franchisor satisfies performance obligations) and ongoing royalties (typically a percentage of franchisee sales, recognized as earned). Under ASC 606, initial franchise fees are often recognized over the franchise term rather than upfront. Note: the original XBRL tag us-gaap:FranchiseRevenue was deprecated in 2018; filers now use us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, contract_driven, pricing_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new franchise unit openings, (2) higher franchisee same-store sales driving royalty growth, (3) franchise fee rate increases in new agreements, (4) conversion of company-operated locations to franchise model, (5) international market expansion"
+    if_decreased: "(1) franchisee closures or non-renewals, (2) declining franchisee same-store sales, (3) refranchising moratoriums or regulatory restrictions, (4) franchisee financial distress leading to fee concessions, (5) conversion of franchised units to company-operated"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "QSR and hotel companies report franchise revenue as a major line item. Some companies combine franchise fees with royalty revenue. Others separate initial fees from ongoing royalties in footnotes."
+  examples:
+    - company: "McDonald's"
+      treatment: "Franchised restaurants revenue (royalties + rent from franchisees)"
+    - company: "Yum! Brands"
+      treatment: "Franchise and property revenues"
+    - company: "Hilton"
+      treatment: "Franchise and licensing fees"
+coa_mapping:
+  quickbooks: "4310 - Franchise Revenue"
+  netsuite: "4310 - Franchise Fee Revenue"
+  sap: "8310000 - Franchise Revenue"

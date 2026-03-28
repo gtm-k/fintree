@@ -1,15 +1,16 @@
 id: fintree:LegalCompliance
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:GeneralAndAdministrativeExpense'
 label: LEGAL & COMPLIANCE
 short_label: LEGAL & COMPLIANCE
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GeneralAdministrativeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'External Legal Fees (General Corporate) + External Legal Fees (Litigation) + Regulatory & Compliance Fees + D&O and Other Corporate Insurance + Intellectual Property'
+formula_machine: 'fintree:ExternalLegalFeesGeneralCorporate + fintree:ExternalLegalFeesLitigation + fintree:RegulatoryComplianceFees + fintree:DoAndOtherCorporateInsurance + fintree:IntellectualProperty'
+asc_reference: 'ASC 450'
 definition: Costs of legal counsel, regulatory compliance, and corporate governance.
-example: ''
+example: 'A public company spends $3.8M on legal and compliance: $1.2M corporate legal fees, $800K litigation defense, $600K regulatory fees, $700K D&O insurance, $500K IP protection.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - legal
+  - compliance
+  - governance
+  - insurance
+  - regulatory
+  - corporate
+classification_notes: 'Legal costs are expensed as incurred. Litigation losses require accrual when probable and estimable (ASC 450-20). Contingent gains are not recognized until realized. Settlement costs may be reported separately if material. IP-related legal fees (patent prosecution) may be capitalized as part of the intangible asset under ASC 350.'
 variance_drivers:
-  tags: []
+  tags: [litigation_driven, compliance_driven, regulatory_driven, event_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) major litigation or regulatory investigation, (2) new regulatory requirements (GDPR, SOX compliance), (3) increased M&A activity requiring legal due diligence, (4) IP litigation in competitive industries, (5) D&O insurance premium increases post-IPO or securities litigation'
+    if_decreased: '(1) settlement of major litigation, (2) bringing legal work in-house reducing outside counsel fees, (3) favorable regulatory environment reducing compliance burden, (4) reduced D&O premiums after claims-free period, (5) simplified corporate structure reducing governance costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Heavily regulated industries (financial services, healthcare, pharma) have significantly higher legal/compliance costs. Tech companies face IP litigation risk. Some companies report litigation settlements as a separate line below operating income. D&O insurance costs spiked post-2020 and have since moderated.'
+  examples:
+    - company: 'Johnson & Johnson'
+      treatment: 'Significant litigation costs (talc lawsuits); disclosed as litigation expense and accruals'
+    - company: 'Goldman Sachs'
+      treatment: 'Legal and compliance is a major cost center; provisions for litigation within noninterest expense'
+    - company: 'Alphabet'
+      treatment: 'Antitrust and regulatory costs; European Commission fines separately disclosed'
+coa_mapping:
+  quickbooks: '6650 - Legal & Compliance'
+  netsuite: '7250 - Legal & Compliance'
+  sap: '6650000 - Legal and Compliance'

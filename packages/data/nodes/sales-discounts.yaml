@@ -1,16 +1,17 @@
 id: fintree:SalesDiscounts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SalesDiscountsReturnsAndAllowancesGoods'
 label: SALES DISCOUNTS
 short_label: SALES DISCOUNTS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:RevenueDeductions
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Volume/Quantity Discounts + Promotional Discounts + Early Payment/Cash Discounts'
+formula_machine: 'fintree:VolumeQuantityDiscounts + fintree:PromotionalDiscounts + fintree:EarlyPaymentCashDiscounts'
+asc_reference: 'ASC 606-10-32-5'
 definition: Reductions in the invoice price offered to customers; contra-revenue under
   ASC 606.
-example: ''
+example: "A wholesale distributor with $200M in gross sales provides $8M in volume discounts, $3M in promotional discounts, and $2M in early payment discounts, totaling $13M in sales discounts."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - discounts
+  - asc_606
+  - variable_consideration
+  - pricing
+  - top_line_reduction
+classification_notes: "Under ASC 606, discounts are treated as variable consideration and reduce the transaction price. Volume discounts that are contingent on future purchases require estimation using the most likely amount or expected value method. Trade discounts are typically netted against revenue at the time of sale, while cash discounts may be recorded when taken."
 variance_drivers:
-  tags: []
+  tags: [pricing_driven, volume_driven, seasonal, policy_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) aggressive promotional campaigns to drive volume, (2) customers hitting higher volume discount tiers, (3) competitive pricing pressure requiring deeper discounts, (4) more customers taking early payment discounts due to low interest rates, (5) new customer acquisition incentives"
+    if_decreased: "(1) stronger brand positioning allowing reduced discounting, (2) tighter discount approval policies, (3) shift to value-based pricing, (4) fewer customers qualifying for volume tiers, (5) higher interest rates reducing early payment discount take-rates"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Most companies do not separately disclose discount amounts; they are netted into net revenue. CPG and pharmaceutical companies often have complex gross-to-net discount structures. Enterprise software companies may offer multi-year deal discounts."
+  examples:
+    - company: "Procter & Gamble"
+      treatment: "Trade promotions and discounts netted against net sales"
+    - company: "Johnson & Johnson"
+      treatment: "Sales discounts deducted as part of gross-to-net adjustments"
+    - company: "Cisco"
+      treatment: "Product discounts included in net revenue presentation"
+coa_mapping:
+  quickbooks: "4520 - Sales Discounts"
+  netsuite: "4520 - Sales Discounts"
+  sap: "8520000 - Sales Discounts"

@@ -1,5 +1,5 @@
 id: fintree:RoyaltyRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RoyaltyRevenue'
 label: Royalty Revenue
 short_label: Royalty Revenue
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:OtherRevenue
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-55-65'
 definition: Revenue from licensing intellectual property (patents, trademarks, content)
   to third parties.
-example: ''
+example: "Qualcomm earning $6.4B in QTL (licensing) revenue from royalties on 3G/4G/5G patents, calculated as a percentage of handset selling prices."
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revenue
+  - royalty
+  - intellectual_property
+  - licensing
+  - asc_606
+  - passive_income
+classification_notes: "Under ASC 606, sales-based or usage-based royalties for IP licenses are recognized when the subsequent sale or usage occurs (the royalty constraint exception). Fixed or minimum guarantee royalties follow standard ASC 606 recognition. Royalty revenue is distinct from franchise revenue though both involve licensing rights."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, contract_driven, regulatory_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new licensing agreements signed, (2) higher licensee sales driving usage-based royalties, (3) patent portfolio expansion, (4) favorable litigation outcomes enforcing IP rights, (5) new geographic markets for licensed IP"
+    if_decreased: "(1) patent expirations reducing licensable IP, (2) licensee sales declines, (3) contract non-renewals or renegotiations at lower rates, (4) adverse court rulings invalidating patents, (5) open-source alternatives eroding licensing demand"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Pharma companies report royalties on out-licensed drugs. Tech companies report licensing/IP revenue. Media companies report content royalties. Some companies combine royalty and franchise revenue."
+  examples:
+    - company: "Qualcomm"
+      treatment: "QTL segment (technology licensing revenue)"
+    - company: "Pfizer"
+      treatment: "Alliance and royalty revenues"
+    - company: "Disney"
+      treatment: "Licensing and merchandise royalties within Consumer Products segment"
+coa_mapping:
+  quickbooks: "4320 - Royalty Revenue"
+  netsuite: "4320 - Royalty Income"
+  sap: "8320000 - Royalty Revenue"

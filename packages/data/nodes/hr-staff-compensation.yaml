@@ -1,5 +1,5 @@
 id: fintree:HrStaffCompensation
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:LaborAndRelatedExpense'
 label: HR Staff Compensation
 short_label: HR Staff Compensation
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:HumanResources
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 710-10'
 definition: Salaries, payroll taxes, and benefits for the HR department.
-example: ''
+example: 'A 2,000-employee company has an 8-person HR team costing $960K: CHRO $200K, 3 HR business partners at $120K each, 2 recruiters at $100K each, 2 coordinators at $70K each.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,26 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - compensation
+  - human_resources
+  - payroll
+  - fixed_cost
+classification_notes: 'Includes CHRO/VP of HR salary, HR business partners, recruiters, benefits administrators, and HR coordinators. CHRO comp may be in Executive Compensation instead if they are a named executive officer. Internal recruiters are included here; external agency fees go to Recruiting & Hiring Costs.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, largely_fixed, complexity_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) scaling HR team to support rapid company growth, (2) adding specialized HR roles (DEI, people analytics), (3) hiring internal recruiters to reduce agency dependency, (4) market salary adjustments for HR talent, (5) bringing HR functions in-house from a PEO'
+    if_decreased: '(1) outsourcing HR to a PEO or ASO provider, (2) automating HR processes with self-service tools, (3) layoffs reducing HR team proportionally, (4) attrition not replaced due to improved HR tech efficiency, (5) shared services model consolidating HR across business units'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'HR-to-employee ratio varies: typically 1:100 to 1:250. Tech companies often invest more in recruiting staff. Companies using PEOs may show near-zero internal HR staff comp. Ratio is higher in heavily regulated industries requiring more compliance oversight.'
+  examples:
+    - company: 'Costco'
+      treatment: 'Lean HR team relative to 300K+ employees; focused on compensation and benefits administration'
+    - company: 'Stripe'
+      treatment: 'Heavy investment in HR/people ops relative to headcount; classified within G&A'
+coa_mapping:
+  quickbooks: '6710 - HR Staff Compensation'
+  netsuite: '7310 - HR Staff Compensation'
+  sap: '6710000 - HR Staff Compensation'

@@ -1,5 +1,5 @@
 id: fintree:EmployeeTrainingDevelopment
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherGeneralAndAdministrativeExpense'
 label: Employee Training & Development
 short_label: Employee Training & Developmen
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:HumanResources
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Costs of training programs, workshops, online learning platforms (LinkedIn
   Learning, Udemy), and conferences for professional development.
-example: ''
+example: 'A tech company spends $500K on training: $150K LinkedIn Learning licenses, $120K external instructor-led workshops, $80K conference attendance, $100K certification reimbursements, $50K internal LMS platform.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,26 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - human_resources
+  - training
+  - professional_development
+  - discretionary
+classification_notes: 'Training costs are expensed as incurred — they cannot be capitalized as an intangible asset. Some companies allocate training costs to functional departments (R&D training under R&D) rather than centralizing under HR. Mandatory compliance training (safety, harassment prevention) is typically here; sales training may be under S&M.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, headcount_driven, budget_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new compliance training mandates (cybersecurity, DEI), (2) upskilling programs for technology transitions, (3) onboarding surge from rapid hiring, (4) expanded tuition reimbursement program, (5) leadership development programs for high-potentials'
+    if_decreased: '(1) budget cuts during economic downturns (training is often first cut), (2) headcount reductions reducing training volume, (3) shift from paid external training to free internal content, (4) hiring freeze reducing onboarding training needs, (5) consolidation of learning platforms'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Training spend per employee varies widely: $500-$2,000 per year is typical. Highly regulated industries (financial services, healthcare) spend more on mandatory compliance training. Tech companies often offer generous tuition reimbursement. Some companies classify training under the functional department.'
+  examples:
+    - company: 'Deloitte'
+      treatment: 'Significant investment in Deloitte University and professional development; classified as a strategic expense'
+    - company: 'Amazon'
+      treatment: 'Career Choice program provides tuition for warehouse workers; included in fulfillment and G&A costs'
+coa_mapping:
+  quickbooks: '6730 - Employee Training & Development'
+  netsuite: '7330 - Employee Training & Development'
+  sap: '6730000 - Employee Training Development'

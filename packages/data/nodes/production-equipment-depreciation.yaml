@@ -1,5 +1,5 @@
 id: fintree:ProductionEquipmentDepreciation
-xbrl_tag: ''
+xbrl_tag: "us-gaap:DepreciationOfProductionEquipment"
 label: Production Equipment Depreciation
 short_label: Production Equipment Depreciat
 level: 4
@@ -7,7 +7,7 @@ node_type: LINE_ITEM
 parent_id: fintree:EquipmentDepreciation
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 360-10"
 definition: Straight-line or accelerated depreciation on production machinery and
   equipment (ASC 360).
 example: A $500K CNC machine depreciated over 10 years = $50K/year in production overhead.
@@ -24,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - production_equipment
+  - manufacturing
+  - non_cash
+  - cogs_component
+  - asc_360
+classification_notes: "Production equipment depreciation flows into inventory cost and ultimately COGS when goods are sold. During periods of overproduction, some depreciation is capitalized into unsold inventory. Idle production equipment depreciation is expensed immediately rather than allocated to inventory. CNC machines, robotics, assembly line equipment, and testing rigs are typical items."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, non_cash, production_capacity]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new production line investments, (2) capacity expansion with additional machinery, (3) equipment modernization replacing older assets, (4) acquisitions adding manufacturing facilities"
+    if_decreased: "(1) equipment reaching end of useful life, (2) production line retirements, (3) sale of manufacturing operations, (4) extended useful life estimates after equipment upgrades"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Heavy manufacturing (auto, steel, chemicals) has the highest production equipment depreciation. Companies using units-of-production method see depreciation vary with output. Semiconductor fabs have very short equipment lives (3-5 years) creating high annual charges."
+  examples:
+    - company: "General Motors"
+      treatment: "Production equipment depreciated over 10-15 years; significant COGS component"
+    - company: "TSMC"
+      treatment: "Fab equipment depreciated over 5 years; billions in annual production depreciation"
+    - company: "Procter & Gamble"
+      treatment: "Consumer goods production equipment depreciated using straight-line method"
+coa_mapping:
+  quickbooks: "6711 - Production Equipment Depreciation"
+  netsuite: "6711 - Production Equipment Depreciation"
+  sap: "6711000 - Production Equipment Depreciation"

@@ -1,15 +1,16 @@
 id: fintree:GeneralCorporateOverhead
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherGeneralAndAdministrativeExpense'
 label: GENERAL CORPORATE OVERHEAD
 short_label: GENERAL CORPORATE OVERHEAD
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GeneralAdministrativeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Business Travel & Entertainment + Meals & Entertainment + Subscriptions & Publications + Miscellaneous G&A'
+formula_machine: 'fintree:BusinessTravelEntertainment + fintree:MealsEntertainment + fintree:SubscriptionsPublications + fintree:MiscellaneousGa'
+asc_reference: 'ASC 720'
 definition: Miscellaneous G&A costs not classified into the above sub-categories.
-example: ''
+example: 'A mid-size SaaS company incurs $1.2M in general corporate overhead including $450K travel, $180K meals, $70K subscriptions, and $500K miscellaneous.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - corporate_overhead
+  - miscellaneous
+  - travel
+  - entertainment
+  - subscriptions
+classification_notes: 'Catch-all for G&A costs that do not fit neatly into executive comp, HR, finance, legal, IT, or office/facilities. Companies vary widely in what they classify here vs. in other sub-categories.'
 variance_drivers:
-  tags: []
+  tags: [travel_driven, headcount_driven, discretionary, policy_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) loosened travel and entertainment policies, (2) return-to-office or increased in-person meetings, (3) new subscriptions or publications, (4) one-time corporate events or retreats, (5) catch-all reclassifications from other categories'
+    if_decreased: '(1) travel freezes or remote-first policies, (2) corporate expense austerity measures, (3) consolidation of subscriptions and vendor contracts, (4) reclassification of items to more specific G&A sub-categories'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Highly variable across companies. Some lump nearly all non-compensation G&A here; others distribute items to specific functional categories. Travel may appear here or under selling expenses depending on the traveler.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'General corporate overhead included in General and administrative line; travel allocated by function'
+    - company: 'Meta Platforms'
+      treatment: 'General and administrative includes miscellaneous corporate costs not allocated to R&D or sales'
+coa_mapping:
+  quickbooks: '6900 - General Corporate Overhead'
+  netsuite: '7400 - General Corporate Overhead'
+  sap: '6900000 - General Corporate Overhead'

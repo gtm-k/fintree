@@ -1,5 +1,5 @@
 id: fintree:HardwareEquipmentCorporate
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherGeneralAndAdministrativeExpense'
 label: Hardware & Equipment — Corporate
 short_label: Hardware & Equipment — Corpora
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:InformationTechnology
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 360-10'
 definition: Corporate laptops, servers, networking equipment (either expensed if below
   capitalization threshold or depreciated).
-example: ''
+example: 'A company provisions 100 new employee laptops at $1,500 each ($150K total), expensed immediately under a $5K capitalization threshold, plus $30K in monitors, docking stations, and peripherals.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - information_technology
+  - hardware
+  - equipment
+  - capital_vs_expense
+  - refresh_cycle
+classification_notes: 'Items below the capitalization threshold (typically $1K-$5K) are expensed immediately. Items above threshold are capitalized as PP&E and depreciated (typically 3-5 years for IT equipment). Depreciation of capitalized IT equipment flows through a separate depreciation line. This line captures items expensed below threshold plus minor peripherals and accessories.'
 variance_drivers:
-  tags: []
+  tags: [refresh_cycle_driven, headcount_driven, technology_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) laptop/desktop refresh cycle (typically every 3-4 years), (2) rapid headcount growth requiring new equipment, (3) return-to-office requiring monitor and desk setup, (4) technology upgrade (e.g., M1 to M4 Mac migration), (5) raising the capitalization threshold causing more items to be expensed'
+    if_decreased: '(1) hiring freeze reducing new equipment needs, (2) extending equipment refresh cycles, (3) BYOD (bring your own device) policies, (4) lowering capitalization threshold causing more items to be capitalized, (5) shift to virtual desktop infrastructure reducing physical hardware'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Hardware spend per employee is typically $500-$2,000/year including refresh amortization. Companies with higher capitalization thresholds will show more here and less depreciation. Tech companies tend to provide more expensive equipment. Some companies lease equipment (operating lease expense) rather than purchase.'
+  examples:
+    - company: 'Google'
+      treatment: 'Provides high-end equipment to all employees; classified within General and administrative'
+    - company: 'Financial services firm'
+      treatment: 'Strict security requirements drive specialized (more expensive) hardware; often leased rather than purchased'
+coa_mapping:
+  quickbooks: '6830 - Hardware & Equipment (Corporate)'
+  netsuite: '7430 - Corporate Hardware & Equipment'
+  sap: '6830000 - Corporate Hardware Equipment'

@@ -1,5 +1,5 @@
 id: fintree:ContractRebatesTrueups
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ContractWithCustomerRefundLiability'
 label: Contract Rebates & True-ups
 short_label: Contract Rebates & True-ups
 level: 5
@@ -7,10 +7,11 @@ node_type: ADJUSTMENT
 parent_id: fintree:RebatesCredits
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-32-8'
 definition: Adjustments to rebate accruals at contract anniversary dates when actual
   volumes differ from estimates.
-example: ''
+example: "A pharma distributor accruing $8M in rebates during the year based on estimated purchase volumes, then recording a $1.5M true-up (reduction of rebate liability) when actual volumes came in 10% below estimates at year-end."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - rebate_trueup
+  - variable_consideration
+  - estimation
+  - asc_606
+  - accrual_adjustment
+classification_notes: "True-ups occur when actual volumes or sales data become available and differ from estimates used to accrue rebates. Under ASC 606, the constraint on variable consideration requires that revenue recognized is not subject to significant reversal. True-up adjustments can increase or decrease revenue depending on whether actuals exceeded or fell short of estimates. These adjustments often create quarter-to-quarter volatility."
 variance_drivers:
-  tags: []
+  tags: [contract_driven, volume_driven, seasonal]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) actual volumes exceeding estimates requiring higher rebate payments, (2) new multi-year contracts with escalating rebate tiers, (3) contract anniversary dates triggering retroactive rebate calculations, (4) change in estimation methodology increasing accruals"
+    if_decreased: "(1) actual volumes falling below estimated thresholds reducing rebate obligations, (2) contract expirations or non-renewals, (3) improved estimation accuracy reducing true-up volatility, (4) renegotiated contracts with lower rebate rates"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Pharmaceutical companies have the most complex rebate true-up processes (Medicaid, Medicare, managed care). Technology companies accrue channel rebates with quarterly true-ups. CPG companies adjust trade promotion accruals at period end."
+  examples:
+    - company: "Bristol-Myers Squibb"
+      treatment: "Medicaid and Medicare rebate true-ups disclosed in gross-to-net bridge"
+    - company: "McKesson"
+      treatment: "Supplier rebate true-ups affecting quarterly revenue adjustments"
+    - company: "Intel"
+      treatment: "Customer rebate accrual adjustments at contract measurement dates"
+coa_mapping:
+  quickbooks: "4535 - Rebate True-ups"
+  netsuite: "4535 - Contract Rebate Adjustments"
+  sap: "8535000 - Contract Rebates & True-ups"

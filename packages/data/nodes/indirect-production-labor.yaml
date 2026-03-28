@@ -1,5 +1,5 @@
 id: fintree:IndirectProductionLabor
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldOverhead'
 label: Indirect Production Labor
 short_label: Indirect Production Labor
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:IndirectLaborSupervision
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Wages for production support roles (material handlers, janitors, forklift
   operators).
-example: ''
+example: 'A manufacturing plant employs 20 material handlers at $40K/year, 10 janitors at $32K/year, and 8 forklift operators at $45K/year, totaling $1.48M in indirect production labor allocated to manufacturing overhead.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - indirect_labor
+  - production_support
+  - manufacturing
+  - material_handling
+classification_notes: 'Indirect production labor includes factory workers who support production but do not directly manufacture the product — material handlers, janitors, maintenance workers, forklift operators, and setup crews. Their wages are part of manufacturing overhead, not direct labor. The boundary between direct and indirect labor is a key cost accounting judgment. In some lean operations, workers rotate between direct and indirect tasks, requiring time-based allocation.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, volume_driven, efficiency_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Additional support staff for expanded production operations, (2) increased material handling from more complex product mix, (3) wage rate increases for support roles, (4) regulatory requirements mandating additional maintenance or cleaning staff, (5) poor layout design requiring more material movement'
+    if_decreased: '(1) Automated material handling (AGVs, conveyors) replacing manual labor, (2) lean manufacturing reducing non-value-add roles, (3) outsourcing janitorial or maintenance services, (4) plant layout optimization reducing material handling needs, (5) headcount reductions during demand downturn'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'The boundary between direct and indirect labor varies by company and cost system. Some companies include setup time and material handling in direct labor. Automated factories have lower indirect labor. Outsourced janitorial or maintenance services may appear in purchased services rather than labor.'
+  examples:
+    - company: 'General Motors'
+      treatment: 'Reports material handlers, maintenance techs, and custodial staff as indirect labor under UAW contract'
+    - company: 'Intel'
+      treatment: 'Reports cleanroom technicians and facilities support as indirect labor in semiconductor fabrication'
+    - company: 'Procter & Gamble'
+      treatment: 'Reports warehouse operators and line setup crews as indirect production labor in consumer goods manufacturing'
+coa_mapping:
+  quickbooks: '5330 - Indirect Production Labor'
+  netsuite: '5330 - Indirect Production Labor'
+  sap: '5330000 - Indirect Production Labor'

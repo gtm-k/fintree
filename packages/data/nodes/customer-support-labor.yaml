@@ -1,5 +1,5 @@
 id: fintree:CustomerSupportLabor
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: CUSTOMER SUPPORT LABOR
 short_label: CUSTOMER SUPPORT LABOR
 level: 3
@@ -24,14 +24,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - customer support
+  - help desk
+  - technical support
+  - support agents
+  - COGS labor
+  - ticket resolution
+  - onboarding
+classification_notes: Post-sale technical support that is essential to delivering
+  the service belongs in COGS. Pre-sale support engineers belong in Sales & Marketing.
+  Customer success managers focused on retention/upsell may go in S&M. The line between
+  support (COGS) and customer success (S&M) varies by company.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - customer growth
+    - support efficiency
+    - outsourcing
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Customer base growth requiring more support headcount
+      2. Product complexity increases driving higher ticket volumes
+      3. Insourcing previously outsourced support operations
+      4. Wage inflation or geographic expansion to higher-cost support centers
+      5. New product launches creating onboarding demand
+    if_decreased: |-
+      1. AI chatbots and self-service tools reducing human ticket volume
+      2. Outsourcing support to lower-cost offshore centers
+      3. Product improvements reducing support contact rate
+      4. Customer churn reducing the support base
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: SaaS companies generally classify support labor in cost of revenue.
+    Some companies include customer success in this line while others separate it under
+    S&M. Outsourced support may appear as professional services fees rather than labor.
+  examples:
+    - company: Salesforce
+      treatment: Includes customer support costs within cost of subscription and support
+        revenue
+    - company: ServiceNow
+      treatment: Reports customer support and related overhead as part of cost of
+        subscription revenues
+    - company: Zendesk
+      treatment: Reported support team costs within cost of revenue, including outsourced
+        agents
+coa_mapping:
+  quickbooks: '5400 - Customer Support Labor'
+  netsuite: '5400 - Customer Support Labor'
+  sap: '0054000 - Customer Support Labor'

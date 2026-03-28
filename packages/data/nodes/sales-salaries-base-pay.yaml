@@ -1,5 +1,5 @@
 id: fintree:SalesSalariesBasePay
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SalariesAndWages'
 label: Sales Salaries & Base Pay
 short_label: Sales Salaries & Base Pay
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesForceCompensation
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 710-10'
 definition: Fixed salary component for sales representatives and account executives.
-example: ''
-normal_balance: CREDIT
+example: 'A SaaS company pays 30 account executives an average base salary of $85K each, totaling $2.55M annually in sales base pay before variable compensation.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - sales_compensation
+  - fixed_cost
+  - headcount_driven
+  - opex
+  - base_salary
+classification_notes: 'Base salary for sales roles is a fixed cost regardless of sales performance. Classify under selling expenses only for roles primarily dedicated to selling (AEs, SDRs, sales managers). Hybrid roles (sales engineers, customer success with upsell responsibilities) may require allocation between selling and G&A or COGS. Stock-based compensation is typically reported separately.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, fixed_cost, market_rate_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) net new sales hires added to the team, (2) annual merit increases or cost-of-living adjustments, (3) market-rate adjustments to remain competitive, (4) promotion of SDRs to AE roles at higher base, (5) geographic expansion into higher-cost markets'
+    if_decreased: '(1) sales team layoffs or attrition not backfilled, (2) shift to more variable-heavy compensation plans (lower base, higher commission), (3) offshoring or nearshoring SDR roles, (4) hiring freeze on open positions, (5) organizational restructuring reducing sales headcount'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Base salary as a percentage of on-target earnings (OTE) varies significantly. Enterprise SaaS typically uses 50/50 base-to-variable split; transactional sales may be 30/70. Not separately disclosed by public companies — embedded in total sales & marketing or SG&A compensation.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'Embedded in Marketing and Sales; enterprise reps with ~50/50 base/variable OTE'
+    - company: 'Zoom'
+      treatment: 'Included in Sales and marketing expense; not separately disclosed'
+    - company: 'Workday'
+      treatment: 'Part of Sales and marketing; direct sales model with significant base pay component'
+coa_mapping:
+  quickbooks: '6101 - Sales Salaries'
+  netsuite: '7001 - Sales Salaries & Wages'
+  sap: '6100100 - Sales Salaries Base Pay'

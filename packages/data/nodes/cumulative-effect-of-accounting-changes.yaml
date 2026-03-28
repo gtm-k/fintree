@@ -1,18 +1,19 @@
 id: fintree:CumulativeEffectOfAccountingChanges
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CumulativeEffectOfNewAccountingPrincipleInPeriodOfAdoption'
 label: CUMULATIVE EFFECT OF ACCOUNTING CHANGES
 short_label: CUMULATIVE EFFECT OF ACCOUNTIN
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:BelowthelineItems
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Cumulative Effect of Principle Change'
+formula_machine: 'fintree:CumulativeEffectOfPrincipleChange'
+asc_reference: 'ASC 250-10'
 definition: The catch-up adjustment when a company changes an accounting principle
   (ASC 250). Recorded in the period of change, net of tax, as a direct adjustment
   to opening retained earnings (most changes) or as a separate income statement line
   for certain changes.
-example: ''
+example: 'When adopting ASC 606 (Revenue Recognition) in 2018, a software company recorded a $45M cumulative catch-up adjustment to opening retained earnings, reflecting the difference between old and new revenue timing.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -26,14 +27,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - accounting_change
+  - cumulative_effect
+  - asc_250
+  - standard_adoption
+  - catch_up_adjustment
+  - retained_earnings
+classification_notes: 'Most accounting standard adoptions today use the modified retrospective method, recording the cumulative effect as an adjustment to opening retained earnings rather than on the income statement. Only certain transitions (where the standard specifically permits) use prospective or full retrospective methods. Key recent transitions: ASC 606 (Revenue, 2018), ASC 842 (Leases, 2019), ASC 326 (Credit Losses/CECL, 2020). Analysts must understand that the income statement may not show this — check the equity rollforward and transition footnotes.'
 variance_drivers:
-  tags: []
+  tags: [accounting_standard_changes, transition_method, measurement_differences]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) adoption of a major new accounting standard with significant measurement change, (2) voluntary change in accounting principle requiring catch-up adjustment, (3) change from one acceptable method to a preferable one under ASC 250, (4) large gap between old and new measurement basis'
+    if_decreased: '(1) no new accounting standards requiring adoption in the period, (2) immaterial differences between old and new accounting methods, (3) standard adopted using prospective method with no catch-up, (4) gradual transition over multiple periods'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'The impact depends on the specific standard adopted and the company''s business model. SaaS companies had large ASC 606 impacts; banks had large CECL impacts; real estate companies had large ASC 842 impacts. Transition disclosures are required in the adoption year.'
+  examples:
+    - company: 'JPMorgan Chase'
+      treatment: 'CECL adoption (ASC 326) — $2.7B increase to allowance recorded as retained earnings adjustment in 2020'
+    - company: 'Salesforce'
+      treatment: 'ASC 606 adoption — modified retrospective with cumulative catch-up to retained earnings'
+    - company: 'American Airlines'
+      treatment: 'ASC 842 lease adoption — significant impact from operating lease capitalization'
+coa_mapping:
+  quickbooks: '9520 - Cumulative Effect of Accounting Changes'
+  netsuite: '9520 - Cumulative Effect of Accounting Changes'
+  sap: '7970000 - Cumulative Effect of Accounting Changes'

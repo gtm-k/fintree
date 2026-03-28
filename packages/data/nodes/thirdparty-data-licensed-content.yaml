@@ -1,5 +1,5 @@
 id: fintree:ThirdpartyDataLicensedContent
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: THIRD-PARTY DATA & LICENSED CONTENT
 short_label: THIRD-PARTY DATA & LICENSED CO
 level: 3
@@ -24,14 +24,52 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - third-party data
+  - licensed content
+  - API costs
+  - data feeds
+  - content licensing
+  - COGS
+  - data providers
+classification_notes: Only includes data and content that is directly incorporated
+  into or delivered through the product. Data used for internal analytics or decision-making
+  belongs in G&A or R&D. This sub-category aggregates API data feeds, licensed content
+  libraries, and similar third-party inputs that are essential to the product offering.
 variance_drivers:
-  tags: []
+  tags:
+    - vendor contracts
+    - data volume
+    - content scope
+    - API usage
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Added new data sources or content providers to enrich the product
+      2. Usage-based data API costs grew with customer consumption
+      3. Vendor price increases at contract renewal
+      4. Expanded product functionality requiring additional third-party data
+      5. Entered new markets requiring region-specific data or content
+    if_decreased: |-
+      1. Built proprietary data pipelines replacing licensed feeds
+      2. Renegotiated vendor contracts at lower rates
+      3. Consolidated data providers reducing redundant costs
+      4. Customer usage decline reducing variable data consumption fees
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Financial data companies have very high third-party data costs as a
+    percentage of revenue. Media and streaming companies report content costs as the
+    dominant COGS component. Some companies capitalize content costs and amortize over
+    the license period rather than expensing immediately.
+  examples:
+    - company: Bloomberg
+      treatment: Licenses third-party data feeds as a component of its terminal
+        product, embedded within cost of revenue
+    - company: Spotify
+      treatment: Reports music licensing and content costs as the primary component
+        of cost of revenue at approximately 70% of revenue
+    - company: FactSet
+      treatment: Reports third-party data costs within cost of services as a major
+        expense for data sourced from exchanges and providers
+coa_mapping:
+  quickbooks: '5400 - Third-Party Data & Licensed Content'
+  netsuite: '5400 - Third-Party Data and Content'
+  sap: '4300000 - Third-Party Data and Licensed Content'

@@ -1,13 +1,14 @@
 id: fintree:RawMaterials
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RawMaterialsAndSuppliesUsed'
 label: RAW MATERIALS
 short_label: RAW MATERIALS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DirectMaterials
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Primary Raw Material + Secondary Raw Materials + Raw Material Yield Losses'
+formula_machine: 'fintree:PrimaryRawMaterial + fintree:SecondaryRawMaterials + fintree:RawMaterialYieldLosses'
+asc_reference: 'ASC 330'
 definition: Unprocessed inputs purchased to manufacture the product.
 example: Steel coils for an auto manufacturer; cotton for an apparel company.
 normal_balance: DEBIT
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - raw_materials
+  - commodity
+  - inventory
+  - manufacturing_input
+classification_notes: 'Raw materials are unprocessed inputs that undergo transformation during manufacturing. Distinguished from purchased components (which arrive pre-manufactured) and production supplies (which are consumed but not incorporated into the product). Under ASC 330, raw materials inventory is valued at lower of cost or net realizable value.'
 variance_drivers:
-  tags: []
+  tags: [commodity_driven, volume_driven, supply_chain_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Commodity price spikes (oil, metals, agricultural inputs), (2) higher production volumes, (3) tariffs or trade restrictions on imported materials, (4) supplier consolidation reducing competitive pricing, (5) quality issues requiring premium-grade substitutes'
+    if_decreased: '(1) Commodity price drops or favorable long-term supply agreements, (2) lower production volumes, (3) material substitution with lower-cost alternatives, (4) improved purchasing leverage through volume commitments, (5) nearshoring reducing logistics costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'LIFO companies (common in US) show higher raw material costs in inflation vs. FIFO companies. Vertically integrated companies may show transfer prices rather than market prices. Commodity hedging can smooth or defer material cost recognition.'
+  examples:
+    - company: 'Nucor'
+      treatment: 'Reports scrap steel and iron ore as primary raw materials using LIFO; significant LIFO reserve'
+    - company: 'Dow Chemical'
+      treatment: 'Reports hydrocarbon feedstocks as raw materials; uses commodity hedging extensively'
+    - company: 'Nike'
+      treatment: 'Reports synthetic fabrics, rubber, and foam as raw materials sourced from contracted suppliers'
+coa_mapping:
+  quickbooks: '5110 - Raw Materials'
+  netsuite: '5110 - Raw Materials'
+  sap: '5110000 - Raw Materials Consumed'

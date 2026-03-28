@@ -1,5 +1,5 @@
 id: fintree:InventoryObsolescenceWritedown
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InventoryWriteDown'
 label: Inventory Obsolescence Write-down
 short_label: Inventory Obsolescence Write-d
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:InventoryWritedownsObsolescence
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Write-down of slow-moving or obsolete inventory to estimated NRV.
 example: A consumer electronics company writing down last-generation phones when new
   models launch.
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - inventory
+  - obsolescence
+  - write_down
+  - nrv
+  - technology_risk
+  - product_lifecycle
+classification_notes: 'Obsolescence write-downs reduce inventory to estimated net realizable value when products become slow-moving, technologically outdated, or discontinued. Under US GAAP (ASC 330), write-downs are permanent and cannot be reversed even if NRV recovers. Companies may use an aging-based reserve (e.g., 25% for 6-12 months old, 50% for 12-18 months, 100% for >18 months) or specific identification. Large obsolescence charges may be non-recurring and excluded from adjusted earnings.'
 variance_drivers:
-  tags: []
+  tags: [product_lifecycle_driven, technology_driven, demand_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) New product generation making current inventory obsolete, (2) unexpected demand decline for existing products, (3) competitor launches rendering products uncompetitive, (4) engineering changes making existing components incompatible, (5) regulatory changes banning products or ingredients'
+    if_decreased: '(1) Better product lifecycle management and phase-out planning, (2) improved demand forecasting preventing overproduction, (3) secondary channels (outlet stores, liquidators) reducing write-down need, (4) modular design allowing component reuse across product generations, (5) build-to-order model reducing finished goods inventory risk'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Technology companies have the highest obsolescence risk (6-18 month product cycles). Fashion/apparel faces seasonal obsolescence. Pharmaceutical companies face expiration-date-based obsolescence. Companies vary in reserve methodology — some use aging schedules, others use specific identification. The reserve balance is typically disclosed in inventory footnotes.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Manages obsolescence through tight supply chain; limits build-ahead of new products; writes down prior-generation components'
+    - company: 'HP Inc.'
+      treatment: 'Reports obsolescence reserves for printer cartridges and PC components as technology cycles shorten'
+    - company: 'Lululemon'
+      treatment: 'Reports write-downs for out-of-season athletic apparel; uses markdown optimization and outlet stores to minimize losses'
+coa_mapping:
+  quickbooks: '5431 - Inventory Obsolescence Write-down'
+  netsuite: '5431 - Inventory Obsolescence Write-down'
+  sap: '5431000 - Inventory Obsolescence Write-down'

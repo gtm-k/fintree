@@ -1,5 +1,5 @@
 id: fintree:EventTravelEntertainment
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:TravelAndEntertainmentExpense'
 label: Event Travel & Entertainment
 short_label: Event Travel & Entertainment
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:TradeShowsSalesEvents
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Travel, lodging, and entertainment for sales staff attending events.
-example: ''
+example: 'A SaaS company sends 15 sales reps to AWS re:Invent at $4,500 per person ($67.5K total): $15K flights, $22.5K hotel (5 nights), $15K meals, $15K event dinners and entertainment with prospects.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,28 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - sales_marketing
+  - travel
+  - entertainment
+  - events
+  - trade_shows
+  - discretionary
+classification_notes: 'This is a selling expense (under Trade Shows & Sales Events), not G&A. Includes airfare, hotel, ground transportation, meals, and client entertainment associated with trade shows, conferences, and sales events. Travel for G&A staff (executives, HR, finance) should be classified under General Corporate Overhead travel. Entertainment expenses are generally non-deductible for tax (post-TCJA 2017).'
 variance_drivers:
-  tags: []
+  tags: [event_driven, discretionary, seasonal, sales_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) expanded trade show and conference participation, (2) larger sales team attending more events, (3) travel cost inflation (flights, hotels), (4) hosting proprietary events (user conferences, customer summits), (5) international events requiring long-haul travel'
+    if_decreased: '(1) shift to virtual events reducing travel, (2) budget cuts pulling back on event attendance, (3) smaller sales team, (4) selective event participation focusing on highest-ROI events, (5) co-locating events to reduce separate travel'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Enterprise SaaS and tech companies spend heavily on events (AWS re:Invent, Dreamforce, CES). Manufacturing companies attend industry trade shows (IMTS, FABTECH). Some companies classify all event costs together (booth + travel + entertainment); others split by type. Virtual event shift during COVID reduced this cost significantly; it has partially recovered.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'Dreamforce is both revenue (sponsorships) and a major sales/marketing expense; event travel in selling expenses'
+    - company: 'Medical device company'
+      treatment: 'Conference attendance (AMA, specialty medical conferences) is critical for sales; classified in selling expenses'
+coa_mapping:
+  quickbooks: '6150 - Event Travel & Entertainment'
+  netsuite: '6750 - Event Travel & Entertainment'
+  sap: '6150000 - Event Travel Entertainment'

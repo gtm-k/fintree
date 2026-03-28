@@ -1,5 +1,5 @@
 id: fintree:ItInfrastructureNetworking
-xbrl_tag: ''
+xbrl_tag: us-gaap:InformationTechnologyAndDataProcessing
 label: IT Infrastructure & Networking
 short_label: IT Infrastructure & Networking
 level: 4
@@ -10,7 +10,9 @@ formula_human: ''
 asc_reference: ''
 definition: Corporate network infrastructure, VPN, cybersecurity tools, and cloud
   services for internal operations.
-example: ''
+example: A mid-size company spends $120K/year on corporate network switches and routers,
+  $45K on VPN services for remote employees, and $60K on firewall and Wi-Fi access
+  point maintenance across 3 office locations.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +26,52 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - IT infrastructure
+  - networking
+  - VPN
+  - corporate network
+  - firewall
+  - LAN/WAN
+  - internal IT
+classification_notes: Corporate IT infrastructure is a G&A cost, not COGS. Distinguish
+  from production infrastructure (which is COGS for SaaS companies). Hardware purchases
+  above capitalization thresholds should be capitalized and depreciated under ASC 360.
+  Cloud-based networking (SD-WAN, SASE) is expensed as a subscription. Shared infrastructure
+  supporting both corporate and production may require allocation.
 variance_drivers:
-  tags: []
+  tags:
+    - office expansion
+    - technology refresh
+    - remote work
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Office expansion or new location buildouts requiring network infrastructure
+      2. Technology refresh cycles replacing aging network equipment
+      3. Migration to zero-trust security architecture adding tooling
+      4. Growth in remote workforce requiring VPN and SD-WAN investment
+      5. Bandwidth upgrades for video conferencing and cloud app usage
+    if_decreased: |-
+      1. Office consolidation reducing networking footprint
+      2. Migration from on-premise to cloud-based networking (SASE)
+      3. Shift to fully remote work eliminating office network costs
+      4. Vendor consolidation reducing overlapping tools
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Companies vary in whether IT infrastructure is a standalone line or
+    bundled into general technology or occupancy costs. Some allocate networking costs
+    across departments; others centralize in IT. Cloud-first companies may have minimal
+    physical networking costs.
+  examples:
+    - company: Bank of America
+      treatment: Reports IT infrastructure and networking within technology spending,
+        part of its multi-billion dollar annual tech budget
+    - company: Microsoft
+      treatment: Includes corporate IT costs within general and administrative expense,
+        separate from cloud production infrastructure
+    - company: WeWork
+      treatment: Reported networking and IT infrastructure as part of building
+        operations costs for its co-working spaces
+coa_mapping:
+  quickbooks: '6440 - IT Infrastructure & Networking'
+  netsuite: '6440 - IT Infrastructure Networking'
+  sap: '0064400 - IT Infrastructure Networking'

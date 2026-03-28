@@ -1,17 +1,18 @@
 id: fintree:InterestExpense
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InterestExpense'
 label: INTEREST EXPENSE
 short_label: INTEREST EXPENSE
 level: 4
 node_type: SUB_CATEGORY
 parent_id: fintree:NonoperatingExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Interest on Long-Term Debt + Interest on Revolving Credit Facility'
+formula_machine: 'fintree:InterestOnLongtermDebt + fintree:InterestOnRevolvingCreditFacility'
+asc_reference: 'ASC 835-30'
 definition: The cost of borrowed capital — interest payments on debt instruments.
   The primary non-operating expense for most companies. Reflects financing decisions,
   not operational performance.
-example: ''
+example: 'AT&T reported $6.8B in interest expense in FY2023 on its $137B total debt, reflecting a weighted average interest rate of approximately 5%.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +26,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - interest_expense
+  - financing_cost
+  - debt_service
+  - cost_of_borrowing
+  - asc_835
+  - leverage
+classification_notes: 'Interest expense includes coupon payments on bonds, interest on term loans, revolving credit facilities, capital lease interest (ASC 842), and amortization of debt issuance costs/discounts. Capitalized interest on qualifying assets (ASC 835-20) reduces the P&L charge. For banks, interest expense is an operating cost. Interest coverage ratio (EBIT / Interest Expense) is a key credit metric.'
 variance_drivers:
-  tags: []
+  tags: [debt_level_driven, interest_rate_driven, capital_structure, refinancing]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new debt issuance for M&A or capital projects, (2) rising benchmark interest rates on variable-rate debt, (3) refinancing at higher rates due to credit downgrade, (4) amortization of debt discount accelerating, (5) lease liability interest under ASC 842'
+    if_decreased: '(1) debt repayment or retirement reducing outstanding principal, (2) refinancing at lower rates, (3) shift from debt to equity financing, (4) interest rate swaps converting floating to lower fixed rate, (5) capitalization of interest on qualifying construction projects'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'All companies with debt report interest expense. SEC requires separate disclosure. Some companies report interest expense net of capitalized interest. Banks report interest expense as a primary operating line item. Interest on finance leases (ASC 842) is included here.'
+  examples:
+    - company: 'AT&T'
+      treatment: 'Interest expense — $6.8B separate line item reflecting heavy debt load'
+    - company: 'Apple'
+      treatment: 'Interest expense shown within Other income/(expense), net — modest relative to cash position'
+    - company: 'JPMorgan Chase'
+      treatment: 'Interest expense — operating line item ($35B+) as a bank'
+coa_mapping:
+  quickbooks: '7500-7599 - Interest Expense'
+  netsuite: '7500 - Interest Expense'
+  sap: '7500000 - Interest Expense'

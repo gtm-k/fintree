@@ -1,5 +1,5 @@
 id: fintree:CustomerRelationshipAmortization
-xbrl_tag: ''
+xbrl_tag: "us-gaap:AmortizationOfIntangibleAssets"
 label: Customer Relationship Amortization
 short_label: Customer Relationship Amortiza
 level: 4
@@ -7,7 +7,7 @@ node_type: LINE_ITEM
 parent_id: fintree:AmortizationOfIntangibleAssets
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 350-30, ASC 805-20"
 definition: Amortization of customer relationship intangibles acquired in a business
   combination.
 example: A company acquired for $100M with $20M attributed to customer relationships,
@@ -25,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - amortization
+  - customer_relationships
+  - intangible_asset
+  - acquisition_driven
+  - non_cash
+  - asc_350
+  - purchase_accounting
+classification_notes: "Customer relationships are identified as a separate intangible asset in purchase price allocation (ASC 805). Typical useful lives are 5-15 years. Amortization method should reflect the pattern of economic benefit -- accelerated methods may be appropriate if customer attrition is front-loaded. Backlog (existing contracts) is a separate intangible with a shorter life. Non-compete agreements are also separate."
 variance_drivers:
-  tags: []
+  tags: [acquisition_driven, non_cash, predictable, customer_base]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new acquisitions with significant customer relationship intangibles, (2) purchase price allocations assigning more value to customer relationships, (3) shorter useful life estimates for acquired relationships"
+    if_decreased: "(1) customer relationship intangibles becoming fully amortized, (2) impairment of customer relationships due to customer losses, (3) disposal of business units with associated customer intangibles"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Customer relationships are often the largest acquired intangible asset (30-50% of intangible value in many deals). B2B companies typically receive higher customer relationship valuations than B2C. SaaS companies may classify this as customer contracts and backlog. Some companies use accelerated amortization reflecting declining customer retention curves."
+  examples:
+    - company: "Salesforce"
+      treatment: "Significant customer relationship amortization from Slack, Tableau, and MuleSoft acquisitions"
+    - company: "Danaher"
+      treatment: "Serial acquirer with large customer relationship amortization across life sciences businesses"
+    - company: "Waste Connections"
+      treatment: "Customer relationship amortization from tuck-in waste hauling acquisitions"
+coa_mapping:
+  quickbooks: "6761 - Customer Relationship Amortization"
+  netsuite: "6761 - Amortization - Customer Relationships"
+  sap: "6761000 - Customer Relationship Amortization"

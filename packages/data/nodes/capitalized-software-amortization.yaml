@@ -1,5 +1,5 @@
 id: fintree:CapitalizedSoftwareAmortization
-xbrl_tag: ''
+xbrl_tag: "us-gaap:CapitalizedComputerSoftwareAmortization1"
 label: Capitalized Software Amortization
 short_label: Capitalized Software Amortizat
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:AmortizationOfIntangibleAssets
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 350-40, ASC 985-20"
 definition: Amortization of internally capitalized software development costs per
   ASC 350-40 (application development stage only).
-example: ''
+example: "A SaaS company capitalizes $12M in internal-use software development during the application development stage and amortizes it over 3 years, recording $4M/year in software amortization."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - amortization
+  - capitalized_software
+  - internal_use_software
+  - non_cash
+  - asc_350_40
+  - asc_985_20
+  - saas
+classification_notes: "Internal-use software (ASC 350-40): costs capitalized during application development stage only; preliminary project and post-implementation costs are expensed. Software for sale (ASC 985-20): costs capitalized after technological feasibility. Cloud computing arrangements (ASC 350-40): implementation costs for hosted arrangements may be capitalized. Typical useful lives are 3-5 years. Amortization method is usually straight-line."
 variance_drivers:
-  tags: []
+  tags: [development_driven, non_cash, capitalization_policy, predictable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) increased software capitalization from major platform development, (2) prior-year capitalized projects entering amortization, (3) shorter useful life estimates, (4) aggressive capitalization policy"
+    if_decreased: "(1) capitalized software becoming fully amortized, (2) impairment of capitalized software, (3) shift in policy to expense more costs, (4) reduced software development investment"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "SaaS companies frequently capitalize internal software development costs, creating significant amortization. Companies with aggressive capitalization policies show lower R&D expense but higher amortization. Some companies present software amortization in COGS (cost of revenue) rather than D&A. Capitalization policies vary significantly across companies, impacting comparability."
+  examples:
+    - company: "Workday"
+      treatment: "Significant capitalized software amortization in cost of subscription revenue"
+    - company: "SAP"
+      treatment: "Internal software development capitalized and amortized; shown in cost of cloud and software"
+    - company: "Shopify"
+      treatment: "Capitalized internal-use software amortized over 3-year useful life"
+coa_mapping:
+  quickbooks: "6764 - Capitalized Software Amortization"
+  netsuite: "6764 - Amortization - Capitalized Software"
+  sap: "6764000 - Capitalized Software Amortization"

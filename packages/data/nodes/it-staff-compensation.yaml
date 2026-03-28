@@ -1,5 +1,5 @@
 id: fintree:ItStaffCompensation
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:LaborAndRelatedExpense'
 label: IT Staff Compensation
 short_label: IT Staff Compensation
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:InformationTechnology
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 710-10'
 definition: Salaries and benefits for internal IT support and systems staff.
-example: ''
+example: 'A 1,000-employee company has a 15-person IT team costing $2.1M: CIO $250K, 4 systems admins at $130K, 3 helpdesk at $75K, 3 network engineers at $140K, 2 security analysts at $145K, 2 IT project managers at $135K.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,26 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - compensation
+  - information_technology
+  - payroll
+  - fixed_cost
+classification_notes: 'Includes IT helpdesk, systems administrators, network engineers, security analysts, and IT management. CIO/CTO salary may be under Executive Compensation if they are a named executive officer. Software developers building internal tools (not product) are here. Developers working on the product are in R&D, not G&A IT.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, largely_fixed, market_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) expanding IT team for cybersecurity or infrastructure modernization, (2) salary inflation in competitive IT labor market, (3) insourcing previously outsourced IT support, (4) adding specialized roles (cloud architects, security engineers), (5) increased IT headcount to support company growth'
+    if_decreased: '(1) outsourcing IT helpdesk or managed services, (2) cloud migration reducing on-premise administration needs, (3) consolidation of IT roles across business units, (4) automation reducing manual IT tasks, (5) offshoring IT support functions'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'IT-to-employee ratio varies: typically 1:50 to 1:150 depending on industry. Financial services and tech companies have higher ratios. Companies heavily using managed service providers show lower IT staff comp but higher vendor costs. Some companies classify IT staff under each department rather than centrally.'
+  examples:
+    - company: 'Bank of America'
+      treatment: 'Large internal IT workforce; technology staff costs are a major component of noninterest expense'
+    - company: 'Small manufacturing company'
+      treatment: 'May have 1-2 IT staff supplemented by outsourced managed IT services'
+coa_mapping:
+  quickbooks: '6810 - IT Staff Compensation'
+  netsuite: '7410 - IT Staff Compensation'
+  sap: '6810000 - IT Staff Compensation'

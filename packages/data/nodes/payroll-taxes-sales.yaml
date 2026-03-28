@@ -1,5 +1,5 @@
 id: fintree:PayrollTaxesSales
-xbrl_tag: ''
+xbrl_tag: us-gaap:SellingAndMarketingExpense
 label: Payroll Taxes — Sales
 short_label: Payroll Taxes — Sales
 level: 4
@@ -9,8 +9,9 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Employer payroll taxes attributable to sales compensation.
-example: ''
-normal_balance: CREDIT
+example: A SaaS company pays $420K/year in employer FICA and state unemployment taxes
+  on $5.5M in sales team base salaries and commissions.
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -23,14 +24,48 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - payroll taxes
+  - sales compensation
+  - FICA
+  - selling expense
+  - employer taxes
+  - S&M
+classification_notes: Includes employer payroll taxes on both base salary and variable
+  compensation (commissions, bonuses) for sales staff. Commissions subject to payroll
+  tax create variability tied to sales performance. Does not include benefits or SBC,
+  which are tracked in separate line items.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - commission levels
+    - tax rates
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Sales team expansion increasing total payroll tax base
+      2. Higher commissions paid driving additional payroll tax on variable comp
+      3. Base salary increases for existing sales reps
+      4. Hired sales staff in higher-tax jurisdictions
+    if_decreased: |-
+      1. Sales force reductions or restructuring
+      2. Shifted to independent sales agents (1099) not subject to employer taxes
+      3. Lower commissions paid due to missed sales targets
+      4. Relocated sales operations to lower-tax states
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Most companies bundle sales payroll taxes within total S&M expense. The
+    mix of base vs. variable compensation affects payroll tax variability. Companies
+    with large international sales teams face different employer tax rates by country.
+  examples:
+    - company: HubSpot
+      treatment: Includes sales payroll taxes within total selling and marketing expense
+        without separate line-item disclosure
+    - company: Zoom
+      treatment: Bundles sales team payroll taxes into sales and marketing personnel
+        costs
+    - company: CrowdStrike
+      treatment: Reports payroll taxes within S&M expense, with significant variability
+        from commission-heavy sales compensation model
+coa_mapping:
+  quickbooks: '6310 - Payroll Taxes - Sales'
+  netsuite: '6310 - Payroll Taxes - Sales'
+  sap: '6300100 - Payroll Taxes Sales'

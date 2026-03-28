@@ -1,5 +1,5 @@
 id: fintree:RebatesCredits
-xbrl_tag: ''
+xbrl_tag: us-gaap:SalesDiscountsReturnsAndAllowancesGoods
 label: REBATES & CREDITS
 short_label: REBATES & CREDITS
 level: 3
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Post-sale cash payments or credits back to customers tied to cumulative
   purchase milestones.
-example: ''
+example: A pharmaceutical company pays $14M in annual volume rebates to pharmacy
+  benefit managers when cumulative purchases exceed tiered thresholds.
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -24,14 +25,52 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rebates
+  - customer credits
+  - volume incentives
+  - contra-revenue
+  - variable consideration
+  - ASC 606
+classification_notes: Under ASC 606, rebates are variable consideration estimated
+  at contract inception and recorded as a reduction of revenue. Distinguish from sales
+  returns (physical goods sent back) and promotional discounts (point-of-sale reductions).
+  Rebates often require estimation of breakage (customers who qualify but do not claim).
 variance_drivers:
-  tags: []
+  tags:
+    - volume thresholds
+    - contract terms
+    - customer mix
+    - estimation changes
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. More customers reaching volume rebate thresholds due to strong sales
+      2. Introduced more aggressive rebate programs to drive customer retention
+      3. Updated rebate accrual estimates upward based on actual redemption rates
+      4. Expanded channel partner programs with higher rebate tiers
+      5. Competitive pressure forcing richer incentive structures
+    if_decreased: |-
+      1. Restructured rebate programs with higher qualification thresholds
+      2. Fewer customers reaching volume milestones due to market softness
+      3. Reduced rebate accruals based on lower-than-expected redemption
+      4. Eliminated underperforming rebate programs
+      5. Shifted from rebates to upfront discounting
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies report rebates as a contra-revenue deduction before net
+    revenue; others disclose them separately. Pharma and consumer goods industries
+    have complex rebate structures that require significant estimation. SaaS companies
+    may use credits rather than cash rebates.
+  examples:
+    - company: Procter & Gamble
+      treatment: Reports trade promotions and rebates as a reduction of net sales,
+        disclosed in significant accounting policies
+    - company: Johnson & Johnson
+      treatment: Records rebates as variable consideration reducing net revenue, with
+        material estimates for Medicaid and managed care rebates
+    - company: Cisco
+      treatment: Reports volume incentive rebates and credits as a reduction of revenue,
+        estimating based on historical patterns
+coa_mapping:
+  quickbooks: '4800 - Rebates & Credits'
+  netsuite: '4800 - Customer Rebates and Credits'
+  sap: '4900100 - Rebates and Credits'

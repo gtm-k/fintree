@@ -1,5 +1,5 @@
 id: fintree:ExpensesDiscontinuedOperations
-xbrl_tag: ''
+xbrl_tag: us-gaap:DiscontinuedOperationIncomeLossFromDiscontinuedOperationDuringPhaseOutPeriodBeforeIncomeTax
 label: Expenses — Discontinued Operations
 short_label: Expenses — Discontinued Operat
 level: 3
@@ -9,7 +9,9 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Operating costs attributable to the discontinued business component.
-example: ''
+example: A conglomerate divesting its media division reports $45M in operating expenses
+  (salaries, rent, content costs) of that segment as expenses from discontinued operations
+  during the wind-down period.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +25,49 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - discontinued operations
+  - divestiture
+  - ASC 205-20
+  - below the line
+  - non-recurring
+  - segment disposal
+classification_notes: Under ASC 205-20, a component qualifies as discontinued when
+  it represents a strategic shift (e.g., disposal of a major geographic area, line
+  of business, or equity method investment). Must be reported net of tax, below the
+  line. Prior periods must be retrospectively reclassified. Costs to sell are included.
 variance_drivers:
-  tags: []
+  tags:
+    - divestiture timing
+    - wind-down costs
+    - strategic restructuring
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Extended wind-down period for discontinued segment
+      2. Additional severance and restructuring costs during phase-out
+      3. Contractual obligations (leases, vendor commitments) that cannot be terminated early
+      4. Unexpected operating losses in the discontinued segment during transition
+    if_decreased: |-
+      1. Faster-than-expected sale or closure of discontinued operations
+      2. Buyer assumption of liabilities reducing wind-down costs
+      3. Completion of the disposal period
+      4. Favorable contract termination negotiations
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: All US GAAP companies present discontinued operations the same way (below
+    the line, net of tax), but the threshold for what qualifies changed under ASU
+    2014-08, narrowing the definition. IFRS 5 uses similar but not identical criteria.
+    Some companies have continuing involvement that complicates clean separation.
+  examples:
+    - company: General Electric
+      treatment: Reported GE Capital operations as discontinued during its separation,
+        with detailed expense breakdowns in notes
+    - company: Johnson & Johnson
+      treatment: Reported Kenvue consumer health segment expenses as discontinued
+        operations during the 2023 separation
+    - company: eBay
+      treatment: Reported PayPal operating expenses as discontinued operations during
+        its 2015 spin-off
+coa_mapping:
+  quickbooks: '9100 - Expenses - Discontinued Operations'
+  netsuite: '9100 - Discontinued Operations Expense'
+  sap: '0091000 - Expenses Discontinued Ops'

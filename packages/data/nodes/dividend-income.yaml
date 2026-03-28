@@ -1,5 +1,5 @@
 id: fintree:DividendIncome
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InvestmentIncomeDividend'
 label: Dividend Income
 short_label: Dividend Income
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingIncome
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 320-10'
 definition: Dividends received from equity investments (typically minority stakes,
   not consolidated subsidiaries).
-example: ''
+example: 'Berkshire Hathaway receives approximately $5.5B annually in dividend income from its equity portfolio, including $900M from Coca-Cola and $850M from Apple.'
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - dividend_income
+  - investment_income
+  - equity_investments
+  - non_operating
+  - passive_income
+  - portfolio_yield
+classification_notes: 'Recognized when the right to receive payment is established (ex-dividend date). For equity method investments (20-50% ownership), the investor records its share of investee earnings, not dividends — dividends reduce the investment balance instead. Distinguish from intercompany dividends eliminated in consolidation.'
 variance_drivers:
-  tags: []
+  tags: [portfolio_composition, investee_payout_policy, ownership_stakes]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) investee companies raising their dividend payouts, (2) new equity investments in dividend-paying stocks, (3) larger ownership stakes increasing pro-rata share, (4) special one-time dividends from investees'
+    if_decreased: '(1) investee companies cutting or suspending dividends, (2) sale of dividend-paying equity positions, (3) investees shifting capital allocation to buybacks over dividends, (4) reduced ownership percentage'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Most non-financial companies have minimal dividend income. Insurance companies and holding companies often have significant dividend income. May be combined with interest income under investment income.'
+  examples:
+    - company: 'Berkshire Hathaway'
+      treatment: 'Dividend income reported as major line item — $5.5B from large equity portfolio'
+    - company: 'MetLife'
+      treatment: 'Net investment income — combines dividend and interest income on insurance investment portfolio'
+    - company: 'General Electric'
+      treatment: 'Dividends from equity method investees shown separately in income from investments'
+coa_mapping:
+  quickbooks: '7150 - Dividend Income'
+  netsuite: '7150 - Dividend Income'
+  sap: '7150000 - Dividend Income'

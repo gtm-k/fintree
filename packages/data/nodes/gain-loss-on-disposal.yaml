@@ -1,5 +1,5 @@
 id: fintree:GainLossOnDisposal
-xbrl_tag: ''
+xbrl_tag: us-gaap:DiscontinuedOperationGainLossOnDisposalOfDiscontinuedOperationNetOfTax
 label: Gain / Loss on Disposal
 short_label: Gain / Loss on Disposal
 level: 3
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: The net gain or loss recognized upon actual or expected disposal of the
   discontinued component.
-example: ''
+example: A technology company sells its hardware division with a book value of $200M
+  for $275M, recognizing a $75M pre-tax gain on disposal of discontinued operations.
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,53 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - gain on disposal
+  - loss on disposal
+  - divestiture
+  - discontinued operations
+  - ASC 205-20
+  - below the line
+  - asset sale
+classification_notes: Reported net of tax, below the line within discontinued operations
+  per ASC 205-20. The gain/loss equals sale proceeds minus the net carrying amount
+  of the disposed component (assets minus liabilities). If disposal is expected but
+  not yet completed, an estimated loss must be recognized immediately but a gain is
+  deferred until realized. Distinguish from gain/loss on sale of individual assets
+  (ASC 360), which is above the line.
 variance_drivers:
-  tags: []
+  tags:
+    - sale price vs book value
+    - market conditions
+    - strategic timing
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Sale price exceeds net book value due to favorable market conditions
+      2. Strategic buyer paying premium for synergies
+      3. Previously impaired assets sold at recovery above written-down value
+      4. Favorable resolution of contingencies from prior disposals
+    if_decreased: |-
+      1. Distressed sale at below book value due to market conditions
+      2. Additional impairment charges prior to disposal
+      3. Higher-than-expected costs to sell (transaction fees, separation costs)
+      4. Unfavorable working capital adjustments at closing
+      5. Indemnification claims reducing net proceeds
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: All US GAAP companies present disposal gains/losses the same way (within
+    discontinued operations, net of tax). However, the threshold for discontinued
+    operations treatment varies in practice. IFRS 5 has similar requirements but differences
+    in measurement (lower of carrying amount and fair value less costs to sell).
+  examples:
+    - company: IBM
+      treatment: Reported gain on disposal of its managed infrastructure services
+        business (Kyndryl spin-off) within discontinued operations
+    - company: Pfizer
+      treatment: Reported gain on disposal of its consumer healthcare joint venture
+        (Haleon) within discontinued operations
+    - company: DuPont
+      treatment: Reported gain/loss on disposal of its Nutrition & Biosciences segment
+        within discontinued operations
+coa_mapping:
+  quickbooks: '9110 - Gain/Loss on Disposal - Discontinued Ops'
+  netsuite: '9110 - Gain Loss on Disposal Disc Ops'
+  sap: '0091100 - Gain Loss Disposal Disc Ops'

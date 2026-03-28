@@ -1,5 +1,5 @@
 id: fintree:LossOnSaleOfAssets
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:GainLossOnSaleOfPropertyPlantEquipment'
 label: Loss on Sale of Assets
 short_label: Loss on Sale of Assets
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingExpenses
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 360-10'
 definition: Book value in excess of proceeds when selling property, equipment, or
   investments below carrying value.
-example: ''
+example: 'A retailer closing underperforming locations sells store fixtures with a $3.5M net book value for $1.2M, recording a $2.3M loss on sale of assets.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - asset_disposal
+  - loss_on_sale
+  - property_sale
+  - below_book_value
+  - non_recurring
+  - asc_360
+classification_notes: 'Loss = Net book value minus sale proceeds. Non-operating because asset sales are not core business. If the asset qualifies as a discontinued operation (ASC 205-20), report below the line instead. Losses on disposal of investment securities go to investment losses, not here. Assets held for sale (ASC 360-10-45) are measured at the lower of carrying amount or fair value less cost to sell, with any write-down recorded upon reclassification.'
 variance_drivers:
-  tags: []
+  tags: [asset_disposal_activity, market_conditions, technology_obsolescence]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) forced sale of assets in distressed conditions at below-book prices, (2) technology obsolescence reducing resale value of specialized equipment, (3) store or facility closures requiring asset liquidation, (4) declining used equipment market prices'
+    if_decreased: '(1) fewer asset disposals in the period, (2) improving secondary market conditions for used equipment, (3) assets fully depreciated before disposal (zero book value), (4) better disposal planning maximizing sale proceeds'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Some companies net gains and losses on asset sales. Others report losses separately from gains. Classification as operating vs. non-operating depends on frequency and business model. Companies undergoing restructuring may have elevated losses on asset sales.'
+  examples:
+    - company: 'General Motors'
+      treatment: 'Loss on sale of assets included in automotive Other expenses — plant closure disposals'
+    - company: 'Sears (historical)'
+      treatment: 'Significant losses on store asset disposals during wind-down — reported separately'
+    - company: 'IBM'
+      treatment: 'Losses on disposal of business units reported within Other income (expense)'
+coa_mapping:
+  quickbooks: '7650 - Loss on Sale of Assets'
+  netsuite: '7650 - Loss on Sale of Assets'
+  sap: '7650000 - Loss on Asset Disposals'

@@ -11,6 +11,7 @@ async function init() {
   await loadPLSections();
   setupSearch();
   setupKeyboard();
+  setupMobilePanel();
 }
 
 // ─── P&L Sections ───────────────────────────────────────────
@@ -66,7 +67,12 @@ function renderRiver(sections) {
       <div class="rn-margin" style="width:${getMarginWidth(rn.key)}%"></div>
     `;
 
-    node.addEventListener('click', () => scrollToSection(rn.key));
+    node.addEventListener('click', () => {
+      scrollToSection(rn.key);
+      // Also load detail panel for this section's node
+      const secData = sectionMap[rn.key];
+      if (secData && secData.node_id) selectNode(secData.node_id);
+    });
     container.appendChild(node);
   });
 }
@@ -78,7 +84,16 @@ function getMarginWidth(key) {
 
 function scrollToSection(key) {
   const el = document.querySelector(`[data-section-key="${key}"]`);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Auto-expand section if collapsed
+    const body = el.querySelector('.sec-body');
+    const arrow = el.querySelector('.sec-arrow');
+    if (body && !body.classList.contains('visible')) {
+      body.classList.add('visible');
+      if (arrow) arrow.classList.add('open');
+    }
+  }
 
   // Highlight river node
   document.querySelectorAll('.river-node').forEach(n => n.classList.remove('active'));
@@ -107,6 +122,7 @@ function buildSectionCard(sec) {
   const el = document.createElement('div');
   el.className = `pl-section sec-${sec.key}`;
   el.dataset.sectionKey = sec.key;
+  if (sec.node_id) el.dataset.nodeId = sec.node_id;
 
   const emphasizedCount = sec.emphasized_count || 0;
   const suppressed = sec.total - sec.visible;
@@ -187,12 +203,14 @@ function buildSectionCard(sec) {
   el.appendChild(header);
   el.appendChild(body);
 
-  // Toggle expand
+  // Toggle expand + show detail
   let expanded = false;
   header.addEventListener('click', () => {
     expanded = !expanded;
     body.classList.toggle('visible', expanded);
     header.querySelector('.sec-arrow').classList.toggle('open', expanded);
+    // Show section's root node in detail panel
+    if (sec.node_id) selectNode(sec.node_id);
   });
 
   return el;
@@ -233,6 +251,10 @@ async function selectNode(nodeId) {
   const node = await nodeRes.json();
   const ancData = await ancRes.json();
   renderDetail(node, ancData.ancestors || []);
+
+  // Auto-show detail panel on mobile
+  const panel = document.getElementById('detailPanel');
+  if (window.innerWidth <= 768) panel.classList.add('visible');
 }
 
 function renderDetail(node, ancestors) {
@@ -241,8 +263,7 @@ function renderDetail(node, ancestors) {
   // Breadcrumb
   const bc = document.getElementById('detailBreadcrumb');
   if (ancestors.length) {
-    const path = [...ancestors].reverse();
-    bc.innerHTML = path.map(a => `<a onclick="selectNode('${a.id}')">${esc(a.label)}</a>`).join(' › ') + ` › <span>${esc(node.label)}</span>`;
+    bc.innerHTML = ancestors.map(a => `<a onclick="selectNode('${a.id}')">${esc(a.label)}</a>`).join(' › ');
   } else {
     bc.innerHTML = '';
   }
@@ -437,6 +458,36 @@ function setupKeyboard() {
       document.getElementById('searchInput').focus();
     }
   });
+}
+
+// ─── Mobile Detail Panel ───────────────────────────────────
+
+function setupMobilePanel() {
+  const panel = document.getElementById('detailPanel');
+  const toggle = document.getElementById('detailToggle');
+  if (!toggle) return;
+
+  toggle.addEventListener('click', () => {
+    panel.classList.add('visible');
+  });
+
+  const close = document.getElementById('detailClose');
+  if (close) {
+    close.addEventListener('click', () => {
+      panel.classList.remove('visible');
+    });
+  }
+
+  // Close panel on swipe down or clicking outside
+  panel.addEventListener('touchstart', (e) => {
+    panel._touchY = e.touches[0].clientY;
+  }, { passive: true });
+  panel.addEventListener('touchmove', (e) => {
+    const dy = e.touches[0].clientY - (panel._touchY || 0);
+    if (dy > 60) {
+      panel.classList.remove('visible');
+    }
+  }, { passive: true });
 }
 
 // ─── Helpers ────────────────────────────────────────────────

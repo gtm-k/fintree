@@ -1,5 +1,5 @@
 id: fintree:RecruitingHiringCosts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherGeneralAndAdministrativeExpense'
 label: Recruiting & Hiring Costs
 short_label: Recruiting & Hiring Costs
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:HumanResources
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: External recruiter fees (typically 15–25% of first-year salary), job board
   postings, background checks.
 example: A company paying a $30K recruiter fee to fill a $120K engineering role.
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - human_resources
+  - recruiting
+  - hiring
+  - variable_cost
+  - agency_fees
+classification_notes: 'External recruiter contingency fees (15-25% of first-year salary) and retained search fees ($100K+ for executives) are expensed when incurred. Job board subscriptions (LinkedIn Recruiter, Indeed) are recurring costs. Background check and drug screening fees are per-hire costs. Relocation costs for new hires may be classified here or under a separate relocation line.'
 variance_drivers:
-  tags: []
+  tags: [hiring_driven, variable_cost, growth_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) aggressive hiring ramp-up requiring external agency support, (2) executive searches using retained search firms, (3) expanding into new markets requiring local talent acquisition, (4) high turnover driving replacement hiring, (5) competitive labor market increasing agency fees'
+    if_decreased: '(1) hiring freeze eliminating recruiting spend, (2) building internal recruiting team replacing agencies, (3) employee referral programs reducing need for job boards, (4) lower turnover reducing replacement hiring, (5) brand-driven inbound applicant flow reducing sourcing costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Recruiting costs are highly variable and cyclical. Hyper-growth companies may spend 15-25% of new-hire first-year comp on recruiting. Mature companies with strong employer brands spend far less. Tech companies in competitive markets have the highest per-hire costs. Some companies capitalize certain onboarding costs.'
+  examples:
+    - company: 'Meta Platforms'
+      treatment: 'Significant recruiting investment during growth phases; sharp reduction during 2023 efficiency year'
+    - company: 'McKinsey & Company'
+      treatment: 'Extensive campus recruiting programs; high per-hire investment for selective hiring'
+coa_mapping:
+  quickbooks: '6740 - Recruiting & Hiring Costs'
+  netsuite: '7340 - Recruiting & Hiring Costs'
+  sap: '6740000 - Recruiting Hiring Costs'

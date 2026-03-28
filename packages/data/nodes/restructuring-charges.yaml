@@ -1,5 +1,5 @@
 id: fintree:RestructuringCharges
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RestructuringCharges'
 label: Restructuring Charges
 short_label: Restructuring Charges
 level: 4
@@ -7,11 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingExpenses
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 420-10'
 definition: Costs of significant reorganization — severance, facility closures, contract
   terminations. Non-recurring. Required to be disclosed separately when material.
-example: A company announcing layoffs of 10% of its workforce accrues severance as
-  a restructuring charge.
+example: 'Meta announced 11,000 layoffs in 2022, recording ~$4.2B in Q4 2022 restructuring charges including ~$975M in severance, ~$1.88B in facilities consolidation costs, and ~$1.34B in data center asset write-offs ($4.6B full year 2022).'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - restructuring
+  - severance
+  - facility_closure
+  - non_recurring
+  - cost_reduction
+  - asc_420
+  - workforce_reduction
+classification_notes: 'ASC 420 governs recognition of exit/disposal costs. Severance is accrued when communicated to employees (one-time benefit) or when probable and estimable (ongoing benefit plan). Lease termination costs are recognized at cease-use date. Contract termination penalties recognized when contract is terminated. Companies must disclose the nature, timing, and expected costs. Serial restructurers effectively make these recurring — analysts should evaluate the pattern. Often excluded in non-GAAP earnings but should be scrutinized if recurring.'
 variance_drivers:
-  tags: []
+  tags: [workforce_actions, facility_rationalization, strategic_pivot, cost_efficiency]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) major layoff program announced with severance accruals, (2) facility closures or consolidation with lease termination costs, (3) strategic exit from business lines or geographies, (4) post-M&A integration and synergy-driven headcount reductions, (5) technology platform migration abandoning legacy systems'
+    if_decreased: '(1) restructuring program completed in prior period, (2) reversal of excess accruals as actual costs come in below estimates, (3) stable operating model without reorganization, (4) smaller-scale efficiency actions not meeting restructuring threshold'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Some companies classify restructuring within operating expenses; others as non-operating. SEC requires separate disclosure when material. Companies like Cisco and HP have had recurring restructuring charges for years, making the non-recurring label questionable. Under IFRS (IAS 37), provisions for restructuring follow similar but not identical criteria.'
+  examples:
+    - company: 'Meta'
+      treatment: 'Restructuring charges — ~$4.2B in Q4 2022, $4.6B full year 2022 (Year of Efficiency program), shown as separate operating line'
+    - company: 'Ford Motor'
+      treatment: 'Restructuring charges — shown as separate line within operating expenses during EV transition'
+    - company: 'Cisco'
+      treatment: 'Restructuring and other charges — recurring annual line item despite non-recurring label'
+coa_mapping:
+  quickbooks: '7800 - Restructuring Charges'
+  netsuite: '7800 - Restructuring Charges'
+  sap: '7800000 - Restructuring Charges'

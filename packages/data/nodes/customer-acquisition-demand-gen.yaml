@@ -1,16 +1,17 @@
 id: fintree:CustomerAcquisitionDemandGen
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SellingAndMarketingExpense'
 label: CUSTOMER ACQUISITION & DEMAND GEN
 short_label: 'CUSTOMER ACQUISITION & DEMAND '
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:SellingExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Free Trial & Demo Costs + Referral & Affiliate Fees'
+formula_machine: 'fintree:FreeTrialDemoCosts + fintree:ReferralAffiliateFees'
+asc_reference: 'ASC 340-40'
 definition: Direct costs of acquiring new customers outside of advertising (partnerships,
   trials, referrals).
-example: ''
+example: 'A SaaS company spends $200K on free trial infrastructure costs for 50K trial users, $150K on referral bonuses ($50 per successful referral for 3,000 conversions), and $100K in affiliate partner payouts, totaling $450K in customer acquisition and demand generation costs.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - customer_acquisition
+  - demand_generation
+  - opex
+  - variable_cost
+  - below_gross_profit
+classification_notes: 'Customer acquisition costs that are incremental to obtaining a contract may be capitalized under ASC 340-40 if the amortization period exceeds one year. Non-incremental costs (general marketing, brand advertising) must be expensed as incurred. Free trial costs (hosting, support) are period expenses. Referral fees that are contingent on a signed contract may qualify for capitalization. Affiliate commission structures should be evaluated for ASC 606 principal vs. agent considerations.'
 variance_drivers:
-  tags: []
+  tags: [growth_driven, revenue_correlated, discretionary, conversion_rate_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) scaling free trial or freemium programs to drive top-of-funnel growth, (2) launching or expanding referral programs with higher payouts, (3) adding new affiliate partners or channels, (4) investing in demand-gen events (webinars, workshops), (5) entering new market segments requiring acquisition investment'
+    if_decreased: '(1) improved conversion rates reducing cost-per-acquisition, (2) sunsetting underperforming referral programs, (3) organic growth reducing reliance on paid acquisition, (4) tightening affiliate partner criteria, (5) shifting from acquisition to retention and expansion revenue focus'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Customer acquisition costs are embedded in Sales & Marketing. SaaS companies with freemium models have significant trial infrastructure costs that may appear in COGS (hosting) or Sales & Marketing. Companies report CAC as a non-GAAP KPI but the underlying cost components are not separately disclosed in GAAP financials. Affiliate and referral programs create variable selling costs that scale with revenue.'
+  examples:
+    - company: 'Dropbox'
+      treatment: 'Included in Sales and marketing; famous referral program (extra storage) reduced paid acquisition needs'
+    - company: 'Slack'
+      treatment: 'Part of Sales and marketing; freemium-to-paid conversion model with low customer acquisition costs'
+    - company: 'Uber'
+      treatment: 'Embedded in Sales and marketing; heavy rider/driver acquisition subsidies including referral bonuses'
+coa_mapping:
+  quickbooks: '6300 - Customer Acquisition & Demand Gen'
+  netsuite: '7200 - Customer Acquisition Costs'
+  sap: '6300000 - Customer Acquisition Demand Gen'

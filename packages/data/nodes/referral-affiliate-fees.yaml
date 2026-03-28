@@ -1,5 +1,5 @@
 id: fintree:ReferralAffiliateFees
-xbrl_tag: ''
+xbrl_tag: us-gaap:SellingAndMarketingExpense
 label: Referral & Affiliate Fees
 short_label: Referral & Affiliate Fees
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Fees paid to referral partners or affiliates for new customer introductions.
-example: ''
+example: A fintech company pays $650K/quarter to affiliate partners who refer new
+  customers, at $75 per qualified signup through tracked referral links.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - affiliate marketing
+  - referral fees
+  - partner commissions
+  - customer acquisition
+  - performance marketing
+  - S&M
+classification_notes: Referral fees are typically classified under S&M as customer
+  acquisition costs. If fees are revenue-sharing arrangements (ongoing % of revenue),
+  they may be classified as cost of revenue instead. Distinguish from reseller discounts
+  and channel partner margins. If paid as commission to employees, classify under sales
+  compensation instead.
 variance_drivers:
-  tags: []
+  tags:
+    - partner volume
+    - referral rates
+    - acquisition strategy
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Expanded affiliate partner network driving more referral volume
+      2. Increased per-referral payout rates to attract higher-quality leads
+      3. Launched new affiliate programs in additional channels or markets
+      4. Shifted acquisition strategy from paid ads to affiliate/referral model
+      5. Seasonal campaigns driving higher affiliate-driven signups
+    if_decreased: |-
+      1. Reduced per-referral payout rates or tightened qualification criteria
+      2. Terminated underperforming affiliate partnerships
+      3. Shifted acquisition budget from affiliate to direct channels
+      4. Organic growth reduced reliance on paid referral programs
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies report affiliate fees within a broader customer acquisition
+    cost line; others separate them. Marketplace businesses may classify referral fees
+    as cost of revenue rather than S&M. Revenue-sharing models create different cost
+    structures than per-action fees.
+  examples:
+    - company: Airbnb
+      treatment: Reports referral incentives and affiliate costs within sales and marketing
+        as part of performance marketing spend
+    - company: Uber
+      treatment: Includes rider and driver referral bonuses within sales and marketing
+        expense
+    - company: NerdWallet
+      treatment: Reports referral and affiliate revenue as primary income, with partner
+        fees as cost of revenue on the flip side
+coa_mapping:
+  quickbooks: '6350 - Referral & Affiliate Fees'
+  netsuite: '6350 - Referral and Affiliate Fees'
+  sap: '6300500 - Referral and Affiliate Fees'

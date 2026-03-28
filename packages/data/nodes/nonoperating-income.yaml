@@ -1,15 +1,16 @@
 id: fintree:NonoperatingIncome
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:NonoperatingIncomeExpense'
 label: NON-OPERATING INCOME
 short_label: NON-OPERATING INCOME
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:NonoperatingIncomeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Interest Income + Dividend Income + Gain on Investments + Gain on Foreign Exchange + Gain on Sale of Assets + Other Non-Operating Income'
+asc_reference: 'ASC 220-10'
+formula_machine: 'fintree:InterestIncome + fintree:DividendIncome + fintree:GainOnInvestments + fintree:GainOnForeignExchange + fintree:GainOnSaleOfAssets + fintree:OtherNonoperatingIncome'
 definition: Gains and income from activities outside core operations.
-example: ''
+example: 'Apple reported $3.9B in other income in FY2023, primarily from interest income on its $166B investment portfolio.'
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - non_operating_income
+  - other_income
+  - below_ebit
+  - investment_income
+  - interest_income
+  - gains
+classification_notes: 'Non-operating income includes all revenue-like items outside core operations. For financial services companies, interest and dividend income may be operating. Gains can be realized or unrealized. One-time vs. recurring distinction is critical for forecasting.'
 variance_drivers:
-  tags: []
+  tags: [interest_rate_driven, investment_portfolio, asset_disposal, fx_movements]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) higher interest rates boosting yield on cash/investments, (2) realized gains from selling investments at a profit, (3) favorable foreign exchange movements, (4) asset sales above book value'
+    if_decreased: '(1) lower interest rates reducing yield on cash, (2) unrealized investment losses in mark-to-market portfolio, (3) fewer asset disposals, (4) unfavorable FX movements reducing translated gains'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Many companies net non-operating income and expenses into a single line. Others break out interest income separately. Financial services companies include interest income in operating revenue.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Other income/(expense), net — nets interest income against other non-operating items'
+    - company: 'Berkshire Hathaway'
+      treatment: 'Investment gains — massive line item due to equity portfolio mark-to-market under ASC 321'
+    - company: 'Microsoft'
+      treatment: 'Other income, net — includes interest income and net gains on investments'
+coa_mapping:
+  quickbooks: '7000-7499 - Other Income'
+  netsuite: '7000 - Other Income'
+  sap: '7000000 - Non-Operating Income'

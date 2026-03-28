@@ -1,5 +1,5 @@
 id: fintree:ExecutiveSalaries
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OfficersCompensation'
 label: Executive Salaries (CEO, CFO, COO, etc.)
 short_label: 'Executive Salaries (CEO, CFO, '
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:ExecutiveManagementCompensation
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 710-10'
 definition: Base salary for top executive officers.
-example: ''
+example: 'A mid-cap company pays its CEO $950K, CFO $650K, COO $600K, and CTO $625K in base salaries, totaling $2.825M in executive salaries.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - compensation
+  - executive_pay
+  - base_salary
+  - fixed_cost
+  - proxy_disclosure
+classification_notes: 'Base salary is the fixed component of executive pay. Disclosed in the proxy statement Summary Compensation Table. Salary alone is usually a small fraction of total comp for public company executives. Includes employer payroll taxes attributable to executive salaries.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, board_driven, largely_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new C-suite hires expanding the executive team, (2) annual merit increases approved by compensation committee, (3) promotions to executive level, (4) cost-of-living adjustments in high-cost markets'
+    if_decreased: '(1) executive departures not backfilled, (2) voluntary salary reductions (e.g., during downturns), (3) consolidation of executive roles, (4) shift to lower-cost geographies'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Base salaries are relatively comparable across industries for similar-sized companies. Tech companies often set lower base salaries offset by larger equity grants. Financial services and healthcare tend to have higher base salaries.'
+  examples:
+    - company: 'Microsoft'
+      treatment: 'CEO base salary $2.5M; disclosed in proxy Summary Compensation Table; classified in G&A'
+    - company: 'Walmart'
+      treatment: 'CEO base salary $1.3M; retail executives have moderate base salaries with large bonus potential'
+coa_mapping:
+  quickbooks: '6510 - Executive Salaries'
+  netsuite: '7110 - Executive Salaries'
+  sap: '6510000 - Executive Officer Salaries'

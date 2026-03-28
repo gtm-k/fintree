@@ -1,16 +1,17 @@
 id: fintree:EquipmentDepreciation
-xbrl_tag: ''
+xbrl_tag: "us-gaap:DepreciationNonproduction"
 label: EQUIPMENT & DEPRECIATION
 short_label: EQUIPMENT & DEPRECIATION
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:ManufacturingOverhead
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: "Production Equipment Depreciation"
+formula_machine: "fintree:ProductionEquipmentDepreciation"
+asc_reference: "ASC 360-10"
 definition: Costs associated with production equipment and its depreciation over useful
   life.
-example: ''
+example: "An automotive manufacturer depreciates $800M in production line equipment over 10-15 years, recording $65M/year in production equipment depreciation within COGS."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - equipment
+  - manufacturing
+  - non_cash
+  - cogs_component
+  - asc_360
+  - production
+classification_notes: "Production equipment depreciation is typically included in COGS/manufacturing overhead, not in a separate D&A line. This is distinct from corporate/administrative equipment depreciation in SG&A. Units-of-production method may be used for equipment whose wear correlates with output volume. Idle equipment depreciation should be expensed in the period, not allocated to inventory."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, non_cash, production_volume, method_sensitive]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new production equipment investments, (2) factory expansions with new machinery, (3) equipment acquired through business combinations, (4) change to shorter useful life estimates"
+    if_decreased: "(1) production equipment becoming fully depreciated, (2) equipment disposals or retirements, (3) extension of useful life estimates, (4) production line shutdowns"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Manufacturing companies embed equipment depreciation in COGS. Some companies using units-of-production method see depreciation fluctuate with volume. Capital-intensive industries (auto, steel, chemicals) have the highest amounts. Service companies have minimal production equipment."
+  examples:
+    - company: "Caterpillar"
+      treatment: "Heavy production equipment depreciation embedded in cost of goods sold"
+    - company: "Toyota"
+      treatment: "Massive production equipment depreciation using mix of straight-line and units-of-production"
+    - company: "Intel"
+      treatment: "Semiconductor fab equipment depreciated over 3-5 years; significant COGS component"
+coa_mapping:
+  quickbooks: "6710 - Equipment Depreciation"
+  netsuite: "6710 - Equipment Depreciation"
+  sap: "6710000 - Equipment & Depreciation"

@@ -1,5 +1,5 @@
 id: fintree:RetirementContributionsDirect
-xbrl_tag: ''
+xbrl_tag: us-gaap:DefinedContributionPlanCostRecognized
 label: Retirement Contributions — Direct
 short_label: Retirement Contributions — Dir
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Employer 401(k) or pension contributions for direct labor employees.
-example: ''
+example: A manufacturing company contributes $380K/year in 401(k) employer matches
+  (4% of salary) for 120 direct production employees earning an average of $79K.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - 401k matching
+  - pension contributions
+  - retirement benefits
+  - direct labor
+  - COGS benefits
+  - defined contribution
+classification_notes: Includes employer 401(k) matching, profit-sharing contributions,
+  and defined benefit pension costs for direct labor employees only. Classified under
+  COGS because these employees are directly involved in production or service delivery.
+  Defined benefit pension expense may include service cost, interest cost, and amortization
+  components under ASC 715.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - match percentage
+    - plan design
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Increased employer match percentage to improve employee retention
+      2. Grew direct labor headcount expanding total contribution base
+      3. Salary increases raised the dollar amount of percentage-based matches
+      4. Higher employee participation rates in retirement plan
+      5. Added profit-sharing contributions on top of standard matching
+    if_decreased: |-
+      1. Reduced employer match percentage during cost-cutting measures
+      2. Direct labor headcount reductions through layoffs or automation
+      3. Suspended matching contributions temporarily (as during COVID)
+      4. Lower employee participation rates reducing required employer match
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Companies with defined benefit pension plans report significantly higher
+    and more volatile retirement costs than those with 401(k) plans only. International
+    companies face varying mandatory contribution requirements. Some companies report
+    all retirement costs together; others split by function.
+  examples:
+    - company: General Motors
+      treatment: Reports significant defined benefit pension costs within COGS for
+        hourly production workers per union agreements
+    - company: Caterpillar
+      treatment: Allocates pension and 401(k) costs to COGS for manufacturing employees
+        and to OpEx for salaried staff
+    - company: Amazon
+      treatment: Reports 401(k) matching within cost of sales for fulfillment center
+        workers as part of total compensation costs
+coa_mapping:
+  quickbooks: '5150 - Retirement Contributions - Direct Labor'
+  netsuite: '5150 - Retirement Plan Contributions - Direct'
+  sap: '4100150 - Retirement Contributions Direct Labor'

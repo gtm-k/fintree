@@ -1,5 +1,5 @@
 id: fintree:InterestOnLongtermDebt
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InterestExpenseLongTermDebt'
 label: Interest on Long-Term Debt
 short_label: Interest on Long-Term Debt
 level: 5
@@ -7,9 +7,10 @@ node_type: ADJUSTMENT
 parent_id: fintree:InterestExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 835-30'
 definition: Interest on bonds, term loans, and other long-term borrowings.
-example: A company with $500M in bonds at 5% interest records $25M/year interest expense.
+example: 'A company with $500M in bonds at 5% coupon records $25M/year interest expense, plus $1.2M amortization of debt issuance costs for a total of $26.2M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - interest_expense
+  - long_term_debt
+  - bonds
+  - term_loans
+  - fixed_rate
+  - debt_service
+classification_notes: 'Includes stated coupon interest on bonds, interest on term loans, and amortization of debt issuance costs and original issue discount using the effective interest method. Most long-term debt is fixed rate, so interest expense is predictable. If issued at a discount or premium, the effective interest rate differs from the coupon rate. Callable bonds may result in make-whole premiums on early retirement.'
 variance_drivers:
-  tags: []
+  tags: [principal_balance, coupon_rate, new_issuance, maturity_schedule]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new bond issuance for M&A or growth capex, (2) refinancing maturing debt at higher rates, (3) additional term loan drawdowns, (4) accelerated amortization of debt discount on early repayment'
+    if_decreased: '(1) scheduled debt maturity and retirement without refinancing, (2) voluntary prepayment of term loans, (3) bond buyback at or below par, (4) refinancing at lower coupon rates'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Most companies combine all interest expense into one line. Only the debt footnote breaks out interest by instrument. Companies with complex capital structures may disclose senior vs. subordinated interest separately.'
+  examples:
+    - company: 'AT&T'
+      treatment: 'Substantial long-term debt interest ($6B+) disclosed in debt footnote by maturity tranche'
+    - company: 'Ford Motor'
+      treatment: 'Automotive interest expense separated from Ford Credit (financial services) interest'
+    - company: 'Netflix'
+      treatment: 'Interest on senior notes — historically large as Netflix funded content with debt'
+coa_mapping:
+  quickbooks: '7510 - Interest on Long-Term Debt'
+  netsuite: '7510 - Interest on Long-Term Debt'
+  sap: '7510000 - Interest on Long-Term Debt'

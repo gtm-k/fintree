@@ -1,5 +1,5 @@
 id: fintree:ProductionSupervisorsManagers
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldOverhead'
 label: Production Supervisors & Managers
 short_label: Production Supervisors & Manag
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:IndirectLaborSupervision
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Salaries of manufacturing supervisors and plant managers.
-example: ''
+example: 'A factory with 3 production shifts employs 15 shift supervisors at $75K/year and 5 plant managers at $120K/year, totaling $1.725M in supervisory compensation allocated to manufacturing overhead.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - indirect_labor
+  - supervision
+  - manufacturing
+  - management
+classification_notes: 'Production supervisors and plant managers are indirect labor — they support production but do not directly manufacture the product. Their salaries are allocated to COGS through manufacturing overhead rates. If a supervisor splits time between production and non-production activities, only the production portion belongs in COGS. Plant manager salary above the shop floor level may be classified as SG&A depending on scope of responsibilities.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, salary_driven, organizational_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Additional supervisory headcount for new production lines or shifts, (2) salary increases for management retention, (3) plant expansion requiring more oversight, (4) regulatory requirements mandating additional supervision (e.g., FDA-regulated facilities), (5) reduced span of control increasing supervisor-to-worker ratio'
+    if_decreased: '(1) Consolidation of supervisory roles or layers, (2) lean management reducing spans of control, (3) plant closures eliminating management positions, (4) automation reducing need for shop floor oversight, (5) attrition not replaced during downturn'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Lean manufacturing companies have wider spans of control (1 supervisor per 20-30 workers vs. traditional 1 per 10-15). Self-directed work teams reduce supervisory needs. Companies vary on where plant manager compensation is classified — COGS or SG&A.'
+  examples:
+    - company: 'Toyota'
+      treatment: 'Uses team leader model with wide spans of control; supervisory costs are relatively low per production worker'
+    - company: 'Lockheed Martin'
+      treatment: 'Reports program managers and production supervisors in COGS for defense manufacturing programs'
+    - company: 'Anheuser-Busch InBev'
+      treatment: 'Reports brewmaster and shift supervisor salaries as manufacturing overhead in beverage production'
+coa_mapping:
+  quickbooks: '5310 - Production Supervisors'
+  netsuite: '5310 - Production Supervisors & Managers'
+  sap: '5310000 - Production Supervisors and Managers'

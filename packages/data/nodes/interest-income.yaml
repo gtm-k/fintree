@@ -1,5 +1,5 @@
 id: fintree:InterestIncome
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InvestmentIncomeInterest'
 label: Interest Income
 short_label: Interest Income
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingIncome
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 835-30'
 definition: Interest earned on cash deposits, money market funds, and fixed income
   investments.
-example: Apple earning billions in interest income on its cash/investment portfolio.
+example: 'Apple earned $3.7B in interest income in FY2023 from its $166B cash and marketable securities portfolio, benefiting from rising interest rates.'
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - interest_income
+  - investment_income
+  - cash_yield
+  - non_operating
+  - interest_rate_sensitive
+  - treasury_management
+classification_notes: 'Non-operating for most companies. For banks and financial institutions, interest income is an operating item and the primary revenue source. Includes interest on bank deposits, money market funds, Treasury bills, corporate bonds, and other fixed income securities. Accrue using effective interest method per ASC 835-30.'
 variance_drivers:
-  tags: []
+  tags: [interest_rate_driven, cash_balance_driven, portfolio_mix]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) rising interest rates increasing yield on cash and investments, (2) larger cash/investment balances, (3) shift to higher-yielding fixed income securities, (4) proceeds from equity raise or asset sale parked in interest-bearing accounts'
+    if_decreased: '(1) falling interest rates reducing yield, (2) lower cash balances from capex or M&A spending, (3) shift to lower-yielding or equity investments, (4) debt repayment reducing investable cash'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Banks report interest income as a primary operating revenue line. Non-financial companies report it as non-operating. Some companies net interest income against interest expense into a single line.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Interest income shown within Other income/(expense), net footnote detail'
+    - company: 'JPMorgan Chase'
+      treatment: 'Interest income — primary operating revenue line ($89B in 2023)'
+    - company: 'Alphabet'
+      treatment: 'Interest income reported separately within Other income (expense)'
+coa_mapping:
+  quickbooks: '7100 - Interest Income'
+  netsuite: '7100 - Interest Income'
+  sap: '7100000 - Interest Income'

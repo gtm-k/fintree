@@ -1,5 +1,5 @@
 id: fintree:ExternalAuditFees
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ProfessionalFees'
 label: External Audit Fees
 short_label: External Audit Fees
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:FinanceAccounting
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Fees paid to public accounting firms for the annual financial statement
   audit.
 example: A mid-cap public company paying $1.5M/year to a Big 4 firm for its annual
@@ -25,14 +26,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - finance
+  - audit
+  - professional_fees
+  - compliance
+  - sox
+classification_notes: 'SEC registrants must disclose audit fees, audit-related fees, tax fees, and all other fees paid to the principal auditor in the proxy statement. SOX Section 404 internal control audits significantly increase audit costs for public companies. First-year audit fees are typically higher due to transition work. Audit committee pre-approval is required for all services from the auditor.'
 variance_drivers:
-  tags: []
+  tags: [compliance_driven, complexity_driven, largely_fixed, regulatory_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) IPO creating new SEC audit requirements, (2) acquisition adding entities to audit scope, (3) material weakness remediation requiring additional audit procedures, (4) first-year auditor change with transition costs, (5) new accounting standard implementation requiring additional audit work'
+    if_decreased: '(1) auditor rotation leveraging competitive bidding, (2) simplified entity structure reducing audit scope, (3) improved internal controls reducing substantive testing, (4) going private eliminating SEC audit requirements, (5) mature audit relationship reducing new-client premiums'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Audit fees for public companies range from $200K (small-cap) to $100M+ (large complex financial institutions). Big 4 firms charge premiums over mid-tier firms. Financial services and multi-national companies have the highest fees. Private companies pay significantly less. Proxy statement disclosure enables direct comparability.'
+  examples:
+    - company: 'JPMorgan Chase'
+      treatment: 'Audit fees of approximately $60M+; disclosed in proxy; large scope due to regulatory complexity'
+    - company: 'Small-cap tech company'
+      treatment: 'Audit fees of $300K-$800K; often uses mid-tier firm; SOX 404(b) exemption for smaller filers'
+coa_mapping:
+  quickbooks: '6630 - External Audit Fees'
+  netsuite: '7230 - External Audit Fees'
+  sap: '6630000 - External Audit Fees'

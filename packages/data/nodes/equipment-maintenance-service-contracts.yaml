@@ -1,5 +1,5 @@
 id: fintree:EquipmentMaintenanceServiceContracts
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Equipment Maintenance & Service Contracts
 short_label: Equipment Maintenance & Servic
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Preventive maintenance and service agreements for production equipment.
-example: ''
+example: A semiconductor fab pays $2.1M/year for annual maintenance contracts on lithography
+  equipment and $350K for quarterly calibration services on testing instruments.
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -23,14 +24,49 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - equipment maintenance
+  - service contracts
+  - preventive maintenance
+  - calibration
+  - production equipment
+  - manufacturing overhead
+classification_notes: Routine maintenance is expensed as incurred. Major overhauls
+  that extend useful life may require capitalization under ASC 360. Multi-year service
+  contracts should be expensed ratably over the contract term. Distinguish from repairs
+  that restore function (expense) vs. improvements that add capability (capitalize).
 variance_drivers:
-  tags: []
+  tags:
+    - equipment age
+    - contract terms
+    - production volume
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Aging equipment requiring more frequent maintenance
+      2. New equipment purchases adding service contracts
+      3. Vendor price increases on maintenance agreements
+      4. Regulatory requirements mandating more frequent inspections
+      5. Shift from time-and-materials to full-service contracts
+    if_decreased: |-
+      1. Replacement of old equipment with new (under warranty)
+      2. Bringing maintenance in-house with hired technicians
+      3. Renegotiated service contracts at lower rates
+      4. Decommissioning of production lines reducing equipment base
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies bundle maintenance costs with depreciation in a single
+    line. Others separate them. Capital-intensive industries tend to disclose maintenance
+    spending more prominently. Airlines have mandatory maintenance reserves.
+  examples:
+    - company: Intel
+      treatment: Includes equipment maintenance within cost of revenue as part of
+        fab operating costs
+    - company: Delta Air Lines
+      treatment: Reports aircraft maintenance, materials, and outside repairs as a
+        separate operating expense line
+    - company: Nucor
+      treatment: Includes maintenance and repair costs within cost of products sold
+        for steel mill equipment
+coa_mapping:
+  quickbooks: '5070 - Equipment Maintenance & Service Contracts'
+  netsuite: '5070 - Equipment Maint & Service Contracts'
+  sap: '0050700 - Equip Maintenance Svc Contracts'

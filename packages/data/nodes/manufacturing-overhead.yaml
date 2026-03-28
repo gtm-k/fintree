@@ -1,19 +1,20 @@
 id: fintree:ManufacturingOverhead
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldOverhead'
 label: MANUFACTURING OVERHEAD
 short_label: MANUFACTURING OVERHEAD
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:CostOfGoodsSoldCostOfRevenue
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Facility Costs + Equipment & Depreciation + Indirect Labor & Supervision + Production Supplies'
+formula_machine: 'fintree:FacilityCosts + fintree:EquipmentDepreciation + fintree:IndirectLaborSupervision + fintree:ProductionSupplies'
+asc_reference: 'ASC 330'
 definition: Indirect production costs that cannot be directly traced to a specific
   unit of output but are necessary for manufacturing operations. Allocated to products
   using a predetermined overhead rate.
 example: Factory rent is the same regardless of units produced, but must be absorbed
   into product cost.
-normal_balance: CREDIT
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -26,14 +27,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - indirect_cost
+  - manufacturing
+  - fixed_cost
+  - allocation
+classification_notes: 'Manufacturing overhead includes all indirect production costs: facility costs, equipment depreciation, indirect labor, and production supplies. Under ASC 330, overhead must be allocated to inventory using a systematic and rational method (e.g., machine hours, labor hours, or activity-based costing). Unallocated overhead (idle capacity) should be expensed as a period cost. Fixed vs. variable overhead distinction drives cost behavior analysis.'
 variance_drivers:
-  tags: []
+  tags: [capacity_driven, fixed_cost_driven, efficiency_driven, volume_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) New facility or capacity expansion adding fixed costs, (2) energy cost increases affecting utilities and operations, (3) equipment depreciation from capital investments, (4) lower production volume increasing per-unit overhead (under-absorption), (5) maintenance costs on aging equipment'
+    if_decreased: '(1) Higher production volume spreading fixed overhead over more units (over-absorption), (2) energy efficiency initiatives, (3) fully depreciated equipment reducing depreciation charges, (4) consolidation of production into fewer facilities, (5) outsourcing production eliminating factory overhead'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Capital-intensive industries (semiconductors, chemicals) have high manufacturing overhead relative to direct labor. Labor-intensive industries (apparel, food processing) have low overhead ratios. Companies using activity-based costing may report overhead differently than those using traditional volume-based allocation. Lease vs. own decisions affect whether costs appear as rent or depreciation.'
+  examples:
+    - company: 'Intel'
+      treatment: 'Reports very high manufacturing overhead due to multi-billion dollar fab facilities; depreciation is the largest overhead component'
+    - company: 'Hershey'
+      treatment: 'Reports moderate manufacturing overhead including factory utilities, equipment maintenance, and indirect labor in chocolate production'
+    - company: 'Flex (contract manufacturer)'
+      treatment: 'Reports manufacturing overhead across global facilities; overhead allocation is key to competitive pricing'
+coa_mapping:
+  quickbooks: '5300 - Manufacturing Overhead'
+  netsuite: '5300 - Manufacturing Overhead'
+  sap: '5300000 - Manufacturing Overhead'

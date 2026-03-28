@@ -1,5 +1,5 @@
 id: fintree:InboundFreightCustoms
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:FreightCosts'
 label: Inbound Freight & Customs
 short_label: Inbound Freight & Customs
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:FreightinInboundShipping
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Shipping, freight, and import duties on incoming materials.
-example: ''
+example: 'A consumer electronics company pays $3M in ocean freight from Asia, $800K in customs brokerage fees, and $1.2M in import duties (e.g., Section 301 tariffs) on components shipped to its US assembly plant.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - freight
+  - customs
+  - tariffs
+  - import_duties
+  - landed_cost
+classification_notes: 'Inbound freight and customs duties are part of the landed cost of inventory per ASC 330 and must be capitalized into inventory value. This includes ocean/air/ground freight, customs brokerage fees, import duties, and tariffs. Customs duties can change significantly with trade policy (e.g., Section 301 tariffs, anti-dumping duties). Companies using bonded warehouses or foreign trade zones may defer or reduce duties.'
 variance_drivers:
-  tags: []
+  tags: [trade_policy_driven, logistics_driven, volume_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) New tariffs or increased duty rates on imports, (2) fuel surcharges driving up freight rates, (3) port congestion causing container demurrage fees, (4) shift from ocean to air freight for urgency, (5) sourcing from more distant or tariff-affected countries'
+    if_decreased: '(1) Trade agreement reducing duty rates (e.g., USMCA, EU FTA), (2) use of foreign trade zones or duty drawback programs, (3) nearshoring supply chain to duty-free partners, (4) lower fuel costs reducing freight rates, (5) better load consolidation and logistics optimization'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies with global supply chains have significant customs exposure. Domestic-only manufacturers have zero customs costs. Tariff exposure varies by product category and country of origin. Some companies disclose tariff impacts separately in MD&A.'
+  examples:
+    - company: 'Target'
+      treatment: 'Capitalizes import duties and ocean freight into merchandise inventory; significant exposure to China tariffs on consumer goods'
+    - company: 'Tesla'
+      treatment: 'Reports customs duties on imported battery cells and components; uses Shanghai Gigafactory to reduce tariff exposure for China market'
+    - company: 'Under Armour'
+      treatment: 'Reports inbound freight and duties on apparel and footwear sourced from Vietnam, Indonesia, and China'
+coa_mapping:
+  quickbooks: '5141 - Inbound Freight & Customs'
+  netsuite: '5141 - Inbound Freight & Customs'
+  sap: '5141000 - Inbound Freight and Customs'

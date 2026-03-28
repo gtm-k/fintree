@@ -1,5 +1,5 @@
 id: fintree:DeferredTaxExpenseDepreciationTiming
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:DeferredTaxLiabilitiesPropertyPlantAndEquipment'
 label: Deferred Tax Expense — Depreciation Timing
 short_label: Deferred Tax Expense — Depreci
 level: 3
@@ -7,10 +7,11 @@ node_type: SUB_CATEGORY
 parent_id: fintree:DeferredTaxExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 740-10'
 definition: Deferred tax arising from different depreciation methods for book vs.
   tax (most common source).
-example: ''
+example: 'A manufacturer purchases $100M of equipment. Book depreciation (straight-line, 10 years) is $10M/year. Tax depreciation (MACRS, 5 years) is $20M/year initially. The $10M annual timing difference creates a $2.1M annual deferred tax liability at 21%.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation_timing
+  - deferred_tax_liability
+  - book_tax_difference
+  - macrs
+  - accelerated_depreciation
+  - bonus_depreciation
+  - asc_740
+classification_notes: 'The single largest source of deferred tax liabilities for capital-intensive companies. Tax depreciation (MACRS) is typically faster than book depreciation (straight-line). Section 179 expensing and bonus depreciation (100% under TCJA, phasing down) accelerate the timing difference further. The DTL reverses over time as tax depreciation declines below book depreciation in later years. A growing company with continuous capex may never see the DTL reverse in aggregate.'
 variance_drivers:
-  tags: []
+  tags: [capex_levels, depreciation_methods, bonus_depreciation_policy, asset_mix]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) large capital expenditures creating new timing differences, (2) bonus depreciation provisions allowing immediate tax deduction, (3) shorter MACRS lives for new asset classes, (4) expanding asset base that prevents DTL reversal'
+    if_decreased: '(1) reduced capital expenditures allowing historical timing differences to reverse, (2) phase-out of bonus depreciation (TCJA phase-down starting 2023), (3) aging asset base where book depreciation catches up to tax depreciation, (4) asset disposals eliminating associated DTL'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Capital-intensive industries (utilities, manufacturing, oil & gas, telecom) have large depreciation-related DTLs. Asset-light companies (SaaS, consulting) have minimal depreciation timing differences. Companies using similar book and tax lives will have smaller differences.'
+  examples:
+    - company: 'AT&T'
+      treatment: 'Massive DTL ($30B+) from accelerated depreciation on telecom network infrastructure'
+    - company: 'Amazon'
+      treatment: 'Large DTL from accelerated depreciation on data center and logistics infrastructure'
+    - company: 'Salesforce'
+      treatment: 'Minimal depreciation DTL — asset-light SaaS model with limited PP&E'
+coa_mapping:
+  quickbooks: '8870 - Deferred Tax Expense — Depreciation'
+  netsuite: '8870 - Deferred Tax Expense — Depreciation'
+  sap: '7822000 - Deferred Tax Expense — Depreciation'

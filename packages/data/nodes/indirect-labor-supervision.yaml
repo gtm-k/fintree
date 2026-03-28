@@ -1,5 +1,5 @@
 id: fintree:IndirectLaborSupervision
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: INDIRECT LABOR & SUPERVISION
 short_label: INDIRECT LABOR & SUPERVISION
 level: 3
@@ -25,14 +25,52 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - indirect labor
+  - supervision
+  - manufacturing overhead
+  - quality control
+  - plant management
+  - production support
+  - overhead allocation
+classification_notes: Indirect labor is inventoriable as manufacturing overhead under
+  ASC 330. Includes production supervisors, quality inspectors, material handlers,
+  and maintenance workers. Must be allocated to inventory using a systematic method
+  (e.g., machine hours, labor hours). Under/over-applied overhead adjustments may
+  be needed at period end.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - production complexity
+    - span of control
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. New production lines requiring additional supervisors
+      2. Increased quality requirements adding inspection roles
+      3. Wage increases for supervisory and skilled support roles
+      4. Reduced span of control (fewer direct reports per supervisor)
+      5. Regulatory requirements adding safety or compliance oversight
+    if_decreased: |-
+      1. Consolidation of supervisory roles through lean manufacturing
+      2. Automation reducing need for material handling labor
+      3. Plant closures eliminating indirect labor positions
+      4. Outsourcing quality inspection to third parties
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies combine all manufacturing labor (direct and indirect)
+    in a single COGS line. Others separate direct from indirect. The boundary between
+    indirect production labor and plant G&A varies. Some companies classify plant
+    managers as G&A rather than overhead.
+  examples:
+    - company: 3M
+      treatment: Includes indirect labor and supervision within cost of sales as part
+        of manufacturing overhead allocation
+    - company: Honeywell
+      treatment: Reports indirect manufacturing labor within cost of products sold,
+        allocated across product lines
+    - company: Emerson Electric
+      treatment: Includes supervisory and quality labor within cost of sales for each
+        operating segment
+coa_mapping:
+  quickbooks: '5080 - Indirect Labor & Supervision'
+  netsuite: '5080 - Indirect Labor Supervision'
+  sap: '0050800 - Indirect Labor Supervision'

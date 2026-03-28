@@ -1,18 +1,19 @@
 id: fintree:BelowthelineItems
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:IncomeLossFromDiscontinuedOperationsNetOfTax'
 label: BELOW-THE-LINE ITEMS
 short_label: BELOW-THE-LINE ITEMS
 level: 1
 node_type: GAAP_SUBTOTAL
 parent_id: "fintree:NetIncome"
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Discontinued Operations + Extraordinary Items + Cumulative Effect of Accounting Changes'
+formula_machine: 'fintree:DiscontinuedOperations + fintree:ExtraordinaryItems + fintree:CumulativeEffectOfAccountingChanges'
+asc_reference: 'ASC 205-20'
 definition: Items reported AFTER Net Income from continuing operations, required to
   be presented separately by GAAP (ASC 205) because they relate to discontinued or
   extraordinary activities. Including these in operating results would distort the
   assessment of ongoing business performance.
-example: ''
+example: 'GE reported $2.1B in discontinued operations losses (net of tax) in 2023 related to its legacy insurance and financial services businesses as it completed its three-way split.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -26,14 +27,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - below_the_line
+  - discontinued_operations
+  - extraordinary_items
+  - net_of_tax
+  - non_recurring
+  - asc_205
+classification_notes: 'Below-the-line items appear after Income from Continuing Operations and before Net Income. They are presented net of their own tax effect. Post-ASU 2015-01, extraordinary items are eliminated as a separate category. Today, the primary below-the-line item is discontinued operations (ASC 205-20). Cumulative effect of accounting changes is rare but occurs when transitioning to new standards. Analysts focus on continuing operations for valuation and exclude below-the-line items.'
 variance_drivers:
-  tags: []
+  tags: [divestiture_activity, accounting_standard_changes, legacy_items]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) strategic divestiture of a business segment classified as discontinued, (2) adoption of a new accounting standard requiring cumulative catch-up adjustment, (3) impairment of discontinued operations held for sale, (4) operating losses from segments awaiting disposal'
+    if_decreased: '(1) completion of segment disposal eliminating ongoing discontinued operations losses, (2) no new accounting standard adoptions, (3) gain on final sale of discontinued operations, (4) no segments meeting the held-for-sale criteria'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Most companies have zero below-the-line items in a typical year. Only companies undergoing major divestitures or accounting standard transitions will show material amounts. Presentation is standardized under GAAP — always shown net of tax, after income from continuing operations.'
+  examples:
+    - company: 'General Electric'
+      treatment: 'Discontinued operations — reported for years during breakup of GE Capital and business separations'
+    - company: 'DowDuPont'
+      treatment: 'Discontinued operations during three-way split into Dow, DuPont, and Corteva'
+    - company: 'Honeywell'
+      treatment: 'Discontinued operations for Garrett Motion and Resideo spin-offs'
+coa_mapping:
+  quickbooks: '9500-9599 - Below-the-Line Items'
+  netsuite: '9500 - Below-the-Line Items'
+  sap: '7950000 - Below-the-Line Items'

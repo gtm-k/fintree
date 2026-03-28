@@ -1,17 +1,18 @@
 id: fintree:InventoryAdjustments
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InventoryWriteDown'
 label: INVENTORY ADJUSTMENTS
 short_label: INVENTORY ADJUSTMENTS
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:CostOfGoodsSoldCostOfRevenue
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Beginning Inventory + Net Purchases - Ending Inventory + Inventory Write-Downs & Obsolescence'
+formula_machine: 'fintree:BeginningInventory + fintree:NetPurchases - fintree:EndingInventory + fintree:InventoryWritedownsObsolescence'
+asc_reference: 'ASC 330'
 definition: Adjustments to the value of inventory that flow through COGS, including
   the mechanical calculation of goods sold from the inventory account and any write-downs.
-example: ''
-normal_balance: CREDIT
+example: 'A retailer starts the year with $10M beginning inventory, purchases $50M in merchandise, and ends with $12M ending inventory, yielding COGS from inventory flow of $48M. An additional $500K inventory write-down for damaged goods brings total inventory adjustments to $48.5M.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - inventory
+  - write_down
+  - obsolescence
+  - periodic_inventory
+  - cost_flow
+classification_notes: 'Inventory adjustments capture the mechanical flow of inventory through COGS (beginning + purchases - ending) plus any write-downs. The periodic method uses this formula directly; perpetual systems record COGS at each sale but still reconcile. Under ASC 330, inventory is carried at lower of cost or NRV. Write-downs are recognized immediately when NRV drops below cost. LIFO vs. FIFO choice significantly impacts reported inventory adjustments during inflation.'
 variance_drivers:
-  tags: []
+  tags: [volume_driven, valuation_driven, mix_driven, accounting_method_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Higher sales volume flowing more inventory through COGS, (2) inventory write-downs for obsolescence or damage, (3) LIFO layers liquidation during inventory reduction, (4) inventory shrinkage from theft or counting errors, (5) purchase price increases affecting cost of goods available for sale'
+    if_decreased: '(1) Lower sales volume, (2) inventory build-up (ending inventory exceeding beginning), (3) favorable purchase prices, (4) improved inventory management reducing write-downs, (5) FIFO in deflationary environment showing lower costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Retailers and distributors rely heavily on the periodic inventory formula. Manufacturers calculate COGS through work-in-process accounting. LIFO companies (common in US) show different inventory adjustments than FIFO companies. Write-down policies and thresholds vary by company.'
+  examples:
+    - company: 'Walmart'
+      treatment: 'Uses retail inventory method; significant beginning/ending inventory flow drives COGS calculation'
+    - company: 'Cisco'
+      treatment: 'Reports periodic inventory write-downs for excess and obsolete networking equipment components'
+    - company: 'Target'
+      treatment: 'Reports inventory adjustments including shrinkage provisions and seasonal markdown write-downs'
+coa_mapping:
+  quickbooks: '5400 - Inventory Adjustments'
+  netsuite: '5400 - Inventory Adjustments'
+  sap: '5400000 - Inventory Adjustments'

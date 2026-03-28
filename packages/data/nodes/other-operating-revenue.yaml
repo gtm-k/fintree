@@ -1,5 +1,5 @@
 id: fintree:OtherOperatingRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherOperatingIncome'
 label: Other Operating Revenue
 short_label: Other Operating Revenue
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:OtherRevenue
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606'
 definition: Catch-all for revenue from incidental operating activities not otherwise
   classified.
-example: ''
+example: "A software company recognizing $800K in other operating revenue from subleasing excess office space and $200K from selling scrap hardware equipment."
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,28 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revenue
+  - other_operating
+  - incidental_income
+  - catch_all
+  - miscellaneous
+classification_notes: "Other operating revenue is a catch-all for operating income streams not material enough to warrant their own line item. Items here should be from recurring or semi-recurring operating activities. One-time gains (asset sales, insurance recoveries) are typically classified as other income/expense below operating income, not as other operating revenue. If an item becomes material, it should be reclassified to its own line."
 variance_drivers:
-  tags: []
+  tags: [mix_driven, volume_driven, regulatory_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new incidental revenue streams (subleasing, scrap sales), (2) one-time settlements or insurance recoveries classified as operating, (3) government grants or subsidies, (4) reclassification of items from non-operating to operating"
+    if_decreased: "(1) discontinuation of ancillary activities, (2) reclassification of material items to specific revenue lines, (3) expiration of government grants, (4) cessation of sublease arrangements"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "This line varies widely across companies and industries. Manufacturing companies may include scrap sales. Real estate companies may include ancillary service revenue. The lack of standardization makes cross-company comparison difficult."
+  examples:
+    - company: "3M"
+      treatment: "Other income/expense (includes miscellaneous operating items)"
+    - company: "General Motors"
+      treatment: "Other revenue within automotive segment"
+    - company: "Alphabet"
+      treatment: "Other revenues (non-advertising revenue within Google Services)"
+coa_mapping:
+  quickbooks: "4390 - Other Operating Revenue"
+  netsuite: "4390 - Other Operating Revenue"
+  sap: "8390000 - Other Operating Revenue"

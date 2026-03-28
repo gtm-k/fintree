@@ -1,15 +1,16 @@
 id: fintree:PackagingMaterials
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: PACKAGING MATERIALS
 short_label: PACKAGING MATERIALS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DirectMaterials
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Primary Packaging + Secondary / Shipping Packaging'
+formula_machine: 'fintree:PrimaryPackaging + fintree:SecondaryShippingPackaging'
+asc_reference: 'ASC 330'
 definition: Materials used to package the final product for sale and delivery.
-example: ''
+example: 'A beverage company spends $8M on bottles and labels (primary packaging) and $3M on corrugated cases and pallets (secondary packaging) for total packaging costs of $11M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - packaging
+  - manufacturing
+  - consumer_products
+  - sustainability
+classification_notes: 'Packaging that is integral to the product (e.g., a beverage bottle) is a direct material. Packaging used solely for shipping may be classified as a selling expense under ASC 606 if the company elects that policy. Sustainability initiatives (recycled content, reduced packaging) can affect cost trends.'
 variance_drivers:
-  tags: []
+  tags: [commodity_driven, volume_driven, sustainability_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Resin or paperboard price increases, (2) shift to premium or sustainable packaging materials, (3) higher unit volumes, (4) regulatory requirements for packaging (e.g., recyclability mandates), (5) SKU proliferation requiring more packaging variants'
+    if_decreased: '(1) Packaging redesign reducing material usage (lightweighting), (2) lower resin or paperboard prices, (3) consolidation of packaging suppliers, (4) shift to bulk or concentrate formats, (5) lower production volumes'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'CPG companies have significant packaging costs (5-15% of COGS). Industrial manufacturers may have minimal packaging. Some companies classify shipping packaging as a selling expense. Sustainability reporting is driving more detailed packaging cost disclosure.'
+  examples:
+    - company: 'Coca-Cola'
+      treatment: 'Reports PET bottles, aluminum cans, and glass as major packaging material costs; investing in recycled content'
+    - company: 'Amazon'
+      treatment: 'Reports shipping boxes, mailers, and void fill as packaging costs within fulfillment'
+    - company: 'Unilever'
+      treatment: 'Reports plastic bottles, tubes, and cartons as packaging; committed to reducing virgin plastic usage'
+coa_mapping:
+  quickbooks: '5130 - Packaging Materials'
+  netsuite: '5130 - Packaging Materials'
+  sap: '5130000 - Packaging Materials'

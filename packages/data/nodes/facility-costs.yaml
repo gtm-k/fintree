@@ -1,15 +1,16 @@
 id: fintree:FacilityCosts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OccupancyNet'
 label: FACILITY COSTS
 short_label: FACILITY COSTS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:ManufacturingOverhead
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Factory Rent/Lease + Factory Utilities + Facility Maintenance & Repairs'
+formula_machine: 'fintree:FactoryRentLease + fintree:FactoryUtilities + fintree:FacilityMaintenanceRepairs'
+asc_reference: 'ASC 330-10'
 definition: Costs of operating the physical manufacturing facility.
-example: ''
+example: 'A manufacturing plant incurs $2.8M in facility costs: $1.5M factory lease, $800K utilities (high electricity for machinery), $500K maintenance and repairs.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - manufacturing_overhead
+  - facility
+  - factory
+  - occupancy
+  - fixed_cost
+classification_notes: 'These are manufacturing facility costs — part of COGS via manufacturing overhead, not G&A. They are absorbed into inventory under ASC 330-10 and flow to COGS when inventory is sold. Corporate office facility costs belong under G&A Office & Facilities. Idle facility costs (excess capacity) should be expensed as period costs, not inventoried.'
 variance_drivers:
-  tags: []
+  tags: [production_driven, lease_driven, largely_fixed, utilization_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new manufacturing facility brought online, (2) utility rate increases (especially electricity for heavy manufacturing), (3) deferred maintenance catch-up on aging facilities, (4) lease renewals at higher market rates, (5) regulatory requirements for facility upgrades'
+    if_decreased: '(1) plant closure or consolidation, (2) energy efficiency improvements, (3) lease renegotiations, (4) outsourcing manufacturing to contract manufacturers, (5) reduced production shifting costs to idle capacity (period expense)'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Manufacturing companies absorb these costs into inventory; they appear in COGS when sold. Companies using contract manufacturers (asset-light model) show minimal facility costs. Facility costs as % of COGS vary by industry: heavy manufacturing 10-20%, light assembly 3-8%.'
+  examples:
+    - company: 'General Motors'
+      treatment: 'Factory facility costs absorbed into vehicle inventory cost; large owned manufacturing footprint'
+    - company: 'Apple'
+      treatment: 'Asset-light model; Foxconn/TSMC bear manufacturing facility costs; Apple shows minimal owned factory costs'
+coa_mapping:
+  quickbooks: '5200 - Facility Costs'
+  netsuite: '5200 - Facility Costs'
+  sap: '5200000 - Manufacturing Facility Costs'

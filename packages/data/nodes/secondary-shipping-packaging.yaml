@@ -1,5 +1,5 @@
 id: fintree:SecondaryShippingPackaging
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: Secondary / Shipping Packaging
 short_label: Secondary / Shipping Packaging
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:PackagingMaterials
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Outer packaging for shipping (corrugated boxes, pallets, shrink wrap).
-example: ''
+example: 'An e-commerce retailer spends $4M on corrugated shipping boxes, $1M on bubble wrap and void fill, and $500K on stretch wrap and pallets for outbound shipments.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - packaging
+  - shipping
+  - logistics
+  - fulfillment
+classification_notes: 'Secondary packaging protects the product during storage and transit but is not part of the consumer-facing product. Some companies classify shipping packaging as a selling expense or fulfillment cost rather than COGS — the classification depends on accounting policy election. Under ASC 606, shipping and handling can be treated as a fulfillment activity (COGS) or a separate performance obligation.'
 variance_drivers:
-  tags: []
+  tags: [commodity_driven, volume_driven, fulfillment_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Corrugated paperboard price increases, (2) higher order volumes especially in e-commerce, (3) more protective packaging required for fragile products, (4) sustainability mandates requiring costlier materials, (5) smaller average order sizes requiring more boxes per unit'
+    if_decreased: '(1) Right-sizing packaging to reduce material waste, (2) lower paperboard prices, (3) reusable packaging programs, (4) bulk shipments reducing per-unit packaging, (5) supplier consolidation and volume discounts'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'E-commerce companies have high secondary packaging costs. B2B industrial companies shipping in bulk have minimal secondary packaging. Some companies include secondary packaging in fulfillment or selling expenses rather than COGS.'
+  examples:
+    - company: 'Amazon'
+      treatment: 'Reports shipping boxes and mailers as a major fulfillment cost; investing in frustration-free packaging to reduce waste'
+    - company: 'Costco'
+      treatment: 'Minimal secondary packaging; products often sold on original pallets or in shelf-ready cases'
+    - company: 'Wayfair'
+      treatment: 'Reports significant secondary packaging costs for large furniture items requiring custom crating'
+coa_mapping:
+  quickbooks: '5132 - Shipping Packaging'
+  netsuite: '5132 - Secondary / Shipping Packaging'
+  sap: '5132000 - Secondary Shipping Packaging'

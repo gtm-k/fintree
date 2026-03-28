@@ -1,5 +1,5 @@
 id: fintree:TraditionalOfflineAdvertising
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:AdvertisingExpense'
 label: Traditional / Offline Advertising
 short_label: Traditional / Offline Advertis
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:AdvertisingMarketing
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720-35'
 definition: TV, radio, print, billboard, and direct mail advertising.
-example: ''
+example: 'An auto manufacturer spends $8M on national TV spots during NFL season, $2M on print ads in automotive magazines, $1.5M on billboard campaigns in major metro areas, and $500K on direct mail to prior customers, totaling $12M in traditional advertising.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - advertising
+  - traditional_media
+  - brand_building
+  - opex
+  - discretionary
+classification_notes: 'Under ASC 720-35, broadcast advertising (TV, radio) is expensed when the advertising first takes place (when the commercial airs). Print advertising is expensed when published. Billboard costs are expensed over the display period. Production costs for commercials are expensed when the ad first airs, not when produced. Direct mail costs are expensed when mailed. Prepaid media buys are recorded as prepaid assets until the ads run.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, seasonal, brand_investment, media_rate_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) brand awareness campaign with national TV placement, (2) seasonal heavy-up periods (Super Bowl, holiday), (3) new market entry requiring broad reach media, (4) competitive response requiring share-of-voice defense, (5) product launch supported by integrated offline campaign'
+    if_decreased: '(1) shift from traditional to digital channels for better measurability, (2) overall marketing budget cuts, (3) cord-cutting reducing TV advertising effectiveness, (4) move from national to local/regional targeting, (5) elimination of print advertising as readership declines'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Traditional advertising is declining as a share of total ad spend across most industries. CPG and automotive remain heavy users of TV/print. SaaS and tech companies spend minimally on traditional channels. Some companies (like Airbnb) have publicly shifted budgets away from traditional performance marketing to brand-oriented offline media. Total advertising expense is disclosed but not the traditional/digital split.'
+  examples:
+    - company: 'Procter & Gamble'
+      treatment: 'Significant TV and print spend embedded in SG&A; disclosed total advertising ~$7.5B annually'
+    - company: 'Geico (Berkshire Hathaway)'
+      treatment: 'Major TV advertiser; advertising costs disclosed as ~$2B+ in insurance segment'
+    - company: 'Toyota'
+      treatment: 'Substantial TV, print, and billboard spend embedded in SG&A for vehicle launches and brand campaigns'
+coa_mapping:
+  quickbooks: '6250 - Traditional Advertising'
+  netsuite: '7150 - Traditional / Offline Advertising'
+  sap: '6200500 - Traditional Offline Advertising'

@@ -1,13 +1,14 @@
 id: fintree:CostOfGoodsSoldCostOfRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsAndServicesSold'
 label: COST OF GOODS SOLD (COGS) / COST OF REVENUE
 short_label: COST OF GOODS SOLD (COGS) / CO
 level: 1
 node_type: GAAP_SUBTOTAL
 parent_id: fintree:GrossProfit
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Direct Materials + Direct Labor + Manufacturing Overhead + Inventory Adjustments + Service Delivery Costs'
+formula_machine: 'fintree:DirectMaterials + fintree:DirectLabor + fintree:ManufacturingOverhead + fintree:InventoryAdjustments + fintree:ServiceDeliveryCosts'
+asc_reference: 'ASC 330'
 definition: The direct costs attributable to producing the goods sold or delivering
   the services rendered. Subtracted from Net Revenue to derive Gross Profit. The line
   that divides "how much it costs to make the product" from "how much it costs to
@@ -15,7 +16,7 @@ definition: The direct costs attributable to producing the goods sold or deliver
 example: For a car manufacturer, COGS includes steel, assembly labor, and factory
   overhead. For a SaaS company, COGS includes hosting, infrastructure, and customer
   support labor.
-normal_balance: CREDIT
+normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
 - manufacturing
@@ -28,14 +29,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - cost_of_revenue
+  - direct_costs
+  - gross_margin_driver
+  - gaap_required
+  - above_gross_profit
+classification_notes: 'In SaaS companies, COGS is often labeled "Cost of Revenue" and includes hosting costs, customer support, and amortization of capitalized software. In professional services, it includes billable labor and direct project costs. Manufacturing companies include raw materials, direct labor, and factory overhead. Retailers include purchase cost of merchandise plus freight-in.'
 variance_drivers:
-  tags: []
+  tags: [volume_driven, input_cost_driven, mix_driven, efficiency_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Higher sales volume driving proportional cost increase, (2) raw material or input cost inflation, (3) supply chain disruptions increasing procurement costs, (4) unfavorable product mix shift toward lower-margin products, (5) manufacturing inefficiency or yield loss'
+    if_decreased: '(1) Lower sales volume reducing variable costs, (2) favorable input cost trends or renegotiated supplier contracts, (3) manufacturing efficiency gains or automation, (4) favorable product mix shift toward higher-margin products, (5) outsourcing or offshoring production to lower-cost regions'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Terminology varies significantly by industry: "Cost of Revenue" (tech/SaaS), "Cost of Goods Sold" (manufacturing/retail), "Cost of Services" (professional services). Some companies include D&A in COGS; others report it separately. Shipping costs may appear in COGS or selling expenses depending on ASC 606 election.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Reports "Cost of sales" split between Products and Services segments'
+    - company: 'Salesforce'
+      treatment: 'Reports "Cost of revenues" including subscription and professional services costs'
+    - company: 'Walmart'
+      treatment: 'Reports "Cost of sales" including purchase cost of merchandise, freight, and distribution center costs'
+coa_mapping:
+  quickbooks: '5000 - Cost of Goods Sold'
+  netsuite: '5000 - COGS'
+  sap: '5000000 - Cost of Goods Sold'

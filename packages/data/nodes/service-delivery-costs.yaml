@@ -1,19 +1,20 @@
 id: fintree:ServiceDeliveryCosts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfServices'
 label: SERVICE DELIVERY COSTS
 short_label: SERVICE DELIVERY COSTS
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:CostOfGoodsSoldCostOfRevenue
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Cloud Infrastructure & Hosting + Customer Support Labor + DevOps & Platform Engineering + Third-Party Data & Licensed Content + Payment Processing & Transaction Fees'
+formula_machine: 'fintree:CloudInfrastructureHosting + fintree:CustomerSupportLabor + fintree:DevopsPlatformEngineering + fintree:ThirdpartyDataLicensedContent + fintree:PaymentProcessingTransactionFees'
+asc_reference: 'ASC 606'
 definition: The direct costs of delivering the service to customers. Analogous to
   direct materials + manufacturing overhead for product companies, but specific to
   service/SaaS delivery.
 example: For a SaaS company, service delivery costs are cloud hosting, support labor,
   and third-party data — not R&D, which belongs in Operating Expenses.
-normal_balance: CREDIT
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -26,14 +27,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - cost_of_revenue
+  - saas
+  - cloud
+  - service_delivery
+  - hosting
+  - professional_services
+classification_notes: 'Service delivery costs are the SaaS/services equivalent of COGS for product companies. They include cloud hosting, customer support labor, DevOps, third-party data licensing, and payment processing fees — all costs directly tied to delivering the service to customers. R&D and sales/marketing are NOT included even though they support the service. The boundary between service delivery (COGS) and R&D is a key classification judgment for SaaS companies and affects gross margin comparability.'
 variance_drivers:
-  tags: []
+  tags: [volume_driven, usage_driven, headcount_driven, infrastructure_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Customer growth driving higher cloud infrastructure consumption, (2) expansion of customer support team, (3) third-party data licensing cost increases, (4) higher transaction volumes increasing payment processing fees, (5) investment in reliability and uptime (more redundancy, multi-region deployment)'
+    if_decreased: '(1) Cloud cost optimization (reserved instances, spot instances, right-sizing), (2) automation reducing customer support headcount, (3) renegotiated data licensing agreements, (4) payment volume routing to lower-cost processors, (5) architecture improvements reducing per-user infrastructure costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'SaaS companies report "Cost of Revenue" which is analogous to COGS. The line between Cost of Revenue and R&D varies — some companies include DevOps in COGS, others in R&D. Gross margins for SaaS (70-85%) are much higher than for professional services (25-40%). Companies hosting on own infrastructure vs. public cloud have different cost structures.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'Reports cost of revenues including data center operations, customer support, and amortization of acquired technology'
+    - company: 'Snowflake'
+      treatment: 'Reports cost of revenue dominated by cloud infrastructure (AWS/Azure consumption) — largest single cost item'
+    - company: 'Twilio'
+      treatment: 'Reports cost of revenue including carrier network fees, cloud infrastructure, and customer support'
+coa_mapping:
+  quickbooks: '5500 - Service Delivery Costs'
+  netsuite: '5500 - Service Delivery Costs'
+  sap: '5500000 - Service Delivery Costs'

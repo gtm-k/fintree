@@ -1,5 +1,5 @@
 id: fintree:PayrollTaxesSupport
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Payroll Taxes — Support
 short_label: Payroll Taxes — Support
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Employer payroll taxes attributable to COGS-classified support staff.
-example: ''
+example: A SaaS company pays $165K/year in employer FICA and state taxes on $2.1M
+  in support staff salaries for its 35-person customer support team classified in COGS.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,49 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - payroll taxes
+  - customer support
+  - FICA
+  - COGS labor
+  - employer taxes
+  - support staff
+classification_notes: Only includes payroll taxes for support staff classified under
+  COGS. If customer support is classified under G&A or S&M (less common), taxes follow
+  the same functional allocation. Outsourced support (BPO) does not generate employer
+  payroll taxes for the company.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - salary levels
+    - outsourcing mix
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Expanded in-house support team headcount
+      2. Salary increases for support staff raising payroll tax base
+      3. Brought previously outsourced support roles in-house
+      4. Hired support staff in higher-tax jurisdictions
+    if_decreased: |-
+      1. Outsourced support to BPO providers eliminating employer tax obligation
+      2. Reduced support headcount through AI/automation chatbots
+      3. Attrition without backfill in support organization
+      4. Reclassified support staff from COGS to G&A functional area
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: The classification of support staff as COGS vs. G&A varies across companies.
+    Companies with large outsourced support operations will show lower payroll taxes
+    relative to total support costs. Some companies do not separately report support
+    payroll taxes.
+  examples:
+    - company: Zendesk
+      treatment: Includes support personnel payroll taxes within cost of revenue for
+        customer-facing support operations
+    - company: ServiceNow
+      treatment: Bundles support payroll taxes into cost of subscription and support
+        revenue
+    - company: Freshworks
+      treatment: Reports support staff costs including payroll taxes within cost of
+        revenue, with significant offshore support reducing US tax burden
+coa_mapping:
+  quickbooks: '5130 - Payroll Taxes - Support'
+  netsuite: '5130 - Payroll Taxes - Customer Support'
+  sap: '4100130 - Payroll Taxes Support'

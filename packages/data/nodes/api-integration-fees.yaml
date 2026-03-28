@@ -1,5 +1,5 @@
 id: fintree:ApiIntegrationFees
-xbrl_tag: ''
+xbrl_tag: us-gaap:InformationTechnologyAndDataProcessing
 label: API / Integration Fees
 short_label: API / Integration Fees
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Per-call or subscription fees for third-party APIs essential to product
   functionality.
-example: ''
+example: A fintech SaaS company pays Plaid $120K/year for bank account verification
+  API calls and $85K/year for Twilio SMS verification APIs used in the product.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,47 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - API costs
+  - third-party integration
+  - data feeds
+  - usage-based pricing
+  - SaaS cost of revenue
+  - vendor fees
+classification_notes: Classify as COGS when the API is essential to delivering the
+  product to customers (e.g., mapping API in a logistics app). Classify as OpEx/R&D
+  when used only in development or internal tooling. Volume-based contracts may have
+  minimum commitments that require accrual even if usage is low.
 variance_drivers:
-  tags: []
+  tags:
+    - usage volume
+    - vendor pricing
+    - product growth
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Customer growth driving higher API call volumes
+      2. New third-party API integrations added to the product
+      3. Vendor price increases on per-call or tiered pricing
+      4. Migration to premium API tiers for better SLAs
+    if_decreased: |-
+      1. Building in-house replacements for third-party APIs
+      2. Renegotiated volume discounts with API vendors
+      3. Optimized code reducing unnecessary API calls
+      4. Sunset of product features that relied on external APIs
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies bundle API fees into a general "third-party services"
+    or "data processing" line. Others break out by vendor. SaaS companies increasingly
+    disclose these as a component of cost of revenue.
+  examples:
+    - company: Stripe
+      treatment: Reports third-party API and network fees as part of cost of revenue
+    - company: Shopify
+      treatment: Includes payment processing and third-party API costs within cost
+        of revenue
+    - company: Twilio
+      treatment: Reports network carrier and third-party API costs as a key component
+        of cost of revenue
+coa_mapping:
+  quickbooks: '5320 - API & Integration Fees'
+  netsuite: '5320 - API / Integration Fees'
+  sap: '0053200 - API Integration Fees'

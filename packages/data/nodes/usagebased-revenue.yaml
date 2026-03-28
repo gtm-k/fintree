@@ -1,5 +1,5 @@
 id: fintree:UsagebasedRevenue
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax'
 label: Usage-Based Revenue
 short_label: Usage-Based Revenue
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:ServiceRevenue
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-55-65'
 definition: Revenue recognized based on actual consumption or usage (per-API-call,
   per-GB, per-transaction).
 example: AWS recognizing revenue based on EC2 compute hours consumed each month.
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - revenue
+  - usage_based
+  - consumption
+  - variable_revenue
+  - asc_606
+  - metered_billing
+  - cloud
+classification_notes: "Usage-based revenue is recognized as the customer consumes the service (right-to-access model). Under ASC 606, usage-based royalties for IP licenses follow the royalty constraint exception. For non-IP usage fees, revenue is recognized as the usage occurs. Companies may offer committed-use contracts with minimum consumption floors, creating hybrid recognition patterns."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, pricing_driven, seasonal, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) customer workload growth driving higher consumption, (2) new customer onboarding with high usage patterns, (3) price-per-unit increases, (4) expansion into new use cases (AI/ML workloads), (5) seasonal traffic peaks (e.g., holiday e-commerce)"
+    if_decreased: "(1) customer workload optimization reducing consumption, (2) customer churn or migration to competitors, (3) pricing pressure from competitive cloud providers, (4) macroeconomic slowdowns reducing customer activity, (5) customers shifting from pay-as-you-go to reserved/committed plans"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Cloud infrastructure companies report usage-based revenue as their primary model. Some companies blend subscription and usage in a single line. Payment processors report per-transaction revenue similarly."
+  examples:
+    - company: "AWS (Amazon)"
+      treatment: "Net sales recognized based on compute/storage/data transfer consumption"
+    - company: "Snowflake"
+      treatment: "Product revenue (consumption-based credits)"
+    - company: "Twilio"
+      treatment: "Usage-based revenue from API calls (messaging, voice)"
+coa_mapping:
+  quickbooks: "4230 - Usage-Based Revenue"
+  netsuite: "4230 - Consumption Revenue"
+  sap: "8230000 - Usage-Based Revenue"

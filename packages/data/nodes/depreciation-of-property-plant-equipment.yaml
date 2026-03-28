@@ -1,16 +1,17 @@
 id: fintree:DepreciationOfPropertyPlantEquipment
-xbrl_tag: ''
+xbrl_tag: "us-gaap:Depreciation"
 label: DEPRECIATION OF PROPERTY, PLANT & EQUIPMENT
 short_label: DEPRECIATION OF PROPERTY, PLAN
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DepreciationAmortization
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: "Machinery & Equipment Depreciation + Vehicles Depreciation + Building & Improvement Depreciation + Furniture & Fixtures Depreciation"
+formula_machine: "fintree:MachineryEquipmentDepreciation + fintree:VehiclesDepreciation + fintree:BuildingImprovementDepreciation + fintree:FurnitureFixturesDepreciation"
+asc_reference: "ASC 360-10"
 definition: 'Allocation of PP&E cost over its useful life (ASC 360). Method: straight-line,
   declining balance, or units-of-production.'
-example: ''
+example: "A manufacturing company with $1.2B in gross PP&E records $120M in annual depreciation: $60M machinery, $25M buildings, $20M vehicles, $15M furniture and fixtures."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - ppe
+  - non_cash
+  - asc_360
+  - capex_driven
+  - ebitda_addback
+  - tangible_assets
+classification_notes: "Depreciation method (straight-line, declining balance, units-of-production) and useful life estimates are accounting policy choices that significantly affect the amount. Land is not depreciated. Leasehold improvements are depreciated over the shorter of useful life or lease term. Component depreciation may be required for significant asset components with different useful lives."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, non_cash, predictable, method_sensitive]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) significant capital expenditures in prior periods entering depreciable base, (2) acquisitions adding PP&E, (3) change to shorter useful life estimates, (4) accelerated depreciation methods adopted"
+    if_decreased: "(1) assets reaching end of useful life (fully depreciated), (2) asset disposals, retirements, or sales, (3) change to longer useful life estimates, (4) reduced prior-year capital spending"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Capital-intensive industries (manufacturing, energy, telecom) have very high PP&E depreciation. Asset-light companies (SaaS, consulting) have minimal PP&E depreciation. Airlines depreciate aircraft over 20-30 years. Technology equipment is typically 3-5 years."
+  examples:
+    - company: "ExxonMobil"
+      treatment: "Massive PP&E depreciation on refineries, pipelines, and production equipment"
+    - company: "Delta Air Lines"
+      treatment: "Aircraft depreciation over 25-30 years; fleet age affects total depreciation"
+    - company: "Walmart"
+      treatment: "Significant depreciation on stores, distribution centers, and fixtures"
+coa_mapping:
+  quickbooks: "6700 - Depreciation of PP&E"
+  netsuite: "6700 - Depreciation - PP&E"
+  sap: "6700000 - Depreciation of Property Plant & Equipment"

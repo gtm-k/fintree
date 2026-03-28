@@ -1,5 +1,5 @@
 id: fintree:ProductionOvertimePay
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:DirectLaborCosts'
 label: Production Overtime Pay
 short_label: Production Overtime Pay
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:ProductionWages
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Premium overtime pay (time-and-a-half) for direct production workers exceeding
   standard hours.
-example: ''
+example: 'A plant running at 110% capacity during Q4 holiday season pays $2.5M in overtime premiums (1.5x rate) to production workers, compared to only $500K in Q1 overtime.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - overtime
+  - premium_pay
+  - production
+  - labor_efficiency
+classification_notes: 'Overtime pay represents the premium portion (typically 1.5x base rate per FLSA) for hours worked beyond 40/week. Some cost systems record only the premium (0.5x) here, with the straight-time portion in regular wages. If overtime is caused by a specific customer order, it may be charged directly to that job. Abnormal overtime due to inefficiency may be expensed as period cost rather than inventoried per ASC 330.'
 variance_drivers:
-  tags: []
+  tags: [demand_driven, efficiency_driven, scheduling_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Demand surge exceeding normal capacity, (2) labor shortages preventing adequate staffing, (3) poor production scheduling creating bottlenecks, (4) machine breakdowns requiring catch-up shifts, (5) new product ramp-up with steep learning curves'
+    if_decreased: '(1) Better production planning and scheduling, (2) additional shift or headcount added to reduce overtime, (3) demand normalization or decline, (4) automation reducing reliance on overtime labor, (5) improved equipment uptime reducing catch-up needs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Seasonal businesses (food processing, toys) show significant Q3-Q4 overtime spikes. Continuous process industries (steel, chemicals) have built-in shift differentials rather than traditional overtime. Some companies report overtime separately; others combine with regular wages.'
+  examples:
+    - company: 'UPS'
+      treatment: 'Reports significant peak-season overtime for package handlers during November-December holiday surge'
+    - company: 'Tesla'
+      treatment: 'Reported heavy overtime during Model 3 production ramp ("production hell") before stabilizing'
+    - company: 'Hormel Foods'
+      treatment: 'Reports seasonal overtime in meat processing plants during holiday production periods'
+coa_mapping:
+  quickbooks: '5212 - Production Overtime Pay'
+  netsuite: '5212 - Production Overtime Pay'
+  sap: '5212000 - Production Overtime Pay'

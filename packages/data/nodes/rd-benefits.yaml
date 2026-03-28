@@ -1,5 +1,5 @@
 id: fintree:RdBenefits
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpensePersonnel"
 label: R&D Benefits
 short_label: R&D Benefits
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:RdPersonnel
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25"
 definition: Health insurance, retirement, and benefits for R&D employees.
-example: ''
+example: "A biotech company provides $18K/year per R&D employee in benefits (health, dental, 401k match) for 100 scientists, totaling $1.8M in R&D benefits."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - personnel
+  - benefits
+  - healthcare
+  - retirement
+  - asc_730
+classification_notes: "Includes health/dental/vision insurance, 401(k) matching, life insurance, disability insurance, payroll taxes (employer portion of FICA), and other fringe benefits for R&D employees. Stock-based compensation is sometimes included here but more commonly shown separately."
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, benefits_inflation, regulatory]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) healthcare premium increases, (2) R&D headcount growth, (3) richer benefits packages to attract talent, (4) increased 401(k) matching rates"
+    if_decreased: "(1) R&D headcount reductions, (2) shift to high-deductible health plans, (3) reduction in employer retirement matching, (4) increased use of contractors (no benefits)"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Benefits as a percentage of base salary typically range from 20-35% in the US. Companies with large international R&D teams may have different benefit structures. European subsidiaries often have higher mandatory social contributions."
+  examples:
+    - company: "Apple"
+      treatment: "R&D benefits bundled into total R&D expense; comprehensive benefits package"
+    - company: "Roche"
+      treatment: "R&D benefits reflect Swiss and global statutory requirements; higher percentage of salary"
+    - company: "Amazon"
+      treatment: "R&D benefits included in technology and content costs"
+coa_mapping:
+  quickbooks: "6620 - R&D Employee Benefits"
+  netsuite: "6620 - R&D Benefits"
+  sap: "6620000 - R&D Employee Benefits"

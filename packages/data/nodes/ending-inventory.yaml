@@ -1,5 +1,5 @@
 id: fintree:EndingInventory
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InventoryNet'
 label: Ending Inventory
 short_label: Ending Inventory
 level: 3
@@ -7,9 +7,10 @@ node_type: SUB_CATEGORY
 parent_id: fintree:InventoryAdjustments
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Value of inventory on hand at end of period. Subtracted in the COGS calculation.
-example: ''
+example: 'A manufacturer counts $22M in raw materials, $8M in work-in-process, and $15M in finished goods at year-end, for total ending inventory of $45M. This $45M is subtracted in the COGS formula, reducing reported COGS.'
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - inventory
+  - ending_balance
+  - periodic_inventory
+  - cost_flow
+  - balance_sheet_link
+classification_notes: 'Ending inventory is subtracted in the COGS formula (sign_convention: -1), so higher ending inventory reduces COGS and increases gross profit. This creates a potential for earnings manipulation — overvaluing ending inventory artificially reduces COGS. Ending inventory must be valued at lower of cost or NRV per ASC 330. Physical inventory counts or cycle counts are required to verify the balance. Ending inventory becomes next period beginning inventory.'
 variance_drivers:
-  tags: []
+  tags: [demand_driven, production_driven, valuation_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Inventory build-up for anticipated demand, (2) sales shortfall leaving unsold inventory, (3) purchase price increases raising cost basis, (4) overproduction exceeding demand, (5) seasonal inventory build before peak selling season'
+    if_decreased: '(1) Strong sales drawing down inventory, (2) inventory write-downs to NRV, (3) lean or just-in-time inventory management, (4) supply chain disruptions preventing replenishment, (5) deliberate destocking strategy'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'LIFO companies report lower ending inventory (and higher COGS) than FIFO companies in inflation. Retailers with post-holiday year-end have low ending inventory. Just-in-time companies maintain minimal ending inventory. The LIFO reserve disclosed in footnotes allows conversion between methods.'
+  examples:
+    - company: 'Toyota'
+      treatment: 'Maintains very low ending inventory relative to revenue due to just-in-time production system'
+    - company: 'Walmart'
+      treatment: 'Reports ~$56B ending inventory; January year-end captures post-holiday drawdown'
+    - company: 'Exxon Mobil'
+      treatment: 'Uses LIFO; ending inventory reported at historical cost layers with significant LIFO reserve disclosed'
+coa_mapping:
+  quickbooks: '5420 - Ending Inventory'
+  netsuite: '5420 - Ending Inventory'
+  sap: '5420000 - Ending Inventory'

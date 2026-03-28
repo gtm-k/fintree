@@ -1,17 +1,18 @@
 id: fintree:AmortizationOfIntangibleAssets
-xbrl_tag: ''
+xbrl_tag: "us-gaap:AmortizationOfIntangibleAssets"
 label: AMORTIZATION OF INTANGIBLE ASSETS
 short_label: AMORTIZATION OF INTANGIBLE ASS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DepreciationAmortization
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: "Customer Relationship Amortization + Technology / IP Amortization + Trade Name Amortization + Capitalized Software Amortization + Right-of-Use Asset Amortization"
+formula_machine: "fintree:CustomerRelationshipAmortization + fintree:TechnologyIpAmortization + fintree:TradeNameAmortization + fintree:CapitalizedSoftwareAmortization + fintree:RightofuseAssetAmortization"
+asc_reference: "ASC 350-30"
 definition: Allocation of acquired intangible asset cost over useful life (ASC 350).
   Applies to acquired assets; internally developed intangibles are generally expensed
   as incurred.
-example: ''
+example: "After a $500M acquisition, a company identifies $150M in intangible assets: $60M customer relationships (10-yr life), $50M technology (7-yr life), $25M trade names (15-yr life), and $15M software (5-yr life), totaling ~$18M/year in amortization."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +26,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - amortization
+  - intangible_assets
+  - non_cash
+  - acquisition_driven
+  - asc_350
+  - ebitda_addback
+  - purchase_accounting
+classification_notes: "Only finite-lived intangible assets are amortized; indefinite-lived intangibles (goodwill, certain trade names) are tested for impairment instead. Acquired intangibles from business combinations (ASC 805) are the primary source. Internally developed intangibles are generally expensed as incurred (except capitalized software under ASC 350-40). Amortization is often excluded from non-GAAP metrics as acquisition-related."
 variance_drivers:
-  tags: []
+  tags: [acquisition_driven, non_cash, predictable, purchase_accounting]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new acquisitions adding intangible assets, (2) capitalized software development entering amortization, (3) change in useful life estimates, (4) accelerated amortization patterns for revenue-based methods"
+    if_decreased: "(1) intangible assets becoming fully amortized, (2) impairment write-downs reducing carrying value, (3) fewer acquisitions in recent periods, (4) disposal of businesses with associated intangibles"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Serial acquirers (tech, pharma) have the highest intangible amortization. Companies that grow organically have minimal amortization. Many companies exclude acquisition-related amortization from non-GAAP earnings, creating significant GAAP vs non-GAAP differences."
+  examples:
+    - company: "Microsoft"
+      treatment: "Significant intangible amortization from acquisitions (LinkedIn, Nuance, Activision); excluded from non-GAAP"
+    - company: "Broadcom"
+      treatment: "Massive acquired intangible amortization; key non-GAAP adjustment"
+    - company: "UnitedHealth Group"
+      treatment: "Customer relationship and trade name amortization from Optum acquisitions"
+coa_mapping:
+  quickbooks: "6760 - Amortization of Intangible Assets"
+  netsuite: "6760 - Amortization - Intangibles"
+  sap: "6760000 - Amortization of Intangible Assets"

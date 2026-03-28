@@ -1,17 +1,18 @@
 id: fintree:FreightinInboundShipping
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:FreightCosts'
 label: FREIGHT-IN / INBOUND SHIPPING
 short_label: FREIGHT-IN / INBOUND SHIPPING
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DirectMaterials
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Inbound Freight & Customs'
+formula_machine: 'fintree:InboundFreightCustoms'
+asc_reference: 'ASC 330'
 definition: Transportation costs to bring raw materials and components to the manufacturing
   facility. COGS item (distinct from freight-out to customers, which is typically
   Selling Expense).
-example: ''
+example: 'A furniture manufacturer pays $1.5M in trucking costs to transport lumber from suppliers to its factory, plus $400K in customs duties on imported hardware components, for total freight-in of $1.9M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +26,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - freight
+  - logistics
+  - supply_chain
+  - customs
+classification_notes: 'Freight-in (inbound shipping) is capitalized into inventory cost per ASC 330 and flows through COGS when goods are sold. Freight-out (outbound shipping to customers) is typically a selling expense or fulfillment cost. Under ASC 606, companies elect whether to treat outbound shipping as a separate performance obligation. Import duties and customs fees are part of the landed cost of inventory.'
 variance_drivers:
-  tags: []
+  tags: [logistics_driven, volume_driven, trade_policy_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Rising fuel surcharges and transportation rates, (2) port congestion or shipping lane disruptions, (3) new tariffs or increased customs duties, (4) shift to air freight from ocean freight for faster delivery, (5) sourcing from more distant suppliers'
+    if_decreased: '(1) Favorable freight rate negotiations or long-term carrier contracts, (2) nearshoring supply chain reducing transit distances, (3) consolidation of shipments improving load utilization, (4) reduced tariff rates from trade agreements, (5) lower fuel costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies sourcing globally have higher freight-in than those sourcing domestically. Some companies report freight-in separately while others bundle it into material costs. Tariff exposure varies significantly by sourcing geography.'
+  examples:
+    - company: 'Walmart'
+      treatment: 'Capitalizes inbound freight into inventory; operates own truck fleet to reduce costs'
+    - company: 'IKEA'
+      treatment: 'Includes ocean freight and customs duties in product cost; flat-pack design reduces shipping costs'
+    - company: 'Caterpillar'
+      treatment: 'Reports inbound freight on components from global suppliers as part of material cost'
+coa_mapping:
+  quickbooks: '5140 - Freight-In'
+  netsuite: '5140 - Inbound Freight'
+  sap: '5140000 - Freight-In / Inbound Shipping'

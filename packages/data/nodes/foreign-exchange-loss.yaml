@@ -1,5 +1,5 @@
 id: fintree:ForeignExchangeLoss
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ForeignCurrencyTransactionGainLossBeforeTax'
 label: Foreign Exchange Loss
 short_label: Foreign Exchange Loss
 level: 4
@@ -7,11 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingExpenses
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 830-20'
 definition: Realized and unrealized losses from adverse currency movements on foreign-denominated
   items.
-example: A US company with euro-denominated receivables loses value when the euro
-  weakens against the dollar.
+example: 'A US company with EUR 80M in receivables records a $4.8M FX loss when the euro weakens from $1.12 to $1.06 during the quarter.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -25,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - foreign_exchange
+  - fx_loss
+  - currency_risk
+  - transaction_loss
+  - asc_830
+  - multinational
+classification_notes: 'Transaction losses (ASC 830-20) arise from remeasuring foreign-currency monetary items when exchange rates move unfavorably. Distinguished from translation adjustments (OCI). Companies with significant international operations may have large FX losses. Hedging programs (ASC 815) can mitigate but rarely eliminate FX losses. Some companies net FX gains and losses into one line. Analyze alongside Gain on Foreign Exchange for the net FX impact.'
 variance_drivers:
-  tags: []
+  tags: [currency_movements, geographic_exposure, hedging_gaps, settlement_timing]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) weakening of foreign currencies against the functional currency on receivables/assets, (2) strengthening of foreign currencies on payables/liabilities, (3) increased unhedged foreign currency exposure, (4) hedge ineffectiveness leaving residual FX risk, (5) large foreign-denominated debt revaluation'
+    if_decreased: '(1) stable exchange rates reducing remeasurement losses, (2) effective hedging programs covering foreign currency exposures, (3) reduced international operations or foreign-denominated items, (4) natural hedging from matching foreign revenues and costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies often net FX gains and losses. Some report a single net FX line in Other income/expense. Multinationals disclose FX impact in MD&A. The distinction between transaction (P&L) and translation (OCI) losses is critical for analysis.'
+  examples:
+    - company: 'Procter & Gamble'
+      treatment: 'FX losses included in Other non-operating — significant exposure across 180+ countries'
+    - company: 'Coca-Cola'
+      treatment: 'Currency impact disclosed in organic growth reconciliation — large FX headwinds in strong-dollar periods'
+    - company: 'SAP'
+      treatment: 'Foreign currency exchange losses reported in financial income/expense — euro-based reporting with global revenue'
+coa_mapping:
+  quickbooks: '7600 - Foreign Exchange Loss'
+  netsuite: '7600 - Foreign Exchange Loss'
+  sap: '7600000 - Foreign Exchange Losses'

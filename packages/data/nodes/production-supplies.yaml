@@ -1,13 +1,14 @@
 id: fintree:ProductionSupplies
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldOverhead'
 label: PRODUCTION SUPPLIES
 short_label: PRODUCTION SUPPLIES
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:ManufacturingOverhead
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Factory / Production Supplies'
+formula_machine: 'fintree:FactoryProductionSupplies'
+asc_reference: 'ASC 330'
 definition: Consumable materials used in manufacturing that are not incorporated into
   the final product.
 example: Cutting tools, lubricants, safety equipment, cleaning supplies used on the
@@ -25,14 +26,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - indirect_materials
+  - consumables
+  - manufacturing
+  - supplies
+classification_notes: 'Production supplies are indirect materials consumed during manufacturing but not incorporated into the finished product. Examples include cutting tools, drill bits, lubricants, cleaning agents, safety gloves, and protective equipment. Distinguished from direct materials (which become part of the product) and from office supplies (which are SG&A). Production supplies are part of manufacturing overhead and absorbed into inventory cost.'
 variance_drivers:
-  tags: []
+  tags: [volume_driven, consumption_driven, efficiency_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Higher production volumes consuming more supplies, (2) price increases on consumable materials, (3) equipment condition requiring more cutting tools or lubricants, (4) new safety requirements adding PPE costs, (5) less efficient processes consuming more supplies per unit'
+    if_decreased: '(1) Lower production volumes, (2) tool life improvements reducing replacement frequency, (3) bulk purchasing agreements, (4) process improvements reducing supply consumption, (5) preventive maintenance reducing consumable wear'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Machining-intensive manufacturers have high production supply costs (cutting tools, coolants). Assembly operations have lower supply costs. Chemical manufacturers may have significant catalyst costs. Some companies combine production supplies with maintenance supplies into a single MRO category.'
+  examples:
+    - company: 'Caterpillar'
+      treatment: 'Reports cutting tools, welding consumables, and grinding wheels as production supplies in heavy machinery manufacturing'
+    - company: 'Toyota'
+      treatment: 'Reports lubricants, welding wire, and paint supplies as production consumables in vehicle assembly'
+    - company: 'Pfizer'
+      treatment: 'Reports lab reagents, filters, and cleanroom consumables as production supplies in pharmaceutical manufacturing'
+coa_mapping:
+  quickbooks: '5340 - Production Supplies'
+  netsuite: '5340 - Production Supplies'
+  sap: '5340000 - Production Supplies'

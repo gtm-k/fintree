@@ -1,5 +1,5 @@
 id: fintree:RdBonusesIncentivePay
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpensePersonnel"
 label: R&D Bonuses & Incentive Pay
 short_label: R&D Bonuses & Incentive Pay
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:RdPersonnel
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25"
 definition: Performance bonuses for R&D staff tied to innovation milestones.
-example: ''
+example: "A tech company pays $3.2M in annual bonuses to R&D staff: $1.5M in milestone bonuses for shipping a new product and $1.7M in annual performance bonuses."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - personnel
+  - bonuses
+  - incentive_compensation
+  - variable_pay
+  - asc_730
+classification_notes: "Includes annual performance bonuses, project milestone bonuses, signing bonuses, and retention bonuses for R&D employees. Stock-based compensation (RSUs, options) may be classified here or in a separate SBC line. Accrual timing can create quarter-to-quarter variability."
 variance_drivers:
-  tags: []
+  tags: [performance_driven, seasonal, discretionary]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) strong product launch triggering milestone bonuses, (2) increased target bonus percentages to retain talent, (3) signing and retention bonuses in competitive hiring market, (4) company-wide performance exceeding targets"
+    if_decreased: "(1) company underperformance reducing bonus pools, (2) R&D headcount reductions, (3) shift from cash bonuses to equity compensation, (4) project cancellations eliminating milestone payouts"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Tech companies often emphasize equity (RSUs, options) over cash bonuses. Pharma companies may tie bonuses to clinical trial milestones. Bonus as a percentage of base salary typically ranges from 10-30% for R&D roles."
+  examples:
+    - company: "Netflix"
+      treatment: "Favors higher base salary over bonuses; minimal R&D bonus component"
+    - company: "Pfizer"
+      treatment: "R&D bonuses tied to pipeline milestones and clinical trial progress"
+    - company: "Tesla"
+      treatment: "R&D incentive pay includes significant equity component tied to performance milestones"
+coa_mapping:
+  quickbooks: "6630 - R&D Bonuses & Incentive Pay"
+  netsuite: "6630 - R&D Bonuses & Incentives"
+  sap: "6630000 - R&D Bonuses & Incentive Pay"

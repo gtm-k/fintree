@@ -1,5 +1,5 @@
 id: fintree:RawMaterialYieldLosses
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: Raw Material Yield Losses
 short_label: Raw Material Yield Losses
 level: 5
@@ -7,10 +7,11 @@ node_type: ADJUSTMENT
 parent_id: fintree:RawMaterials
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Waste or scrap from raw material processing that is a normal and expected
   part of manufacturing.
-example: ''
+example: 'A semiconductor fab processes 10,000 silicon wafers but achieves only 85% yield, losing 1,500 wafers ($3M in material value) to defects. A lumber mill converts logs to boards at 55% yield, with 45% becoming chips, sawdust, and bark (some sold as byproducts).'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - yield_loss
+  - scrap
+  - waste
+  - manufacturing
+  - efficiency
+classification_notes: 'Normal yield losses (expected scrap/waste from manufacturing processes) are absorbed into the cost of good units produced — they increase the per-unit material cost. Abnormal yield losses (above standard expectations) should be expensed as a period cost, not inventoried per ASC 330. Scrap with recovery value generates a credit against material cost. Yield improvement is a key manufacturing efficiency metric. In semiconductor and pharma manufacturing, yield is a critical financial driver.'
 variance_drivers:
-  tags: []
+  tags: [efficiency_driven, process_driven, quality_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Process instability causing higher defect rates, (2) new product introduction with immature manufacturing process, (3) raw material quality issues from suppliers, (4) equipment degradation affecting precision, (5) operator errors during production'
+    if_decreased: '(1) Process maturation and learning curve improvements, (2) statistical process control identifying and correcting drift, (3) higher-quality raw material inputs, (4) equipment upgrades improving precision, (5) scrap recovery or recycling programs converting waste to value'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Yield loss rates vary dramatically by industry: semiconductors (10-30% loss for advanced nodes), food processing (20-40% for meat cutting), chemicals (2-5% for continuous process). Companies may report yield losses as a variance from standard cost or embedded in total material cost. Revenue from scrap sales offsets yield losses.'
+  examples:
+    - company: 'TSMC'
+      treatment: 'Yield improvement on new process nodes (e.g., 3nm) is a critical driver of COGS reduction; early yields of 50-60% improve to 90%+ at maturity'
+    - company: 'Tyson Foods'
+      treatment: 'Reports normal yield losses in meat processing (bone, fat, trim); sells byproducts to offset raw material costs'
+    - company: 'Corning'
+      treatment: 'Reports glass substrate yield losses in display manufacturing; yield improvement drives cost reduction on new glass compositions'
+coa_mapping:
+  quickbooks: '5113 - Raw Material Yield Losses'
+  netsuite: '5113 - Raw Material Yield Losses'
+  sap: '5113000 - Raw Material Yield Losses'

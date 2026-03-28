@@ -1,5 +1,5 @@
 id: fintree:VolumeQuantityDiscounts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SalesDiscountsGoods'
 label: Volume / Quantity Discounts
 short_label: Volume / Quantity Discounts
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesDiscounts
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-32-5'
 definition: Price reductions given to customers who purchase above threshold quantities.
-example: ''
+example: "A chemical supplier offering 5% off for orders over 10,000 lbs, resulting in $1.2M in volume discounts on $24M in qualifying orders during the quarter."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -23,14 +24,28 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - volume_discount
+  - tiered_pricing
+  - asc_606
+  - variable_consideration
+classification_notes: "Volume discounts are a form of variable consideration under ASC 606. When discounts depend on cumulative purchases over a period, the entity must estimate the most likely discount tier using either the expected value or most likely amount method. Retrospective volume discounts (applied retroactively when thresholds are met) create estimation complexity at interim periods."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, contract_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) customers ordering larger quantities to hit discount tiers, (2) new volume agreements with large enterprise customers, (3) market conditions encouraging bulk purchasing, (4) competitive dynamics requiring deeper volume incentives"
+    if_decreased: "(1) customers ordering below volume thresholds, (2) renegotiated contracts with tighter discount tiers, (3) shift to smaller, more frequent orders, (4) removal of volume discount programs"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Manufacturing, distribution, and CPG companies commonly use volume discounts. SaaS companies use tiered pricing but rarely call it a 'volume discount.' Most companies do not separately disclose volume discount amounts."
+  examples:
+    - company: "Sysco"
+      treatment: "Volume-based allowances netted in cost of goods sold or revenue"
+    - company: "Grainger (W.W.)"
+      treatment: "Volume discounts embedded in tiered pricing structures"
+    - company: "International Paper"
+      treatment: "Volume rebates to large customers based on annual purchase commitments"
+coa_mapping:
+  quickbooks: "4521 - Volume Discounts"
+  netsuite: "4521 - Volume/Quantity Discounts"
+  sap: "8521000 - Volume Discounts"

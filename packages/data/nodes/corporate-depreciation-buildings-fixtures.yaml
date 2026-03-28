@@ -1,5 +1,5 @@
 id: fintree:CorporateDepreciationBuildingsFixtures
-xbrl_tag: ''
+xbrl_tag: "us-gaap:DepreciationNonproduction"
 label: Corporate Depreciation — Buildings & Fixtures
 short_label: Corporate Depreciation — Build
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:OfficeFacilitiesCorporate
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 360-10"
 definition: Depreciation on owned corporate buildings, leasehold improvements, and
   office fixtures (ASC 360).
-example: ''
+example: "A financial services company records $8M/year in corporate depreciation: $5M on owned headquarters (39-year life) and $3M on office fixtures and tenant improvements."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - corporate
+  - buildings
+  - fixtures
+  - non_cash
+  - sga_component
+  - asc_360
+classification_notes: "This captures depreciation on corporate and administrative properties, distinct from production facilities (in COGS) and R&D facilities (in R&D). Includes headquarter buildings, regional offices, and associated permanent fixtures (built-in shelving, lighting systems, plumbing upgrades). Often embedded within SG&A rather than shown as a separate D&A line item."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, non_cash, stable, long_lived]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new corporate office acquisitions or buildouts, (2) major office renovations, (3) acquisitions adding corporate properties, (4) new regional office openings"
+    if_decreased: "(1) office consolidation and property sales, (2) assets becoming fully depreciated, (3) shift to leased vs owned offices, (4) remote work reducing need for corporate space"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Banks and financial institutions often own significant corporate real estate. Tech companies typically lease, minimizing this line. Post-COVID office consolidation has led to impairments and reduced depreciation for many companies."
+  examples:
+    - company: "Bank of America"
+      treatment: "Significant owned corporate real estate depreciation across branches and HQ"
+    - company: "Goldman Sachs"
+      treatment: "Corporate building depreciation on owned properties including 200 West Street HQ"
+    - company: "Deloitte"
+      treatment: "Primarily leasehold improvement depreciation; most offices leased"
+coa_mapping:
+  quickbooks: "6745 - Corporate Depreciation - Buildings & Fixtures"
+  netsuite: "6745 - Corporate Building & Fixture Depreciation"
+  sap: "6745000 - Corporate Depreciation Buildings & Fixtures"

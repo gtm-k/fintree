@@ -1,5 +1,5 @@
 id: fintree:OtherDeferredTaxItems
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:DeferredTaxAssetsOther'
 label: Other Deferred Tax Items
 short_label: Other Deferred Tax Items
 level: 3
@@ -7,10 +7,11 @@ node_type: SUB_CATEGORY
 parent_id: fintree:DeferredTaxExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 740-10'
 definition: Deferred taxes from revenue recognition timing, stock compensation, warranty
   reserves, and other temporary differences.
-example: ''
+example: 'A SaaS company with $150M in deferred revenue (taxed on cash receipt but recognized over time for GAAP) holds a $31.5M deferred tax asset. Separately, $80M in stock compensation expense (book, not yet tax-deductible) creates a $16.8M DTA.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - deferred_tax
+  - stock_compensation
+  - deferred_revenue
+  - warranty_reserves
+  - temporary_differences
+  - catch_all
+  - asc_740
+classification_notes: 'Catch-all for deferred tax items not related to NOLs or depreciation timing. Common sources: (1) deferred revenue — taxed on receipt but deferred for book (DTA), (2) stock-based compensation — booked before tax deduction (DTA), (3) warranty and litigation reserves — accrued for book but deducted for tax only when paid (DTA), (4) pension obligations — different measurement timing (DTA or DTL), (5) unrealized gains on investments — recognized for book but not tax (DTL). The SBC deduction at exercise often exceeds book expense, creating windfall tax benefits.'
 variance_drivers:
-  tags: []
+  tags: [revenue_timing, sbc_deductions, reserve_accruals, pension_obligations]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) growing deferred revenue balances from subscription business growth, (2) increasing stock compensation expense creating larger DTAs, (3) higher warranty or litigation reserve accruals, (4) pension liability increases from actuarial assumption changes, (5) new temporary differences from acquisitions'
+    if_decreased: '(1) recognition of previously deferred revenue reducing the DTA, (2) stock option exercises creating tax deductions that reduce the SBC DTA, (3) warranty claims paid reducing the reserve and associated DTA, (4) pension plan contributions or assumption changes reducing obligations, (5) tax rate changes re-measuring deferred tax balances'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'The composition of other deferred tax items varies significantly by industry. SaaS/subscription companies have large deferred revenue DTAs. Tech companies have significant SBC-related DTAs. Manufacturing companies have warranty reserve DTAs. The deferred tax footnote is essential for understanding the company-specific mix.'
+  examples:
+    - company: 'Microsoft'
+      treatment: 'Large DTA from deferred revenue (multi-year licenses) and stock compensation'
+    - company: 'Boeing'
+      treatment: 'Significant DTAs from warranty reserves, pension obligations, and long-term contract timing'
+    - company: 'Netflix'
+      treatment: 'DTA from content amortization timing differences and stock compensation'
+coa_mapping:
+  quickbooks: '8890 - Other Deferred Tax Items'
+  netsuite: '8890 - Other Deferred Tax Items'
+  sap: '7829000 - Other Deferred Tax Items'

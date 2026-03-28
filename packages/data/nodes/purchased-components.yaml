@@ -1,13 +1,14 @@
 id: fintree:PurchasedComponents
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: PURCHASED COMPONENTS
 short_label: PURCHASED COMPONENTS
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DirectMaterials
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'OEM Components + Sub-Assemblies'
+formula_machine: 'fintree:OemComponents + fintree:Subassemblies'
+asc_reference: 'ASC 330'
 definition: Pre-manufactured parts or sub-assemblies purchased from suppliers and
   incorporated into the final product.
 example: Batteries purchased by an EV manufacturer; processors purchased by a laptop
@@ -25,14 +26,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - components
+  - manufacturing
+  - supply_chain
+  - oem
+classification_notes: 'Purchased components are pre-manufactured parts sourced externally and incorporated into the final product. Distinguished from raw materials (which require transformation) and from indirect supplies (which are consumed but not part of the product). Make-vs-buy decisions directly affect this line item. Long-term supply agreements may lock in pricing.'
 variance_drivers:
-  tags: []
+  tags: [supplier_driven, volume_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Supplier price increases on key components, (2) shift from in-house manufacturing to outsourced components, (3) product redesign requiring more purchased parts, (4) component shortages (e.g., semiconductor crisis) driving spot-market premiums, (5) higher production volumes'
+    if_decreased: '(1) Vertical integration replacing purchased components with in-house production, (2) renegotiated supplier contracts, (3) product simplification reducing component count, (4) economies of scale from volume commitments, (5) dual-sourcing strategy creating price competition'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Vertically integrated companies show lower purchased components but higher labor and overhead. Companies outsourcing more assembly will show higher purchased component costs. Transfer pricing in multinational companies can affect reported costs.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Sources displays, chips (TSMC-fabricated), and camera modules as purchased components; designs in-house but outsources manufacturing'
+    - company: 'Ford'
+      treatment: 'Reports purchased powertrain components, electronics modules, and brake systems from Tier 1 suppliers'
+    - company: 'Dell'
+      treatment: 'Reports processors (Intel/AMD), memory, and storage as purchased components in configure-to-order model'
+coa_mapping:
+  quickbooks: '5120 - Purchased Components'
+  netsuite: '5120 - Purchased Components'
+  sap: '5120000 - Purchased Components'

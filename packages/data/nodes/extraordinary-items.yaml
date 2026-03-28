@@ -1,18 +1,19 @@
 id: fintree:ExtraordinaryItems
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ExtraordinaryItemNetOfTax'
 label: EXTRAORDINARY ITEMS
 short_label: EXTRAORDINARY ITEMS
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:BelowthelineItems
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Legacy Extraordinary Items'
+formula_machine: 'fintree:LegacyExtraordinaryItems'
+asc_reference: 'ASC 225-20 (superseded by ASU 2015-01)'
 definition: Under US GAAP (post-ASU 2015-01), extraordinary items as a separate classification
   were eliminated. However, legacy filings and certain context (e.g., insurance proceeds
   from natural disasters) still use this nomenclature. Retained here for historical
   reference and AI context.
-example: ''
+example: 'Pre-2015: A company received $50M in insurance proceeds from a hurricane-destroyed factory. The $50M gain was classified as an extraordinary item (unusual and infrequent) and shown net of $10.5M tax.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -26,14 +27,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - extraordinary_items
+  - legacy_gaap
+  - asu_2015_01
+  - eliminated_category
+  - historical
+  - unusual_infrequent
+classification_notes: 'ELIMINATED under US GAAP by ASU 2015-01 (effective Jan 2016). Previously required items to be both unusual in nature AND infrequent in occurrence. Now, unusual or infrequent items are disclosed within continuing operations with separate line-item presentation if material. This node exists for: (1) parsing historical financial statements pre-2016, (2) AI context when users reference extraordinary items, (3) IFRS comparisons where the concept also does not exist. No new extraordinary items should be recorded under current US GAAP.'
 variance_drivers:
-  tags: []
+  tags: [legacy_classification, historical_filings, natural_disasters]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) legacy filing analysis — pre-2016 natural disaster gains/losses, (2) historical data with government expropriation of assets, (3) pre-2016 early debt extinguishment gains/losses (prior to ASU 2015-01)'
+    if_decreased: '(1) this category is eliminated under current GAAP — should be zero for filings after January 2016, (2) historical items reclassified under restatements, (3) no unusual/infrequent events in legacy period'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Eliminated under US GAAP since 2016. IFRS never had this category (IAS 1 prohibits extraordinary items). When analyzing pre-2016 filings, extraordinary items were shown net of tax between discontinued operations and cumulative effect of accounting changes.'
+  examples:
+    - company: 'Historical filings pre-2016'
+      treatment: 'Extraordinary gain/loss — shown net of tax, required to be both unusual and infrequent'
+    - company: 'Insurance companies (pre-2016)'
+      treatment: 'Hurricane and catastrophe losses sometimes classified as extraordinary'
+    - company: 'Current filings'
+      treatment: 'N/A — category eliminated; unusual/infrequent items now within continuing operations'
+coa_mapping:
+  quickbooks: '9510 - Extraordinary Items (Legacy)'
+  netsuite: '9510 - Extraordinary Items (Legacy)'
+  sap: '7960000 - Extraordinary Items (Legacy)'

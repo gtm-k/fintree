@@ -1,5 +1,5 @@
 id: fintree:PrototypeMaterials
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: Prototype Materials
 short_label: Prototype Materials
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:RdMaterialsSupplies
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25"
 definition: Materials used to build product prototypes during development.
-example: ''
+example: "An EV manufacturer spends $2.8M on battery cell prototypes and $1.5M on chassis components for next-generation vehicle development."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - prototype
+  - materials
+  - product_development
+  - hardware
+  - asc_730
+classification_notes: "Prototype materials are always expensed under ASC 730 because prototypes built during R&D have no alternative future use. Includes raw materials, components, and assemblies used to build test units. If a prototype can be sold (e.g., pre-production unit), it should be reclassified to inventory."
 variance_drivers:
-  tags: []
+  tags: [project_driven, product_cycle, lumpy]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new product entering physical prototyping phase, (2) multiple design iterations required, (3) component cost increases, (4) expanded product line development"
+    if_decreased: "(1) product reaching production stage, (2) shift to simulation-based design reducing physical prototypes, (3) project cancellations, (4) design reuse from prior products"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Hardware, automotive, and consumer electronics companies have the highest prototype material costs. Software-only companies have zero. Medical device companies include prototype materials subject to FDA design controls."
+  examples:
+    - company: "Tesla"
+      treatment: "Significant prototype costs for new vehicle models and battery technology"
+    - company: "Dyson"
+      treatment: "Extensive prototyping costs for consumer product development (thousands of iterations)"
+    - company: "Boston Scientific"
+      treatment: "Prototype materials for medical devices under strict design control requirements"
+coa_mapping:
+  quickbooks: "6642 - Prototype Materials"
+  netsuite: "6642 - Prototype Materials"
+  sap: "6642000 - Prototype Materials"

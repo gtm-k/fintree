@@ -1,5 +1,5 @@
 id: fintree:MarketingAgencyFees
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ProfessionalAndContractServicesExpense'
 label: Marketing Agency Fees
 short_label: Marketing Agency Fees
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:AdvertisingMarketing
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720-35'
 definition: Retainer or project fees paid to advertising and marketing agencies.
-example: ''
+example: 'A consumer brand pays $15K/month retainer to a creative agency ($180K/year), $10K/month to a media buying agency ($120K/year), and $5K/month for a PR firm ($60K/year), totaling $360K in marketing agency fees.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - marketing
+  - professional_services
+  - outsourced
+  - opex
+  - discretionary
+classification_notes: 'Agency fees cover creative development, media buying, public relations, branding, and campaign execution. Retainer-based fees are expensed ratably over the service period. Project-based fees are expensed as services are delivered. The media spend managed by the agency (the actual ad dollars) is classified under Digital or Traditional Advertising, not here — only the agency service fee belongs in this account. PR agency costs may also be classified under G&A in some companies.'
 variance_drivers:
-  tags: []
+  tags: [discretionary, project_driven, outsourcing_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) engaging new agencies for rebranding or campaign launches, (2) increasing retainer scope for additional services, (3) supplementing lean in-house team with agency support, (4) special projects (product launch, IPO communications), (5) expanding to agencies with international market expertise'
+    if_decreased: '(1) building in-house marketing team replacing agency work, (2) consolidating multiple agencies to reduce fees, (3) renegotiating retainer terms downward, (4) pausing discretionary creative projects, (5) shifting from full-service agency to specialized freelancers'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Not separately disclosed in public filings. Consumer brands and CPG companies typically rely heavily on agencies (WPP, Omnicom, Publicis); tech companies increasingly build in-house capabilities. Some companies are shifting from agency-of-record models to project-based engagements, reducing fixed retainer costs.'
+  examples:
+    - company: 'Procter & Gamble'
+      treatment: 'Embedded in SG&A; one of the largest agency spenders globally, working with multiple agency networks'
+    - company: 'Nike'
+      treatment: 'Part of Demand creation expense; uses Wieden+Kennedy and other agencies for iconic campaign creative'
+    - company: 'Stripe'
+      treatment: 'Included in Sales and marketing; primarily in-house marketing with selective agency use for creative campaigns'
+coa_mapping:
+  quickbooks: '6240 - Marketing Agency Fees'
+  netsuite: '7140 - Marketing Agency Fees'
+  sap: '6200400 - Marketing Agency Fees'

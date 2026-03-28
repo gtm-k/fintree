@@ -1,16 +1,17 @@
 id: fintree:FinanceAccounting
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:GeneralAndAdministrativeExpense'
 label: FINANCE & ACCOUNTING
 short_label: FINANCE & ACCOUNTING
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GeneralAdministrativeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Finance & Accounting Staff Compensation + Accounting Software & ERP + External Audit Fees + Tax Advisory & Compliance Fees + Financial Reporting Costs'
+formula_machine: 'fintree:FinanceAccountingStaffCompensation + fintree:AccountingSoftwareErp + fintree:ExternalAuditFees + fintree:TaxAdvisoryComplianceFees + fintree:FinancialReportingCosts'
+asc_reference: 'ASC 720'
 definition: Costs of the finance and accounting function, including internal staff
   and external professional services.
-example: ''
+example: 'A public company spends $4.2M on its finance function: $2.5M staff compensation, $400K ERP subscriptions, $800K audit fees, $300K tax advisory, and $200K reporting costs.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - finance
+  - accounting
+  - audit
+  - tax
+  - corporate
+  - compliance
+classification_notes: 'Includes both internal finance staff and external professional fees. Audit and tax fees are typically disclosed in the proxy statement under Audit Committee. SEC registrants must disclose audit, audit-related, tax, and all other fees paid to the principal auditor.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, compliance_driven, complexity_driven, largely_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) IPO or new SEC reporting requirements adding compliance burden, (2) hiring of additional finance staff for SOX compliance, (3) ERP implementation or upgrade, (4) increased audit fees from scope expansion, (5) international tax complexity from global expansion'
+    if_decreased: '(1) automation of accounting processes reducing headcount, (2) renegotiated audit firm fees, (3) simplification of legal entity structure, (4) outsourcing of bookkeeping or tax preparation, (5) consolidation of ERP systems'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Public companies have significantly higher finance costs than private due to SOX compliance, SEC reporting, and audit requirements. Financial services companies have the largest finance departments. Audit fees scale with company complexity, not just size.'
+  examples:
+    - company: 'Amazon'
+      treatment: 'Finance and accounting costs included in General and administrative; audit fees disclosed in proxy'
+    - company: 'Berkshire Hathaway'
+      treatment: 'Decentralized finance function; each subsidiary maintains its own accounting with minimal corporate finance staff'
+    - company: 'Goldman Sachs'
+      treatment: 'Large internal finance and controllers function; included in noninterest expense'
+coa_mapping:
+  quickbooks: '6600 - Finance & Accounting'
+  netsuite: '7200 - Finance & Accounting'
+  sap: '6600000 - Finance and Accounting'

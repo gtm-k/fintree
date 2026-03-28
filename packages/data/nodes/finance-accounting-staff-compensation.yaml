@@ -1,5 +1,5 @@
 id: fintree:FinanceAccountingStaffCompensation
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:LaborAndRelatedExpense'
 label: Finance & Accounting Staff Compensation
 short_label: Finance & Accounting Staff Com
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:FinanceAccounting
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 710-10'
 definition: Salaries, payroll taxes, and benefits for CFO, controllers, accountants,
   FP&A staff.
-example: ''
+example: 'A 500-employee company has a 12-person finance team costing $1.8M in total compensation: $1.4M salaries, $200K benefits, $200K payroll taxes.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - compensation
+  - finance
+  - accounting
+  - payroll
+  - fixed_cost
+classification_notes: 'Includes salaries for controllers, staff accountants, FP&A analysts, accounts payable/receivable clerks, and payroll specialists. CFO salary may be included here or under Executive Compensation depending on company policy. Temporary accounting staff during close periods should also be captured here.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, largely_fixed, complexity_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) hiring additional accountants for SOX compliance or IPO readiness, (2) annual merit increases, (3) adding FP&A headcount for improved business partnering, (4) market salary adjustments for in-demand accounting talent, (5) internalization of previously outsourced bookkeeping'
+    if_decreased: '(1) automation of AP/AR reducing headcount needs, (2) outsourcing bookkeeping to third-party providers, (3) offshoring accounting functions to lower-cost centers, (4) natural attrition not backfilled, (5) consolidation of accounting roles across business units'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Finance team size varies by complexity. Public companies require more staff for SEC reporting and SOX compliance. Companies using outsourced accounting (e.g., fractional CFO services) will show lower staff comp but higher professional fees.'
+  examples:
+    - company: 'Netflix'
+      treatment: 'Finance and accounting staff costs included within General and administrative line'
+    - company: 'Small private company'
+      treatment: 'May use fractional CFO and outsourced bookkeeper, showing minimal staff comp'
+coa_mapping:
+  quickbooks: '6610 - Finance & Accounting Staff Compensation'
+  netsuite: '7210 - Finance & Accounting Compensation'
+  sap: '6610000 - Finance Accounting Staff Comp'

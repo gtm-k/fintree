@@ -1,5 +1,5 @@
 id: fintree:OtherNonoperatingIncome
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherNonoperatingIncome'
 label: Other Non-Operating Income
 short_label: Other Non-Operating Income
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingIncome
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 220-10'
 definition: Catch-all for non-operating income items not classified above (sublease
   income, government grants, etc.).
-example: ''
+example: 'A retailer earns $2.4M from subleasing excess warehouse space and $800K from a government energy efficiency grant, totaling $3.2M in other non-operating income.'
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - other_income
+  - miscellaneous
+  - non_operating
+  - sublease_income
+  - government_grants
+  - catch_all
+classification_notes: 'This is the residual category for non-operating income. Items here should not fit neatly into interest, dividends, investment gains, FX gains, or asset sale gains. Common items include sublease income, royalty income from non-core IP, insurance recoveries, and government grants. If an item becomes material, consider breaking it into its own line.'
 variance_drivers:
-  tags: []
+  tags: [miscellaneous_items, one_time_receipts, sublease_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new sublease arrangements generating income, (2) government grants or incentive payments received, (3) insurance recovery proceeds, (4) settlement income from lawsuits, (5) royalty income from licensing non-core IP'
+    if_decreased: '(1) expiration of sublease agreements, (2) no government grants in current period, (3) prior-period insurance recoveries not recurring, (4) reclassification of items to specific non-operating income lines'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies differ widely in what falls into this catch-all. Some lump all non-operating income here; others break out each component. Size and materiality drive the level of disaggregation.'
+  examples:
+    - company: 'Tesla'
+      treatment: 'Other income (expense), net — includes miscellaneous items not broken out separately'
+    - company: 'Walmart'
+      treatment: 'Other gains and losses — includes non-recurring items like insurance proceeds'
+    - company: 'Johnson & Johnson'
+      treatment: 'Other income — includes royalty income and miscellaneous non-operating receipts'
+coa_mapping:
+  quickbooks: '7400 - Other Non-Operating Income'
+  netsuite: '7400 - Other Non-Operating Income'
+  sap: '7400000 - Other Non-Operating Income'

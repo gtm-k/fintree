@@ -1,5 +1,5 @@
 id: fintree:SecondaryRawMaterials
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RawMaterialsAndSuppliesUsed'
 label: Secondary Raw Materials
 short_label: Secondary Raw Materials
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:RawMaterials
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Supporting material inputs used in smaller quantities (e.g., lubricants,
   adhesives).
-example: ''
+example: 'An auto manufacturer spends $2M on adhesives, sealants, and lubricants used in assembly. A furniture maker spends $500K on wood stains, varnishes, and fasteners.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - raw_materials
+  - secondary_input
+  - manufacturing
+  - additives
+classification_notes: 'Secondary raw materials are consumed in production and become part of the finished product, but in smaller quantities than the primary material. Distinguish from production supplies (which do NOT become part of the product). If a secondary material cannot be economically traced to individual units, it may be allocated as part of manufacturing overhead instead.'
 variance_drivers:
-  tags: []
+  tags: [commodity_driven, volume_driven, formulation_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Price increases on specialty chemicals or additives, (2) formula or specification changes requiring more secondary inputs, (3) higher production volumes, (4) supply shortages on specialty materials, (5) regulatory changes requiring new or more expensive additives'
+    if_decreased: '(1) Reformulation reducing secondary material usage, (2) bulk purchasing agreements, (3) lower production volumes, (4) substitution with cheaper alternatives, (5) process improvements reducing consumption rates'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Chemical and pharmaceutical companies may have many secondary materials. Simple assembly operations may have negligible secondary materials. Some companies combine primary and secondary materials into a single line item.'
+  examples:
+    - company: '3M'
+      treatment: 'Reports adhesives, abrasives, and specialty chemicals as secondary raw materials across diversified product lines'
+    - company: 'Sherwin-Williams'
+      treatment: 'Reports pigments, solvents, and resins as secondary materials alongside primary titanium dioxide'
+    - company: 'General Mills'
+      treatment: 'Reports flavoring agents, preservatives, and vitamins as secondary materials added to cereal and snack products'
+coa_mapping:
+  quickbooks: '5112 - Secondary Raw Materials'
+  netsuite: '5112 - Secondary Raw Materials'
+  sap: '5112000 - Secondary Raw Materials'

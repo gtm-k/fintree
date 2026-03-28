@@ -1,5 +1,5 @@
 id: fintree:BoothExhibitSpace
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SellingAndMarketingExpense'
 label: Booth / Exhibit Space
 short_label: Booth / Exhibit Space
 level: 4
@@ -7,9 +7,9 @@ node_type: LINE_ITEM
 parent_id: fintree:TradeShowsSalesEvents
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: 'ASC 720-35'
 definition: Rental fees for trade show floor space.
-example: ''
+example: 'A cybersecurity company rents a 20x30 island booth at RSA Conference for $85K, a 10x10 inline booth at Black Hat for $12K, and a corner booth at Gartner Security Summit for $25K, totaling $122K in booth and exhibit space rental fees.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - selling_expense
+  - trade_shows
+  - booth_rental
+  - exhibit_space
+  - opex
+  - discretionary
+classification_notes: 'Booth rental fees are expensed when the event takes place, not when the deposit is paid. Prepaid booth deposits are recorded as prepaid assets. Booth types vary significantly in cost: inline (10x10, $3-15K), peninsula (20x20, $20-50K), island ($50-200K+). Fees typically include floor space, basic carpet, and exhibitor badges; electricity, internet, and other services are additional. If the event is canceled and the deposit is nonrefundable, expense the deposit when cancellation is confirmed.'
 variance_drivers:
-  tags: []
+  tags: [event_calendar_driven, discretionary, booth_size_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) attending more conferences and trade shows, (2) upgrading booth size for greater visibility, (3) venue price increases from event organizers, (4) premium placement fees (near entrance, high-traffic areas), (5) expansion into international trade shows'
+    if_decreased: '(1) reducing the number of events attended, (2) downgrading booth size to smaller footprint, (3) sharing exhibit space with partners, (4) shifting to virtual-only attendance (speaking slots without booth), (5) negotiating multi-event packages with show organizers'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Not separately disclosed in public filings; embedded in total Sales & Marketing or SG&A. Major industry conferences (CES, RSA, NRF, HIMSS) charge premium rates for floor space. Island booths at major conferences can cost $100K+ for space alone. B2B and industrial companies typically spend more on booth space than consumer brands.'
+  examples:
+    - company: 'Samsung'
+      treatment: 'Major CES presence with large island booths; exhibit costs included in SG&A'
+    - company: 'Splunk'
+      treatment: 'Large presence at RSA and .conf user conference; booth costs in Sales and marketing'
+    - company: 'John Deere'
+      treatment: 'Significant ag and construction trade show booths; embedded in SG&A'
+coa_mapping:
+  quickbooks: '6420 - Booth & Exhibit Space Rental'
+  netsuite: '7320 - Booth / Exhibit Space'
+  sap: '6400200 - Booth Exhibit Space'

@@ -1,5 +1,5 @@
 id: fintree:FacilityMaintenanceRepairs
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfPropertyRepairsAndMaintenance'
 label: Facility Maintenance & Repairs
 short_label: Facility Maintenance & Repairs
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:FacilityCosts
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 360-10'
 definition: Ongoing maintenance and repair of the manufacturing facility (not capital
   improvements).
-example: ''
+example: 'A manufacturing plant spends $480K on maintenance: $180K HVAC/electrical maintenance contracts, $120K roof and structural repairs, $100K plumbing and fire suppression servicing, $80K general upkeep.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - manufacturing_overhead
+  - facility
+  - maintenance
+  - repairs
+  - fixed_cost
+classification_notes: 'Routine repairs and maintenance are expensed as incurred under ASC 360-10. Capital improvements that extend useful life or add functionality must be capitalized. The distinction between repair (expense) and improvement (capitalize) requires judgment. Planned shutdowns for maintenance may be accrued or expensed as incurred depending on policy. This is a manufacturing facility cost — corporate office maintenance is under G&A.'
 variance_drivers:
-  tags: []
+  tags: [facility_age_driven, production_driven, regulatory_driven, largely_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) aging facility requiring more frequent repairs, (2) regulatory inspections requiring remediation, (3) deferred maintenance catch-up, (4) expansion or renovation of production areas, (5) inflation on contractor and materials costs'
+    if_decreased: '(1) new or recently renovated facility requiring minimal maintenance, (2) plant closure or consolidation, (3) outsourcing manufacturing to contract manufacturers, (4) preventive maintenance programs reducing reactive repair costs, (5) extended maintenance contract renegotiations'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Maintenance costs vary by facility age and type. Heavy manufacturing (chemicals, metals) requires more maintenance than light assembly. Companies that own facilities bear full maintenance; tenants under NNN leases share costs with landlords. Some companies capitalize major overhauls, reducing current-period expense.'
+  examples:
+    - company: 'Dow Chemical'
+      treatment: 'Significant turnaround and maintenance costs for chemical plants; some capitalized, others expensed'
+    - company: 'Tesla (Gigafactory)'
+      treatment: 'Newer facilities with lower maintenance; costs absorbed into vehicle inventory'
+coa_mapping:
+  quickbooks: '5230 - Facility Maintenance & Repairs'
+  netsuite: '5230 - Facility Maintenance & Repairs'
+  sap: '5230000 - Facility Maintenance Repairs'

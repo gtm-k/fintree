@@ -1,5 +1,5 @@
 id: fintree:ReserveForFutureReturns
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ContractWithCustomerRefundLiabilityCurrent'
 label: Reserve for Future Returns
 short_label: Reserve for Future Returns
 level: 5
@@ -7,7 +7,8 @@ node_type: ADJUSTMENT
 parent_id: fintree:SalesReturnsAllowances
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-55-22'
 definition: Estimated future returns accrued at time of revenue recognition per ASC
   606.
 example: An e-commerce company accruing a 3% return reserve on all holiday season
@@ -25,14 +26,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - return_reserve
+  - refund_liability
+  - estimation
+  - asc_606
+  - variable_consideration
+  - accrual
+classification_notes: "Under ASC 606, the reserve for future returns consists of two components: (1) a refund liability (credit to revenue) for expected returns, and (2) a right-of-return asset (debit to inventory) for the expected recovery of returned goods. The reserve is based on historical return rates adjusted for current conditions. This is an estimate recorded at the time of sale, not when the return actually occurs."
 variance_drivers:
-  tags: []
+  tags: [seasonal, volume_driven, policy_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) higher sales volume requiring proportionally larger reserves, (2) increased return rate estimates based on recent trends, (3) extended return windows (e.g., holiday season policies), (4) new product categories with uncertain return profiles, (5) channel stuffing concerns requiring conservative reserves"
+    if_decreased: "(1) improved product quality reducing expected return rates, (2) better product-market fit lowering returns, (3) tighter return policies shortening return windows, (4) actual returns coming in below estimates (favorable true-ups), (5) shift to non-returnable product sales"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "E-commerce and apparel companies carry the largest return reserves. Electronics and furniture companies have moderate reserves. SaaS and digital-only companies typically have minimal or no return reserves. The reserve amount is usually disclosed in the notes to the financial statements."
+  examples:
+    - company: "Zalando"
+      treatment: "Return provision of 50%+ of outstanding deliveries during peak season"
+    - company: "Nike"
+      treatment: "Sales return allowance recorded as refund liability on balance sheet"
+    - company: "Chewy"
+      treatment: "Return reserve accrued at point of sale based on historical return rates"
+coa_mapping:
+  quickbooks: "4515 - Reserve for Returns"
+  netsuite: "4515 - Return Reserve Accrual"
+  sap: "8515000 - Reserve for Future Returns"

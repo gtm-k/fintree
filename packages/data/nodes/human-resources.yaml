@@ -1,16 +1,17 @@
 id: fintree:HumanResources
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:GeneralAndAdministrativeExpense'
 label: HUMAN RESOURCES
 short_label: HUMAN RESOURCES
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GeneralAdministrativeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'HR Staff Compensation + HRIS & HR Software + Employee Training & Development + Recruiting & Hiring Costs'
+formula_machine: 'fintree:HrStaffCompensation + fintree:HrisHrSoftware + fintree:EmployeeTrainingDevelopment + fintree:RecruitingHiringCosts'
+asc_reference: 'ASC 720'
 definition: Costs of the HR function — recruiting, training, employee relations, and
   HR administration.
-example: ''
+example: 'A 1,000-employee company spends $2.1M on HR: $1.2M HR staff comp, $250K HRIS software, $350K training programs, and $300K recruiting fees.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - human_resources
+  - recruiting
+  - training
+  - employee_relations
+  - corporate
+classification_notes: 'HR costs are driven by total company headcount, not just HR department headcount. Recruiting costs are highly variable — spikes during growth phases. Some companies classify employee training under the functional department rather than centralized HR.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, hiring_driven, compliance_driven, largely_fixed]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) aggressive hiring campaigns requiring more recruiters and fees, (2) implementation of new HRIS platform, (3) expanded training programs for compliance or upskilling, (4) growing company headcount requiring additional HR support, (5) labor law changes requiring new compliance programs'
+    if_decreased: '(1) hiring freezes reducing recruiting costs, (2) layoffs reducing overall HR workload, (3) consolidation of HRIS vendors, (4) shift to self-service HR portals, (5) outsourcing of HR functions (PEO/ASO models)'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Some companies outsource HR entirely through PEOs (Professional Employer Organizations). Tech companies invest heavily in recruiting. Retail/hospitality have high HR costs per dollar of revenue due to turnover. Some companies report HR costs within functional departments rather than centrally.'
+  examples:
+    - company: 'Google (Alphabet)'
+      treatment: 'People Operations costs included in General and administrative; heavy investment in recruiting and culture'
+    - company: 'ADP'
+      treatment: 'As an HR services provider, distinguishes between HR costs serving clients (COGS) and internal HR (G&A)'
+coa_mapping:
+  quickbooks: '6700 - Human Resources'
+  netsuite: '7300 - Human Resources'
+  sap: '6700000 - Human Resources'

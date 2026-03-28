@@ -1,5 +1,5 @@
 id: fintree:FinancialReportingCosts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:ProfessionalFees'
 label: Financial Reporting Costs
 short_label: Financial Reporting Costs
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:FinanceAccounting
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 720'
 definition: Costs of external financial reporting, XBRL tagging, and SEC filing services.
-example: ''
+example: 'A public company pays $280K/year for reporting services: $120K financial printer (10-K, 10-Q, proxy), $80K XBRL/iXBRL tagging, $50K transfer agent fees, $30K annual report design and production.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - finance
+  - reporting
+  - sec_filing
+  - xbrl
+  - compliance
+classification_notes: 'Includes financial printing services (Donnelley, Merrill), XBRL/iXBRL tagging services, transfer agent fees, annual report production, and SEC EDGAR filing services. IPO-related printing and filing costs are typically capitalized as deferred offering costs. Ongoing reporting costs are expensed as incurred. Private companies have minimal financial reporting costs since they do not file with the SEC.'
 variance_drivers:
-  tags: []
+  tags: [compliance_driven, largely_fixed, regulatory_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) IPO creating new SEC reporting requirements, (2) new reporting mandates (climate disclosure, cybersecurity disclosure), (3) increased complexity of disclosures, (4) vendor price increases from reporting service providers, (5) special reports or filings (restatements, S-1 amendments)'
+    if_decreased: '(1) going private eliminating SEC filing requirements, (2) in-house XBRL tagging replacing outsourced services, (3) reduced filing complexity, (4) competitive bidding among financial printing vendors, (5) shift to digital-first annual reports reducing print costs'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Only public companies (SEC registrants) incur significant financial reporting costs. Large accelerated filers have more extensive reporting requirements. Foreign private issuers may have different reporting schedules. iXBRL (inline XBRL) is now required for most SEC filers. Private companies typically have near-zero costs in this category.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Financial reporting costs are immaterial relative to G&A; uses Donnelley for SEC filings'
+    - company: 'Newly public SPAC'
+      treatment: 'Elevated reporting costs in first year due to complex accounting and frequent filings (S-1, Super 8-K)'
+coa_mapping:
+  quickbooks: '6650 - Financial Reporting Costs'
+  netsuite: '7250 - Financial Reporting Costs'
+  sap: '6650000 - Financial Reporting Costs'

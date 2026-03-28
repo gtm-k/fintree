@@ -1,5 +1,5 @@
 id: fintree:FederalIncomeTaxCurrent
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CurrentFederalTaxExpenseBenefit'
 label: Federal Income Tax — Current
 short_label: Federal Income Tax — Current
 level: 3
@@ -7,11 +7,12 @@ node_type: SUB_CATEGORY
 parent_id: fintree:CurrentTaxExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 740-10'
 definition: US federal corporate income tax due for the current year (21% flat rate
   for corporations as of 2026).
-example: ''
-normal_balance: CREDIT
+example: 'A domestic manufacturer with $50M in US taxable income records $10.5M in federal current tax expense at the 21% statutory rate, reduced to $8.9M after $1.6M in R&D tax credits.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - federal_tax
+  - current_tax
+  - us_tax
+  - statutory_rate
+  - 21_percent
+  - asc_740
+classification_notes: 'The 21% flat corporate rate was established by the Tax Cuts and Jobs Act (TCJA) in 2017, down from 35%. Federal current tax is computed on US taxable income, which differs from book income due to permanent differences (meals deduction limits, municipal bond interest exclusion) and timing differences. R&D credits (IRC Section 41), foreign tax credits, and other tax incentives reduce the federal tax below the statutory rate. Companies with significant NOL carryforwards may show zero or negative federal current tax.'
 variance_drivers:
-  tags: []
+  tags: [domestic_taxable_income, tax_credits, statutory_rate, nol_utilization]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) higher US domestic pre-tax income, (2) expiration or reduction of R&D or other tax credits, (3) statutory rate increase by Congress, (4) fewer permanent deductions in current year, (5) full utilization of prior NOL carryforwards'
+    if_decreased: '(1) lower US domestic pre-tax income, (2) R&D tax credits and other credit incentives, (3) NOL carryforward utilization offsetting current income, (4) income shifting to foreign jurisdictions, (5) increased tax-exempt income (municipal bonds)'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'All US corporations face the same 21% statutory rate. Effective rates differ due to credits, deductions, and permanent differences. Companies with significant R&D (tech, pharma) often have lower effective federal rates. Companies with mostly domestic operations have larger federal tax relative to total tax.'
+  examples:
+    - company: 'Walmart'
+      treatment: 'Federal current tax — large domestic component reflecting US-centric operations'
+    - company: 'Tesla'
+      treatment: 'Federal current tax reduced by energy-related credits and stock option deductions'
+    - company: 'Pfizer'
+      treatment: 'Federal current tax — R&D credits and foreign income exclusions lower effective rate'
+coa_mapping:
+  quickbooks: '8810 - Federal Income Tax — Current'
+  netsuite: '8810 - Federal Income Tax — Current'
+  sap: '7811000 - Federal Income Tax — Current'

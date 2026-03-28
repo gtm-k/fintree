@@ -6,8 +6,8 @@ level: 1
 node_type: GAAP_SUBTOTAL
 parent_id: "fintree:OperatingIncome"
 aggregation_type: SUM
-formula_human: "Selling Expenses + General & Administrative + Research & Development + Depreciation & Amortization (if reported separately)"
-formula_machine: "fintree:SellingExpenses + fintree:GeneralAndAdministrative + fintree:ResearchAndDevelopment + fintree:DepreciationAmortizationOpex"
+formula_human: "Selling Expenses + General & Administrative Expenses + Research & Development + Depreciation & Amortization"
+formula_machine: "fintree:SellingExpenses + fintree:GeneralAdministrativeExpenses + fintree:ResearchDevelopment + fintree:DepreciationAmortization"
 asc_reference: "ASC 220"
 definition: "The total of all expenses incurred in the ordinary course of business operations, excluding cost of goods sold. Encompasses selling, general & administrative, R&D, and other operating costs."
 example: "A SaaS company with $30M in sales & marketing, $20M G&A, and $25M R&D reports $75M total operating expenses."

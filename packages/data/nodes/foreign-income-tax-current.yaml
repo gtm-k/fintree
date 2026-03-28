@@ -1,5 +1,5 @@
 id: fintree:ForeignIncomeTaxCurrent
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CurrentForeignTaxExpenseBenefit'
 label: Foreign Income Tax — Current
 short_label: Foreign Income Tax — Current
 level: 3
@@ -7,11 +7,12 @@ node_type: SUB_CATEGORY
 parent_id: fintree:CurrentTaxExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 740-10'
 definition: Income taxes payable in foreign jurisdictions on income earned outside
   the US.
-example: ''
-normal_balance: CREDIT
+example: 'Apple paid $9.3B in foreign current income taxes in FY2023, reflecting taxes in Ireland, China, UK, and other jurisdictions where it earns significant revenue.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - foreign_tax
+  - international_tax
+  - current_tax
+  - transfer_pricing
+  - gilti
+  - pillar_two
+  - asc_740
+classification_notes: 'Foreign current tax is computed under each jurisdiction''s local tax law. Rates vary widely (Ireland 12.5%, Germany 30%, Singapore 17%, UK 25%). The OECD Pillar Two global minimum tax (15%) affects multinationals starting 2024. GILTI (Global Intangible Low-Taxed Income) adds a US tax on certain foreign earnings. Foreign tax credits offset US tax on the same income. Transfer pricing rules (IRC Section 482) govern intercompany pricing and affect the allocation of income across jurisdictions.'
 variance_drivers:
-  tags: []
+  tags: [geographic_income_mix, foreign_rate_changes, transfer_pricing, tax_treaties]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) higher foreign pre-tax income, (2) foreign jurisdictions raising statutory tax rates, (3) OECD Pillar Two minimum tax imposing top-up tax, (4) transfer pricing adjustments increasing foreign taxable income, (5) expiration of foreign tax holidays or incentives'
+    if_decreased: '(1) lower foreign pre-tax income, (2) tax holidays or incentives in developing markets, (3) transfer pricing strategies shifting profits to lower-tax jurisdictions, (4) foreign tax credits reducing the effective foreign rate, (5) income mix shifting to lower-rate countries'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Multinationals with significant international operations (tech, pharma, consumer products) have large foreign current tax. Domestic-focused companies have minimal foreign tax. The ratio of foreign to domestic tax reveals geographic income allocation strategies.'
+  examples:
+    - company: 'Apple'
+      treatment: 'Foreign current tax exceeds US federal — reflects significant international income booking'
+    - company: 'Pfizer'
+      treatment: 'Large foreign current tax — major operations in Ireland and other favorable jurisdictions'
+    - company: 'McDonald''s'
+      treatment: 'Foreign current tax from franchise royalty income earned across 100+ countries'
+coa_mapping:
+  quickbooks: '8830 - Foreign Income Tax — Current'
+  netsuite: '8830 - Foreign Income Tax — Current'
+  sap: '7813000 - Foreign Income Tax — Current'

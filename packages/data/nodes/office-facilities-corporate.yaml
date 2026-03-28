@@ -1,16 +1,17 @@
 id: fintree:OfficeFacilitiesCorporate
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OccupancyNet'
 label: OFFICE & FACILITIES — CORPORATE
 short_label: OFFICE & FACILITIES — CORPORAT
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:GeneralAdministrativeExpenses
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Office Rent/Lease + Office Utilities + Office Equipment & Supplies + Office Maintenance & Janitorial + Corporate Depreciation (Buildings & Fixtures)'
+formula_machine: 'fintree:OfficeRentLease + fintree:OfficeUtilities + fintree:OfficeEquipmentSupplies + fintree:OfficeMaintenanceJanitorial + fintree:CorporateDepreciationBuildingsFixtures'
+asc_reference: 'ASC 842'
 definition: Costs of maintaining corporate office space and facilities (excludes manufacturing/production
   facilities, which are Manufacturing Overhead).
-example: ''
+example: 'A company with 50,000 sq ft of office space in Manhattan spends $3.5M: $2.4M rent, $180K utilities, $120K supplies, $200K maintenance, $600K depreciation on leasehold improvements.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - office
+  - facilities
+  - rent
+  - lease
+  - occupancy
+  - fixed_cost
+classification_notes: 'Strictly corporate/administrative office facilities — manufacturing plants are manufacturing overhead, retail stores are selling expenses, and warehouses may be COGS or selling. Under ASC 842, operating leases create a right-of-use asset and lease liability on the balance sheet, but the P&L expense is presented as a single lease cost.'
 variance_drivers:
-  tags: []
+  tags: [rent_driven, location_driven, largely_fixed, lease_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) office expansion or relocation to more expensive space, (2) return-to-office requiring additional capacity, (3) rent escalation clauses in existing leases, (4) opening offices in new geographic markets, (5) leasehold improvement amortization from build-outs'
+    if_decreased: '(1) shift to remote/hybrid work reducing office footprint, (2) subleasing excess office space, (3) consolidating multiple offices into one, (4) lease renegotiations at renewal, (5) relocating from high-cost to low-cost markets'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Varies enormously by location (Manhattan vs. suburban), industry, and remote work policies. Under ASC 842, all operating leases are now on balance sheet. Some companies report occupancy as a separate line; others embed it in G&A. Financial services firms (banking branches) have very high occupancy costs.'
+  examples:
+    - company: 'WeWork'
+      treatment: 'Occupancy is a core cost; office lease expense reported under cost of revenue and operating expenses'
+    - company: 'Shopify'
+      treatment: 'Went digital by default in 2020; significantly reduced office footprint and associated G&A costs'
+    - company: 'JPMorgan Chase'
+      treatment: 'Massive real estate portfolio; occupancy expense reported as a separate line within noninterest expense'
+coa_mapping:
+  quickbooks: '6550 - Office & Facilities'
+  netsuite: '7150 - Office & Facilities (Corporate)'
+  sap: '6550000 - Office Facilities Corporate'

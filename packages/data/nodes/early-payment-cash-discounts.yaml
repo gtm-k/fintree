@@ -1,5 +1,5 @@
 id: fintree:EarlyPaymentCashDiscounts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SalesDiscountsGoods'
 label: Early Payment / Cash Discounts
 short_label: Early Payment / Cash Discounts
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesDiscounts
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-32-5'
 definition: Discounts offered for early payment (e.g., "2/10 net 30" = 2% discount
   if paid in 10 days).
-example: ''
+example: "A building materials supplier offering '2/10 net 30' terms sees 40% of customers take the discount, resulting in $800K in cash discounts on $40M in qualifying invoices."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - cash_discount
+  - early_payment
+  - payment_terms
+  - asc_606
+  - working_capital
+classification_notes: "Under ASC 606, early payment discounts are variable consideration and should be estimated at contract inception using the expected value or most likely amount method. Historically (pre-ASC 606), some companies recorded cash discounts only when taken by the customer. The net method (reducing revenue at time of sale) is now preferred over the gross method. Cash discounts also impact working capital analysis as they accelerate cash collection."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, pricing_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) more customers taking early payment discounts due to low borrowing costs, (2) increased discount terms offered to improve cash collections, (3) higher sales volumes generating more discount-eligible invoices, (4) seasonal patterns in customer payment behavior"
+    if_decreased: "(1) fewer customers able to pay early due to tight liquidity, (2) reduction or elimination of early payment discount programs, (3) higher interest rates making early payment less attractive for customers, (4) shift to prepaid or subscription billing models"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Early payment discounts are common in B2B manufacturing and distribution. Retail and SaaS companies rarely offer them. Some companies report cash discounts as a financing cost rather than contra-revenue, though ASC 606 favors contra-revenue treatment."
+  examples:
+    - company: "Fastenal"
+      treatment: "Cash discounts offered on standard payment terms; netted against revenue"
+    - company: "Emerson Electric"
+      treatment: "Early payment discounts included in net sales adjustments"
+    - company: "Caterpillar"
+      treatment: "Cash discounts reflected in machinery and equipment revenue"
+coa_mapping:
+  quickbooks: "4523 - Cash Discounts"
+  netsuite: "4523 - Early Payment Discounts"
+  sap: "8523000 - Early Payment / Cash Discounts"

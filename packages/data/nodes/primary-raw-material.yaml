@@ -1,5 +1,5 @@
 id: fintree:PrimaryRawMaterial
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:RawMaterialsAndSuppliesUsed'
 label: Primary Raw Material
 short_label: Primary Raw Material
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:RawMaterials
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: The principal material input (e.g., steel in auto manufacturing, silicon
   in semiconductors).
-example: ''
+example: 'A steel manufacturer purchases $50M of iron ore and coking coal as its primary raw materials. A semiconductor fab purchases $30M of silicon wafers.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - raw_materials
+  - commodity
+  - primary_input
+  - manufacturing
+classification_notes: 'The primary raw material is the highest-volume, highest-cost material input that defines the core product. It is the largest single driver of material cost variance. Companies often hedge primary raw material prices. Must be distinguished from secondary materials (additives, catalysts) which are used in smaller quantities.'
 variance_drivers:
-  tags: []
+  tags: [commodity_driven, volume_driven, hedging_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Global commodity price spike for the primary input, (2) supply shortage or cartel pricing, (3) higher production volumes, (4) hedge positions expiring at unfavorable rates, (5) quality specification changes requiring premium-grade material'
+    if_decreased: '(1) Commodity price decline or favorable futures contracts, (2) new supply sources entering the market, (3) lower production volumes, (4) material substitution to a lower-cost alternative, (5) long-term supply agreement at below-market rates'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'The identity of the primary raw material varies by industry: steel/aluminum (auto), silicon (semiconductor), crude oil (chemicals), cotton/polyester (apparel). Vertically integrated companies may extract their own primary material, showing lower costs here but higher operating costs.'
+  examples:
+    - company: 'Alcoa'
+      treatment: 'Reports alumina and bauxite as primary raw materials; vertically integrated from mining to smelting'
+    - company: 'TSMC'
+      treatment: 'Reports silicon wafers from Shin-Etsu and SUMCO as the principal raw material for chip fabrication'
+    - company: 'Tyson Foods'
+      treatment: 'Reports live cattle, hogs, and poultry as primary raw material inputs for protein processing'
+coa_mapping:
+  quickbooks: '5111 - Primary Raw Material'
+  netsuite: '5111 - Primary Raw Material'
+  sap: '5111000 - Primary Raw Material'

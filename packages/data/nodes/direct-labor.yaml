@@ -1,18 +1,19 @@
 id: fintree:DirectLabor
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectLabor'
 label: DIRECT LABOR
 short_label: DIRECT LABOR
 level: 2
 node_type: MAJOR_CATEGORY
 parent_id: fintree:CostOfGoodsSoldCostOfRevenue
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Production Wages + Payroll Taxes (Direct) + Benefits (Direct Labor)'
+formula_machine: 'fintree:ProductionWages + fintree:PayrollTaxesDirect + fintree:BenefitsDirectLabor'
+asc_reference: 'ASC 330'
 definition: Compensation for employees whose time is directly and exclusively tied
   to production of the goods sold. Excludes supervisory, administrative, and indirect
   labor.
-example: ''
-normal_balance: CREDIT
+example: 'An auto assembly plant employs 2,000 production workers at an average total cost of $65K/year (wages + benefits + payroll taxes), totaling $130M in direct labor costs annually.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -25,14 +26,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - labor
+  - wages
+  - production
+  - headcount
+classification_notes: 'Direct labor includes only compensation for employees whose time is directly and exclusively traceable to production of goods sold. Supervisory, maintenance, and janitorial labor in the factory is indirect labor (Manufacturing Overhead). In professional services, direct labor is billable consultant time. The direct/indirect labor boundary is a key judgment area affecting COGS vs. overhead allocation.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, rate_driven, efficiency_driven, volume_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Wage rate increases or union contract negotiations, (2) higher production volumes requiring more labor hours, (3) increased overtime to meet demand, (4) rising healthcare and benefits costs, (5) labor inefficiency from new product introductions or training'
+    if_decreased: '(1) Automation replacing manual labor, (2) lower production volumes reducing hours, (3) offshoring to lower-cost labor markets, (4) improved labor efficiency and learning curve gains, (5) headcount reductions or restructuring'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Labor-intensive manufacturers (apparel, food processing) have high direct labor as a percent of COGS. Capital-intensive manufacturers (semiconductors, chemicals) have low direct labor. Companies outsourcing production show lower direct labor but higher purchased component costs. Union vs. non-union labor affects cost structure.'
+  examples:
+    - company: 'Toyota'
+      treatment: 'Reports production wages and benefits for assembly workers as direct labor; known for lean manufacturing efficiency'
+    - company: 'Foxconn'
+      treatment: 'Reports massive direct labor costs for electronics assembly; labor is the primary value-add for contract manufacturer'
+    - company: 'Accenture'
+      treatment: 'Reports billable consultant compensation as direct labor (cost of services) in professional services model'
+coa_mapping:
+  quickbooks: '5200 - Direct Labor'
+  netsuite: '5200 - Direct Labor'
+  sap: '5200000 - Direct Labor'

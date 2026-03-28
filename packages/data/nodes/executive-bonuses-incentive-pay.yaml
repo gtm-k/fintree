@@ -1,5 +1,5 @@
 id: fintree:ExecutiveBonusesIncentivePay
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:NoninterestExpenseIncentiveCompensation'
 label: Executive Bonuses & Incentive Pay
 short_label: 'Executive Bonuses & Incentive '
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:ExecutiveManagementCompensation
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 710-10'
 definition: Annual performance bonuses for executives tied to company-wide metrics.
-example: ''
+example: 'A CFO earns a $500K annual cash bonus (target 75% of base salary) after the company hits 110% of its revenue target and 105% of EBITDA target.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,28 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - compensation
+  - executive_pay
+  - bonus
+  - incentive
+  - performance_based
+  - variable_cost
+classification_notes: 'Bonuses are accrued when probable and estimable (ASC 710-10-25). Short-term incentive plans (STIPs) are typically annual cash bonuses. Long-term incentive plans (LTIPs) may be cash or equity. Distinguish from stock-based compensation which is a separate line. Sign-on bonuses for new executives should be amortized over the expected service period.'
 variance_drivers:
-  tags: []
+  tags: [performance_driven, board_driven, variable_cost, accrual_timing]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) company exceeding performance targets triggering above-target payouts, (2) new executive hires with sign-on bonuses, (3) special retention bonuses during M&A, (4) expansion of incentive plan metrics or participation, (5) catch-up accruals for updated performance estimates'
+    if_decreased: '(1) company missing performance targets resulting in zero or below-target payouts, (2) restructuring or elimination of bonus programs, (3) shift from cash bonuses to equity compensation, (4) executive departures forfeiting bonus eligibility, (5) tightening of bonus criteria by compensation committee'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Financial services firms pay significantly higher bonuses (often multiples of base salary). Tech companies tend to weight equity over cash bonuses. Bonus structures disclosed in proxy statement under Non-Equity Incentive Plan Compensation.'
+  examples:
+    - company: 'Goldman Sachs'
+      treatment: 'Compensation and benefits includes large discretionary bonuses; dominant comp component for senior bankers'
+    - company: 'Alphabet'
+      treatment: 'CEO historically declined cash bonus; other executives receive modest bonuses relative to equity awards'
+coa_mapping:
+  quickbooks: '6520 - Executive Bonuses'
+  netsuite: '7120 - Executive Bonuses & Incentive Pay'
+  sap: '6520000 - Executive Bonus Expense'

@@ -1,15 +1,16 @@
 id: fintree:ProductionWages
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectLabor'
 label: PRODUCTION WAGES
 short_label: PRODUCTION WAGES
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DirectLabor
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Regular Production Wages + Production Overtime Pay'
+formula_machine: 'fintree:RegularProductionWages + fintree:ProductionOvertimePay'
+asc_reference: 'ASC 330'
 definition: Gross wages paid to direct production workers.
-example: ''
+example: 'A food processing plant pays $18M in regular wages to 500 production workers and $3M in overtime during peak season (holiday production ramp), for total production wages of $21M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - wages
+  - production
+  - hourly_labor
+  - overtime
+classification_notes: 'Production wages include only gross pay (regular and overtime) for workers directly involved in manufacturing. Excludes employer-paid payroll taxes (separate line item), benefits (separate), and supervisory salaries (indirect labor). In a standard cost system, wage rate variances and labor efficiency variances are tracked separately.'
 variance_drivers:
-  tags: []
+  tags: [rate_driven, volume_driven, efficiency_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Hourly wage rate increases (minimum wage hikes, union contracts), (2) higher production volumes requiring more labor hours, (3) excessive overtime during peak demand, (4) new product launches with steep learning curves, (5) labor market tightness driving wage inflation'
+    if_decreased: '(1) Automation reducing labor hours per unit, (2) lower production volumes, (3) better production scheduling reducing overtime, (4) learning curve improvements on existing products, (5) outsourcing production to lower-cost facilities'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Union shops typically have higher wage rates but more predictable costs. Non-union manufacturers have more flexibility but may face higher turnover. Companies in high-cost regions (US, Western Europe) show higher wages than those in Asia or Latin America.'
+  examples:
+    - company: 'General Motors'
+      treatment: 'Reports UAW-negotiated hourly wages for assembly workers; significant overtime during truck/SUV production peaks'
+    - company: 'Nike'
+      treatment: 'Minimal direct production wages in-house; most production is outsourced to contract manufacturers'
+    - company: 'Tyson Foods'
+      treatment: 'Reports production wages for meat processing workers; significant seasonal overtime during holiday periods'
+coa_mapping:
+  quickbooks: '5210 - Production Wages'
+  netsuite: '5210 - Production Wages'
+  sap: '5210000 - Production Wages'

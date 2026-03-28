@@ -1,5 +1,5 @@
 id: fintree:DevopsPlatformEngineering
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: DEVOPS / PLATFORM ENGINEERING
 short_label: DEVOPS / PLATFORM ENGINEERING
 level: 3
@@ -25,14 +25,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - DevOps
+  - SRE
+  - platform engineering
+  - production reliability
+  - incident response
+  - CI/CD
+  - infrastructure automation
+classification_notes: Engineers maintaining production uptime belong in COGS. Engineers
+  building new features or internal tools belong in R&D. The split between DevOps
+  (COGS) and platform engineering (R&D) often requires time allocation estimates.
+  On-call compensation and incident response are typically COGS.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - system complexity
+    - reliability investment
+    - automation
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Hiring additional SRE/DevOps engineers to improve uptime SLAs
+      2. Growing system complexity requiring more operational support
+      3. Post-incident investment in reliability after outages
+      4. Insourcing managed services previously handled by vendors
+      5. Wage inflation in competitive DevOps labor market
+    if_decreased: |-
+      1. Infrastructure automation reducing manual operations work
+      2. Migration to managed services (serverless, PaaS) reducing ops burden
+      3. Consolidation of engineering teams after platform stabilization
+      4. Outsourcing NOC/operations to managed service providers
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Most SaaS companies include DevOps labor in cost of revenue, but the
+    boundary with R&D engineering varies. Some allocate a percentage of total engineering
+    to COGS based on time studies. Others classify all infrastructure engineers as
+    R&D.
+  examples:
+    - company: Atlassian
+      treatment: Allocates a portion of engineering costs to cost of revenue for production
+        operations and support
+    - company: GitLab
+      treatment: Reports infrastructure and reliability engineering costs within cost
+        of revenue
+    - company: Fastly
+      treatment: Includes network operations and platform engineering in cost of revenue
+coa_mapping:
+  quickbooks: '5500 - DevOps / Platform Engineering'
+  netsuite: '5500 - DevOps Platform Engineering'
+  sap: '0055000 - DevOps Platform Engineering'

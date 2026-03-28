@@ -1,5 +1,5 @@
 id: fintree:RdSalariesWages
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpensePersonnel"
 label: R&D Salaries & Wages
 short_label: R&D Salaries & Wages
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:RdPersonnel
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25"
 definition: Base salary and wages for scientists, engineers, and developers engaged
   in R&D.
-example: ''
+example: "A mid-stage SaaS company pays $140K average salary to 150 software engineers, totaling $21M in R&D salaries annually."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - personnel
+  - salaries
+  - headcount_driven
+  - asc_730
+  - base_compensation
+classification_notes: "Only base salary and wages for employees whose primary role is R&D. If an employee splits time between R&D and other functions (e.g., customer support), allocate based on time records. Overtime and shift differentials for R&D staff are included here."
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, salary_inflation, geographic_mix]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new engineering hires, (2) annual merit increases and cost-of-living adjustments, (3) competitive salary benchmarking adjustments, (4) insourcing previously contracted work"
+    if_decreased: "(1) R&D layoffs or reduction in force, (2) attrition without backfill, (3) offshoring to lower-cost regions, (4) reclassification of roles to other departments"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Silicon Valley companies pay significantly higher base salaries than other regions. Companies with large offshore R&D centers (India, Eastern Europe) have lower per-capita salary costs. Some companies bundle SBC into salary line items."
+  examples:
+    - company: "Google"
+      treatment: "R&D salaries included in research and development expense; top-of-market compensation"
+    - company: "Infosys"
+      treatment: "R&D personnel costs reflect lower-cost geography; significant offshore engineering"
+    - company: "Microsoft"
+      treatment: "R&D salaries within research and development; global engineering workforce"
+coa_mapping:
+  quickbooks: "6610 - R&D Salaries & Wages"
+  netsuite: "6610 - R&D Salaries & Wages"
+  sap: "6610000 - R&D Salaries & Wages"

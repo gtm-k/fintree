@@ -1,5 +1,5 @@
 id: fintree:NetworkingCdn
-xbrl_tag: ''
+xbrl_tag: us-gaap:CommunicationsAndInformationTechnology
 label: Networking & CDN
 short_label: Networking & CDN
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Data transfer, bandwidth, and content delivery network costs.
-example: ''
+example: A video streaming SaaS company pays $340K/month to Cloudflare and AWS CloudFront
+  for CDN bandwidth to deliver content to global users.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,48 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - bandwidth
+  - CDN
+  - data transfer
+  - content delivery
+  - network egress
+  - cloud infrastructure
+  - COGS
+classification_notes: Includes data egress charges, CDN fees, and inter-region transfer
+  costs. Only production-environment networking belongs in COGS; dev/test networking
+  should be classified under R&D. Internal corporate network costs belong in G&A.
 variance_drivers:
-  tags: []
+  tags:
+    - traffic volume
+    - pricing tier
+    - geographic distribution
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. User traffic growth driving higher bandwidth consumption
+      2. Expanded to new geographic regions requiring additional CDN edge locations
+      3. Richer media content (video, images) increasing per-request data transfer
+      4. Cloud provider egress price increases
+    if_decreased: |-
+      1. Implemented caching optimizations reducing CDN traffic
+      2. Negotiated committed-use discounts with CDN provider
+      3. Migrated to a lower-cost CDN provider
+      4. Compressed assets and optimized delivery reducing bandwidth usage
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Most SaaS companies bundle networking and CDN costs within a broader
+    cloud infrastructure or hosting line in COGS. Media and streaming companies often
+    break out bandwidth costs separately due to their materiality.
+  examples:
+    - company: Netflix
+      treatment: Reports CDN and bandwidth as a major component of cost of revenue
+        including Open Connect infrastructure costs
+    - company: Cloudflare
+      treatment: Reports network costs including bandwidth, co-location, and transit
+        within cost of revenue
+    - company: Fastly
+      treatment: Reports bandwidth and co-location costs as primary components of
+        cost of revenue
+coa_mapping:
+  quickbooks: '5210 - Networking & CDN Costs'
+  netsuite: '5210 - Networking and CDN'
+  sap: '4200100 - Networking and CDN Costs'

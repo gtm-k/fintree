@@ -1,5 +1,5 @@
 id: fintree:FinanceLeaseInterest
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:FinanceLeaseInterestExpense'
 label: Finance Lease Interest
 short_label: Finance Lease Interest
 level: 5
@@ -7,10 +7,11 @@ node_type: ADJUSTMENT
 parent_id: fintree:InterestExpense
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 842'
 definition: Interest component of finance lease payments (ASC 842) — treated as interest
   expense on the P&L.
-example: ''
+example: 'A company with a $5M finance lease (5-year term, 6% implicit rate) recognizes $300K in finance lease interest in year 1, declining over the lease term as the liability is amortized.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - interest_expense
+  - finance_lease
+  - asc_842
+  - below_ebit
+  - non_cash
+  - amortization
+classification_notes: 'Finance leases (formerly capital leases) split the P&L impact into two components: (1) depreciation of the ROU asset (in depreciation expense) and (2) interest on the lease liability (here, in interest expense). This differs from operating leases which show a single straight-line lease expense. Finance lease classification triggers when lease transfers substantially all risks/rewards of ownership. Interest declines over the lease term as the liability balance decreases (front-loaded expense pattern).'
 variance_drivers:
-  tags: []
+  tags: [lease_driven, interest_rate_driven, declining_over_term, asset_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) new finance lease agreements entered into, (2) lease modifications increasing the liability balance, (3) higher incremental borrowing rates on new leases, (4) acquisition bringing new finance leases onto the balance sheet, (5) reclassification of operating leases to finance leases'
+    if_decreased: '(1) natural decline as lease liability is paid down (declining interest pattern), (2) finance leases reaching end of term, (3) early termination or buyout of leased assets, (4) refinancing at lower rates, (5) shift to operating lease structures'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Finance lease interest appears below EBIT in interest expense. Companies with heavy equipment (airlines, trucking, manufacturing) have significant finance leases. Under IFRS 16, all leases are treated similarly to finance leases, creating comparability differences with US GAAP. The split between depreciation and interest for finance leases creates a front-loaded total expense pattern vs. straight-line for operating leases.'
+  examples:
+    - company: 'Delta Air Lines'
+      treatment: 'Significant aircraft finance leases; interest component disclosed in interest expense footnotes'
+    - company: 'FedEx'
+      treatment: 'Fleet and facility finance leases; finance lease interest separately disclosed under ASC 842'
+coa_mapping:
+  quickbooks: '7200 - Finance Lease Interest'
+  netsuite: '8200 - Finance Lease Interest Expense'
+  sap: '7200000 - Finance Lease Interest'

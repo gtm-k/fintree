@@ -1,16 +1,17 @@
 id: fintree:PayrollTaxesDirect
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectLabor'
 label: PAYROLL TAXES — DIRECT
 short_label: PAYROLL TAXES — DIRECT
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:DirectLabor
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Employer FICA / Payroll Tax (Direct)'
+formula_machine: 'fintree:EmployerFicaPayrollTaxDirect'
+asc_reference: 'ASC 710'
 definition: Employer-paid payroll taxes (FICA, FUTA, SUTA) attributable to direct
   labor employees.
-example: ''
+example: 'A manufacturer with $20M in direct production wages pays approximately $1.53M in employer FICA (7.65% of wages up to Social Security wage base), $120K in FUTA, and $400K in state unemployment taxes.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - payroll_tax
+  - fica
+  - futa
+  - suta
+  - employer_tax
+classification_notes: 'Employer-paid payroll taxes for direct production workers are allocated to COGS. Includes FICA (Social Security 6.2% + Medicare 1.45%), FUTA (0.6% on first $7K), and SUTA (varies by state and experience rating). These taxes are computed on gross wages including overtime. The allocation between COGS and SG&A must match the employee allocation. Payroll taxes are capped at certain wage thresholds (Social Security cap) but Medicare has no cap.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, rate_driven, regulatory_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Higher production headcount increasing taxable wages, (2) wage increases pushing more wages above previous tax thresholds, (3) legislative increases to payroll tax rates, (4) higher state unemployment tax rates due to layoff experience, (5) Social Security wage base increases'
+    if_decreased: '(1) Lower production headcount, (2) more employees hitting Social Security wage cap earlier in year, (3) improved unemployment experience rating, (4) shift to 1099 contractors not subject to employer payroll tax, (5) favorable state tax rate adjustments'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'US payroll tax rates are relatively fixed (~7.65% FICA). International operations face very different employer tax rates — European social charges can be 20-40% of wages. Companies with high turnover face higher unemployment tax rates. Multinational companies must track payroll taxes by jurisdiction.'
+  examples:
+    - company: 'General Electric'
+      treatment: 'Allocates employer FICA and state unemployment taxes to COGS based on direct labor hours in manufacturing'
+    - company: 'Siemens (US operations)'
+      treatment: 'Reports employer payroll taxes on US production workers at ~8% of gross wages including FICA, FUTA, and SUTA'
+    - company: 'Stellantis (US)'
+      treatment: 'Reports significant payroll tax burden on UAW workforce; Social Security cap reached by many skilled trades workers mid-year'
+coa_mapping:
+  quickbooks: '5220 - Payroll Taxes - Direct'
+  netsuite: '5220 - Payroll Taxes - Direct'
+  sap: '5220000 - Payroll Taxes Direct Labor'

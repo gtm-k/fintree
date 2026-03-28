@@ -1,5 +1,5 @@
 id: fintree:LicensingOfPhysicalProducts
-xbrl_tag: ''
+xbrl_tag: us-gaap:LicenseAndServicesRevenue
 label: Licensing of Physical Products
 short_label: Licensing of Physical Products
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Revenue from licensing rights to use a physical product design (distinct
   from software licensing).
-example: ''
+example: A consumer electronics company earns $8M/year licensing its patented hardware
+  design to a third-party manufacturer in Asia.
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,47 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - product licensing
+  - royalty revenue
+  - intellectual property
+  - manufacturing rights
+  - design patents
+  - physical products
+classification_notes: Distinct from software licensing revenue. Applies when the
+  company grants rights to manufacture or sell a physical product design. If the company
+  manufactures and sells the product directly, classify under product sales revenue instead.
 variance_drivers:
-  tags: []
+  tags:
+    - contract terms
+    - licensee volume
+    - IP portfolio
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Signed new licensing agreements with additional manufacturers
+      2. Existing licensees increased production volumes driving royalty growth
+      3. Launched new product designs attracting licensing interest
+      4. Expanded into new geographic markets through licensing partners
+    if_decreased: |-
+      1. Key licensing agreements expired or were not renewed
+      2. Licensees reduced production volumes due to market softness
+      3. Competitive designs reduced demand for licensed products
+      4. Transitioned from licensing model to direct manufacturing
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies report licensing revenue within product revenue; others
+    break it out as a separate revenue stream. Royalty-based licensing may be recognized
+    over time vs. upfront depending on contract structure under ASC 606.
+  examples:
+    - company: Qualcomm
+      treatment: Reports technology licensing fees as a separate QTL segment, distinct
+        from chip sales revenue
+    - company: Dolby Laboratories
+      treatment: Reports licensing revenue separately from products and services revenue
+        in its segment reporting
+    - company: ARM Holdings
+      treatment: Separates license revenue (upfront design fees) from royalty revenue
+        (per-unit shipments)
+coa_mapping:
+  quickbooks: '4300 - Licensing Revenue'
+  netsuite: '4300 - Product Licensing Revenue'
+  sap: '4100300 - Licensing Revenue - Physical Products'

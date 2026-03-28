@@ -1,5 +1,5 @@
 id: fintree:MachineryEquipmentDepreciation
-xbrl_tag: ''
+xbrl_tag: "us-gaap:Depreciation"
 label: Machinery & Equipment Depreciation
 short_label: Machinery & Equipment Deprecia
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:DepreciationOfPropertyPlantEquipment
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 360-10"
 definition: Depreciation on production machinery, manufacturing equipment, and heavy
   machinery.
-example: ''
+example: "A steel manufacturer depreciates $200M in blast furnaces and rolling mills over 20 years, recording $10M/year in machinery and equipment depreciation."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - depreciation
+  - machinery
+  - equipment
+  - non_cash
+  - asc_360
+  - tangible_assets
+  - capital_intensive
+classification_notes: "This captures depreciation on non-production general-purpose machinery and equipment reported within the D&A operating expense line. Production machinery depreciation is typically in COGS. Useful lives vary: office equipment 3-7 years, heavy machinery 10-20 years. Salvage value assumptions affect annual depreciation amount."
 variance_drivers:
-  tags: []
+  tags: [capex_driven, non_cash, asset_age, predictable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new machinery and equipment purchases, (2) business acquisitions adding equipment, (3) shorter useful life estimates, (4) accelerated depreciation for technology equipment"
+    if_decreased: "(1) equipment becoming fully depreciated, (2) asset disposals and retirements, (3) longer useful life estimates, (4) reduced capital spending in prior years"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Heavy industry companies (mining, oil and gas, construction) have the highest machinery depreciation. Useful life assumptions vary significantly by industry and can differ between companies, impacting comparability. Some companies use units-of-production for machinery directly tied to output."
+  examples:
+    - company: "Deere & Company"
+      treatment: "Significant machinery depreciation on manufacturing and construction equipment"
+    - company: "United Rentals"
+      treatment: "Rental fleet depreciation is a major cost component"
+    - company: "3M"
+      treatment: "Diverse machinery depreciation across multiple manufacturing segments"
+coa_mapping:
+  quickbooks: "6720 - Machinery & Equipment Depreciation"
+  netsuite: "6720 - Machinery & Equipment Depreciation"
+  sap: "6720000 - Machinery & Equipment Depreciation"

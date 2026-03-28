@@ -1,5 +1,5 @@
 id: fintree:ComputeEc2VirtualMachines
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Compute / EC2 / Virtual Machines
 short_label: Compute / EC2 / Virtual Machin
 level: 4
@@ -9,7 +9,8 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Cloud compute instance costs directly serving the production environment.
-example: ''
+example: A SaaS company spends $45K/month on AWS EC2 reserved instances and $12K/month
+  on on-demand instances to handle peak traffic for its production application.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,50 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cloud compute
+  - EC2
+  - virtual machines
+  - reserved instances
+  - on-demand
+  - auto-scaling
+  - production infrastructure
+classification_notes: Only production compute serving customers is COGS. Dev/staging
+  compute belongs in R&D. Reserved instance prepayments may be capitalized as prepaid
+  expenses and amortized. Spot/preemptible instances create cost variability. GPU instances
+  for ML inference may be a separate sub-line.
 variance_drivers:
-  tags: []
+  tags:
+    - usage growth
+    - instance pricing
+    - architecture efficiency
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Customer growth requiring more compute capacity
+      2. Migration to larger or GPU-heavy instance types
+      3. Expiration of reserved instance discounts reverting to on-demand pricing
+      4. New workloads (ML inference, real-time processing) requiring additional compute
+      5. Geographic expansion adding regional compute clusters
+    if_decreased: |-
+      1. Right-sizing instances to match actual utilization
+      2. Purchasing reserved instances or savings plans at discount
+      3. Containerization and serverless migration reducing idle capacity
+      4. Improved application efficiency reducing compute per request
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Most SaaS companies combine all cloud compute into a single hosting
+    line. Some hyperscale users break out compute from storage and networking. Companies
+    using co-location may report server depreciation instead.
+  examples:
+    - company: MongoDB
+      treatment: Reports cloud hosting (including compute) as a major cost of revenue
+        component in its Atlas cloud product
+    - company: Cloudflare
+      treatment: Reports co-location and cloud compute costs within cost of revenue,
+        including owned server depreciation
+    - company: PagerDuty
+      treatment: Includes AWS compute and hosting in cost of revenue with committed
+        spend disclosures
+coa_mapping:
+  quickbooks: '5110 - Compute / VM Costs'
+  netsuite: '5110 - Cloud Compute - EC2/VM'
+  sap: '0051100 - Compute EC2 Virtual Machines'

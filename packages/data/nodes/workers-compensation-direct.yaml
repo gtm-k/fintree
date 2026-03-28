@@ -1,5 +1,5 @@
 id: fintree:WorkersCompensationDirect
-xbrl_tag: ''
+xbrl_tag: us-gaap:LaborAndRelatedExpense
 label: Workers' Compensation — Direct
 short_label: Workers' Compensation — Direct
 level: 4
@@ -10,7 +10,9 @@ formula_human: ''
 asc_reference: ''
 definition: Workers' compensation insurance premium attributable to direct production
   employees.
-example: ''
+example: A manufacturing company pays $275K/year in workers' compensation insurance
+  premiums covering 200 production floor employees at a rate of $4.50 per $100 of
+  payroll.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +26,51 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - workers compensation
+  - insurance premium
+  - workplace safety
+  - direct labor
+  - COGS benefits
+  - occupational risk
+classification_notes: Workers' comp rates vary significantly by job classification
+  code and state. Manufacturing and construction have much higher rates than office
+  workers. Self-insured companies record estimated claims liability rather than insurance
+  premiums. Experience modification rates (EMR) adjust premiums based on claims history.
+  Only premiums for direct production employees belong here.
 variance_drivers:
-  tags: []
+  tags:
+    - headcount
+    - claims history
+    - insurance rates
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Grew direct labor headcount increasing total covered payroll
+      2. Higher claims experience raising the experience modification rate (EMR)
+      3. State regulatory increases in workers' comp premium rates
+      4. Expanded into higher-risk job classifications with costlier coverage
+      5. Salary increases raised the payroll base on which premiums are calculated
+    if_decreased: |-
+      1. Reduced direct labor headcount through automation
+      2. Improved workplace safety program lowered claims and EMR
+      3. Switched to self-insurance or high-deductible program
+      4. Negotiated better rates through safety certifications or carrier change
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Workers' comp costs vary dramatically by industry. Manufacturing and
+    logistics companies have material costs while tech/SaaS companies have minimal
+    workers' comp exposure. Self-insured companies report claims reserves rather than
+    premiums, making comparison difficult.
+  examples:
+    - company: UPS
+      treatment: Reports significant workers' compensation expense within cost of
+        operations, with self-insured retention and excess insurance layers
+    - company: Tyson Foods
+      treatment: Allocates substantial workers' comp costs to cost of sales for
+        processing plant workers, using actuarial estimates for self-insured claims
+    - company: Tesla
+      treatment: Reports workers' compensation within cost of automotive revenue for
+        factory workers, with evolving safety record affecting premiums
+coa_mapping:
+  quickbooks: '5160 - Workers Compensation - Direct Labor'
+  netsuite: '5160 - Workers Compensation Insurance - Direct'
+  sap: '4100160 - Workers Compensation Direct Labor'

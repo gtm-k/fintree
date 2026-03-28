@@ -36,7 +36,7 @@ comparability:
   variations: "All companies report income tax expense. Key variation is the effective tax rate, which varies widely by company based on geographic mix, credits, and incentives. Some companies report 'Provision for income taxes' vs. 'Income tax expense'."
   examples:
     - company: "Apple"
-      treatment: "Provision for income taxes (~15% ETR due to Ireland structure)"
+      treatment: "Provision for income taxes (~15% ETR in FY2023 due to Ireland structure; rose to ~24% in FY2024 following EU tax ruling)"
     - company: "Amazon"
       treatment: "Provision for income taxes (variable ETR due to SBC deductions)"
     - company: "Berkshire Hathaway"

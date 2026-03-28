@@ -1,5 +1,5 @@
 id: fintree:PromotionalDiscounts
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SalesDiscountsGoods'
 label: Promotional Discounts
 short_label: Promotional Discounts
 level: 4
@@ -7,9 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesDiscounts
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-32-5'
 definition: Temporary price reductions for marketing promotions or seasonal events.
-example: ''
+example: "A consumer electronics retailer running a Black Friday promotion offering 20% off TVs, resulting in $4.5M in promotional discounts on $22.5M in promotional sales during November."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - promotional
+  - marketing
+  - seasonal
+  - asc_606
+  - variable_consideration
+classification_notes: "Promotional discounts reduce the transaction price under ASC 606. When a promotion includes a coupon or rebate that the customer must redeem, judgment is needed on whether it represents a separate performance obligation (material right) or a price reduction. Cooperative advertising allowances paid to retailers may be classified as a reduction of revenue rather than a marketing expense if no distinct benefit is received."
 variance_drivers:
-  tags: []
+  tags: [seasonal, pricing_driven, volume_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) more aggressive promotional calendar (holiday, back-to-school events), (2) inventory clearance promotions for excess or aging stock, (3) competitive response to rival promotions, (4) new product launch introductory pricing, (5) market share acquisition strategy"
+    if_decreased: "(1) reduced promotional activity due to strong demand, (2) brand strength allowing full-price selling, (3) shift to everyday-low-price strategy from high-low pricing, (4) supply constraints limiting need for promotions, (5) margin improvement initiatives restricting discounting"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Retail companies typically have the largest promotional discounts. CPG companies fund trade promotions through their trade spending budgets. Some companies classify promotional spend as a marketing expense rather than contra-revenue."
+  examples:
+    - company: "Best Buy"
+      treatment: "Promotional markdowns reflected in net revenue"
+    - company: "Kohl's"
+      treatment: "Promotional discounts netted against revenue; heavy coupon-driven model"
+    - company: "Procter & Gamble"
+      treatment: "Trade promotions classified as reduction of net sales"
+coa_mapping:
+  quickbooks: "4522 - Promotional Discounts"
+  netsuite: "4522 - Promotional Discounts"
+  sap: "8522000 - Promotional Discounts"

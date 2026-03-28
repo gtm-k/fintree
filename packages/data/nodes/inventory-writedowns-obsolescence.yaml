@@ -1,16 +1,17 @@
 id: fintree:InventoryWritedownsObsolescence
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InventoryWriteDown'
 label: INVENTORY WRITE-DOWNS & OBSOLESCENCE
 short_label: INVENTORY WRITE-DOWNS & OBSOLE
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:InventoryAdjustments
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: 'Inventory Obsolescence Write-down + Inventory Shrinkage & Spoilage'
+formula_machine: 'fintree:InventoryObsolescenceWritedown + fintree:InventoryShrinkageSpoilage'
+asc_reference: 'ASC 330'
 definition: Reductions in inventory value below cost, recognized when net realizable
   value (NRV) is below carrying cost (ASC 330).
-example: ''
+example: 'A consumer electronics company writes down $5M of last-generation smartphones when the new model launches, plus $800K in shrinkage losses discovered during physical inventory count, for total write-downs of $5.8M.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - inventory
+  - write_down
+  - obsolescence
+  - shrinkage
+  - nrv
+  - impairment
+classification_notes: 'Under ASC 330-10-35, inventory must be written down to NRV when cost exceeds NRV. Write-downs are generally recorded in COGS. Under US GAAP, write-downs are permanent (no reversal allowed), unlike IFRS which permits reversal. Large or unusual write-downs may be disclosed separately in footnotes. Companies must assess inventory for obsolescence at each reporting date. The estimation of obsolescence reserves is a significant accounting judgment.'
 variance_drivers:
-  tags: []
+  tags: [obsolescence_driven, market_driven, product_lifecycle_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Technology shifts making current inventory obsolete (e.g., new product generation), (2) market price declines below cost, (3) excess inventory from demand forecast errors, (4) product recalls or quality failures, (5) regulatory changes banning or restricting products'
+    if_decreased: '(1) Improved demand forecasting reducing excess inventory, (2) better inventory management and faster turnover, (3) product design stability reducing obsolescence risk, (4) secondary market or liquidation channels for slow-moving inventory, (5) tighter purchasing controls preventing overbuy'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Technology companies face rapid obsolescence (product lifecycles of 6-18 months). Fashion retailers face seasonal obsolescence. Pharmaceutical companies face expiration-based write-downs. Companies using LIFO may have ancient inventory layers that are rarely written down. Some companies use a reserve method (allowance); others write down specific items.'
+  examples:
+    - company: 'Cisco'
+      treatment: 'Reports significant inventory write-downs for excess and obsolete networking components; maintains a reserve methodology'
+    - company: 'Nike'
+      treatment: 'Reports write-downs for out-of-season athletic footwear and apparel; uses factory outlet stores to reduce write-down impact'
+    - company: 'Pfizer'
+      treatment: 'Reports write-downs for expired pharmaceutical products and discontinued drug formulations'
+coa_mapping:
+  quickbooks: '5430 - Inventory Write-Downs'
+  netsuite: '5430 - Inventory Write-Downs & Obsolescence'
+  sap: '5430000 - Inventory Write-Downs and Obsolescence'

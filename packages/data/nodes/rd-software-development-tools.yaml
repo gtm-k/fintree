@@ -1,5 +1,5 @@
 id: fintree:RdSoftwareDevelopmentTools
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: R&D Software & Development Tools
 short_label: R&D Software & Development Too
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:RdMaterialsSupplies
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25"
 definition: Licenses for development environments, IDEs, testing tools, and research
   software.
-example: ''
+example: "A SaaS company spends $800K/year on R&D tools: $300K for GitHub Enterprise, $200K for JetBrains IDE licenses, $150K for Jira/Confluence, and $150K for testing and CI/CD tools."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - software_tools
+  - subscriptions
+  - ide
+  - devops
+  - asc_730
+classification_notes: "Includes SaaS subscriptions for IDEs, code repositories, CI/CD pipelines, testing frameworks, project management, and specialized research software. Subscription/SaaS costs are expensed as incurred. Perpetual licenses may need to be evaluated for capitalization under ASC 350-40. Only tools used primarily for R&D should be classified here; general-purpose tools used across departments belong in SG&A."
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, subscription_based, per_seat]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) engineering headcount growth increasing per-seat licenses, (2) adoption of new development tools, (3) vendor price increases on renewals, (4) migration to more expensive enterprise tiers"
+    if_decreased: "(1) engineering headcount reductions, (2) tool consolidation, (3) switch to open-source alternatives, (4) renegotiated vendor contracts"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Software companies have moderate tool costs (1-3% of R&D). Companies using proprietary/expensive simulation software (semiconductor, automotive) have higher costs. Some companies build tools in-house, reducing this line item."
+  examples:
+    - company: "Stripe"
+      treatment: "Development tool costs included in R&D; heavy investment in internal tooling"
+    - company: "Cadence Design Systems"
+      treatment: "Uses own EDA tools internally; minimal external tool spend"
+    - company: "SpaceX"
+      treatment: "Specialized simulation and CAD software licenses for aerospace R&D"
+coa_mapping:
+  quickbooks: "6643 - R&D Software & Development Tools"
+  netsuite: "6643 - R&D Software & Dev Tools"
+  sap: "6643000 - R&D Software & Development Tools"

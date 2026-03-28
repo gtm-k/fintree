@@ -1,5 +1,5 @@
 id: fintree:SupportToolsSoftware
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: Support Tools & Software
 short_label: Support Tools & Software
 level: 4
@@ -10,7 +10,8 @@ formula_human: ''
 asc_reference: ''
 definition: Subscriptions to ticketing, CRM, and support tools used by the support
   team.
-example: ''
+example: A SaaS company pays $145K/year for Zendesk ticketing, $60K for Intercom
+  live chat, and $25K for Confluence knowledge base licenses used by the support team.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,50 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - support software
+  - ticketing systems
+  - CRM
+  - help desk tools
+  - Zendesk
+  - COGS
+  - SaaS subscriptions
+classification_notes: Includes per-seat or per-usage subscriptions for tools directly
+  used by support teams. Classify under COGS only if support is COGS-classified. General
+  CRM tools used by sales teams belong under S&M. Tools shared across departments
+  should be allocated or classified based on primary use.
 variance_drivers:
-  tags: []
+  tags:
+    - tool subscriptions
+    - seat count
+    - vendor pricing
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Added new support tools (chat, AI copilot, analytics) to tech stack
+      2. Vendor price increases at subscription renewal
+      3. Growing support team adding per-seat license costs
+      4. Upgraded to premium tiers for advanced features or SLAs
+    if_decreased: |-
+      1. Consolidated support tools reducing redundant subscriptions
+      2. Negotiated volume discounts or multi-year commitments
+      3. Migrated to lower-cost or open-source alternatives
+      4. Reduced support headcount lowering per-seat license needs
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Some companies bundle support tool costs within a general IT/software
+    line rather than allocating to COGS. Companies building their own support platforms
+    in-house report lower software costs but higher R&D capitalization. Per-seat pricing
+    makes costs scale linearly with team size.
+  examples:
+    - company: HubSpot
+      treatment: Reports support tool costs within cost of revenue as part of technology
+        and infrastructure costs
+    - company: Atlassian
+      treatment: Includes internal tooling costs (including Jira Service Management)
+        within cost of revenue for cloud products
+    - company: Zendesk
+      treatment: As both a vendor and user of support tools, reports internal support
+        tool costs within cost of revenue and R&D
+coa_mapping:
+  quickbooks: '5140 - Support Tools & Software'
+  netsuite: '5140 - Support Tools and Software'
+  sap: '4100140 - Support Tools and Software'

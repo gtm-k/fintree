@@ -1,5 +1,5 @@
 id: fintree:OemComponents
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: OEM Components
 short_label: OEM Components
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:PurchasedComponents
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Parts sourced from original equipment manufacturers and used in final
   assembly.
-example: ''
+example: 'A laptop manufacturer purchases $15M in Intel/AMD processors, $8M in Samsung display panels, and $5M in Realtek audio chips from OEM suppliers for integration into finished devices.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - oem
+  - components
+  - supply_chain
+  - manufacturing
+classification_notes: 'OEM components are branded parts from original equipment manufacturers used in final assembly. They are typically sole-sourced or limited-sourced, creating supplier concentration risk. Distinguished from generic commodity parts. Long-term supply agreements and minimum purchase commitments are common. Component obsolescence can trigger write-downs.'
 variance_drivers:
-  tags: []
+  tags: [supplier_driven, technology_driven, volume_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) OEM supplier price increases due to technology upgrades, (2) component shortages requiring spot-market purchases, (3) single-source supplier leverage on pricing, (4) currency fluctuation on imported components, (5) end-of-life surcharges on legacy components'
+    if_decreased: '(1) Technology maturation driving component cost curves down, (2) qualifying second-source suppliers, (3) volume discount tiers achieved, (4) product redesign to use commodity alternatives, (5) favorable currency movements'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Electronics companies have high OEM component costs (50-70% of COGS). Companies designing custom ASICs may show lower OEM component costs but higher R&D. The boundary between OEM components and sub-assemblies can be blurry.'
+  examples:
+    - company: 'HP Inc.'
+      treatment: 'Reports Intel/AMD processors and display panels as OEM components in PC segment'
+    - company: 'John Deere'
+      treatment: 'Reports engines, transmissions, and hydraulic systems from OEM suppliers for agricultural equipment'
+    - company: 'Medtronic'
+      treatment: 'Reports specialized sensors, batteries, and microprocessors from OEM medical-grade suppliers'
+coa_mapping:
+  quickbooks: '5121 - OEM Components'
+  netsuite: '5121 - OEM Components'
+  sap: '5121000 - OEM Components'

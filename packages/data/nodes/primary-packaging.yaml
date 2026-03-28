@@ -1,5 +1,5 @@
 id: fintree:PrimaryPackaging
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldDirectMaterials'
 label: Primary Packaging
 short_label: Primary Packaging
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:PackagingMaterials
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Packaging that directly contains the product (boxes, bottles, blister
   packs).
-example: ''
+example: 'A pharmaceutical company spends $3M on blister packs and $2M on labeled pill bottles. A cosmetics brand spends $5M on glass perfume bottles and branded boxes.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - direct_cost
+  - packaging
+  - primary_packaging
+  - consumer_products
+  - branding
+classification_notes: 'Primary packaging directly contains and protects the product — it is what the consumer sees on the shelf. It is always a direct material cost capitalized into inventory. Distinguished from secondary/shipping packaging (outer boxes, pallets). For premium brands, primary packaging can be a significant percentage of COGS. Regulatory requirements (child-resistant, tamper-evident) affect costs.'
 variance_drivers:
-  tags: []
+  tags: [commodity_driven, design_driven, volume_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Resin, glass, or aluminum price increases, (2) packaging redesign for premium look or regulatory compliance, (3) higher unit volumes, (4) shift to sustainable materials (recycled PET, bioplastics), (5) custom mold or printing costs for new SKUs'
+    if_decreased: '(1) Packaging lightweighting or material reduction, (2) standardization across SKUs reducing mold/die costs, (3) lower commodity input prices, (4) consolidated purchasing from fewer suppliers, (5) shift from glass to plastic or vice versa for cost savings'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'CPG and beverage companies have high primary packaging costs (10-25% of COGS). Industrial and B2B companies have minimal primary packaging. Luxury brands may spend more on packaging than on product ingredients.'
+  examples:
+    - company: 'PepsiCo'
+      treatment: 'Reports PET bottles, aluminum cans, and multi-pack cartons as primary packaging for beverages and snacks'
+    - company: 'Estee Lauder'
+      treatment: 'Reports premium glass bottles, compacts, and branded boxes as primary packaging — a significant share of product cost'
+    - company: 'Johnson & Johnson'
+      treatment: 'Reports child-resistant bottles, blister packs, and sterile pouches meeting FDA packaging requirements'
+coa_mapping:
+  quickbooks: '5131 - Primary Packaging'
+  netsuite: '5131 - Primary Packaging'
+  sap: '5131000 - Primary Packaging'

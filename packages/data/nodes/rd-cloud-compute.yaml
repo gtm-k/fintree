@@ -1,5 +1,5 @@
 id: fintree:RdCloudCompute
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: R&D Cloud Compute
 short_label: R&D Cloud Compute
 level: 4
@@ -7,7 +7,7 @@ node_type: LINE_ITEM
 parent_id: fintree:RdEquipmentFacilities
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25, ASC 350-40"
 definition: Cloud computing costs for R&D model training, testing, and experimentation
   (separate from production infrastructure in COGS).
 example: An AI company's GPU compute costs for training new models before deployment.
@@ -24,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - cloud_compute
+  - gpu
+  - ml_training
+  - infrastructure
+  - asc_730
+classification_notes: "Only cloud compute used for R&D activities (model training, experimentation, testing) should be classified here. Production cloud infrastructure serving customers belongs in COGS. The line between R&D and production compute can be blurry for AI companies -- classification should be based on whether the workload generates revenue. Pre-production staging environments are typically R&D."
 variance_drivers:
-  tags: []
+  tags: [usage_driven, ai_ml_driven, scalable, variable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new AI/ML model training runs requiring GPU clusters, (2) expansion of R&D testing environments, (3) cloud provider price increases, (4) shift from on-premise to cloud infrastructure"
+    if_decreased: "(1) model training completion, (2) efficiency improvements reducing compute needs, (3) negotiated reserved instance pricing, (4) migration of workloads to on-premise GPUs"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "AI companies have rapidly growing R&D cloud compute costs, often exceeding personnel costs. Traditional software companies have modest R&D compute. Non-tech companies have minimal to zero R&D cloud compute. The boundary between R&D and production compute is a key classification judgment."
+  examples:
+    - company: "Anthropic"
+      treatment: "Massive GPU cloud compute costs for LLM training classified as R&D"
+    - company: "Palantir"
+      treatment: "R&D cloud costs for platform development and internal testing"
+    - company: "Snowflake"
+      treatment: "R&D compute for testing new features on their own cloud platform"
+coa_mapping:
+  quickbooks: "6653 - R&D Cloud Compute"
+  netsuite: "6653 - R&D Cloud Computing"
+  sap: "6653000 - R&D Cloud Compute"

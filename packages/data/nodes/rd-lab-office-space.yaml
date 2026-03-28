@@ -1,5 +1,5 @@
 id: fintree:RdLabOfficeSpace
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: R&D Lab / Office Space
 short_label: R&D Lab / Office Space
 level: 4
@@ -7,10 +7,10 @@ node_type: LINE_ITEM
 parent_id: fintree:RdEquipmentFacilities
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25, ASC 842"
 definition: Allocated or dedicated facility costs for research labs and development
   offices.
-example: ''
+example: "A biotech company leases 50,000 sq ft of lab space at $80/sq ft, resulting in $4M/year in R&D facility costs allocated to research activities."
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +24,30 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - facilities
+  - rent
+  - lab_space
+  - lease
+  - asc_730
+  - asc_842
+classification_notes: "Includes rent, utilities, maintenance, and property taxes for dedicated R&D facilities. Under ASC 842, lease costs are recognized as ROU asset amortization and interest, but the total cost is still allocated to R&D. Shared facilities must be allocated based on square footage or headcount. Lab space typically costs more than standard office space due to specialized requirements."
 variance_drivers:
-  tags: []
+  tags: [facility_driven, lease_driven, semi_fixed, geographic]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new R&D lab or campus buildout, (2) lease renewals at higher market rates, (3) expansion into additional R&D locations, (4) reclassification of shared space to R&D"
+    if_decreased: "(1) R&D facility consolidation, (2) shift to remote/hybrid work reducing office needs, (3) sublease of excess R&D space, (4) lease expirations not renewed"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Biotech and pharma companies have high lab facility costs due to specialized requirements (clean rooms, biosafety). Tech companies allocate office space to R&D based on engineering headcount. Some companies own R&D facilities, in which case depreciation replaces rent."
+  examples:
+    - company: "Genentech"
+      treatment: "Dedicated South San Francisco R&D campus costs allocated to research"
+    - company: "Google"
+      treatment: "R&D office space allocated from corporate campuses based on headcount"
+    - company: "Moderna"
+      treatment: "Specialized mRNA research lab facilities with high per-sq-ft costs"
+coa_mapping:
+  quickbooks: "6652 - R&D Lab / Office Space"
+  netsuite: "6652 - R&D Facility Costs"
+  sap: "6652000 - R&D Lab / Office Space"

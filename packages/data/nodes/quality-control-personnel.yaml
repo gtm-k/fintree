@@ -1,5 +1,5 @@
 id: fintree:QualityControlPersonnel
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CostOfGoodsSoldOverhead'
 label: Quality Control Personnel
 short_label: Quality Control Personnel
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:IndirectLaborSupervision
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: Compensation for QC inspectors and quality assurance staff embedded in
   production.
-example: ''
+example: 'A pharmaceutical manufacturer employs 25 QC inspectors at $55K/year and 5 QA managers at $85K/year, totaling $1.8M in quality control personnel costs allocated to manufacturing overhead.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - overhead
+  - quality_control
+  - inspection
+  - manufacturing
+  - compliance
+classification_notes: 'QC personnel embedded in production are part of manufacturing overhead (COGS). QA staff in a corporate quality department may be classified as SG&A. In FDA-regulated industries (pharma, medical devices, food), QC staffing levels are driven by regulatory requirements and cannot be easily reduced. In-process inspection labor may be classified as direct labor if traced to specific production runs.'
 variance_drivers:
-  tags: []
+  tags: [regulatory_driven, headcount_driven, quality_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) New regulatory requirements mandating additional testing or inspection, (2) quality problems requiring increased inspection frequency, (3) new product introductions requiring validation testing, (4) customer audit requirements driving additional QC staffing, (5) transition to higher-quality standards (ISO, GMP)'
+    if_decreased: '(1) Statistical process control reducing need for 100% inspection, (2) inline automated inspection systems, (3) supplier quality improvements reducing incoming inspection, (4) process maturity reducing defect rates, (5) consolidation of testing labs across facilities'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Regulated industries (pharma, aerospace, medical devices) have very high QC staffing as a percent of total labor. Consumer electronics companies may rely more on automated testing. Some companies report QC costs separately for transparency; others bundle with indirect labor.'
+  examples:
+    - company: 'Pfizer'
+      treatment: 'Reports significant QC personnel costs in pharmaceutical manufacturing; FDA cGMP requirements dictate staffing levels'
+    - company: 'Boeing'
+      treatment: 'Reports FAA-required quality inspectors as a major indirect labor category in aircraft manufacturing'
+    - company: 'Nestlé'
+      treatment: 'Reports food safety and quality lab technicians as QC personnel in food and beverage production'
+coa_mapping:
+  quickbooks: '5320 - Quality Control Personnel'
+  netsuite: '5320 - Quality Control Personnel'
+  sap: '5320000 - Quality Control Personnel'

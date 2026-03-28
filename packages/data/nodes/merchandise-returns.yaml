@@ -1,5 +1,5 @@
 id: fintree:MerchandiseReturns
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:SalesReturnsAndAllowancesGoods'
 label: Merchandise Returns
 short_label: Merchandise Returns
 level: 4
@@ -7,7 +7,8 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesReturnsAllowances
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-55-22'
 definition: Physical goods returned by customers; reduces revenue and restores inventory.
 example: A retailer processing holiday returns in January.
 normal_balance: DEBIT
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - merchandise_returns
+  - physical_goods
+  - refund
+  - asc_606
+  - inventory_recovery
+classification_notes: "Merchandise returns reverse the original revenue transaction. Under ASC 606, the entity records a refund liability and a right-of-return asset for the cost of goods expected to be recovered. If returned goods cannot be resold (damaged, obsolete), the right-of-return asset is reduced. Returns differ from allowances in that the physical goods come back to the seller."
 variance_drivers:
-  tags: []
+  tags: [seasonal, volume_driven, policy_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) post-holiday return surge in Q1, (2) product quality issues driving higher defect-related returns, (3) increased e-commerce sales with higher inherent return rates, (4) new product launches with high trial-and-return behavior, (5) more liberal return policies to remain competitive"
+    if_decreased: "(1) improved product descriptions reducing buyer-expectation mismatch, (2) better sizing technology for apparel, (3) stricter return policies (restocking fees, shorter windows), (4) shift from physical goods to digital products, (5) improved quality control reducing defective merchandise"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Return rates vary dramatically by industry: apparel (20-40%), electronics (10-15%), furniture (5-10%), B2B industrial (<5%). E-commerce returns are typically 2-3x higher than in-store returns. Most companies net merchandise returns against revenue."
+  examples:
+    - company: "Amazon"
+      treatment: "Returns netted against net sales; free returns on most items"
+    - company: "Costco"
+      treatment: "Generous no-questions-asked return policy; returns netted against net sales"
+    - company: "ASOS"
+      treatment: "High return rates (~25%) for online fashion; significant impact on net revenue"
+coa_mapping:
+  quickbooks: "4511 - Merchandise Returns"
+  netsuite: "4511 - Sales Returns"
+  sap: "8511000 - Merchandise Returns"

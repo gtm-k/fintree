@@ -1,5 +1,5 @@
 id: fintree:PaymentProcessingTransactionFees
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: PAYMENT PROCESSING & TRANSACTION FEES
 short_label: PAYMENT PROCESSING & TRANSACTI
 level: 3
@@ -9,7 +9,8 @@ aggregation_type: SUM
 formula_human: ''
 asc_reference: ''
 definition: Costs charged by payment processors directly tied to revenue transactions.
-example: ''
+example: An e-commerce platform incurs $2.4M/quarter in combined payment processing
+  fees across Stripe gateway fees and interchange costs on $85M in GMV.
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +24,50 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - payment processing
+  - transaction fees
+  - interchange
+  - merchant fees
+  - cost of revenue
+  - fintech
+classification_notes: This is a sub-category aggregating gateway fees and related
+  transaction costs. Companies may report gross or net of these fees depending on whether
+  they act as principal or agent in the transaction. Under ASC 606 principal vs. agent
+  guidance, marketplace platforms often net these fees.
 variance_drivers:
-  tags: []
+  tags:
+    - transaction volume
+    - payment mix
+    - rate changes
+    - revenue growth
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Revenue growth driving proportionally higher transaction volume
+      2. Shift toward higher-cost payment methods (credit cards vs. ACH)
+      3. International expansion with cross-border surcharges
+      4. Added new payment methods (BNPL, digital wallets) with incremental fees
+      5. Processor rate increases at contract renewal
+    if_decreased: |-
+      1. Negotiated lower blended rates through volume commitments
+      2. Shifted payment mix toward lower-cost methods (ACH, direct debit)
+      3. Consolidated payment processors to achieve volume discounts
+      4. Implemented surcharging or convenience fees offsetting costs
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Gross vs. net reporting creates significant comparability issues. Companies
+    acting as principal report gross revenue and processing fees in COGS; agents report
+    net revenue. Some companies report these fees as contra-revenue deductions.
+  examples:
+    - company: Square (Block)
+      treatment: Reports transaction-based costs within cost of revenue including interchange,
+        assessment, and processing fees
+    - company: PayPal
+      treatment: Reports transaction expense as the largest component of cost of revenue,
+        including funding costs and processing fees
+    - company: Etsy
+      treatment: Reports payment processing fees within cost of revenue for its marketplace
+        and payments segments
+coa_mapping:
+  quickbooks: '5300 - Payment Processing Fees'
+  netsuite: '5300 - Payment Processing & Transaction Fees'
+  sap: '4200200 - Payment Processing Fees'

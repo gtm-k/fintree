@@ -1,15 +1,16 @@
 id: fintree:ExternalContractResearch
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ContractResearchAndDevelopmentExpense"
 label: EXTERNAL / CONTRACT RESEARCH
 short_label: EXTERNAL / CONTRACT RESEARCH
 level: 3
 node_type: SUB_CATEGORY
 parent_id: fintree:ResearchDevelopment
 aggregation_type: SUM
-formula_human: ''
-asc_reference: ''
+formula_human: "Contract Research Organizations + University Research Grants & Partnerships + R&D Tax Credit Offset"
+formula_machine: "fintree:ContractResearchOrganizations + fintree:UniversityResearchGrantsPartnerships + fintree:RdTaxCreditOffset"
+asc_reference: "ASC 730-10-25, ASC 730-20"
 definition: Payments to third parties for research conducted on the company's behalf.
-example: ''
+example: "A pharma company spends $25M on external R&D: $18M to CROs for Phase II clinical trials, $5M in university partnerships, and $2M in grants."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -23,14 +24,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - outsourced
+  - contract_research
+  - cro
+  - clinical_trials
+  - asc_730
+classification_notes: "Payments to third parties for R&D performed on the company's behalf are expensed as incurred under ASC 730. Funded R&D arrangements (ASC 730-20) require careful analysis of who bears the risk. If the company bears the risk, costs are expensed; if a third party bears the risk, the arrangement may be treated as a contract. Milestone-based contracts require judgment on when to recognize expense."
 variance_drivers:
-  tags: []
+  tags: [project_driven, outsourcing_strategy, milestone_based, variable]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new clinical trials initiated with CROs, (2) outsourcing of development tasks previously done in-house, (3) expansion of university research partnerships, (4) new contract research programs"
+    if_decreased: "(1) clinical trial completions, (2) insourcing of previously outsourced R&D, (3) contract research program cancellations, (4) shift from external to internal capabilities"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Pharma companies heavily rely on CROs and external research (40-60% of R&D). Biotech startups may outsource nearly all R&D. Tech companies use external research less frequently. Some companies classify consulting and professional services for R&D here."
+  examples:
+    - company: "AstraZeneca"
+      treatment: "Major CRO contracts for global clinical trial management"
+    - company: "Vertex Pharmaceuticals"
+      treatment: "Significant external research collaborations and CRO partnerships"
+    - company: "Uber"
+      treatment: "External research partnerships for autonomous vehicle development"
+coa_mapping:
+  quickbooks: "6660 - External / Contract Research"
+  netsuite: "6660 - External Contract Research"
+  sap: "6660000 - External / Contract Research"

@@ -1,5 +1,5 @@
 id: fintree:AllowancesForDefectiveGoods
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:AllowanceForSalesReturns'
 label: Allowances for Defective Goods
 short_label: Allowances for Defective Goods
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:SalesReturnsAllowances
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 606-10-32-8'
 definition: Credits issued to customers who keep defective goods in lieu of returning
   them.
-example: ''
+example: "An electronics manufacturer issuing $500K in partial credits (30% of purchase price) to customers who received circuit boards with minor cosmetic defects, allowing customers to keep the goods rather than return them."
 normal_balance: DEBIT
 sign_convention: '-1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - contra_revenue
+  - allowances
+  - defective_goods
+  - quality
+  - asc_606
+  - credit_memo
+classification_notes: "Allowances for defective goods are price concessions granted to customers who retain defective merchandise. Unlike returns, the goods are not sent back. Under ASC 606, these are treated as variable consideration reducing the transaction price. The allowance may be a partial or full credit depending on the severity of the defect. If defects are systematic, they may also trigger warranty expense accruals under ASC 460."
 variance_drivers:
-  tags: []
+  tags: [volume_driven, policy_driven, mix_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) manufacturing quality control failures increasing defect rates, (2) raw material quality issues from suppliers, (3) new product launches with unresolved quality issues, (4) more generous allowance policies to preserve customer relationships, (5) supply chain disruptions causing shipping damage"
+    if_decreased: "(1) improved manufacturing processes and quality control, (2) better supplier quality management, (3) tighter allowance approval policies, (4) shift to higher-quality product lines, (5) improved packaging reducing transit damage"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Manufacturing and consumer goods companies typically have the highest defective goods allowances. These are rarely disclosed separately; they are combined with returns. Food and beverage companies may have spoilage-related allowances."
+  examples:
+    - company: "General Electric"
+      treatment: "Product allowances included in returns and allowances contra-revenue"
+    - company: "Samsung"
+      treatment: "Quality-related customer credits (Galaxy Note 7 recall was an extreme example)"
+    - company: "Toyota"
+      treatment: "Customer allowances for quality issues netted against automotive revenue"
+coa_mapping:
+  quickbooks: "4512 - Allowances for Defective Goods"
+  netsuite: "4512 - Defective Goods Allowances"
+  sap: "8512000 - Allowances for Defective Goods"

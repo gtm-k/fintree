@@ -1,5 +1,5 @@
 id: fintree:OtherNonoperatingExpenses
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:OtherNonoperatingExpense'
 label: Other Non-Operating Expenses
 short_label: Other Non-Operating Expenses
 level: 4
@@ -7,10 +7,11 @@ node_type: LINE_ITEM
 parent_id: fintree:NonoperatingExpenses
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 220-10'
 definition: Miscellaneous non-operating charges — legal settlements, regulatory fines,
   and other exceptional costs.
-example: ''
+example: 'A pharmaceutical company records $4.5M in legal settlement costs and $1.2M in regulatory fines, totaling $5.7M in other non-operating expenses.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - other_expenses
+  - legal_settlements
+  - regulatory_fines
+  - miscellaneous
+  - non_operating
+  - catch_all
+classification_notes: 'Residual category for non-operating expenses not fitting interest, FX losses, asset sale losses, impairment, or restructuring. Common items include litigation settlements, regulatory penalties, early debt extinguishment costs, and charitable contributions classified as non-operating. If an item becomes material, it should be broken out as a separate line item per SEC guidance.'
 variance_drivers:
-  tags: []
+  tags: [legal_exposure, regulatory_actions, one_time_charges]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) legal settlement payments or accruals for pending litigation, (2) regulatory fines from government agencies, (3) early debt retirement penalties or make-whole premiums, (4) charitable donation commitments, (5) environmental remediation charges'
+    if_decreased: '(1) resolution of pending litigation without payment, (2) no regulatory actions in current period, (3) prior-period charges not recurring, (4) reclassification of items to specific expense categories'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Companies vary widely in what they classify here. Some include legal costs in operating SG&A. Others classify litigation settlements as non-operating. The boundary between operating and non-operating miscellaneous expenses is judgment-driven.'
+  examples:
+    - company: 'Meta'
+      treatment: 'Legal settlements and FTC fines classified within operating expenses, not here'
+    - company: 'Wells Fargo'
+      treatment: 'Regulatory penalties and remediation costs shown in non-interest expense'
+    - company: 'Johnson & Johnson'
+      treatment: 'Litigation expense — talc-related settlements disclosed as separate non-operating line'
+coa_mapping:
+  quickbooks: '7900 - Other Non-Operating Expenses'
+  netsuite: '7900 - Other Non-Operating Expenses'
+  sap: '7900000 - Other Non-Operating Expenses'

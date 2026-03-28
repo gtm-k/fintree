@@ -1,5 +1,5 @@
 id: fintree:LaboratoryResearchSupplies
-xbrl_tag: ''
+xbrl_tag: "us-gaap:ResearchAndDevelopmentExpense"
 label: Laboratory & Research Supplies
 short_label: Laboratory & Research Supplies
 level: 4
@@ -7,7 +7,7 @@ node_type: LINE_ITEM
 parent_id: fintree:RdMaterialsSupplies
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+asc_reference: "ASC 730-10-25"
 definition: Consumable lab supplies, chemicals, reagents, and research materials.
 example: A pharmaceutical company's lab chemicals used in drug discovery.
 normal_balance: DEBIT
@@ -23,14 +23,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - rd_expense
+  - lab_supplies
+  - consumables
+  - chemicals
+  - reagents
+  - asc_730
+classification_notes: "Includes consumable items such as chemicals, reagents, cell cultures, assay kits, glassware, and disposable lab equipment. Must be expensed as incurred if no alternative future use. If lab supplies have alternative future use (e.g., can be used in production), capitalize as inventory until consumed."
 variance_drivers:
-  tags: []
+  tags: [project_driven, volume_driven, seasonal]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: "(1) new drug candidates entering preclinical testing, (2) expanded testing protocols, (3) supply cost inflation for specialty chemicals, (4) new lab facility opening"
+    if_decreased: "(1) project completions or cancellations, (2) lab closures, (3) negotiated volume discounts with suppliers, (4) shift to computational/in-silico research methods"
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: "Pharma and biotech companies have the highest lab supply costs. Hardware companies include testing components. Pure software companies have minimal to zero lab supplies."
+  examples:
+    - company: "Abbott Laboratories"
+      treatment: "Significant lab supply costs for diagnostic and pharmaceutical R&D"
+    - company: "Thermo Fisher"
+      treatment: "Lab supplies for internal R&D, also a major supplier to other companies"
+    - company: "Regeneron"
+      treatment: "Lab materials including biological reagents and cell culture media for antibody research"
+coa_mapping:
+  quickbooks: "6641 - Laboratory & Research Supplies"
+  netsuite: "6641 - Lab & Research Supplies"
+  sap: "6641000 - Laboratory & Research Supplies"

@@ -1,5 +1,5 @@
 id: fintree:RevenueDiscontinuedOperations
-xbrl_tag: ''
+xbrl_tag: us-gaap:DisposalGroupIncludingDiscontinuedOperationRevenue
 label: Revenue — Discontinued Operations
 short_label: Revenue — Discontinued Operati
 level: 3
@@ -9,7 +9,9 @@ aggregation_type: LEAF
 formula_human: ''
 asc_reference: ''
 definition: Revenue attributable to the discontinued business component, shown separately.
-example: ''
+example: A technology conglomerate reports $320M in revenue from its divested hardware
+  division for the 9 months before the sale closed, shown separately as discontinued
+  operations.
 normal_balance: CREDIT
 sign_convention: '+1'
 industry_variants:
@@ -23,14 +25,48 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: true
 non_recurring: true
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - discontinued operations
+  - divestitures
+  - ASC 205-20
+  - below the line
+  - non-recurring
+  - segment disposal
+classification_notes: Under ASC 205-20, a component qualifies as discontinued operations
+  when it has been disposed of or is classified as held for sale and represents a strategic
+  shift. Revenue is reported net of tax as a single line below continuing operations.
+  Prior periods must be restated to reclassify the discontinued component for comparability.
 variance_drivers:
-  tags: []
+  tags:
+    - divestiture timing
+    - strategic shift
+    - one-time events
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Discontinued business unit performed well during wind-down period
+      2. Extended transition period before divestiture close increased reported revenue
+      3. Additional business components classified as held for sale
+    if_decreased: |-
+      1. Divestiture completed and no longer generating revenue
+      2. Discontinued unit's operations wound down ahead of final sale
+      3. Revenue decline in discontinued unit accelerating strategic exit
+      4. Prior period included full-year discontinued revenue vs. partial year
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: Discontinued operations reporting makes year-over-year comparison of
+    total revenue unreliable. Analysts must exclude discontinued operations to assess
+    organic continuing operations growth. Some companies provide pro forma continuing
+    operations revenue for comparability.
+  examples:
+    - company: General Electric
+      treatment: Reported GE Capital revenue as discontinued operations during its
+        multi-year divestiture, restating prior periods
+    - company: eBay
+      treatment: Reported PayPal revenue as discontinued operations in the period
+        leading up to the 2015 spinoff
+    - company: Johnson & Johnson
+      treatment: Classified consumer health business (Kenvue) revenue as discontinued
+        operations during the separation period
+coa_mapping:
+  quickbooks: '4900 - Revenue - Discontinued Operations'
+  netsuite: '4900 - Discontinued Operations Revenue'
+  sap: '4900000 - Revenue Discontinued Operations'

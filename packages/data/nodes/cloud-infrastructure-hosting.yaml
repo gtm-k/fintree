@@ -1,5 +1,5 @@
 id: fintree:CloudInfrastructureHosting
-xbrl_tag: ''
+xbrl_tag: us-gaap:CostOfGoodsAndServicesSold
 label: CLOUD INFRASTRUCTURE & HOSTING
 short_label: CLOUD INFRASTRUCTURE & HOSTING
 level: 3
@@ -25,14 +25,52 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cloud hosting
+  - AWS
+  - Azure
+  - GCP
+  - infrastructure costs
+  - SaaS COGS
+  - compute costs
+classification_notes: Only production infrastructure serving customers belongs in
+  COGS. Dev/test environments and internal IT cloud costs belong in R&D or G&A respectively.
+  Reserved instances may require upfront capitalization and amortization. Multi-cloud
+  strategies split costs across vendors.
 variance_drivers:
-  tags: []
+  tags:
+    - customer growth
+    - infrastructure scaling
+    - vendor pricing
+    - architecture efficiency
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: |-
+      1. Rapid customer or usage growth increasing compute and storage demands
+      2. Migration from on-premise to cloud infrastructure
+      3. Cloud vendor price increases or expiration of committed-use discounts
+      4. Launch of new product features requiring additional infrastructure
+      5. Data residency requirements adding regional deployments
+    if_decreased: |-
+      1. Infrastructure optimization (right-sizing, auto-scaling, spot instances)
+      2. Negotiated enterprise discount programs or committed-use savings
+      3. Architecture redesign reducing resource consumption per customer
+      4. Customer churn reducing infrastructure load
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: SaaS companies consistently report cloud hosting as cost of revenue,
+    but the allocation between production vs. R&D environments varies. Some companies
+    include CDN and bandwidth; others separate them. Non-tech companies may classify
+    similar costs under G&A.
+  examples:
+    - company: Datadog
+      treatment: Reports cloud hosting costs as a major component of cost of revenue,
+        broken out in 10-K risk factors
+    - company: Snowflake
+      treatment: Discloses cloud infrastructure costs on major public cloud providers
+        as largest cost of revenue component
+    - company: Zoom
+      treatment: Reports co-location and public cloud hosting costs within cost of
+        revenue, including data center leases
+coa_mapping:
+  quickbooks: '5100 - Cloud Infrastructure & Hosting'
+  netsuite: '5100 - Cloud Infrastructure & Hosting'
+  sap: '0051000 - Cloud Infra Hosting'

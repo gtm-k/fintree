@@ -1,5 +1,5 @@
 id: fintree:SoftwareSubscriptionsCorporate
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:CommunicationsAndInformationTechnology'
 label: Software Subscriptions — Corporate
 short_label: Software Subscriptions — Corpo
 level: 4
@@ -7,11 +7,12 @@ node_type: LINE_ITEM
 parent_id: fintree:InformationTechnology
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 350-40'
 definition: Business software subscriptions for productivity, communication, and corporate
   operations (Microsoft 365, Slack, Zoom, Salesforce for internal use).
-example: ''
-normal_balance: CREDIT
+example: 'A 300-employee company pays $540K/year in corporate SaaS: $108K Microsoft 365 ($30/user/mo), $72K Slack ($20/user/mo), $54K Zoom ($15/user/mo), $180K Salesforce CRM, $126K various other tools.'
+normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
 - manufacturing
@@ -24,14 +25,27 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - ga_expense
+  - information_technology
+  - software
+  - subscription
+  - saas
+  - per_seat
+classification_notes: 'SaaS subscriptions are expensed as incurred per ASC 350-40 (hosting arrangements that are service contracts). Implementation costs of cloud-hosted software may be capitalized if meeting criteria under ASC 350-40. Distinguish from production/product software (COGS) and R&D tools (R&D expense). Software sprawl is a common audit finding — companies may have 50-200+ SaaS subscriptions.'
 variance_drivers:
-  tags: []
+  tags: [headcount_driven, per_seat_pricing, vendor_driven, discretionary]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) headcount growth adding per-seat license costs, (2) adoption of new SaaS tools across the organization, (3) vendor price increases on contract renewals, (4) upgrade to premium software tiers, (5) shadow IT — departments purchasing unauthorized subscriptions'
+    if_decreased: '(1) software rationalization eliminating redundant tools, (2) headcount reductions reducing license counts, (3) renegotiated enterprise agreements, (4) consolidation to platform vendors (e.g., Microsoft suite replacing multiple point solutions), (5) open-source alternatives replacing paid software'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'SaaS spend per employee ranges from $1,000-$5,000/year. Tech companies and financial services firms spend more per employee. Some companies classify software by function (HR software under HR, etc.) rather than centralizing under IT. SaaS spend has grown rapidly as companies shift from on-premise to cloud.'
+  examples:
+    - company: 'Salesforce'
+      treatment: 'Uses its own CRM; other corporate SaaS costs in General and administrative'
+    - company: 'Manufacturing company'
+      treatment: 'Lower SaaS spend; more investment in on-premise production software classified as manufacturing overhead'
+coa_mapping:
+  quickbooks: '6820 - Software Subscriptions (Corporate)'
+  netsuite: '7420 - Corporate Software Subscriptions'
+  sap: '6820000 - Corporate Software Subscriptions'

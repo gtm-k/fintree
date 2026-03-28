@@ -1,5 +1,5 @@
 id: fintree:BeginningInventory
-xbrl_tag: ''
+xbrl_tag: 'us-gaap:InventoryNet'
 label: Beginning Inventory
 short_label: Beginning Inventory
 level: 3
@@ -7,10 +7,11 @@ node_type: SUB_CATEGORY
 parent_id: fintree:InventoryAdjustments
 aggregation_type: LEAF
 formula_human: ''
-asc_reference: ''
+formula_machine: ''
+asc_reference: 'ASC 330'
 definition: 'Value of inventory on hand at the start of the accounting period. A component
   of the COGS formula: COGS = Beginning Inventory + Net Purchases − Ending Inventory.'
-example: ''
+example: 'A retailer starts fiscal year 2024 with $15M in merchandise inventory on the balance sheet. This $15M becomes the beginning inventory input to the COGS calculation: $15M (BI) + $60M (Purchases) - $18M (EI) = $57M COGS.'
 normal_balance: DEBIT
 sign_convention: '+1'
 industry_variants:
@@ -24,14 +25,29 @@ is_decision_node: false
 is_non_gaap: false
 below_the_line: false
 non_recurring: false
-ai_context_tags: []
-classification_notes: ''
+ai_context_tags:
+  - cogs
+  - inventory
+  - beginning_balance
+  - periodic_inventory
+  - cost_flow
+  - balance_sheet_link
+classification_notes: 'Beginning inventory equals the prior period ending inventory. It is a balance sheet carryover, not a new expense. In the periodic COGS formula (BI + Purchases - EI = COGS), beginning inventory adds to cost of goods available for sale. Higher beginning inventory with constant purchases and ending inventory results in higher COGS. Beginning inventory is not an expense itself but a component of the COGS calculation.'
 variance_drivers:
-  tags: []
+  tags: [prior_period_driven, seasonal_driven, build_up_driven]
   playbook:
-    if_increased: ''
-    if_decreased: ''
+    if_increased: '(1) Prior period inventory build-up in anticipation of demand, (2) prior period sales shortfall leaving excess inventory, (3) prior period purchase price increases raising carrying value, (4) seasonal build-up for holiday or peak season, (5) LIFO layer additions in prior period'
+    if_decreased: '(1) Prior period strong sales drawing down inventory, (2) prior period inventory write-downs reducing carrying value, (3) prior period destocking or lean inventory initiatives, (4) supply chain disruptions in prior period preventing inventory build, (5) seasonal low point at fiscal year start'
 comparability:
-  variations: ''
-  examples: []
-coa_mapping: {}
+  variations: 'Beginning inventory is identical to prior-period ending inventory — differences indicate a restatement or accounting change. LIFO companies have structurally lower beginning inventory values than FIFO companies. Retailers with January fiscal year-end start with post-holiday low inventory; June year-end retailers start with mid-year inventory levels.'
+  examples:
+    - company: 'Walmart'
+      treatment: 'Reports beginning inventory (January 31 balance) at approximately $56B; the largest single inventory balance globally'
+    - company: 'Ford'
+      treatment: 'Reports beginning finished vehicles, work-in-process, and raw materials inventory by category'
+    - company: 'Costco'
+      treatment: 'Reports beginning merchandise inventory at approximately $17B; high inventory turnover (~12x) keeps levels relatively low'
+coa_mapping:
+  quickbooks: '5410 - Beginning Inventory'
+  netsuite: '5410 - Beginning Inventory'
+  sap: '5410000 - Beginning Inventory'
