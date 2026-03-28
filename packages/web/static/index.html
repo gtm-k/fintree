@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTree — P&L Hierarchy Explorer</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <h1>FinTree</h1>
+      <span class="subtitle">GAAP P&L Hierarchy Explorer</span>
+    </div>
+    <div class="header-right">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search nodes..." autocomplete="off">
+        <div id="searchResults" class="search-dropdown"></div>
+      </div>
+      <select id="industrySelect">
+        <option value="">All Industries (GAAP)</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <div class="panel tree-panel" id="treePanel">
+      <div class="panel-header">
+        <h2>P&L Structure</h2>
+        <div class="tree-controls">
+          <button id="expandAll" title="Expand All">&#9660; Expand</button>
+          <button id="collapseAll" title="Collapse All">&#9654; Collapse</button>
+        </div>
+      </div>
+      <div id="treeContainer" class="tree-container"></div>
+    </div>
+
+    <div class="panel detail-panel" id="detailPanel">
+      <div class="panel-header">
+        <h2 id="detailTitle">Select a node</h2>
+      </div>
+      <div id="detailContent" class="detail-content">
+        <p class="placeholder">Click any node in the tree to view details.</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="statsBar" class="stats-bar"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
