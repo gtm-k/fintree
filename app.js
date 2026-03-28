@@ -1,8 +1,164 @@
 // FinTree — P&L Hierarchy Explorer (River + Cards Frontend)
+// Works in two modes: API mode (with FastAPI backend) or Static mode (embedded data)
 
 const API = '';
 let currentIndustry = null;
 let plData = null;
+
+// ─── Static Data Layer ─────────────────────────────────────
+// When window.FINTREE_DATA is present, all data comes from it
+// instead of API calls. This enables GitHub Pages hosting.
+
+const _static = (() => {
+  if (!window.FINTREE_DATA) return null;
+
+  const tree = window.FINTREE_DATA;
+  const nodeMap = {};
+  tree.nodes.forEach(n => nodeMap[n.id] = n);
+
+  const PL_SECTIONS = [
+    { key: 'revenue', label: 'Revenue', icon: '📈', color: '#10b981', type: 'section',
+      root_ids: ['fintree:NetRevenue', 'fintree:GrossRevenue', 'fintree:RevenueDeductions'] },
+    { key: 'cogs', label: 'Cost of Revenue', icon: '⚙️', color: '#ef4444', type: 'section',
+      root_ids: ['fintree:CostOfGoodsSoldCostOfRevenue', 'fintree:Cogs'] },
+    { key: 'gross_profit', label: 'Gross Profit', type: 'subtotal',
+      formula: 'Revenue − Cost of Revenue', node_id: 'fintree:GrossProfit' },
+    { key: 'opex', label: 'Operating Expenses', icon: '💼', color: '#f59e0b', type: 'section',
+      root_ids: ['fintree:OperatingExpenses', 'fintree:SellingExpenses', 'fintree:GeneralAdministrativeExpenses',
+                 'fintree:ResearchDevelopment', 'fintree:DepreciationAmortization'] },
+    { key: 'ebit', label: 'Operating Income (EBIT)', type: 'subtotal',
+      formula: 'Gross Profit − Operating Expenses', node_id: 'fintree:OperatingIncome' },
+    { key: 'nonop', label: 'Non-Operating Income & Expenses', icon: '📊', color: '#64748b', type: 'section',
+      root_ids: ['fintree:NonoperatingIncomeExpenses', 'fintree:NonoperatingIncome', 'fintree:NonoperatingExpenses'] },
+    { key: 'ebt', label: 'Pre-Tax Income (EBT)', type: 'subtotal',
+      formula: 'EBIT ± Non-Operating Items', node_id: 'fintree:PretaxIncome' },
+    { key: 'tax', label: 'Income Tax Expense', icon: '🏛️', color: '#f87171', type: 'section',
+      root_ids: ['fintree:IncomeTaxExpense', 'fintree:CurrentTaxExpense', 'fintree:DeferredTaxExpense'] },
+    { key: 'net_income', label: 'Net Income', type: 'bottom_line',
+      formula: 'EBT − Income Tax Expense', node_id: 'fintree:NetIncome' },
+    { key: 'btl', label: 'Below-the-Line Items', icon: '📋', color: '#475569', type: 'section',
+      root_ids: ['fintree:BelowthelineItems', 'fintree:DiscontinuedOperations', 'fintree:ExtraordinaryItems', 'fintree:CumulativeEffectOfAccountingChanges'] },
+  ];
+
+  function subtree(rootId) {
+    const results = [];
+    const stack = [rootId];
+    const seen = new Set();
+    while (stack.length) {
+      const id = stack.pop();
+      if (seen.has(id)) continue;
+      seen.add(id);
+      const n = nodeMap[id];
+      if (!n) continue;
+      results.push(n);
+      (n.children_ids || []).forEach(c => stack.push(c));
+    }
+    return results;
+  }
+
+  function getOverlay(industry) {
+    if (!industry) return null;
+    return tree.industry_overlays.find(o => o.industry === industry) || null;
+  }
+
+  function plSections(industry) {
+    const overlay = getOverlay(industry);
+    const suppressed = new Set(overlay ? overlay.modifications.suppress : []);
+    const emphasized = new Set(overlay ? overlay.modifications.emphasize : []);
+    const renames = overlay ? (overlay.modifications.rename || {}) : {};
+
+    const sections = PL_SECTIONS.map(sec => {
+      const entry = { key: sec.key, label: sec.label, type: sec.type };
+      if (sec.type === 'section') {
+        entry.icon = sec.icon;
+        entry.color = sec.color;
+        const nodes = [];
+        const seen = new Set();
+        sec.root_ids.forEach(rid => {
+          subtree(rid).forEach(n => {
+            if (seen.has(n.id) || sec.root_ids.includes(n.id)) { seen.add(n.id); return; }
+            seen.add(n.id);
+            nodes.push({
+              id: n.id, label: renames[n.id] || n.label, level: n.level,
+              node_type: n.node_type, is_leaf: n.is_leaf, parent_id: n.parent_id,
+              suppressed: suppressed.has(n.id), emphasized: emphasized.has(n.id),
+            });
+          });
+        });
+        entry.nodes = nodes;
+        entry.total = nodes.length;
+        entry.visible = nodes.filter(n => !n.suppressed).length;
+        entry.emphasized_count = nodes.filter(n => n.emphasized).length;
+        for (const rid of sec.root_ids) { if (nodeMap[rid]) { entry.node_id = rid; break; } }
+      } else {
+        entry.formula = sec.formula;
+        const n = nodeMap[sec.node_id];
+        if (n) { entry.node_id = sec.node_id; entry.label = renames[n.id] || n.label; }
+      }
+      return entry;
+    });
+
+    const allSectionNodes = sections.filter(s => s.nodes).flatMap(s => s.nodes);
+    return {
+      industry, sections,
+      stats: {
+        total_nodes: tree.stats.total_nodes,
+        suppressed: allSectionNodes.filter(n => n.suppressed).length,
+        visible: tree.stats.total_nodes - allSectionNodes.filter(n => n.suppressed).length,
+        emphasized: allSectionNodes.filter(n => n.emphasized).length,
+      },
+    };
+  }
+
+  function ancestors(nodeId) {
+    const result = [];
+    let n = nodeMap[nodeId];
+    if (!n) return [];
+    while (n.parent_id && nodeMap[n.parent_id]) {
+      n = nodeMap[n.parent_id];
+      result.push({ id: n.id, label: n.label });
+    }
+    return result;
+  }
+
+  function search(query, limit = 12) {
+    const q = query.toLowerCase();
+    const scored = tree.nodes
+      .map(n => {
+        let score = 0;
+        if (n.label.toLowerCase() === q) score = 100;
+        else if (n.label.toLowerCase().startsWith(q)) score = 80;
+        else if (n.label.toLowerCase().includes(q)) score = 60;
+        else if (n.id.toLowerCase().includes(q)) score = 40;
+        else if (n.definition && n.definition.toLowerCase().includes(q)) score = 20;
+        return { node: n, score };
+      })
+      .filter(s => s.score > 0)
+      .sort((a, b) => b.score - a.score || a.node.level - b.node.level)
+      .slice(0, limit);
+    return {
+      query, total: scored.length,
+      results: scored.map(s => ({
+        id: s.node.id, label: s.node.label, level: s.node.level,
+        node_type: s.node.node_type, definition: s.node.definition,
+        parent_id: s.node.parent_id, is_leaf: s.node.is_leaf,
+      })),
+    };
+  }
+
+  return {
+    getNode: id => nodeMap[id] || null,
+    plSections,
+    ancestors,
+    search,
+    stats: () => tree.stats,
+    overlays: () => tree.industry_overlays.map(o => ({
+      industry: o.industry, label: o.label || o.industry,
+      suppress_count: (o.modifications.suppress || []).length,
+      emphasize_count: (o.modifications.emphasize || []).length,
+    })),
+  };
+})();
 
 // ─── Init ───────────────────────────────────────────────────
 
@@ -17,11 +173,15 @@ async function init() {
 // ─── P&L Sections ───────────────────────────────────────────
 
 async function loadPLSections(industry = null) {
-  const url = industry
-    ? `${API}/api/tree/pl-sections?industry=${encodeURIComponent(industry)}`
-    : `${API}/api/tree/pl-sections`;
-  const res = await fetch(url);
-  plData = await res.json();
+  if (_static) {
+    plData = _static.plSections(industry);
+  } else {
+    const url = industry
+      ? `${API}/api/tree/pl-sections?industry=${encodeURIComponent(industry)}`
+      : `${API}/api/tree/pl-sections`;
+    const res = await fetch(url);
+    plData = await res.json();
+  }
   renderRiver(plData.sections);
   renderCards(plData.sections);
   updateStats(plData.stats, industry);
@@ -69,7 +229,6 @@ function renderRiver(sections) {
 
     node.addEventListener('click', () => {
       scrollToSection(rn.key);
-      // Also load detail panel for this section's node
       const secData = sectionMap[rn.key];
       if (secData && secData.node_id) selectNode(secData.node_id);
     });
@@ -86,7 +245,6 @@ function scrollToSection(key) {
   const el = document.querySelector(`[data-section-key="${key}"]`);
   if (el) {
     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    // Auto-expand section if collapsed
     const body = el.querySelector('.sec-body');
     const arrow = el.querySelector('.sec-arrow');
     if (body && !body.classList.contains('visible')) {
@@ -95,7 +253,6 @@ function scrollToSection(key) {
     }
   }
 
-  // Highlight river node
   document.querySelectorAll('.river-node').forEach(n => n.classList.remove('active'));
   const rn = document.querySelector(`.river-node[data-key="${key}"]`);
   if (rn) rn.classList.add('active');
@@ -127,7 +284,6 @@ function buildSectionCard(sec) {
   const emphasizedCount = sec.emphasized_count || 0;
   const suppressed = sec.total - sec.visible;
 
-  // Header
   const header = document.createElement('div');
   header.className = 'pl-header';
   header.innerHTML = `
@@ -142,14 +298,12 @@ function buildSectionCard(sec) {
     </div>
   `;
 
-  // Body with chips
   const body = document.createElement('div');
   body.className = 'sec-body';
 
   const chips = document.createElement('div');
   chips.className = 'chips';
 
-  // Sort: emphasized first, then suppressed last
   const sorted = [...(sec.nodes || [])].sort((a, b) => {
     if (a.emphasized && !b.emphasized) return -1;
     if (!a.emphasized && b.emphasized) return 1;
@@ -168,10 +322,7 @@ function buildSectionCard(sec) {
     if (node.emphasized) chip.classList.add('emphasized');
     if (node.suppressed) chip.classList.add('suppressed');
     chip.textContent = (node.emphasized ? '✦ ' : '') + node.label;
-    chip.addEventListener('click', (e) => {
-      e.stopPropagation();
-      selectNode(node.id);
-    });
+    chip.addEventListener('click', (e) => { e.stopPropagation(); selectNode(node.id); });
     chips.appendChild(chip);
   });
 
@@ -181,7 +332,6 @@ function buildSectionCard(sec) {
     more.textContent = `+${remaining} more`;
     more.addEventListener('click', (e) => {
       e.stopPropagation();
-      // Show all
       chips.innerHTML = '';
       sorted.forEach(node => {
         const chip = document.createElement('div');
@@ -189,10 +339,7 @@ function buildSectionCard(sec) {
         if (node.emphasized) chip.classList.add('emphasized');
         if (node.suppressed) chip.classList.add('suppressed');
         chip.textContent = (node.emphasized ? '✦ ' : '') + node.label;
-        chip.addEventListener('click', (ev) => {
-          ev.stopPropagation();
-          selectNode(node.id);
-        });
+        chip.addEventListener('click', (ev) => { ev.stopPropagation(); selectNode(node.id); });
         chips.appendChild(chip);
       });
     });
@@ -203,13 +350,11 @@ function buildSectionCard(sec) {
   el.appendChild(header);
   el.appendChild(body);
 
-  // Toggle expand + show detail
   let expanded = false;
   header.addEventListener('click', () => {
     expanded = !expanded;
     body.classList.toggle('visible', expanded);
     header.querySelector('.sec-arrow').classList.toggle('open', expanded);
-    // Show section's root node in detail panel
     if (sec.node_id) selectNode(sec.node_id);
   });
 
@@ -237,22 +382,29 @@ function buildSubtotalRow(sec, cssClass) {
 // ─── Node Detail ────────────────────────────────────────────
 
 async function selectNode(nodeId) {
-  // Highlight subtotal if clicked
   document.querySelectorAll('.subtotal-row.selected').forEach(el => el.classList.remove('selected'));
   const stRow = document.querySelector(`.subtotal-row[data-node-id="${CSS.escape(nodeId)}"]`);
   if (stRow) stRow.classList.add('selected');
 
-  const [nodeRes, ancRes] = await Promise.all([
-    fetch(`${API}/api/nodes/detail?id=${encodeURIComponent(nodeId)}`),
-    fetch(`${API}/api/nodes/ancestors?id=${encodeURIComponent(nodeId)}`),
-  ]);
+  let node, ancestors;
 
-  if (!nodeRes.ok) return;
-  const node = await nodeRes.json();
-  const ancData = await ancRes.json();
-  renderDetail(node, ancData.ancestors || []);
+  if (_static) {
+    node = _static.getNode(nodeId);
+    ancestors = _static.ancestors(nodeId);
+    if (!node) return;
+  } else {
+    const [nodeRes, ancRes] = await Promise.all([
+      fetch(`${API}/api/nodes/detail?id=${encodeURIComponent(nodeId)}`),
+      fetch(`${API}/api/nodes/ancestors?id=${encodeURIComponent(nodeId)}`),
+    ]);
+    if (!nodeRes.ok) return;
+    node = await nodeRes.json();
+    const ancData = await ancRes.json();
+    ancestors = ancData.ancestors || [];
+  }
 
-  // Auto-show detail panel on mobile
+  renderDetail(node, ancestors);
+
   const panel = document.getElementById('detailPanel');
   if (window.innerWidth <= 768) panel.classList.add('visible');
 }
@@ -260,7 +412,6 @@ async function selectNode(nodeId) {
 function renderDetail(node, ancestors) {
   document.getElementById('detailTitle').textContent = node.label;
 
-  // Breadcrumb
   const bc = document.getElementById('detailBreadcrumb');
   if (ancestors.length) {
     bc.innerHTML = ancestors.map(a => `<a onclick="selectNode('${a.id}')">${esc(a.label)}</a>`).join(' › ');
@@ -271,17 +422,14 @@ function renderDetail(node, ancestors) {
   const content = document.getElementById('detailContent');
   let html = '';
 
-  // Definition
   if (node.definition) {
     html += `<div class="detail-block"><h4>Definition</h4><div class="def-box">${esc(node.definition)}</div></div>`;
   }
 
-  // Formula
   if (node.formula_human) {
     html += `<div class="detail-block"><h4>Formula</h4><div class="formula-box">${esc(node.formula_human)}${node.formula_machine ? '<br><span style="opacity:0.4;font-size:10px">' + esc(node.formula_machine) + '</span>' : ''}</div></div>`;
   }
 
-  // Properties
   html += '<div class="detail-block"><h4>Properties</h4>';
   html += field('ID', node.id);
   html += field('Type', node.node_type);
@@ -292,12 +440,10 @@ function renderDetail(node, ancestors) {
   if (node.asc_reference) html += field('ASC Ref', node.asc_reference);
   html += '</div>';
 
-  // Example
   if (node.example) {
     html += `<div class="detail-block"><h4>Example</h4><div class="def-box" style="border-color:var(--amber)">${esc(node.example)}</div></div>`;
   }
 
-  // Variance Drivers
   if (node.variance_drivers?.playbook) {
     const vd = node.variance_drivers;
     html += '<div class="detail-block"><h4>Variance Drivers</h4>';
@@ -312,21 +458,17 @@ function renderDetail(node, ancestors) {
     html += '</div></div>';
   }
 
-  // Comparability
   if (node.comparability) {
     html += '<div class="detail-block"><h4>Comparability</h4>';
     if (node.comparability.variations) {
       html += `<div class="def-box" style="border-color:var(--purple);margin-bottom:8px;font-size:12px">${esc(node.comparability.variations)}</div>`;
     }
     if (node.comparability.examples?.length) {
-      node.comparability.examples.forEach(ex => {
-        html += field(ex.company, ex.treatment);
-      });
+      node.comparability.examples.forEach(ex => { html += field(ex.company, ex.treatment); });
     }
     html += '</div>';
   }
 
-  // COA Mapping
   if (node.coa_mapping) {
     html += '<div class="detail-block"><h4>Chart of Accounts</h4>';
     if (node.coa_mapping.quickbooks) html += field('QuickBooks', node.coa_mapping.quickbooks);
@@ -335,14 +477,12 @@ function renderDetail(node, ancestors) {
     html += '</div>';
   }
 
-  // AI Tags
   if (node.ai_context_tags?.length) {
     html += '<div class="detail-block"><h4>AI Context Tags</h4><div class="tag-row">';
     node.ai_context_tags.forEach(t => html += `<span class="tag">${esc(t)}</span>`);
     html += '</div></div>';
   }
 
-  // Children
   if (node.children_ids?.length) {
     html += `<div class="detail-block"><h4>Children (${node.children_ids.length})</h4><ul class="children-list">`;
     node.children_ids.forEach(cid => {
@@ -383,8 +523,13 @@ function setupSearch() {
 }
 
 async function doSearch(query) {
-  const res = await fetch(`${API}/api/search?q=${encodeURIComponent(query)}&limit=12`);
-  const data = await res.json();
+  let data;
+  if (_static) {
+    data = _static.search(query, 12);
+  } else {
+    const res = await fetch(`${API}/api/search?q=${encodeURIComponent(query)}&limit=12`);
+    data = await res.json();
+  }
   const dropdown = document.getElementById('searchDropdown');
 
   if (!data.results.length) {
@@ -411,14 +556,20 @@ function handleSearchClick(nodeId) {
 // ─── Industry Overlay ───────────────────────────────────────
 
 async function loadIndustryOptions() {
-  const res = await fetch(`${API}/api/industry`);
-  const data = await res.json();
-  const select = document.getElementById('industrySelect');
+  let overlays;
+  if (_static) {
+    overlays = _static.overlays();
+  } else {
+    const res = await fetch(`${API}/api/industry`);
+    const data = await res.json();
+    overlays = data.overlays;
+  }
 
-  data.overlays.forEach(o => {
+  const select = document.getElementById('industrySelect');
+  overlays.forEach(o => {
     const opt = document.createElement('option');
     opt.value = o.industry;
-    opt.textContent = `${o.label}`;
+    opt.textContent = o.label;
     select.appendChild(opt);
   });
 
@@ -432,8 +583,13 @@ async function loadIndustryOptions() {
 // ─── Stats ──────────────────────────────────────────────────
 
 async function loadStats() {
-  const res = await fetch(`${API}/api/tree/stats`);
-  const stats = await res.json();
+  let stats;
+  if (_static) {
+    stats = _static.stats();
+  } else {
+    const res = await fetch(`${API}/api/tree/stats`);
+    stats = await res.json();
+  }
   document.getElementById('searchInput').placeholder = `Search ${stats.total_nodes} nodes...  /`;
 }
 
@@ -467,26 +623,14 @@ function setupMobilePanel() {
   const toggle = document.getElementById('detailToggle');
   if (!toggle) return;
 
-  toggle.addEventListener('click', () => {
-    panel.classList.add('visible');
-  });
+  toggle.addEventListener('click', () => { panel.classList.add('visible'); });
 
   const close = document.getElementById('detailClose');
-  if (close) {
-    close.addEventListener('click', () => {
-      panel.classList.remove('visible');
-    });
-  }
+  if (close) { close.addEventListener('click', () => { panel.classList.remove('visible'); }); }
 
-  // Close panel on swipe down or clicking outside
-  panel.addEventListener('touchstart', (e) => {
-    panel._touchY = e.touches[0].clientY;
-  }, { passive: true });
+  panel.addEventListener('touchstart', (e) => { panel._touchY = e.touches[0].clientY; }, { passive: true });
   panel.addEventListener('touchmove', (e) => {
-    const dy = e.touches[0].clientY - (panel._touchY || 0);
-    if (dy > 60) {
-      panel.classList.remove('visible');
-    }
+    if (e.touches[0].clientY - (panel._touchY || 0) > 60) panel.classList.remove('visible');
   }, { passive: true });
 }
 
