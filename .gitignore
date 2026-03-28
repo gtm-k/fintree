@@ -25,5 +25,9 @@ Thumbs.db
 
 # Internal docs — these live in a separate private repo
 fintree_prd.md
-docs/superpowers/
+docs/
 .claude/
+
+# Test artifacts
+*.png
+.playwright-mcp/
