@@ -23,6 +23,14 @@ Thumbs.db
 # Superpowers (internal tooling)
 .superpowers/
 
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+
 # Internal docs — these live in a separate private repo
 fintree_prd.md
 docs/
@@ -31,3 +39,13 @@ docs/
 # Test artifacts
 *.png
 .playwright-mcp/
+
+# Coverage & caches
+.coverage
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+*.log
+*.db
+*.sqlite
