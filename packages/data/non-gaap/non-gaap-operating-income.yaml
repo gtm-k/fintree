@@ -1,0 +1,48 @@
+id: nongaap:NonGAAPOperatingIncome
+label: Non-GAAP Operating Income
+description: >
+  Operating Income adjusted to exclude stock-based compensation, amortization
+  of acquired intangibles, and restructuring charges. Commonly used by
+  technology companies to show "underlying" operating performance.
+
+formula: "OperatingIncome + StockBasedCompensation + AcquiredIntangibleAmortization + RestructuringCharges"
+
+components:
+  - node_id: fintree:OperatingIncome
+    operation: start
+  - node_id: fintree:StockbasedCompensationGa
+    operation: add_back
+    label_override: Stock-Based Compensation (G&A)
+  - node_id: fintree:StockbasedCompensationRd
+    operation: add_back
+    label_override: Stock-Based Compensation (R&D)
+  - node_id: fintree:AmortizationOfIntangibleAssets
+    operation: add_back
+    label_override: Amortization of Acquired Intangibles
+  - node_id: fintree:CustomerRelationshipAmortization
+    operation: add_back
+  - node_id: fintree:TechnologyIpAmortization
+    operation: add_back
+  - node_id: fintree:TradeNameAmortization
+    operation: add_back
+  - node_id: fintree:RestructuringCharges
+    operation: add_back
+
+sec_regulation_g: >
+  Must be reconciled to GAAP Operating Income. Cannot exclude normal, recurring
+  cash operating expenses. Amortization of acquired intangibles is the most
+  commonly accepted adjustment due to its acquisition-driven, non-cash nature.
+
+common_adjustments:
+  - Stock-based compensation expense
+  - Amortization of acquired intangible assets
+  - Restructuring and reorganization costs
+  - Acquisition and integration costs
+  - Litigation and regulatory settlements (if non-recurring)
+
+notes: >
+  Non-GAAP operating income is preferred over Adjusted EBITDA by companies
+  that want to show the impact of their capital allocation (interest, D&A on
+  owned assets) while excluding M&A accounting noise. Common in large-cap
+  tech (Microsoft, Salesforce, Google). The non-GAAP operating margin derived
+  from this metric is a key comparability indicator across acquirers.

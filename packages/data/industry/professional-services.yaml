@@ -1,0 +1,87 @@
+industry: professional-services
+label: Professional Services
+description: >
+  Overlay for consulting firms, law firms, accounting practices, staffing agencies,
+  and other labor-intensive service businesses. Emphasizes personnel costs,
+  utilization metrics, and project-based revenue. Suppresses manufacturing and
+  inventory nodes.
+
+modifications:
+  emphasize:
+    - fintree:ProfessionalServicesRevenue
+    - fintree:ServiceRevenue
+    - fintree:OtherOperatingRevenue
+    - fintree:ServiceDeliveryCosts
+    - fintree:CustomerSupportLabor
+    - fintree:SupportStaffWagesSalary
+    - fintree:ExecutiveManagementCompensation
+    - fintree:ExecutiveSalaries
+    - fintree:ExecutiveBonusesIncentivePay
+    - fintree:ExecutiveBenefitsPerquisites
+    - fintree:SalesForceCompensation
+    - fintree:SalesSalariesBasePay
+    - fintree:SalesCommissions
+    - fintree:SalesBonusesSpifs
+    - fintree:SalesBenefits
+    - fintree:FinanceAccountingStaffCompensation
+    - fintree:HrStaffCompensation
+    - fintree:ItStaffCompensation
+    - fintree:EmployeeTrainingDevelopment
+    - fintree:RecruitingHiringCosts
+    - fintree:BusinessTravelEntertainment
+    - fintree:MealsEntertainment
+    - fintree:EventTravelEntertainment
+    - fintree:ExternalLegalFeesGeneralCorporate
+    - fintree:ExternalAuditFees
+    - fintree:OfficeFacilitiesCorporate
+    - fintree:OfficeRentLease
+    - fintree:OfficeUtilities
+    - fintree:OfficeEquipmentSupplies
+    - fintree:SoftwareSubscriptionsCorporate
+    - fintree:ReferralAffiliateFees
+
+  suppress:
+    - fintree:DirectMaterials
+    - fintree:PrimaryRawMaterial
+    - fintree:SecondaryRawMaterials
+    - fintree:PurchasedComponents
+    - fintree:Subassemblies
+    - fintree:OemComponents
+    - fintree:DirectLabor
+    - fintree:RegularProductionWages
+    - fintree:ProductionOvertimePay
+    - fintree:ManufacturingOverhead
+    - fintree:FactoryRentLease
+    - fintree:FactoryUtilities
+    - fintree:FactoryProductionSupplies
+    - fintree:ProductionEquipmentDepreciation
+    - fintree:MachineryEquipmentDepreciation
+    - fintree:BeginningInventory
+    - fintree:NetPurchases
+    - fintree:EndingInventory
+    - fintree:InventoryAdjustments
+    - fintree:InventoryObsolescenceWritedown
+    - fintree:InventoryShrinkageSpoilage
+    - fintree:FreightinInboundShipping
+    - fintree:OutboundFreightShipping
+    - fintree:DistributionCenterCosts
+    - fintree:PackagingMaterials
+    - fintree:ShippingDistribution
+    - fintree:CloudInfrastructureHosting
+    - fintree:ComputeEc2VirtualMachines
+    - fintree:StorageS3ObjectStorage
+    - fintree:SubscriptionRevenue
+    - fintree:RawMaterialYieldLosses
+    - fintree:AllowancesForDefectiveGoods
+
+  rename:
+    fintree:CostOfGoodsSoldCostOfRevenue: Cost of Services
+    fintree:Cogs: Cost of Services (Detail)
+    fintree:ProductRevenue: Project-Based Revenue
+    fintree:GrossProfit: Gross Margin on Services
+
+notes: >
+  Professional services firms are measured on utilization rate, revenue per
+  employee, and realization rate (billed vs. standard hours). Personnel costs
+  typically represent 60-75% of revenue. Hiring pace and attrition are leading
+  indicators. Travel and subcontractor costs are the primary variable expenses.

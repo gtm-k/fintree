@@ -1,0 +1,91 @@
+industry: financial-services
+label: Financial Services
+description: >
+  Overlay for banks, insurance companies, asset managers, and fintech firms.
+  Emphasizes interest income/expense, regulatory costs, and financial instrument
+  gains/losses. Suppresses physical manufacturing and inventory nodes.
+
+modifications:
+  emphasize:
+    - fintree:InterestIncome
+    - fintree:InterestExpense
+    - fintree:InterestOnLongtermDebt
+    - fintree:InterestOnRevolvingCreditFacility
+    - fintree:FinanceLeaseInterest
+    - fintree:DividendIncome
+    - fintree:GainOnInvestments
+    - fintree:GainLossOnDisposal
+    - fintree:GainOnForeignExchange
+    - fintree:ForeignExchangeLoss
+    - fintree:NonoperatingIncome
+    - fintree:NonoperatingExpenses
+    - fintree:NonoperatingIncomeExpenses
+    - fintree:RegulatoryComplianceFees
+    - fintree:ExternalAuditFees
+    - fintree:TaxAdvisoryComplianceFees
+    - fintree:LegalCompliance
+    - fintree:ExternalLegalFeesGeneralCorporate
+    - fintree:ExternalLegalFeesLitigation
+    - fintree:DoAndOtherCorporateInsurance
+    - fintree:FinancialReportingCosts
+    - fintree:FinanceAccountingStaffCompensation
+    - fintree:DataProviderFees
+    - fintree:CybersecurityComplianceSoftware
+    - fintree:ImpairmentCharges
+    - fintree:PaymentProcessingTransactionFees
+    - fintree:CreditCardProcessingFees
+    - fintree:IncomeTaxExpense
+    - fintree:ExecutiveManagementCompensation
+    - fintree:StockbasedCompensationGa
+
+  suppress:
+    - fintree:DirectMaterials
+    - fintree:PrimaryRawMaterial
+    - fintree:SecondaryRawMaterials
+    - fintree:PurchasedComponents
+    - fintree:Subassemblies
+    - fintree:OemComponents
+    - fintree:DirectLabor
+    - fintree:RegularProductionWages
+    - fintree:ProductionOvertimePay
+    - fintree:ManufacturingOverhead
+    - fintree:FactoryRentLease
+    - fintree:FactoryUtilities
+    - fintree:FactoryProductionSupplies
+    - fintree:ProductionEquipmentDepreciation
+    - fintree:MachineryEquipmentDepreciation
+    - fintree:BeginningInventory
+    - fintree:NetPurchases
+    - fintree:EndingInventory
+    - fintree:InventoryAdjustments
+    - fintree:InventoryObsolescenceWritedown
+    - fintree:InventoryShrinkageSpoilage
+    - fintree:FreightinInboundShipping
+    - fintree:OutboundFreightShipping
+    - fintree:DistributionCenterCosts
+    - fintree:PackagingMaterials
+    - fintree:ShippingDistribution
+    - fintree:RawMaterialYieldLosses
+    - fintree:AllowancesForDefectiveGoods
+
+  rename:
+    fintree:GrossRevenue: Total Revenue
+    fintree:CostOfGoodsSoldCostOfRevenue: Cost of Services
+    fintree:ServiceRevenue: Fee & Commission Revenue
+    fintree:OtherRevenue: Trading & Advisory Revenue
+
+  add:
+    - id: fintree:FeeRevenue
+      label: Fee & Commission Income
+      description: Revenue from advisory fees, management fees, brokerage commissions, and service charges
+      parent_id: fintree:OtherOperatingRevenue
+    - id: fintree:ProvisionForCreditLosses
+      label: Provision for Credit Losses
+      description: Reserve for expected loan and receivable defaults (ASC 326 / CECL)
+      parent_id: fintree:NonoperatingExpenses
+
+notes: >
+  Financial services P&Ls differ fundamentally from product companies. Net interest
+  margin (NIM) drives bank profitability. Provision for credit losses is the
+  dominant risk expense. Regulatory capital requirements (Basel III/IV) constrain
+  balance sheet strategy. Fee income diversification is a key analyst metric.

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinTree Non-GAAP Measure",
+  "type": "object",
+  "required": ["id", "label", "formula", "components"],
+  "properties": {
+    "id": { "type": "string" },
+    "label": { "type": "string" },
+    "description": { "type": "string" },
+    "formula": { "type": "string" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["node_id", "operation"],
+        "properties": {
+          "node_id": { "type": "string" },
+          "operation": { "enum": ["start", "add_back", "subtract", "adjust"] },
+          "label_override": { "type": "string" }
+        }
+      }
+    },
+    "sec_regulation_g": { "type": "string" },
+    "common_adjustments": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": { "type": "string" }
+  }
+}

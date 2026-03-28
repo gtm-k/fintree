@@ -1,0 +1,52 @@
+id: nongaap:AdjustedEBITDA
+label: Adjusted EBITDA
+description: >
+  EBITDA further adjusted to exclude stock-based compensation, restructuring
+  charges, impairment charges, and other non-recurring items. The most
+  commonly reported non-GAAP metric in public company earnings releases.
+
+formula: "EBITDA + StockBasedCompensation + RestructuringCharges + ImpairmentCharges + OtherAdjustments"
+
+components:
+  - node_id: nongaap:EBITDA
+    operation: start
+    label_override: EBITDA (see reconciliation)
+  - node_id: fintree:StockbasedCompensationGa
+    operation: add_back
+    label_override: Stock-Based Compensation (G&A)
+  - node_id: fintree:StockbasedCompensationRd
+    operation: add_back
+    label_override: Stock-Based Compensation (R&D)
+  - node_id: fintree:RestructuringCharges
+    operation: add_back
+  - node_id: fintree:ImpairmentCharges
+    operation: add_back
+  - node_id: fintree:GainLossOnDisposal
+    operation: adjust
+    label_override: (Gain)/Loss on Asset Disposal
+  - node_id: fintree:ForeignExchangeLoss
+    operation: add_back
+    label_override: Foreign Exchange (Gain)/Loss
+  - node_id: fintree:GainOnForeignExchange
+    operation: subtract
+
+sec_regulation_g: >
+  Must be reconciled to Net Income via EBITDA. Each adjustment must be
+  individually identified and quantified. "Adjusted" label requires clear
+  disclosure of what is being adjusted and why management believes the
+  measure is useful to investors.
+
+common_adjustments:
+  - Stock-based compensation expense
+  - Restructuring and severance charges
+  - Goodwill and asset impairment charges
+  - Acquisition-related costs (deal fees, integration)
+  - Litigation settlements
+  - Foreign currency transaction gains/losses
+  - Gain/loss on sale of assets or business units
+
+notes: >
+  Adjusted EBITDA is the dominant metric in private equity and growth-stage
+  company valuations. SEC has increased scrutiny of "adjusted" metrics —
+  companies must explain why each adjustment is appropriate. The gap between
+  GAAP Net Income and Adjusted EBITDA is itself an important analytical signal.

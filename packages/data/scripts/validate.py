@@ -231,7 +231,6 @@ def validate_tree_json(tree_path: Path, result: ValidationResult):
 def main():
     base_dir = Path(__file__).resolve().parent.parent
     nodes_dir = base_dir / 'nodes'
-    non_gaap_dir = base_dir / 'non-gaap'
     tree_path = base_dir / 'tree.json'
 
     result = ValidationResult()
@@ -239,9 +238,9 @@ def main():
     print("FinTree Data Validation")
     print("-" * 40)
 
-    # 1. Validate YAML nodes
+    # 1. Validate YAML nodes (only nodes/ directory — industry/ and non-gaap/ are metadata)
     print("\n1. Validating YAML node files...")
-    nodes = load_nodes_from_yaml([nodes_dir, non_gaap_dir])
+    nodes = load_nodes_from_yaml([nodes_dir])
     validate_yaml_nodes(nodes, result)
 
     # 2. Validate tree.json (if it exists)

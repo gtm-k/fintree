@@ -1,0 +1,32 @@
+id: nongaap:EBITDA
+label: EBITDA
+description: >
+  Earnings Before Interest, Taxes, Depreciation, and Amortization.
+  The most widely used non-GAAP profitability measure, used to approximate
+  operating cash flow before capital structure and tax effects.
+
+formula: "NetIncome + IncomeTaxExpense + InterestExpense + DepreciationAmortization"
+
+components:
+  - node_id: fintree:NetIncome
+    operation: start
+  - node_id: fintree:IncomeTaxExpense
+    operation: add_back
+  - node_id: fintree:InterestExpense
+    operation: add_back
+  - node_id: fintree:DepreciationAmortization
+    operation: add_back
+
+sec_regulation_g: >
+  Must be reconciled to Net Income (the nearest GAAP measure) in SEC filings.
+  Cannot be presented on a per-share basis. Cannot be described as "cash flow."
+
+common_adjustments:
+  - Depreciation of property, plant, and equipment
+  - Amortization of intangible assets (customer relationships, technology, trade names)
+  - Amortization of right-of-use assets (under ASC 842)
+
+notes: >
+  EBITDA is not defined by GAAP and varies across companies. Some include
+  stock-based compensation in D&A add-backs (technically incorrect).
+  EV/EBITDA is a standard valuation multiple; typical ranges vary by industry.

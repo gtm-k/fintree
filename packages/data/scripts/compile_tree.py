@@ -2,8 +2,9 @@
 """
 Compile all YAML node files into a single tree.json.
 
-Reads all .yaml files from packages/data/nodes/ and packages/data/non-gaap/,
-resolves parent/child relationships, computes P&L ordering, and outputs
+Reads node .yaml files from packages/data/nodes/, industry overlays from
+packages/data/industry/, and non-GAAP measures from packages/data/non-gaap/.
+Resolves parent/child relationships, computes P&L ordering, and outputs
 packages/data/tree.json.
 """
 import json
@@ -64,6 +65,23 @@ def load_yaml_files(directories: list[Path]) -> dict[str, dict]:
             except Exception as e:
                 print(f"  ERROR loading {yaml_file.name}: {e}")
     return nodes
+
+
+def load_yaml_list(directory: Path) -> list[dict]:
+    """Load all YAML files from a directory as a list (for overlays/measures)."""
+    items = []
+    if not directory.exists():
+        return items
+    for yaml_file in sorted(directory.glob('*.yaml')):
+        try:
+            with open(yaml_file, 'r', encoding='utf-8') as f:
+                data = yaml.safe_load(f)
+            if data:
+                data['_source_file'] = yaml_file.name
+                items.append(data)
+        except Exception as e:
+            print(f"  ERROR loading {yaml_file.name}: {e}")
+    return items
 
 
 def compute_children(nodes: dict[str, dict]) -> dict[str, list[str]]:
@@ -137,6 +155,8 @@ def build_tree_json(
     children_map: dict[str, list[str]],
     pl_order: dict[str, int],
     edges: list[dict],
+    industry_overlays: list[dict],
+    non_gaap_measures: list[dict],
 ) -> dict:
     """Assemble the final tree.json structure."""
     # Build enriched node list
@@ -159,6 +179,10 @@ def build_tree_json(
     # Sort nodes by P&L order
     node_list.sort(key=lambda n: n.get('pl_order', 9999))
 
+    # Clean overlays and measures (remove _source_file)
+    clean_overlays = [{k: v for k, v in o.items() if k != '_source_file'} for o in industry_overlays]
+    clean_measures = [{k: v for k, v in m.items() if k != '_source_file'} for m in non_gaap_measures]
+
     # Compute stats
     total = len(node_list)
     leaf_count = sum(1 for n in node_list if n.get('is_leaf', False))
@@ -179,25 +203,37 @@ def build_tree_json(
             'leaf_nodes': leaf_count,
             'decision_nodes': decision_count,
             'non_gaap_nodes': non_gaap_count,
+            'industry_overlays': len(clean_overlays),
+            'non_gaap_measures': len(clean_measures),
             'by_level': dict(sorted(levels.items())),
         },
         'nodes': node_list,
         'edges': edges,
+        'industry_overlays': clean_overlays,
+        'non_gaap_measures': clean_measures,
     }
 
 
 def main():
     base_dir = Path(__file__).resolve().parent.parent
     nodes_dir = base_dir / 'nodes'
+    industry_dir = base_dir / 'industry'
     non_gaap_dir = base_dir / 'non-gaap'
     output_path = base_dir / 'tree.json'
 
     print(f"Loading YAML files from:")
-    print(f"  {nodes_dir}")
-    print(f"  {non_gaap_dir}")
+    print(f"  Nodes:     {nodes_dir}")
+    print(f"  Industry:  {industry_dir}")
+    print(f"  Non-GAAP:  {non_gaap_dir}")
 
-    nodes = load_yaml_files([nodes_dir, non_gaap_dir])
+    nodes = load_yaml_files([nodes_dir])
     print(f"\nLoaded {len(nodes)} nodes")
+
+    industry_overlays = load_yaml_list(industry_dir)
+    print(f"Loaded {len(industry_overlays)} industry overlays")
+
+    non_gaap_measures = load_yaml_list(non_gaap_dir)
+    print(f"Loaded {len(non_gaap_measures)} non-GAAP measures")
 
     # Compute relationships
     children_map = compute_children(nodes)
@@ -205,7 +241,7 @@ def main():
     edges = build_edges(nodes)
 
     # Build tree
-    tree = build_tree_json(nodes, children_map, pl_order, edges)
+    tree = build_tree_json(nodes, children_map, pl_order, edges, industry_overlays, non_gaap_measures)
 
     # Write output
     with open(output_path, 'w', encoding='utf-8') as f:
@@ -216,6 +252,8 @@ def main():
     print(f"  Leaf nodes: {tree['stats']['leaf_nodes']}")
     print(f"  Decision nodes: {tree['stats']['decision_nodes']}")
     print(f"  Non-GAAP nodes: {tree['stats']['non_gaap_nodes']}")
+    print(f"  Industry overlays: {tree['stats']['industry_overlays']}")
+    print(f"  Non-GAAP measures: {tree['stats']['non_gaap_measures']}")
     print(f"  Edges: {len(edges)}")
     print(f"  By level: {tree['stats']['by_level']}")
 

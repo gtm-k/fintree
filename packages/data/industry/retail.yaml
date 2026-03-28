@@ -1,0 +1,77 @@
+industry: retail
+label: Retail & E-Commerce
+description: >
+  Overlay for companies that sell merchandise to consumers. Emphasizes inventory
+  management, merchandise margins, store/fulfillment costs, and promotional
+  discounts. Suppresses R&D and SaaS infrastructure nodes.
+
+modifications:
+  emphasize:
+    - fintree:FinishedGoodsSales
+    - fintree:ComponentPartsSales
+    - fintree:MerchandiseReturns
+    - fintree:SalesReturnsAllowances
+    - fintree:SalesDiscounts
+    - fintree:PromotionalDiscounts
+    - fintree:VolumeQuantityDiscounts
+    - fintree:EarlyPaymentCashDiscounts
+    - fintree:CustomerLoyaltyCredits
+    - fintree:CostOfGoodsSoldCostOfRevenue
+    - fintree:BeginningInventory
+    - fintree:NetPurchases
+    - fintree:EndingInventory
+    - fintree:InventoryAdjustments
+    - fintree:InventoryObsolescenceWritedown
+    - fintree:InventoryShrinkageSpoilage
+    - fintree:InventoryWritedownsObsolescence
+    - fintree:FreightinInboundShipping
+    - fintree:InboundFreightCustoms
+    - fintree:OutboundFreightShipping
+    - fintree:ShippingDistribution
+    - fintree:DistributionCenterCosts
+    - fintree:PackagingMaterials
+    - fintree:FacilityCosts
+    - fintree:OfficeRentLease
+    - fintree:FacilityMaintenanceRepairs
+    - fintree:CreditCardProcessingFees
+    - fintree:PaymentGatewayFees
+    - fintree:PaymentProcessingTransactionFees
+    - fintree:AdvertisingMarketing
+    - fintree:DigitalAdvertising
+    - fintree:TraditionalOfflineAdvertising
+    - fintree:BrandSponsorshipsEvents
+
+  suppress:
+    - fintree:SubscriptionRevenue
+    - fintree:UsagebasedRevenue
+    - fintree:CloudInfrastructureHosting
+    - fintree:ComputeEc2VirtualMachines
+    - fintree:StorageS3ObjectStorage
+    - fintree:NetworkingCdn
+    - fintree:RdPersonnel
+    - fintree:RdSalariesWages
+    - fintree:RdCloudCompute
+    - fintree:RdSoftwareDevelopmentTools
+    - fintree:RdEquipmentFacilities
+    - fintree:RdMaterialsSupplies
+    - fintree:LaboratoryResearchSupplies
+    - fintree:ExternalContractResearch
+    - fintree:ContractResearchOrganizations
+    - fintree:UniversityResearchGrantsPartnerships
+    - fintree:PrototypeMaterials
+    - fintree:StockbasedCompensationRd
+    - fintree:DevopsPlatformEngineering
+    - fintree:DevopsSreWagesSalary
+    - fintree:CapitalizedSoftwareAmortization
+    - fintree:ApiIntegrationFees
+
+  rename:
+    fintree:ProductRevenue: Merchandise Revenue
+    fintree:FacilityCosts: Store & Warehouse Costs
+    fintree:OfficeRentLease: Store Lease Expense
+
+notes: >
+  Retail P&Ls focus on merchandise margin, same-store sales growth, and inventory
+  turnover. Shrinkage and markdowns are critical cost drivers. E-commerce adds
+  fulfillment and payment processing as major COGS components. Seasonality
+  heavily influences quarterly comparisons.
