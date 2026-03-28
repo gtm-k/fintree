@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTree — P&L Hierarchy Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo">
+      <h1>FinTree</h1>
+      <span class="logo-sub">GAAP P&L Explorer</span>
+    </div>
+    <div class="header-controls">
+      <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search 234 nodes...  /" autocomplete="off">
+        <div id="searchDropdown" class="search-dropdown"></div>
+      </div>
+      <select id="industrySelect" class="industry-select">
+        <option value="">All Industries (GAAP)</option>
+      </select>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- River Overview -->
+      <section class="river-section">
+        <div class="river-label">P&L Flow Overview</div>
+        <div class="flow-track">
+          <div class="flow-dot"></div>
+          <div class="flow-dot"></div>
+          <div class="flow-dot"></div>
+          <div class="flow-dot"></div>
+        </div>
+        <div id="riverFlow" class="river-flow"></div>
+      </section>
+
+      <!-- Statement Cards -->
+      <section id="cardsSection" class="cards-section"></section>
+    </div>
+
+    <!-- Detail Panel -->
+    <aside class="detail-panel" id="detailPanel">
+      <div class="detail-header">
+        <h2 id="detailTitle" class="detail-title">Select a node</h2>
+        <div id="detailBreadcrumb" class="detail-breadcrumb"></div>
+        <button class="detail-close" id="detailClose" aria-label="Close detail panel">✕</button>
+      </div>
+      <div id="detailContent" class="detail-content">
+        <p class="placeholder-text">Click any node in the tree to view its full details — definition, formula, XBRL tags, variance drivers, and more.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Detail Panel Toggle (mobile) -->
+  <button class="detail-toggle" id="detailToggle" aria-label="Show node detail">◉</button>
+
+  <!-- Stats Bar -->
+  <footer id="statsBar" class="stats-bar"></footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
