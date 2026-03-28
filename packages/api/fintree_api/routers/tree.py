@@ -1,6 +1,7 @@
 """Tree endpoints — stats, structure, and full tree data."""
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
+from typing import Optional
 
 from fintree_api.deps import get_tree
 
@@ -63,3 +64,162 @@ def tree_full():
         return result
 
     return build_tree_node(tree.root)
+
+
+# P&L section definitions in correct financial statement order
+PL_SECTIONS = [
+    {
+        "key": "revenue",
+        "label": "Revenue",
+        "icon": "📈",
+        "color": "#10b981",
+        "root_ids": ["fintree:NetRevenue", "fintree:GrossRevenue", "fintree:RevenueDeductions"],
+        "type": "section",
+    },
+    {
+        "key": "cogs",
+        "label": "Cost of Revenue",
+        "icon": "⚙️",
+        "color": "#ef4444",
+        "root_ids": ["fintree:CostOfGoodsSoldCostOfRevenue", "fintree:Cogs"],
+        "type": "section",
+    },
+    {
+        "key": "gross_profit",
+        "label": "Gross Profit",
+        "formula": "Revenue − Cost of Revenue",
+        "node_id": "fintree:GrossProfit",
+        "type": "subtotal",
+    },
+    {
+        "key": "opex",
+        "label": "Operating Expenses",
+        "icon": "💼",
+        "color": "#f59e0b",
+        "root_ids": [
+            "fintree:OperatingExpenses",
+            "fintree:SellingExpenses",
+            "fintree:GeneralAdministrativeExpenses",
+            "fintree:ResearchDevelopment",
+            "fintree:DepreciationAmortization",
+        ],
+        "type": "section",
+    },
+    {
+        "key": "ebit",
+        "label": "Operating Income (EBIT)",
+        "formula": "Gross Profit − Operating Expenses",
+        "node_id": "fintree:OperatingIncome",
+        "type": "subtotal",
+    },
+    {
+        "key": "nonop",
+        "label": "Non-Operating Income & Expenses",
+        "icon": "📊",
+        "color": "#64748b",
+        "root_ids": ["fintree:NonoperatingIncomeExpenses", "fintree:NonoperatingIncome", "fintree:NonoperatingExpenses"],
+        "type": "section",
+    },
+    {
+        "key": "ebt",
+        "label": "Pre-Tax Income (EBT)",
+        "formula": "EBIT ± Non-Operating Items",
+        "node_id": "fintree:PretaxIncome",
+        "type": "subtotal",
+    },
+    {
+        "key": "tax",
+        "label": "Income Tax Expense",
+        "icon": "🏛️",
+        "color": "#f87171",
+        "root_ids": ["fintree:IncomeTaxExpense", "fintree:CurrentTaxExpense", "fintree:DeferredTaxExpense"],
+        "type": "section",
+    },
+    {
+        "key": "net_income",
+        "label": "Net Income",
+        "formula": "EBT − Income Tax Expense",
+        "node_id": "fintree:NetIncome",
+        "type": "bottom_line",
+    },
+    {
+        "key": "btl",
+        "label": "Below-the-Line Items",
+        "icon": "📋",
+        "color": "#475569",
+        "root_ids": ["fintree:BelowthelineItems", "fintree:DiscontinuedOperations", "fintree:ExtraordinaryItems", "fintree:CumulativeEffectOfAccountingChanges"],
+        "type": "section",
+    },
+]
+
+
+def _collect_section_nodes(tree, root_ids: list[str], suppressed: set, emphasized: set, renames: dict) -> list[dict]:
+    """Collect all descendant nodes for a P&L section."""
+    seen = set()
+    nodes = []
+    for rid in root_ids:
+        for n in tree.subtree(rid):
+            if n.id in seen or n.id in root_ids:
+                seen.add(n.id)
+                continue
+            seen.add(n.id)
+            label = renames.get(n.id, n.label)
+            nodes.append({
+                "id": n.id,
+                "label": label,
+                "level": n.level,
+                "node_type": n.node_type,
+                "is_leaf": n.is_leaf,
+                "parent_id": n.parent_id,
+                "suppressed": n.id in suppressed,
+                "emphasized": n.id in emphasized,
+            })
+    return nodes
+
+
+@router.get("/pl-sections")
+def pl_sections(industry: Optional[str] = Query(None)):
+    """Return P&L structure in financial statement order, grouped by section."""
+    tree = get_tree()
+
+    suppressed = set()
+    emphasized = set()
+    renames = {}
+    if industry:
+        overlay = tree.get_overlay(industry)
+        if overlay:
+            suppressed = set(overlay.modifications.suppress)
+            emphasized = set(overlay.modifications.emphasize)
+            renames = overlay.modifications.rename
+
+    sections = []
+    for sec in PL_SECTIONS:
+        entry = {"key": sec["key"], "label": sec["label"], "type": sec["type"]}
+
+        if sec["type"] == "section":
+            entry["icon"] = sec["icon"]
+            entry["color"] = sec["color"]
+            nodes = _collect_section_nodes(tree, sec["root_ids"], suppressed, emphasized, renames)
+            entry["nodes"] = nodes
+            entry["total"] = len(nodes)
+            entry["visible"] = len([n for n in nodes if not n["suppressed"]])
+            entry["emphasized_count"] = len([n for n in nodes if n["emphasized"]])
+        elif sec["type"] in ("subtotal", "bottom_line"):
+            entry["formula"] = sec["formula"]
+            node = tree.get(sec["node_id"])
+            if node:
+                entry["node_id"] = sec["node_id"]
+                entry["label"] = renames.get(node.id, node.label)
+
+        sections.append(entry)
+
+    return {
+        "industry": industry,
+        "sections": sections,
+        "stats": {
+            "total_nodes": tree.node_count,
+            "suppressed": len(suppressed),
+            "visible": tree.node_count - len([s for s in suppressed if tree.get(s)]),
+            "emphasized": len([e for e in emphasized if tree.get(e)]),
+        },
+    }

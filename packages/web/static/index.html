@@ -4,48 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinTree — P&L Hierarchy Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <header>
-    <div class="header-left">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo">
       <h1>FinTree</h1>
-      <span class="subtitle">GAAP P&L Hierarchy Explorer</span>
+      <span class="logo-sub">GAAP P&L Explorer</span>
     </div>
-    <div class="header-right">
+    <div class="header-controls">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search nodes..." autocomplete="off">
-        <div id="searchResults" class="search-dropdown"></div>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search 234 nodes...  /" autocomplete="off">
+        <div id="searchDropdown" class="search-dropdown"></div>
       </div>
-      <select id="industrySelect">
+      <select id="industrySelect" class="industry-select">
         <option value="">All Industries (GAAP)</option>
       </select>
     </div>
   </header>
 
-  <main>
-    <div class="panel tree-panel" id="treePanel">
-      <div class="panel-header">
-        <h2>P&L Structure</h2>
-        <div class="tree-controls">
-          <button id="expandAll" title="Expand All">&#9660; Expand</button>
-          <button id="collapseAll" title="Collapse All">&#9654; Collapse</button>
+  <div class="main-layout">
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- River Overview -->
+      <section class="river-section">
+        <div class="river-label">P&L Flow Overview</div>
+        <div class="flow-track">
+          <div class="flow-dot"></div>
+          <div class="flow-dot"></div>
+          <div class="flow-dot"></div>
+          <div class="flow-dot"></div>
         </div>
-      </div>
-      <div id="treeContainer" class="tree-container"></div>
+        <div id="riverFlow" class="river-flow"></div>
+      </section>
+
+      <!-- Statement Cards -->
+      <section id="cardsSection" class="cards-section"></section>
     </div>
 
-    <div class="panel detail-panel" id="detailPanel">
-      <div class="panel-header">
-        <h2 id="detailTitle">Select a node</h2>
+    <!-- Detail Panel -->
+    <aside class="detail-panel" id="detailPanel">
+      <div class="detail-header">
+        <h2 id="detailTitle" class="detail-title">Select a node</h2>
+        <div id="detailBreadcrumb" class="detail-breadcrumb"></div>
       </div>
       <div id="detailContent" class="detail-content">
-        <p class="placeholder">Click any node in the tree to view details.</p>
+        <p class="placeholder-text">Click any node in the tree to view its full details — definition, formula, XBRL tags, variance drivers, and more.</p>
       </div>
-    </div>
-  </main>
+    </aside>
+  </div>
 
-  <div id="statsBar" class="stats-bar"></div>
+  <!-- Stats Bar -->
+  <footer id="statsBar" class="stats-bar"></footer>
 
   <script src="/static/app.js"></script>
 </body>
