@@ -30,6 +30,63 @@ Built for FP&A teams, AI financial agents, and accounting software integrations.
 - **Interactive web explorer** with responsive mobile design
 - **RESTful API** for programmatic access
 
+## How It Works
+
+FinTree is authored as plain YAML, compiled into a single tree, and served two ways — as a live API or as a fully static site (GitHub Pages) with the data embedded in the page.
+
+```mermaid
+flowchart LR
+    subgraph A["📝 Authoring (source of truth)"]
+        direction TB
+        Y["234 YAML nodes<br/><code>data/nodes/</code>"]
+        O["5 industry overlays<br/><code>data/industry/</code>"]
+        G["3 non-GAAP measures<br/><code>data/non-gaap/</code>"]
+    end
+    subgraph B["⚙️ Build"]
+        direction TB
+        V["validate.py<br/><i>JSON-Schema check</i>"]
+        C["compile_tree.py<br/><i>resolve parents · P&amp;L order · edges</i>"]
+        V --> C
+    end
+    subgraph D["📦 Compiled artifacts"]
+        direction TB
+        TJ["tree.json<br/><i>server</i>"]
+        TD["tree-data.js<br/><i>browser embed</i>"]
+    end
+    subgraph S["🚀 Serve"]
+        direction TB
+        CORE["fintree core<br/><b>TreeGraph</b> traversal lib"]
+        API["FastAPI<br/><code>/api/*</code>"]
+        CORE --> API
+    end
+    subgraph U["👥 Consumers"]
+        direction TB
+        WEB["🖥️ Web Explorer<br/>River + Cards"]
+        AG["🤖 AI Agents<br/>structured JSON"]
+        SW["🧾 Accounting SW<br/>QB · NetSuite · SAP"]
+    end
+    Y --> V
+    O --> V
+    G --> V
+    C --> TJ
+    C --> TD
+    TJ --> CORE
+    API --> WEB
+    API --> AG
+    API --> SW
+    TD -. "static mode" .-> WEB
+    classDef src fill:#ecfdf5,stroke:#10b981,color:#065f46;
+    classDef bld fill:#eff6ff,stroke:#3b82f6,color:#1e3a8a;
+    classDef art fill:#fef3c7,stroke:#f59e0b,color:#78350f;
+    classDef srv fill:#f5f3ff,stroke:#7c3aed,color:#4c1d95;
+    classDef con fill:#f1f5f9,stroke:#64748b,color:#0f172a;
+    class Y,O,G src;
+    class V,C bld;
+    class TJ,TD art;
+    class CORE,API srv;
+    class WEB,AG,SW con;
+```
+
 ## Quick Start
 
 ```bash
@@ -48,6 +105,31 @@ uvicorn fintree_api.main:app --port 8000
 # Open http://localhost:8000
 ```
 
+## Exploring the Tree
+
+The web explorer renders the tree as a **River + Cards** P&L statement. The same UI talks to either the live API or the embedded static data — so it works identically when hosted on GitHub Pages with no backend.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor U as You
+    participant UI as Explorer (app.js)
+    participant DS as Data source<br/>(API ⟷ static)
+    U->>UI: Open the explorer
+    UI->>DS: load P&L sections
+    DS-->>UI: Revenue → … → Net Income
+    Note over UI: rendered as River + Cards
+    U->>UI: Expand a section card
+    UI->>DS: children(node_id)
+    DS-->>UI: child line items
+    U->>UI: Click a leaf node
+    UI->>DS: node detail + ancestors
+    DS-->>UI: 26 fields + breadcrumb
+    U->>UI: Apply industry overlay (e.g. SaaS)
+    UI->>DS: pl-sections?industry=saas
+    DS-->>UI: emphasized / suppressed nodes
+```
+
 ## API
 
 | Endpoint | Description |
@@ -63,6 +145,27 @@ uvicorn fintree_api.main:app --port 8000
 | `GET /api/tree/pl-sections?industry=saas` | P&L with SaaS overlay applied |
 
 ## Tree Structure
+
+Displayed in financial-statement order (SEC Regulation S-X, Rule 5-03): **Revenue at the top flowing down to Net Income**. Gold rows are computed subtotals, not data nodes.
+
+```mermaid
+flowchart TB
+    REV["📈 Revenue<br/><i>26 nodes</i>"]:::sec --> GP
+    COGS["⚙️ Cost of Revenue<br/><i>66 nodes</i>"]:::sec --> GP
+    GP(["💰 Gross Profit"]):::sub --> EBIT
+    OPEX["💼 Operating Expenses<br/><i>91 nodes — S,G&amp;A · R&amp;D · D&amp;A</i>"]:::sec --> EBIT
+    EBIT(["🏭 Operating Income · EBIT"]):::sub --> EBT
+    NONOP["📊 Non-Operating Items<br/><i>16 nodes</i>"]:::sec --> EBT
+    EBT(["🧮 Pre-Tax Income · EBT"]):::sub --> NI
+    TAX["🏛️ Income Tax Expense<br/><i>6 nodes</i>"]:::sec --> NI
+    NI(["✅ Net Income"]):::bottom --> BTL
+    BTL["📋 Below-the-Line Items<br/><i>5 nodes</i>"]:::sec
+    classDef sec fill:#ecfdf5,stroke:#10b981,color:#065f46;
+    classDef sub fill:#fef3c7,stroke:#f59e0b,color:#78350f,font-weight:bold;
+    classDef bottom fill:#10b981,stroke:#047857,color:#ffffff,font-weight:bold;
+```
+
+> The data model is a **tree rooted at Net Income** (values aggregate upward); the statement above is its top-down *presentation*. The full hierarchy with every sub-line:
 
 ```
 Net Income
