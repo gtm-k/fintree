@@ -27,6 +27,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-v
 .ft-sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
   overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
+/* Search dropdown result hover/focus. */
+#ftSearchList button:hover,#ftSearchList button:focus-visible{background:var(--panel2)}
+
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;transition-duration:.001ms !important}
 }
