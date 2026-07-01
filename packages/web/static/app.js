@@ -132,15 +132,12 @@
 
     // Industry overlays: curated emphasize / suppress / rename per overlay.
     const overlays = DATA.industry_overlays || [];
-    const emphSets = {}, suppSets = {}, renameByInd = {}, suppCountByInd = {}, emphCountByInd = {}, renameCountByInd = {};
+    const emphSets = {}, suppSets = {}, renameByInd = {};
     overlays.forEach((o) => {
       const m = o.modifications || {};
       emphSets[o.industry] = new Set(m.emphasize || []);
       suppSets[o.industry] = new Set(m.suppress || []);
       renameByInd[o.industry] = m.rename || {};
-      suppCountByInd[o.industry] = (m.suppress || []).length;
-      emphCountByInd[o.industry] = (m.emphasize || []).length;
-      renameCountByInd[o.industry] = Object.keys(m.rename || {}).length;
     });
     const industries = [{ v: '', l: 'All Industries (GAAP)' }].concat(
       overlays.map((o) => ({ v: o.industry, l: o.label || String(o.industry || '').replace(/_/g, ' ') }))
@@ -197,7 +194,7 @@
       return base;
     });
 
-    return { stats: DATA.stats || { total_nodes: nodes.length }, rootId: DATA.root_node_id, tree, detail, sections, industries, renameByInd, suppCountByInd, emphCountByInd, renameCountByInd };
+    return { stats: DATA.stats || { total_nodes: nodes.length }, rootId: DATA.root_node_id, tree, detail, sections, industries, renameByInd };
   }
 
   /* ── Component ────────────────────────────────────────────────────── */
@@ -409,9 +406,12 @@
       return this.PL.sections.map((s) => {
         const tk = tints(s.tone); const isInput = s.kind === 'input', isSubtotal = s.kind === 'subtotal', isNet = s.key === 'netincome';
         const allChips = s.chips || [];
-        // Overlay counts for this section (shown in the header even while collapsed).
+        // Overlay counts for this section, over what is actually rendered — chips
+        // (the section root/header is not a chip). Shown in the header even collapsed.
         const emphN = industry ? allChips.filter((c) => { const d = this.PL.detail[c.id]; return d && d.iv && d.iv.includes(industry); }).length : 0;
         const suppN = industry ? allChips.filter((c) => { const d = this.PL.detail[c.id]; return d && d.sv && d.sv.includes(industry); }).length : 0;
+        // Renames apply to both chips and the (visible) section header.
+        const renN = industry ? (() => { const rm = (this.PL.renameByInd && this.PL.renameByInd[industry]) || {}; let n = allChips.filter((c) => rm[c.id]).length; if (rm[s.src]) n += 1; return n; })() : 0;
         const labelMatch = !q || s.label.toLowerCase().includes(q);
         const chipMatch = (c) => { const d = this.PL.detail[c.id]; return c.label.toLowerCase().includes(q) || (d && (d.xbrl || '').toLowerCase().includes(q)); };
         const hasMatch = labelMatch || allChips.some(chipMatch);
@@ -446,7 +446,7 @@
         const iconStyle = { width: '35px', height: '35px', borderRadius: '9px', background: tk.soft, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'IBM Plex Mono',monospace", fontWeight: 600, fontSize: '14px', color: tk.color, flexShrink: 0 };
         const rowStyle = { display: 'flex', alignItems: 'center', gap: '13px', width: '100%', textAlign: 'left', padding: '13px 15px', borderRadius: '13px', background: isNet ? tk.tint : 'transparent', border: isNet ? ('1px solid ' + tk.border) : ('1px dashed ' + tk.border), boxShadow: selSec ? ('0 0 0 2px ' + tk.color) : 'none', transition: 'box-shadow .15s' };
         const subIconStyle = Object.assign({}, iconStyle, { fontWeight: 700, fontSize: '15px' });
-        return { key: s.key, label: renames[s.src] || s.label, isInput: isInput, isSubtotal: isSubtotal, signLabel: SIGN[s.sign] || '', count: s.count, emphN: emphN, suppN: suppN, icon: ICON[s.key] || '·', caret: open ? '▾' : '▸', open: open, opacity: dim ? 0.4 : 1, cardStyle: cardStyle, iconStyle: iconStyle, rowStyle: rowStyle, subIconStyle: subIconStyle, labelColor: tk.color, formula: s.formula || '', chips: chips, hasMore: hasMore, moreLabel: moreLabel, onSelect: () => this.select(s.src), onToggle: () => this.toggle(s.key), onMore: () => this.showFull(s.key) };
+        return { key: s.key, label: renames[s.src] || s.label, isInput: isInput, isSubtotal: isSubtotal, signLabel: SIGN[s.sign] || '', count: s.count, emphN: emphN, suppN: suppN, renN: renN, icon: ICON[s.key] || '·', caret: open ? '▾' : '▸', open: open, opacity: dim ? 0.4 : 1, cardStyle: cardStyle, iconStyle: iconStyle, rowStyle: rowStyle, subIconStyle: subIconStyle, labelColor: tk.color, formula: s.formula || '', chips: chips, hasMore: hasMore, moreLabel: moreLabel, onSelect: () => this.select(s.src), onToggle: () => this.toggle(s.key), onMore: () => this.showFull(s.key) };
       });
     }
 
@@ -458,28 +458,28 @@
       const industries = (this.PL.industries && this.PL.industries.length) ? this.PL.industries : [{ v: '', l: 'All Industries (GAAP)' }];
 
       let wf = { bars: [], connectors: [], hasDrill: false, drill: { segments: [] } }, ic = { cells: [], breadcrumb: [] }, sections = [];
+      // Suppressed nodes are still rendered (struck through), so they stay counted
+      // as visible; only the search query hides nodes. The overlay banner reports
+      // the suppressed count separately.
       let total = (this.PL.stats && this.PL.stats.total_nodes) || 234, visible = total;
       if (query.trim()) {
         const qq = query.trim().toLowerCase();
         visible = Object.keys(this.PL.detail).filter((id) => { const d = this.PL.detail[id]; return d.label.toLowerCase().includes(qq) || (d.xbrl || '').toLowerCase().includes(qq); }).length;
-      } else if (industry) {
-        visible = total - ((this.PL.suppCountByInd && this.PL.suppCountByInd[industry]) || 0);
       }
       const searchResults = this.searchNodes(query, 10);
       const showSearch = this.state.searchOpen && query.trim().length >= 2;
-      let overlay = null;
-      if (industry) {
-        const ind = (this.PL.industries || []).find((o) => o.v === industry);
-        overlay = {
-          label: ind ? ind.l : industry,
-          emph: (this.PL.emphCountByInd && this.PL.emphCountByInd[industry]) || 0,
-          supp: (this.PL.suppCountByInd && this.PL.suppCountByInd[industry]) || 0,
-          rename: (this.PL.renameCountByInd && this.PL.renameCountByInd[industry]) || 0,
-        };
-      }
       if (view === 'waterfall') wf = this.buildWaterfall();
       else if (view === 'hierarchy') ic = this.buildIcicle();
       else sections = this.buildStatement();
+      // Overlay summary sums the per-section rendered counts, so it can never
+      // contradict the section badges (only shown in the Statement view).
+      let overlay = null;
+      if (industry && view === 'statement') {
+        const ind = (this.PL.industries || []).find((o) => o.v === industry);
+        let e = 0, sp = 0, r = 0;
+        sections.forEach((sec) => { e += sec.emphN || 0; sp += sec.suppN || 0; r += sec.renN || 0; });
+        overlay = { label: ind ? ind.l : industry, emph: e, supp: sp, rename: r };
+      }
 
       return Object.assign({
         themeDot: theme === 'light' ? 'var(--c-amber)' : 'var(--c-indigo)',
@@ -823,6 +823,15 @@
         this._lann = this.state.selectedId;
         const live = document.getElementById('ftLive');
         if (live && v.hasSel) live.textContent = v.sel.label + ' — node detail loaded';
+      }
+      // Mobile: when the detail sheet is open it covers the page, so make every
+      // other region inert — keyboard focus and assistive tech cannot reach the
+      // controls behind the overlay (DOM is rebuilt each render, so this resets).
+      if (this.isMobile() && this.state.panelOpen) {
+        ['.ft-header', '.ft-content', '.ft-footer', '.ft-detail-toggle'].forEach((sel) => {
+          const el = this.root.querySelector(sel);
+          if (el) el.inert = true;
+        });
       }
       // Mobile: move focus into the sheet when it opens, back to the toggle when
       // it closes (desktop keeps the panel persistently visible, so skip there).
