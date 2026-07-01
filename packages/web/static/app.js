@@ -130,10 +130,16 @@
       return (countMemo[id] = c);
     };
 
-    // Industry emphasis: curated per-overlay `emphasize` sets → per-node list.
+    // Industry overlays: curated emphasize / suppress / rename per overlay.
     const overlays = DATA.industry_overlays || [];
-    const emphSets = {};
-    overlays.forEach((o) => { emphSets[o.industry] = new Set(((o.modifications || {}).emphasize) || []); });
+    const emphSets = {}, suppSets = {}, renameByInd = {}, suppCountByInd = {};
+    overlays.forEach((o) => {
+      const m = o.modifications || {};
+      emphSets[o.industry] = new Set(m.emphasize || []);
+      suppSets[o.industry] = new Set(m.suppress || []);
+      renameByInd[o.industry] = m.rename || {};
+      suppCountByInd[o.industry] = (m.suppress || []).length;
+    });
     const industries = [{ v: '', l: 'All Industries (GAAP)' }].concat(
       overlays.map((o) => ({ v: o.industry, l: o.label || String(o.industry || '').replace(/_/g, ' ') }))
     );
@@ -152,6 +158,7 @@
         vd, comp: n.comparability || null, ex: n.example || '',
         coa: n.coa_mapping || null, tags: n.ai_context_tags || [],
         iv: overlays.filter((o) => emphSets[o.industry].has(n.id)).map((o) => o.industry),
+        sv: overlays.filter((o) => suppSets[o.industry].has(n.id)).map((o) => o.industry),
       };
     });
 
@@ -188,7 +195,7 @@
       return base;
     });
 
-    return { stats: DATA.stats || { total_nodes: nodes.length }, rootId: DATA.root_node_id, tree, detail, sections, industries };
+    return { stats: DATA.stats || { total_nodes: nodes.length }, rootId: DATA.root_node_id, tree, detail, sections, industries, renameByInd, suppCountByInd };
   }
 
   /* ── Component ────────────────────────────────────────────────────── */
@@ -203,7 +210,7 @@
         expanded: {}, full: {},
         selectedId: null, query: '', industry: '',
         drillKey: null, focusId: PL.rootId || null,
-        panelOpen: false,
+        panelOpen: false, searchOpen: false,
       };
       this._handlers = [];
       this._raf = 0;
@@ -217,18 +224,50 @@
     select = (id) => this.setState({ selectedId: id, panelOpen: true });
     selectBar = (src, key) => this.setState({ selectedId: src, drillKey: BD[key] ? key : null, panelOpen: true });
     setFocus = (id) => this.setState({ focusId: id, selectedId: id, panelOpen: true });
-    onSearch = (e) => this.setState({ query: e.target.value });
+    onSearch = (e) => this.setState({ query: e.target.value, searchOpen: true });
     onIndustry = (e) => this.setState({ industry: e.target.value });
     openPanel = () => this.setState({ panelOpen: true });
     closePanel = () => this.setState({ panelOpen: false });
+    // Global search: jump to any node from any view.
+    selectFromSearch = (id) => this.setState({ selectedId: id, panelOpen: true, query: '', searchOpen: false });
+    closeSearch = () => { if (this.state.searchOpen) this.setState({ searchOpen: false }); };
+
+    // Score nodes for the search dropdown (label > id > definition).
+    searchNodes(q, limit) {
+      q = (q || '').trim().toLowerCase();
+      if (q.length < 2) return [];
+      const out = [];
+      const D = this.PL.detail;
+      for (const id in D) {
+        const d = D[id];
+        const label = (d.label || '').toLowerCase();
+        let score = 0;
+        if (label === q) score = 100;
+        else if (label.startsWith(q)) score = 80;
+        else if (label.includes(q)) score = 60;
+        else if (id.toLowerCase().includes(q)) score = 40;
+        else if ((d.xbrl || '').toLowerCase().includes(q)) score = 30;
+        else if ((d.def || '').toLowerCase().includes(q)) score = 15;
+        if (score) out.push({ id, label: d.label, type: (d.type || '').replace(/_/g, ' ').toLowerCase(), level: d.level, def: d.def || '', score, lvl: d.level || 99 });
+      }
+      out.sort((a, b) => b.score - a.score || a.lvl - b.lvl);
+      return out.slice(0, limit || 10);
+    }
 
     mount() {
       this.render();
-      // Escape closes the (mobile) detail sheet. One document-level listener;
-      // mount() runs exactly once.
+      // One-time document listeners (mount() runs exactly once).
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && this.state.panelOpen) this.closePanel();
+        if (e.key !== 'Escape') return;
+        if (this.state.searchOpen) this.closeSearch();
+        else if (this.state.panelOpen) this.closePanel();
       });
+      // Close the search dropdown on any pointer-down outside the search box.
+      // Capture phase, so it still fires even though child click handlers
+      // stopPropagation during the bubble phase.
+      document.addEventListener('mousedown', (e) => {
+        if (this.state.searchOpen && !(e.target.closest && e.target.closest('#ftSearchBox'))) this.closeSearch();
+      }, true);
     }
 
     isMobile() {
@@ -370,24 +409,34 @@
         const open = isInput && (this.state.expanded[s.key] || (!!q && hasMatch && matchedChips.length > 0));
         const dim = isInput && !!q && !hasMatch;
         const full = this.state.full[s.key];
-        let pool = open ? matchedChips : []; let hasMore = false, moreLabel = '';
+        const renames = (industry && this.PL.renameByInd && this.PL.renameByInd[industry]) || {};
+        let pool = open ? matchedChips.slice() : [];
+        // With an industry active, float emphasized chips up and sink suppressed ones.
+        if (open && industry) {
+          const rank = (c) => { const d = this.PL.detail[c.id]; if (d && d.sv && d.sv.includes(industry)) return 2; if (d && d.iv && d.iv.includes(industry)) return 0; return 1; };
+          pool.sort((a, b) => rank(a) - rank(b));
+        }
+        let hasMore = false, moreLabel = '';
         if (open && !full && pool.length > 24) { hasMore = true; moreLabel = '+' + (pool.length - 24) + ' more'; pool = pool.slice(0, 24); }
         const chips = pool.map((c) => {
           const d = this.PL.detail[c.id]; const isCat = c.type !== 'LINE_ITEM';
-          const emph = !!industry && d && d.iv && d.iv.includes(industry); const isSelChip = this.state.selectedId === c.id;
+          const emph = !!industry && d && d.iv && d.iv.includes(industry);
+          const supp = !!industry && d && d.sv && d.sv.includes(industry);
+          const isSelChip = this.state.selectedId === c.id;
           let bg = 'var(--panel)', bd = '1px solid var(--line)', col = 'var(--ink2)', fw = '400';
           if (isCat) { bg = tk.tint; bd = '1px solid ' + tk.border; col = tk.color; fw = '600'; }
           if (emph) { bd = '1px solid ' + tk.color; col = 'var(--ink)'; bg = `color-mix(in srgb, var(--c-${s.tone}) 16%, var(--panel))`; }
           if (isSelChip) { bd = '1px solid var(--ink2)'; col = 'var(--ink)'; bg = 'var(--panel2)'; }
-          const opc = (!!industry && !emph && !isSelChip) ? 0.4 : 1;
-          return { id: c.id, label: c.label, isCat: isCat, marker: isCat ? '▸' : '·', markerColor: isCat ? col : 'var(--ink4)', onClick: () => this.select(c.id), style: { display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: "'IBM Plex Mono',monospace", fontSize: '11px', fontWeight: fw, letterSpacing: '.02em', padding: '6px 10px', borderRadius: '7px', background: bg, border: bd, color: col, opacity: opc, textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background .15s,border-color .15s,opacity .2s' } };
+          const style = { display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: "'IBM Plex Mono',monospace", fontSize: '11px', fontWeight: fw, letterSpacing: '.02em', padding: '6px 10px', borderRadius: '7px', background: bg, border: bd, color: col, opacity: (!!industry && !emph && !isSelChip) ? 0.4 : 1, textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background .15s,border-color .15s,opacity .2s' };
+          if (supp) { style.textDecoration = 'line-through'; style.opacity = 0.4; style.borderStyle = 'dashed'; }
+          return { id: c.id, label: renames[c.id] || c.label, isCat: isCat, marker: supp ? '×' : (isCat ? '▸' : '·'), markerColor: supp ? 'var(--c-red)' : (isCat ? col : 'var(--ink4)'), onClick: () => this.select(c.id), style: style };
         });
         const selSec = this.state.selectedId === s.src;
         const cardStyle = { background: tk.tint, border: '1px solid ' + tk.border, borderLeft: '3px solid ' + tk.color, borderRadius: '13px', overflow: 'hidden', boxShadow: selSec ? ('0 0 0 2px ' + tk.color + ', var(--shadow)') : 'none', transition: 'box-shadow .15s' };
         const iconStyle = { width: '35px', height: '35px', borderRadius: '9px', background: tk.soft, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'IBM Plex Mono',monospace", fontWeight: 600, fontSize: '14px', color: tk.color, flexShrink: 0 };
         const rowStyle = { display: 'flex', alignItems: 'center', gap: '13px', width: '100%', textAlign: 'left', padding: '13px 15px', borderRadius: '13px', background: isNet ? tk.tint : 'transparent', border: isNet ? ('1px solid ' + tk.border) : ('1px dashed ' + tk.border), boxShadow: selSec ? ('0 0 0 2px ' + tk.color) : 'none', transition: 'box-shadow .15s' };
         const subIconStyle = Object.assign({}, iconStyle, { fontWeight: 700, fontSize: '15px' });
-        return { key: s.key, label: s.label, isInput: isInput, isSubtotal: isSubtotal, signLabel: SIGN[s.sign] || '', count: s.count, icon: ICON[s.key] || '·', caret: open ? '▾' : '▸', open: open, opacity: dim ? 0.4 : 1, cardStyle: cardStyle, iconStyle: iconStyle, rowStyle: rowStyle, subIconStyle: subIconStyle, labelColor: tk.color, formula: s.formula || '', chips: chips, hasMore: hasMore, moreLabel: moreLabel, onSelect: () => this.select(s.src), onToggle: () => this.toggle(s.key), onMore: () => this.showFull(s.key) };
+        return { key: s.key, label: renames[s.src] || s.label, isInput: isInput, isSubtotal: isSubtotal, signLabel: SIGN[s.sign] || '', count: s.count, icon: ICON[s.key] || '·', caret: open ? '▾' : '▸', open: open, opacity: dim ? 0.4 : 1, cardStyle: cardStyle, iconStyle: iconStyle, rowStyle: rowStyle, subIconStyle: subIconStyle, labelColor: tk.color, formula: s.formula || '', chips: chips, hasMore: hasMore, moreLabel: moreLabel, onSelect: () => this.select(s.src), onToggle: () => this.toggle(s.key), onMore: () => this.showFull(s.key) };
       });
     }
 
@@ -403,7 +452,11 @@
       if (query.trim()) {
         const qq = query.trim().toLowerCase();
         visible = Object.keys(this.PL.detail).filter((id) => { const d = this.PL.detail[id]; return d.label.toLowerCase().includes(qq) || (d.xbrl || '').toLowerCase().includes(qq); }).length;
+      } else if (industry) {
+        visible = total - ((this.PL.suppCountByInd && this.PL.suppCountByInd[industry]) || 0);
       }
+      const searchResults = this.searchNodes(query, 10);
+      const showSearch = this.state.searchOpen && query.trim().length >= 2;
       if (view === 'waterfall') wf = this.buildWaterfall();
       else if (view === 'hierarchy') ic = this.buildIcicle();
       else sections = this.buildStatement();
@@ -417,6 +470,7 @@
         stW: tSt.w, stC: tSt.c, stBg: tSt.bg, stBd: tSt.bd,
         isWaterfall: view === 'waterfall', isHierarchy: view === 'hierarchy', isStatement: view === 'statement',
         showFooter: this.props.showFooter !== false, plotH: PLOT_H, panelOpen: s.panelOpen,
+        searchResults: searchResults, showSearch: showSearch,
         wf: wf, ic: ic, sections: sections, total: total, visible: visible,
       }, this.buildSel());
     }
@@ -521,10 +575,18 @@
           <button aria-pressed="${v.isStatement}" data-click="${this.reg(() => this.setView('statement'))}" style="padding:7px 15px;border-radius:8px;font-size:13px;font-weight:${v.stW};color:${v.stC};background:${v.stBg};border:1px solid ${v.stBd}">Statement</button>
         </div>
         <div class="ft-spacer" style="flex:1"></div>
-        <label style="display:flex;align-items:center;gap:9px;width:230px;height:37px;padding:0 13px;background:var(--panel);border:1px solid var(--line);border-radius:10px">
-          <span aria-hidden="true" style="font-size:15px;color:var(--ink3)">⌕</span>
-          <input id="ftSearch" value="${esc(v.query)}" data-input="${this.reg(this.onSearch)}" placeholder="Search nodes…" aria-label="Search nodes" style="flex:1;min-width:0;background:none;border:none;outline:none;color:var(--ink);font-size:13px"/>
-        </label>
+        <div id="ftSearchBox" style="position:relative">
+          <label style="display:flex;align-items:center;gap:9px;width:230px;height:37px;padding:0 13px;background:var(--panel);border:1px solid var(--line);border-radius:10px">
+            <span aria-hidden="true" style="font-size:15px;color:var(--ink3)">⌕</span>
+            <input id="ftSearch" value="${esc(v.query)}" data-input="${this.reg(this.onSearch)}" placeholder="Search nodes…" aria-label="Search nodes" role="combobox" aria-expanded="${v.showSearch}" aria-controls="ftSearchList" autocomplete="off" style="flex:1;min-width:0;background:none;border:none;outline:none;color:var(--ink);font-size:13px"/>
+          </label>
+          ${v.showSearch ? `<div id="ftSearchList" role="listbox" aria-label="Search results" style="position:absolute;top:calc(100% + 6px);left:0;width:320px;max-height:340px;overflow:auto;background:var(--panel);border:1px solid var(--line2);border-radius:11px;box-shadow:var(--shadow);z-index:60;padding:5px">
+            ${v.searchResults.length ? v.searchResults.map((r) => `<button role="option" data-click="${this.reg(() => this.selectFromSearch(r.id))}" style="display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;padding:8px 10px;border-radius:8px;background:transparent">
+              <span style="font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:290px">${esc(r.label)}</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.03em;color:var(--ink3)">${esc(r.type)} · L${r.level}</span>
+            </button>`).join('') : `<div style="padding:10px 11px;font-size:12px;color:var(--ink3)">No matches</div>`}
+          </div>` : ''}
+        </div>
         <div style="position:relative;display:flex;align-items:center">
           <select data-change="${this.reg(this.onIndustry)}" aria-label="Industry overlay" style="height:37px;padding:0 30px 0 13px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--ink2);font-size:13px">
             ${v.industries.map((opt) => `<option value="${esc(opt.v)}"${opt.v === v.industry ? ' selected' : ''}>${esc(opt.l)}</option>`).join('')}
