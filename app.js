@@ -132,13 +132,12 @@
 
     // Industry overlays: curated emphasize / suppress / rename per overlay.
     const overlays = DATA.industry_overlays || [];
-    const emphSets = {}, suppSets = {}, renameByInd = {}, suppCountByInd = {};
+    const emphSets = {}, suppSets = {}, renameByInd = {};
     overlays.forEach((o) => {
       const m = o.modifications || {};
       emphSets[o.industry] = new Set(m.emphasize || []);
       suppSets[o.industry] = new Set(m.suppress || []);
       renameByInd[o.industry] = m.rename || {};
-      suppCountByInd[o.industry] = (m.suppress || []).length;
     });
     const industries = [{ v: '', l: 'All Industries (GAAP)' }].concat(
       overlays.map((o) => ({ v: o.industry, l: o.label || String(o.industry || '').replace(/_/g, ' ') }))
@@ -195,7 +194,7 @@
       return base;
     });
 
-    return { stats: DATA.stats || { total_nodes: nodes.length }, rootId: DATA.root_node_id, tree, detail, sections, industries, renameByInd, suppCountByInd };
+    return { stats: DATA.stats || { total_nodes: nodes.length }, rootId: DATA.root_node_id, tree, detail, sections, industries, renameByInd };
   }
 
   /* ── Component ────────────────────────────────────────────────────── */
@@ -225,7 +224,12 @@
     selectBar = (src, key) => this.setState({ selectedId: src, drillKey: BD[key] ? key : null, panelOpen: true });
     setFocus = (id) => this.setState({ focusId: id, selectedId: id, panelOpen: true });
     onSearch = (e) => this.setState({ query: e.target.value, searchOpen: true });
-    onIndustry = (e) => this.setState({ industry: e.target.value });
+    onIndustry = (e) => {
+      const industry = e.target.value;
+      // The overlay only affects the Statement view — jump there on select so its
+      // effect (emphasis / suppress / rename) is immediately visible.
+      this.setState(industry ? { industry, view: 'statement' } : { industry });
+    };
     openPanel = () => this.setState({ panelOpen: true });
     closePanel = () => this.setState({ panelOpen: false });
     // Global search: jump to any node from any view.
@@ -402,6 +406,12 @@
       return this.PL.sections.map((s) => {
         const tk = tints(s.tone); const isInput = s.kind === 'input', isSubtotal = s.kind === 'subtotal', isNet = s.key === 'netincome';
         const allChips = s.chips || [];
+        // Overlay counts for this section, over what is actually rendered — chips
+        // (the section root/header is not a chip). Shown in the header even collapsed.
+        const emphN = industry ? allChips.filter((c) => { const d = this.PL.detail[c.id]; return d && d.iv && d.iv.includes(industry); }).length : 0;
+        const suppN = industry ? allChips.filter((c) => { const d = this.PL.detail[c.id]; return d && d.sv && d.sv.includes(industry); }).length : 0;
+        // Renames apply to both chips and the (visible) section header.
+        const renN = industry ? (() => { const rm = (this.PL.renameByInd && this.PL.renameByInd[industry]) || {}; let n = allChips.filter((c) => rm[c.id]).length; if (rm[s.src]) n += 1; return n; })() : 0;
         const labelMatch = !q || s.label.toLowerCase().includes(q);
         const chipMatch = (c) => { const d = this.PL.detail[c.id]; return c.label.toLowerCase().includes(q) || (d && (d.xbrl || '').toLowerCase().includes(q)); };
         const hasMatch = labelMatch || allChips.some(chipMatch);
@@ -436,7 +446,7 @@
         const iconStyle = { width: '35px', height: '35px', borderRadius: '9px', background: tk.soft, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'IBM Plex Mono',monospace", fontWeight: 600, fontSize: '14px', color: tk.color, flexShrink: 0 };
         const rowStyle = { display: 'flex', alignItems: 'center', gap: '13px', width: '100%', textAlign: 'left', padding: '13px 15px', borderRadius: '13px', background: isNet ? tk.tint : 'transparent', border: isNet ? ('1px solid ' + tk.border) : ('1px dashed ' + tk.border), boxShadow: selSec ? ('0 0 0 2px ' + tk.color) : 'none', transition: 'box-shadow .15s' };
         const subIconStyle = Object.assign({}, iconStyle, { fontWeight: 700, fontSize: '15px' });
-        return { key: s.key, label: renames[s.src] || s.label, isInput: isInput, isSubtotal: isSubtotal, signLabel: SIGN[s.sign] || '', count: s.count, icon: ICON[s.key] || '·', caret: open ? '▾' : '▸', open: open, opacity: dim ? 0.4 : 1, cardStyle: cardStyle, iconStyle: iconStyle, rowStyle: rowStyle, subIconStyle: subIconStyle, labelColor: tk.color, formula: s.formula || '', chips: chips, hasMore: hasMore, moreLabel: moreLabel, onSelect: () => this.select(s.src), onToggle: () => this.toggle(s.key), onMore: () => this.showFull(s.key) };
+        return { key: s.key, label: renames[s.src] || s.label, isInput: isInput, isSubtotal: isSubtotal, signLabel: SIGN[s.sign] || '', count: s.count, emphN: emphN, suppN: suppN, renN: renN, icon: ICON[s.key] || '·', caret: open ? '▾' : '▸', open: open, opacity: dim ? 0.4 : 1, cardStyle: cardStyle, iconStyle: iconStyle, rowStyle: rowStyle, subIconStyle: subIconStyle, labelColor: tk.color, formula: s.formula || '', chips: chips, hasMore: hasMore, moreLabel: moreLabel, onSelect: () => this.select(s.src), onToggle: () => this.toggle(s.key), onMore: () => this.showFull(s.key) };
       });
     }
 
@@ -448,18 +458,28 @@
       const industries = (this.PL.industries && this.PL.industries.length) ? this.PL.industries : [{ v: '', l: 'All Industries (GAAP)' }];
 
       let wf = { bars: [], connectors: [], hasDrill: false, drill: { segments: [] } }, ic = { cells: [], breadcrumb: [] }, sections = [];
+      // Suppressed nodes are still rendered (struck through), so they stay counted
+      // as visible; only the search query hides nodes. The overlay banner reports
+      // the suppressed count separately.
       let total = (this.PL.stats && this.PL.stats.total_nodes) || 234, visible = total;
       if (query.trim()) {
         const qq = query.trim().toLowerCase();
         visible = Object.keys(this.PL.detail).filter((id) => { const d = this.PL.detail[id]; return d.label.toLowerCase().includes(qq) || (d.xbrl || '').toLowerCase().includes(qq); }).length;
-      } else if (industry) {
-        visible = total - ((this.PL.suppCountByInd && this.PL.suppCountByInd[industry]) || 0);
       }
       const searchResults = this.searchNodes(query, 10);
       const showSearch = this.state.searchOpen && query.trim().length >= 2;
       if (view === 'waterfall') wf = this.buildWaterfall();
       else if (view === 'hierarchy') ic = this.buildIcicle();
       else sections = this.buildStatement();
+      // Overlay summary sums the per-section rendered counts, so it can never
+      // contradict the section badges (only shown in the Statement view).
+      let overlay = null;
+      if (industry && view === 'statement') {
+        const ind = (this.PL.industries || []).find((o) => o.v === industry);
+        let e = 0, sp = 0, r = 0;
+        sections.forEach((sec) => { e += sec.emphN || 0; sp += sec.suppN || 0; r += sec.renN || 0; });
+        overlay = { label: ind ? ind.l : industry, emph: e, supp: sp, rename: r };
+      }
 
       return Object.assign({
         themeDot: theme === 'light' ? 'var(--c-amber)' : 'var(--c-indigo)',
@@ -470,7 +490,7 @@
         stW: tSt.w, stC: tSt.c, stBg: tSt.bg, stBd: tSt.bd,
         isWaterfall: view === 'waterfall', isHierarchy: view === 'hierarchy', isStatement: view === 'statement',
         showFooter: this.props.showFooter !== false, plotH: PLOT_H, panelOpen: s.panelOpen,
-        searchResults: searchResults, showSearch: showSearch,
+        searchResults: searchResults, showSearch: showSearch, overlay: overlay,
         wf: wf, ic: ic, sections: sections, total: total, visible: visible,
       }, this.buildSel());
     }
@@ -732,6 +752,14 @@
             <span style="display:flex;align-items:center;gap:6px"><span aria-hidden="true" style="color:var(--c-indigo);font-size:9px">▸</span>Category / subtotal</span>
             <span style="display:flex;align-items:center;gap:6px"><span aria-hidden="true" style="color:var(--ink4);font-size:9px">·</span>Line item</span>
           </div>
+          ${v.overlay ? `<div style="margin-top:12px;display:flex;align-items:center;flex-wrap:wrap;gap:8px 15px;padding:10px 13px;background:color-mix(in srgb,var(--c-indigo) 10%,var(--panel));border:1px solid color-mix(in srgb,var(--c-indigo) 32%,var(--line));border-radius:12px">
+            <span style="display:flex;align-items:center;gap:7px;font-weight:700;font-size:13px;color:var(--ink)"><span aria-hidden="true" style="width:8px;height:8px;border-radius:2px;background:var(--c-indigo)"></span>${esc(v.overlay.label)} overlay</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--c-green)">✦ ${v.overlay.emph} emphasized</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--c-red)">⊘ ${v.overlay.supp} suppressed</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3)">✎ ${v.overlay.rename} renamed</span>
+            <span style="flex:1"></span>
+            <button data-click="${this.reg(() => this.onIndustry({ target: { value: '' } }))}" style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink2);border:1px solid var(--line2);border-radius:7px;padding:4px 10px">Clear ✕</button>
+          </div>` : ''}
         </div>
         <div style="display:flex;flex-direction:column;gap:9px">
           ${v.sections.map((s) => `
@@ -746,6 +774,7 @@
                         <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)">${esc(s.signLabel)}</span>
                       </span>
                     </button>
+                    ${(s.emphN || s.suppN) ? `<span aria-hidden="true" style="display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;white-space:nowrap">${s.emphN ? `<span style="color:var(--c-green)">✦ ${s.emphN}</span>` : ''}${s.suppN ? `<span style="color:var(--c-red)">⊘ ${s.suppN}</span>` : ''}</span>` : ''}
                     <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink2);background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:4px 12px;white-space:nowrap">${s.count} nodes</span>
                     <button data-click="${this.reg(s.onToggle)}" aria-expanded="${s.open}" aria-label="Toggle ${esc(s.label)}" style="width:31px;height:31px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--ink2);background:var(--panel2);border:1px solid var(--line);font-size:12px;flex-shrink:0">${esc(s.caret)}</button>
                   </div>
@@ -794,6 +823,15 @@
         this._lann = this.state.selectedId;
         const live = document.getElementById('ftLive');
         if (live && v.hasSel) live.textContent = v.sel.label + ' — node detail loaded';
+      }
+      // Mobile: when the detail sheet is open it covers the page, so make every
+      // other region inert — keyboard focus and assistive tech cannot reach the
+      // controls behind the overlay (DOM is rebuilt each render, so this resets).
+      if (this.isMobile() && this.state.panelOpen) {
+        ['.ft-header', '.ft-content', '.ft-footer', '.ft-detail-toggle'].forEach((sel) => {
+          const el = this.root.querySelector(sel);
+          if (el) el.inert = true;
+        });
       }
       // Mobile: move focus into the sheet when it opens, back to the toggle when
       // it closes (desktop keeps the panel persistently visible, so skip there).
