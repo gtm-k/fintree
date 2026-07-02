@@ -1,0 +1,25 @@
+# Lets GitHub render a "Cite this repository" button and feeds Zenodo at release.
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "FinTree — a canonical US GAAP profit-and-loss ontology"
+abstract: >-
+  A canonical US GAAP profit-and-loss ontology of 234 XBRL-mapped nodes with
+  variance drivers, comparability examples, and chart-of-accounts mappings,
+  designed for FP&A teams and AI agents to reason over financial statements.
+type: software
+version: "1.0.0"
+date-released: "2026-07-02"
+license: Apache-2.0
+repository-code: "https://github.com/gtm-k/fintree"
+authors:
+  - family-names: "Kethineedi"
+    given-names: "Gowtham"
+    orcid: "https://orcid.org/0009-0007-4175-203X"
+keywords:
+  - US GAAP
+  - financial ontology
+  - XBRL
+  - FP&A
+  - profit and loss
+  - chart of accounts
+  - financial data model
