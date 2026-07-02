@@ -10,6 +10,7 @@
   <img src="https://img.shields.io/badge/XBRL-mapped-orange.svg" alt="XBRL">
   <img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/API-FastAPI-009688.svg" alt="FastAPI">
+  <a href="https://doi.org/10.5281/zenodo.21136451"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.21136451.svg" alt="DOI"></a>
 </p>
 
 ---
